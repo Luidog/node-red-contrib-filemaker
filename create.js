@@ -9,7 +9,7 @@ module.exports = function(RED) {
             this.connection.client
                 .create(config.layout,record)
                 .then(record => node.send(record))
-                .catch(error => node.error("create error", error));
+                .catch(error => node.error("create record error", error));
         });
     }
     RED.nodes.registerType("create-record", create);
