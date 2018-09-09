@@ -1,7 +1,7 @@
 {
   "name": "red-contrib-filemaker",
   "version": "0.0.1",
-  "description": "A node-red filemaker node module.",
+  "description": "A node-red filemaker module.",
   "scripts": {
     "test": "mocha \"test/**/*_spec.js\""
   },
