@@ -10,13 +10,7 @@
     "type": "git",
     "url": "git+https://Luidog@github.com/Luidog/node-red-contrib-filemaker.git"
   },
-  "keywords": [
-    "node-red",
-    "filemaker",
-    "data",
-    "api",
-    "node"
-  ],
+  "keywords": ["node-red", "filemaker", "data", "api", "node"],
   "author": "Lui de la Parra",
   "license": "MIT",
   "bugs": {
@@ -25,6 +19,7 @@
   "node-red": {
     "nodes": {
       "create-record": "create.js",
+      "trigger-script": "script.js",
       "dapi-client": "client.js"
     }
   },
