@@ -19,6 +19,7 @@
   "node-red": {
     "nodes": {
       "create-record": "create.js",
+      "perform-find": "find.js",
       "trigger-script": "script.js",
       "dapi-client": "client.js"
     }
