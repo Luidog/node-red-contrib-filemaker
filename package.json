@@ -1,0 +1,40 @@
+{
+  "name": "red-contrib-filemaker",
+  "version": "0.0.1",
+  "description": "A node-red filemaker node module.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha \"test/**/*_spec.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://Luidog@github.com/Luidog/node-red-contrib-filemaker.git"
+  },
+  "keywords": [
+    "node-red",
+    "filemaker",
+    "data",
+    "api",
+    "node"
+  ],
+  "author": "Lui de la Parra",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Luidog/node-red-contrib-filemaker/issues"
+  },
+  "node-red": {
+    "nodes": {
+      "create-record": "create.js",
+      "dapi-client": "client.js"
+    }
+  },
+  "homepage": "https://github.com/Luidog/node-red-contrib-filemaker#readme",
+  "dependencies": {
+    "fms-api-client": "^1.4.0",
+    "marpat": "^1.18.2"
+  },
+  "devDependencies": {
+    "node-red": "^0.19.3",
+    "node-red-node-test-helper": "^0.1.8"
+  }
+}

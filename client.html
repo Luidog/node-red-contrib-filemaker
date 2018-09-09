@@ -1,0 +1,33 @@
+<script type="text/javascript">
+    RED.nodes.registerType('filemaker-api-client',{
+        category: 'config',
+        defaults: {
+            server: {value:"https://fm.mutesymphony.com",required:true},
+            application: {value:"fms-api-app",required:true},
+            user:{value:"obi-wan",required:true},
+            password:{value:"kenobi",required:true}
+        },
+        label: function() {
+            return this.application;
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="filemaker-api-client">
+    <div class="form-row">
+        <label for="node-config-input-server"><i class="icon-bookmark"></i> Host</label>
+        <input type="text" id="node-config-input-server">
+    </div>
+        <div class="form-row">
+        <label for="node-config-input-application"><i class="icon-bookmark"></i> Database</label>
+        <input type="text" id="node-config-input-application">
+    </div>
+        <div class="form-row">
+        <label for="node-config-input-user"><i class="icon-bookmark"></i> User</label>
+        <input type="text" id="node-config-input-user">
+    </div>
+        <div class="form-row">
+        <label for="node-config-input-password"><i class="icon-bookmark"></i> Password</label>
+        <input type="text" id="node-config-input-password">
+    </div>
+</script>
