@@ -3,7 +3,7 @@ sudo: required
 node_js:
 - node
 install:
-- sudo npm install -g --unsafe-perm node-red
+- npm install -g --unsafe-perm node-red
 - npm install
 before_script:
 - node --version
