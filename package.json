@@ -24,6 +24,11 @@
   "bugs": {
     "url": "https://github.com/Luidog/node-red-contrib-filemaker/issues"
   },
+  "mos": {
+    "plugins": [
+      "execute"
+    ]
+  },
   "node-red": {
     "nodes": {
       "create-record": "create.js",
@@ -34,7 +39,7 @@
   },
   "homepage": "https://github.com/Luidog/node-red-contrib-filemaker#readme",
   "dependencies": {
-    "fms-api-client": "^1.4.0",
+    "fms-api-client": "^1.4.5",
     "marpat": "^1.18.2"
   },
   "devDependencies": {
@@ -49,7 +54,7 @@
     "mos-plugin-dependencies": "^2.2.2",
     "mos-plugin-installation": "^1.2.2",
     "mos-plugin-license": "^1.2.2",
-    "mos-plugin-shields": "^2.2.3",
+    "mos-plugin-execute": "^1.0.2",
     "node-red": "^0.19.3",
     "node-red-node-test-helper": "^0.1.8",
     "nyc": "^11.8.0",
