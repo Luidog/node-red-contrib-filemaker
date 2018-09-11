@@ -7,7 +7,7 @@
 <!--/@-->
 
 <!--@pkg.description-->
-A node-red filemaker module.
+A node-red filemaker module. This module uses the Data API to connect with a FileMaker server.
 <!--/@-->
 
 <!--@license()-->
@@ -26,7 +26,7 @@ npm install --save node-red-contrib-filemaker
 
 <!--@execute('npm run test',[])-->
 ```default
-> node-red-contrib-filemaker@0.0.3 test /Users/luidelaparra/Documents/Development/node-red-contrib-filemaker
+> node-red-contrib-filemaker@0.0.4 test /Users/luidelaparra/Documents/Development/node-red-contrib-filemaker
 > nyc _mocha --recursive  "test/**/*_spec.js" --timeout=30000 --exit
 
 
@@ -38,7 +38,7 @@ npm install --save node-red-contrib-filemaker
     ✓ should be loaded
 
 
-  2 passing (73ms)
+  2 passing (71ms)
 
 -----------|----------|----------|----------|----------|-------------------|
 File       |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
@@ -72,7 +72,6 @@ All files  |    22.22 |      100 |       20 |    22.22 |                   |
 - [mos-plugin-dependencies](https://github.com/mosjs/mos/tree/master/packages/mos-plugin-dependencies): A mos plugin that creates dependencies sections
 - [mos-plugin-installation](https://github.com/mosjs/mos/tree/master/packages/mos-plugin-installation): A mos plugin for creating installation section
 - [mos-plugin-license](https://github.com/mosjs/mos-plugin-license): A mos plugin for generating a license section
-- [mos-plugin-shields](https://github.com/mosjs/mos/tree/master/packages/mos-plugin-shields): A mos plugin for creating markdown shields
 - [mos-plugin-execute](https://github.com/team-767/mos-plugin-execute): Mos plugin to inline a process output
 - [node-red](https://github.com/node-red/node-red): A visual tool for wiring the Internet of Things
 - [node-red-node-test-helper](https://github.com/node-red/node-red-node-test-helper): A test framework for Node-RED nodes

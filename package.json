@@ -1,7 +1,7 @@
 {
   "name": "node-red-contrib-filemaker",
-  "version": "0.0.3",
-  "description": "A node-red filemaker module.",
+  "version": "0.0.4",
+  "description": "A node-red filemaker module. This module uses the Data API to connect with a FileMaker server.",
   "scripts": {
     "dev": "nodemon --exec \"node-red\" ./*.*",
     "test": "nyc _mocha --recursive  \"test/**/*_spec.js\" --timeout=30000 --exit",
