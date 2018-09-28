@@ -1,30 +1,20 @@
-<!--@'# ' + pkg.name-->
+
 # node-red-contrib-filemaker
-<!--/@-->
 
-<!--@shields('npm', 'travis', 'coveralls')-->
 [![npm version](https://img.shields.io/npm/v/node-red-contrib-filemaker.svg)](https://www.npmjs.com/package/node-red-contrib-filemaker) [![Build Status](https://img.shields.io/travis/Luidog/node-red-contrib-filemaker/master.svg)](https://travis-ci.org/Luidog/node-red-contrib-filemaker) [![Coverage Status](https://img.shields.io/coveralls/Luidog/node-red-contrib-filemaker/master.svg)](https://coveralls.io/r/Luidog/node-red-contrib-filemaker?branch=master)
-<!--/@-->
 
-<!--@pkg.description-->
 A node-red filemaker module. This module uses the Data API to connect with a FileMaker server.
-<!--/@-->
 
-<!--@license()-->
 ## License
 
 MIT © Lui de la Parra
-<!--/@-->
 
-<!--@installation()-->
 ## Installation
 
 ```sh
 npm install --save node-red-contrib-filemaker
 ```
-<!--/@-->
 
-<!--@execute('npm run test',[])-->
 ```default
 > node-red-contrib-filemaker@0.0.4 test /Users/luidelaparra/Documents/Development/node-red-contrib-filemaker
 > nyc _mocha --recursive  "test/**/*_spec.js" --timeout=30000 --exit
@@ -48,17 +38,12 @@ All files  |    22.22 |      100 |       20 |    22.22 |                   |
  script.js |    22.22 |      100 |       20 |    22.22 |    3,4,5,6,7,9,10 |
 -----------|----------|----------|----------|----------|-------------------|
 ```
-<!--/@-->
 
-<!--@dependencies()-->
 ## <a name="dependencies">Dependencies</a>
 
 - [fms-api-client](https://github.com/Luidog/fms-api-client): A FileMaker Data API client designed to allow easier interaction with a FileMaker application from a web environment.
 - [marpat](https://github.com/luidog/marpat): A class-based ES6 ODM for Mongo-like databases.
 
-<!--/@-->
-
-<!--@devDependencies()-->
 ## <a name="dev-dependencies">Dev Dependencies</a>
 
 - [coveralls](https://github.com/nickmerwin/node-coveralls): takes json-cov output into stdin and POSTs to coveralls.io
@@ -77,5 +62,3 @@ All files  |    22.22 |      100 |       20 |    22.22 |                   |
 - [node-red-node-test-helper](https://github.com/node-red/node-red-node-test-helper): A test framework for Node-RED nodes
 - [nyc](https://github.com/istanbuljs/nyc): the Istanbul command line interface
 - [prettier](https://github.com/prettier/prettier): Prettier is an opinionated code formatter
-
-<!--/@-->

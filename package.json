@@ -31,10 +31,14 @@
   },
   "node-red": {
     "nodes": {
-      "create-record": "create.js",
-      "perform-find": "find.js",
-      "trigger-script": "script.js",
-      "client": "client.js"
+      "client": "./src/client/client.js",
+      "create-record": "./src/create.js",
+      "list-records": "./src/list.js",
+      "perform-find": "./src/find.js",
+      "trigger-script": "./src/script.js",
+      "fieldData": "./src/utilities/fieldData.js",
+      "recordId": "./src/utilities/recordId.js",
+      "transform": "./src/utilities/transform.js"
     }
   },
   "homepage": "https://github.com/Luidog/node-red-contrib-filemaker#readme",

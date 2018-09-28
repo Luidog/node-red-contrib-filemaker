@@ -5,7 +5,7 @@ module.exports = function(RED) {
     node.connection = RED.nodes.getNode(config.client);
     node.on("input", msg =>
       this.connection.client
-        .script(config.script, config.layout, msg)
+        .script(config.script, config.layout, msg.payload)
         .then(response => node.send(response))
         .catch(error => node.error("script error", error))
     );

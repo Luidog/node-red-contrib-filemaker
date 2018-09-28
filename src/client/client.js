@@ -1,7 +1,7 @@
 module.exports = function(RED) {
   function Client(n) {
     "use strict";
-    
+
     const { connect } = require("marpat");
     const { Filemaker } = require("fms-api-client");
 

@@ -3,17 +3,23 @@
         category: 'config',
         defaults: {
             server: {value:"",required:true},
+            name: {value:"",required:true},
             application: {value:"",required:true},
             user:{value:"",required:true},
-            password:{value:"",required:true}
+            password:{value:"",required:true},
+            usage: {value:true,required:false}
         },
         label: function() {
-            return this.application;
+            return this.name || this.application;
         }
     });
 </script>
 
 <script type="text/x-red" data-template-name="filemaker-api-client">
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="icon-bookmark"></i> Name</label>
+        <input type="text" id="node-config-input-name">
+    </div>
     <div class="form-row">
         <label for="node-config-input-server"><i class="icon-bookmark"></i> Host</label>
         <input type="text" id="node-config-input-server">
@@ -29,5 +35,10 @@
         <div class="form-row">
         <label for="node-config-input-password"><i class="icon-bookmark"></i> Password</label>
         <input type="text" id="node-config-input-password">
+    </div>
+    </div>
+        <div class="form-row">
+        <label for="node-config-input-usage"><i class="icon-bookmark"></i> Track Data Usage</label>
+        <input type="checkbox" id="node-config-input-usage">
     </div>
 </script>
