@@ -32,18 +32,19 @@
   "node-red": {
     "nodes": {
       "client": "./src/client/client.js",
-      "create-record": "./src/create.js",
-      "list-records": "./src/list.js",
-      "perform-find": "./src/find.js",
-      "trigger-script": "./src/script.js",
-      "fieldData": "./src/utilities/fieldData.js",
-      "recordId": "./src/utilities/recordId.js",
-      "transform": "./src/utilities/transform.js"
+      "create-record": "./src/nodes/create.js",
+      "list-records": "./src/nodes/list.js",
+      "perform-find": "./src/nodes/find.js",
+      "trigger-script": "./src/nodes/script.js",
+      "fieldData": "./src/nodes/fieldData.js",
+      "recordId": "./src/nodes/recordId.js",
+      "transform": "./src/nodes/transform.js"
     }
   },
   "homepage": "https://github.com/Luidog/node-red-contrib-filemaker#readme",
   "dependencies": {
     "fms-api-client": "^1.5.1",
+    "lodash": "^4.17.11",
     "marpat": "^1.18.2"
   },
   "devDependencies": {

@@ -1,0 +1,90 @@
+<script type="text/javascript">
+    RED.nodes.registerType('list-records',{
+        category: 'FileMaker',
+        defaults: {
+            client: {value: null, type: "filemaker-api-client", required:true },
+            layout: {value: null,required: true },
+            limit:{value: null,required: false },
+            offset:{value: null, required: false },
+            scripts:{value: null, required: false },
+            portals:{value: null, required: false },
+            data: {value: true, required: false }
+        },
+        inputs:1,
+        outputs:1,
+        icon: 'debug.png',
+        color: '#3FADB5',
+        label: "List Records"
+    });
+</script>
+
+<script type="text/x-red" data-template-name="list-records">
+    <div class="form-row">
+        <label for="node-input-client">FMS Client</label>
+        <input type="text" id="node-input-client">
+    </div>
+    <div class="form-row">
+        <label for="node-input-layout">Default Layout</label>
+        <input type="text" id="node-input-layout">
+    </div>
+    <div class="form-row">
+        <label for="node-input-limit">Default Limit</label>
+        <input type="number" id="node-input-limit">
+    </div>
+    <div class="form-row">
+        <label for="node-input-offset">Default Offset</label>
+        <input type="number" id="node-input-offset">
+    </div>
+    <div class="form-row">
+        <label for="node-input-script">Scripts</label>
+        <input type="number" id="node-input-script">
+    </div>
+    <div class="form-row">
+        <label for="node-input-portals">Portals</label>
+        <input type="number" id="node-input-portals">
+    </div>
+    <div class="form-row">
+        <label for="node-input-data">Reduce Response</label>
+        <input type="checkbox" id="node-input-data">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="list-records">
+<p>Lists Filemaker Records From the configured client.</p>
+
+<h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">any</span>
+            <dd> This node does not use the payload property.</dd>
+        </dt>
+        <dd> The parameters to use when </dd>
+        <dt class="optional">topic <span class="property-type">string</span></dt>
+        <dd> the MQTT topic to publish to.</dd>
+    </dl>
+
+ <h3>Outputs</h3>
+     <ol class="node-ports">
+         <li>Standard output
+             <dl class="message-properties">
+                 <dt>payload <span class="property-type">object</span></dt>
+                 <dd>Contains the FileMaker Data API Response.</dd>
+             </dl>
+         </li>
+         <li>Standard error
+             <dl class="message-properties">
+                 <dt>error <span class="property-type">object</span></dt>
+                 <dd>the standard error of the command.</dd>
+             </dl>
+         </li>
+     </ol>
+
+<h3>Details</h3>
+    <p>The Data API request parameters can be set either on the node itself or, if left blank, can be set
+    by properties in <code>msg.parameters</code>.</p>
+<h3>References</h3>
+    <ul>
+        <li><a href="https://fmhelp.filemaker.com/docs/17/en/dataapi/index.html">Base Data API Doumentation</a> FileMaker Data API Guide</li>
+        <li><a href="https://luidog.github.io/fms-api-client/Client.html#.list">FMS Data API Client Documentation</a> Base client method</li>
+    </ul>
+</script>
