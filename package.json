@@ -36,6 +36,7 @@
       "list-records": "./src/nodes/list.js",
       "perform-find": "./src/nodes/find.js",
       "trigger-script": "./src/nodes/script.js",
+      "upload-file": "./src/nodes/upload.js",
       "fieldData": "./src/nodes/fieldData.js",
       "recordId": "./src/nodes/recordId.js",
       "transform": "./src/nodes/transform.js"
