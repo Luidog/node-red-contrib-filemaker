@@ -2,15 +2,20 @@
 
 const _ = require("lodash");
 
-const merge = (message, payload) => Object.assign(message, payload);
+const merge = (message, payload) =>
+  Object.assign(message, { payload: payload });
 
-const compact = objects =>
+const compact = data =>
   Object.assign(
-    ...arguments.map(
-      object =>
-        isObject(object) ? _.pickBy(object, datum => !_.isEmpty(datum)) : {}
-    )
+    Array.isArray(data)
+      ? data.reduce(
+          object => (isObject(object) ? discardEmptyProperties(object) : {})
+        )
+      : discardEmptyProperties(object) || {}
   );
+
+const discardEmptyProperties = object =>
+  _.pickBy(object, datum => !_.isEmpty(datum));
 
 const isObject = object => object !== null && typeof object === "object";
 

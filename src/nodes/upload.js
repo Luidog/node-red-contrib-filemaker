@@ -1,22 +1,22 @@
 module.exports = function(RED) {
-  function list(config) {
+  function upload(config) {
     const { compact, merge } = require("../services");
     RED.nodes.createNode(this, config);
     const node = this;
-    const { client, data, ...configuration } = config;
+
+    const { client, ...configuration } = config;
     node.connection = RED.nodes.getNode(client);
     node.on("input", msg => {
-      const { layout, ...parameters } = compact([
+      const filename = msg.filename || configuration.filename;
+      const { layout, field, recordId } = compact([
         configuration,
         msg.parameters
       ]);
       return this.connection.client
-        .list(layout, parameters)
-        .then(response =>
-          node.send(merge(msg, data ? response.data : response))
-        )
+        .upload(filename, layout, field, recordId)
+        .then(response => node.send(merge(msg, response)))
         .catch(error => node.error(error.message, error));
     });
   }
-  RED.nodes.registerType("list-records", list);
+  RED.nodes.registerType("upload-file", upload);
 };

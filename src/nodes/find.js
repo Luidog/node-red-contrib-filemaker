@@ -6,11 +6,11 @@ module.exports = function(RED) {
         const { client, ...configuration } = config;
         node.connection = RED.nodes.getNode(client);
         node.on("input", msg => {
-            const { layout, query, ...parameters } = compact(
+            const query = configuration.query || msg.query;
+            const { layout, ...parameters } = compact([
                 configuration,
-                msg.query,
                 msg.parameters
-            );
+            ]);
             return this.connection.client
                 .find(layout, query, parameters)
                 .then(response => node.send(merge(msg, response)))
