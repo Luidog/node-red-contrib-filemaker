@@ -3,7 +3,6 @@ module.exports = function(RED) {
     const { compact, merge } = require("../services");
     RED.nodes.createNode(this, config);
     const node = this;
-
     const { client, ...configuration } = config;
     node.connection = RED.nodes.getNode(client);
     node.on("input", msg => {

@@ -1,14 +1,17 @@
 module.exports = function(RED) {
   function script(config) {
+    const { compact, merge } = require("../services");
     RED.nodes.createNode(this, config);
     const node = this;
-    node.connection = RED.nodes.getNode(config.client);
-    node.on("input", msg =>
-      this.connection.client
-        .script(config.script, config.layout, msg.payload)
-        .then(response => node.send(response))
-        .catch(error => node.error("script error", error))
-    );
+    const { client, ...configuration } = config;
+    node.connection = RED.nodes.getNode(client);
+    node.on("input", msg => {
+      const { script, layout } = compact([configuration, msg.parameters]);
+      return this.connection.client
+        .script(script, layout, msg.payload)
+        .then(response => node.send(merge(msg, { payload: response })))
+        .catch(error => node.error(error.message, error));
+    });
   }
   RED.nodes.registerType("trigger-script", script);
 };

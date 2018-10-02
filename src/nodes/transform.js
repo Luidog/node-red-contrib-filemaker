@@ -1,9 +1,12 @@
 module.exports = function(RED) {
   function transform(config) {
     const { transform } = require("fms-api-client");
+    const { merge } = require("../services");
     RED.nodes.createNode(this, config);
     const node = this;
-    node.on("input", msg => node.send({ payload: transform(msg.payload) }));
+    node.on("input", msg =>
+      node.send(merge(msg, { payload: transform(msg.payload) }))
+    );
   }
   RED.nodes.registerType("transform", transform);
 };
