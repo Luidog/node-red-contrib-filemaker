@@ -1,0 +1,35 @@
+<script type="text/javascript">
+    RED.nodes.registerType('edit-record',{
+        category: 'FileMaker',
+        defaults: {
+            client: {value: "", type: "filemaker-api-client" },
+            layout: {value: "", required: true },
+            merge: {value: true, required: false }
+            scripts: {value: null, required: false }
+        },
+        inputs:1,
+        outputs:1,
+        icon: 'db.png',
+        color: '#3FADB5',
+        label: "Edit Record"
+    });
+</script>
+
+<script type="text/x-red" data-template-name="edit-record">
+    <div class="form-row">
+        <label for="node-input-client">Client</label>
+        <input type="text" id="node-input-client">
+    </div>
+        <div class="form-row">
+        <label for="node-input-layout">Default Layout</label>
+        <input type="text" id="node-input-layout">
+    </div>
+        <div class="form-row">
+        <label for="node-input-merge">Merge Response</label>
+        <input type="text" id="node-input-merge">
+    </div>
+    <div class="form-row">
+        <label for="node-input-scripts">Scripts</label>
+        <input type="text" id="node-input-scripts">
+    </div>
+</script>

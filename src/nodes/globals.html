@@ -1,0 +1,25 @@
+<script type="text/javascript">
+    RED.nodes.registerType('set-globals',{
+        category: 'FileMaker',
+        defaults: {
+            client: { value:"", type: "filemaker-api-client" },
+            globals: { value: null, required: false }
+        },
+        inputs:1,
+        outputs:1,
+        icon: 'bridge-dash.png',
+        color: '#3FADB5',
+        label: "Set Globals"
+    });
+</script>
+
+<script type="text/x-red" data-template-name="set-globals">
+    <div class="form-row">
+        <label for="node-input-client">Client</label>
+        <input type="text" id="node-input-client">
+    </div>
+    <div class="form-row">
+        <label for="node-input-globals">Globals</label>
+        <input type="text" id="node-input-globals">
+    </div>
+</script>

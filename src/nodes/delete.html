@@ -1,0 +1,30 @@
+<script type="text/javascript">
+    RED.nodes.registerType('delete-record',{
+        category: 'FileMaker',
+        defaults: {
+            client: {value: "", type: "filemaker-api-client" },
+            layout: {value: "", required: true},
+            scripts: {value: null, required: false}
+        },
+        inputs:1,
+        outputs:1,
+        icon: 'db.png',
+        color: '#3FADB5',
+        label: "Delete Record"
+    });
+</script>
+
+<script type="text/x-red" data-template-name="delete-record">
+    <div class="form-row">
+        <label for="node-input-client"><i class="icon-bookmark"></i>Client</label>
+        <input type="text" id="node-input-client">
+    </div>
+        <div class="form-row">
+        <label for="node-input-layout"><i class="icon-bookmark"></i>Default Layout</label>
+        <input type="text" id="node-input-layout">
+    </div>
+    <div class="form-row">
+        <label for="node-input-scripts">Scripts</label>
+        <input type="text" id="node-input-scripts">
+    </div>
+</script>
