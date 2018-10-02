@@ -1,7 +1,7 @@
 /* global describe beforeEach afterEach it */
 
 const helper = require("node-red-node-test-helper");
-const script = require("../script.js");
+const script = require("../src/nodes/script.js");
 
 helper.init(require.resolve("node-red"));
 
