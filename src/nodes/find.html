@@ -2,9 +2,14 @@
     RED.nodes.registerType('perform-find',{
         category: 'FileMaker',
         defaults: {
-            client: {value:"", type:"filemaker-api-client" },
-            layout: {value:"",required:true},
-            script: {value:"",required:true}
+            client: { value: "", type:"filemaker-api-client" },
+            layout: { value: "", required: true },
+            limit: { value: null, required: false },
+            offset: { value: null, required: false },
+            sort: { value: null, required: false }
+            scripts: { value: null, required: false },
+            portals: { value: null, required: false },
+            data: { value: true, required: false}
         },
         inputs:1,
         outputs:1,
@@ -16,15 +21,35 @@
 
 <script type="text/x-red" data-template-name="perform-find">
     <div class="form-row">
-        <label for="node-input-client"><i class="icon-bookmark"></i>Client</label>
+        <label for="node-input-client">Client</label>
         <input type="text" id="node-input-client">
     </div>
     <div class="form-row">
-        <label for="node-input-layout"><i class="icon-bookmark"></i> Layout</label>
+        <label for="node-input-layout">Default Layout</label>
         <input type="text" id="node-input-layout">
     </div>
     <div class="form-row">
-        <label for="node-input-script"><i class="icon-bookmark"></i> Script</label>
+        <label for="node-input-limit">Default Limit</label>
+        <input type="number" id="node-input-limit">
+    </div>
+    <div class="form-row">
+        <label for="node-input-offset">Default offset</label>
+        <input type="number" id="node-input-offset">
+    </div>
+    <div class="form-row">
+        <label for="node-input-sort">Default Sort</label>
+        <input type="text" id="node-input-sort">
+    </div>
+    <div class="form-row">
+        <label for="node-input-script">Scripts</label>
         <input type="text" id="node-input-script">
+    </div>
+    <div class="form-row">
+        <label for="node-input-portals">Portals</label>
+        <input type="text" id="node-input-portals">
+    </div>
+    <div class="form-row">
+        <label for="node-input-data">Reduce Response</label>
+        <input type="checkbox" id="node-input-data">
     </div>
 </script>

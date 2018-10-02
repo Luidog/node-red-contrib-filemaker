@@ -2,9 +2,10 @@
     RED.nodes.registerType('trigger-script',{
         category: 'FileMaker',
         defaults: {
-            client: {value:"", type:"filemaker-api-client" },
-            layout: {value:"",required:true},
-            script: {value:"",required:true}
+            client: { value:"", type: "filemaker-api-client" },
+            layout: { value:"", required:true },
+            script: { value: null, required:true },
+            param: { value: null, required: false }
         },
         inputs:1,
         outputs:1,
@@ -16,15 +17,19 @@
 
 <script type="text/x-red" data-template-name="trigger-script">
     <div class="form-row">
-        <label for="node-input-client"><i class="icon-bookmark"></i>Client</label>
+        <label for="node-input-client">Client</label>
         <input type="text" id="node-input-client">
     </div>
     <div class="form-row">
-        <label for="node-input-layout"><i class="icon-bookmark"></i> Layout</label>
+        <label for="node-input-layout">Layout</label>
         <input type="text" id="node-input-layout">
     </div>
     <div class="form-row">
-        <label for="node-input-script"><i class="icon-bookmark"></i> Script</label>
+        <label for="node-input-script">Script</label>
         <input type="text" id="node-input-script">
+    </div>
+    <div class="form-row">
+        <label for="node-input-param">Default Parameter</label>
+        <input type="text" id="node-input-param">
     </div>
 </script>

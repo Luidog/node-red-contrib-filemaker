@@ -4,9 +4,12 @@ module.exports = function(RED) {
     const { merge } = require("../services");
     RED.nodes.createNode(this, config);
     const node = this;
-    node.on("input", msg =>
-      node.send(merge(msg, { payload: transform(msg.payload) }))
-    );
+    node.on("input", msg => {
+      const parameters = config.parameters || msg.parameters || {};
+      return node.send(
+        merge(msg, { payload: transform(msg.payload, parameters) })
+      );
+    });
   }
   RED.nodes.registerType("transform", transform);
 };

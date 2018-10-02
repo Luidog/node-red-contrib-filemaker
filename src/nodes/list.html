@@ -2,13 +2,14 @@
     RED.nodes.registerType('list-records',{
         category: 'FileMaker',
         defaults: {
-            client: {value: null, type: "filemaker-api-client", required:true },
-            layout: {value: null,required: true },
-            limit:{value: null,required: false },
-            offset:{value: null, required: false },
-            scripts:{value: null, required: false },
-            portals:{value: null, required: false },
-            data: {value: true, required: false }
+            client: { value: null, type: "filemaker-api-client", required:true },
+            layout: { value: null, required: true },
+            limit: { value: null, required: false },
+            offset: { value: null, required: false },
+            sort: { value: null, required: false },
+            scripts: { value: null, required: false },
+            portals: { value: null, required: false },
+            data: { value: true, required: false }
         },
         inputs:1,
         outputs:1,
@@ -34,6 +35,10 @@
     <div class="form-row">
         <label for="node-input-offset">Default Offset</label>
         <input type="number" id="node-input-offset">
+    </div>
+    <div class="form-row">
+        <label for="node-input-sort">Default Sort</label>
+        <input type="text" id="node-input-sort">
     </div>
     <div class="form-row">
         <label for="node-input-script">Scripts</label>
