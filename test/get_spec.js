@@ -1,11 +1,11 @@
 /* global describe beforeEach afterEach it */
 
 const helper = require("node-red-node-test-helper");
-const script = require("../src/nodes/script.js");
+const get = require("../src/nodes/get.js");
 
 helper.init(require.resolve("node-red"));
 
-describe("Perform Script Node", function() {
+describe("Get Record Node", function() {
   beforeEach(function(done) {
     helper.startServer(done);
   });
@@ -17,7 +17,7 @@ describe("Perform Script Node", function() {
 
   it("should be loaded", function(done) {
     const testFlows = [{ id: "n1", type: "inject" }];
-    helper.load(script, testFlows, function() {
+    helper.load(get, testFlows, function() {
       done();
     });
   });

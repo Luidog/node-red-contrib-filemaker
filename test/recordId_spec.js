@@ -1,11 +1,11 @@
 /* global describe beforeEach afterEach it */
 
 const helper = require("node-red-node-test-helper");
-const script = require("../src/nodes/script.js");
+const recordId = require("../src/nodes/recordId.js");
 
 helper.init(require.resolve("node-red"));
 
-describe("Perform Script Node", function() {
+describe("Field Data Utility Node", function() {
   beforeEach(function(done) {
     helper.startServer(done);
   });
@@ -17,7 +17,7 @@ describe("Perform Script Node", function() {
 
   it("should be loaded", function(done) {
     const testFlows = [{ id: "n1", type: "inject" }];
-    helper.load(script, testFlows, function() {
+    helper.load(recordId, testFlows, function() {
       done();
     });
   });
