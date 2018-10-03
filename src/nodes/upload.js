@@ -6,7 +6,11 @@ module.exports = function(RED) {
     const { client, ...configuration } = config;
     node.connection = RED.nodes.getNode(client);
     node.on("input", msg => {
-      const { layout, field, filename, recordId, repetition } = compact([configuration, msg.parameters, msg.payload]);
+      const { layout, field, filename, recordId, repetition } = compact([
+        configuration,
+        msg.parameters,
+        msg.payload
+      ]);
       return this.connection.client
         .upload(filename, layout, field, recordId, repetition)
         .then(response => node.send(merge(msg, response)))

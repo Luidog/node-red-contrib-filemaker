@@ -8,14 +8,12 @@ module.exports = function(RED) {
     node.on("input", msg => {
       const { layout, recordId, ...parameters } = compact([
         configuration,
-        msg.parameters
+        msg.parameters,
         msg.payload
       ]);
       return this.connection.client
         .get(layout, recordId, parse(parameters))
-        .then(response =>
-          node.send(merge(msg, response))
-        )
+        .then(response => node.send(merge(msg, response)))
         .catch(error => node.error(error.message, error));
     });
   }

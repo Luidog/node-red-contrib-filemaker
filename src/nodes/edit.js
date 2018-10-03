@@ -6,7 +6,7 @@ module.exports = function(RED) {
     const { client, ...configuration } = config;
     node.connection = RED.nodes.getNode(client);
     node.on("input", msg => {
-      const { layout,recordId, data, ...parameters } = compact([
+      const { layout, recordId, data, ...parameters } = compact([
         configuration,
         msg.parameters,
         msg.payload

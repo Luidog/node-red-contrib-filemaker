@@ -9,7 +9,7 @@ module.exports = function(RED) {
       const data = configuration.globals || msg.payload;
       return this.connection.client
         .globals(data)
-        .then(response => node.send(merge(msg, response )))
+        .then(response => node.send(merge(msg, response)))
         .catch(error => node.error(error.message, error));
     });
   }
