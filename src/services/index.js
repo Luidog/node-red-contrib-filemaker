@@ -5,14 +5,16 @@ const _ = require("lodash");
 const merge = (message, payload) =>
   Object.assign(message, { payload: payload });
 
-const compact = data =>
-  Object.assign(
-    Array.isArray(data)
-      ? data.reduce(
-          object => (isObject(object) ? discardEmptyProperties(object) : {})
-        )
-      : discardEmptyProperties(data) || {}
-  );
+const compact = data => {
+  let properties = Array.isArray(data)
+    ? _.map(
+        data,
+        object => (isObject(object) ? discardEmptyProperties(object) : {})
+      )
+    : discardEmptyProperties(data) || {};
+    
+  return Object.assign({}, ...properties);
+};
 
 const discardEmptyProperties = object => _.pickBy(object, _.identity);
 
