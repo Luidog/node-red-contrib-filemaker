@@ -14,7 +14,7 @@ module.exports = function(RED) {
       return this.connection.client
         .find(layout, query, parameters)
         .then(response =>
-          node.send(merge(msg, { payload: data ? response.data : response }))
+          node.send(merge(msg, data ? response.data : response))
         )
         .catch(error => node.error(error.message, error));
     });

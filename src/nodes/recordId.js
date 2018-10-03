@@ -4,9 +4,7 @@ module.exports = function(RED) {
     const { merge } = require("../services");
     RED.nodes.createNode(this, config);
     const node = this;
-    node.on("input", msg =>
-      node.send(merge(msg, { payload: recordId(msg.payload) }))
-    );
+    node.on("input", msg => node.send(merge(msg, recordId(msg.payload))));
   }
   RED.nodes.registerType("recordId", recordId);
 };

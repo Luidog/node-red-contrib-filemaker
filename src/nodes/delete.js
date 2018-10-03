@@ -13,7 +13,7 @@ module.exports = function(RED) {
       ]);
       return this.connection.client
         .delete(layout, recordId, parameters)
-        .then(response => node.send(merge(msg, { payload: response })))
+        .then(response => node.send(merge(msg, response)))
         .catch(error => node.error(error.message, error));
     });
   }

@@ -1,6 +1,6 @@
 module.exports = function(RED) {
   function create(config) {
-    const { compact, merge } = require("../services");
+    const { compact, merge, parse } = require("../services");
     RED.nodes.createNode(this, config);
     const node = this;
     const { client, ...configuration } = config;
@@ -12,8 +12,8 @@ module.exports = function(RED) {
         msg.parameters
       ]);
       return this.connection.client
-        .create(layout, data, parameters)
-        .then(response => node.send(merge(msg, { payload: response })))
+        .create(layout, data, parse(parameters))
+        .then(response => node.send(merge(msg, response)))
         .catch(error => node.error(error.message, error));
     });
   }

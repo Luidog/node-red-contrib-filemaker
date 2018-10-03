@@ -9,7 +9,7 @@ module.exports = function(RED) {
       const { script, layout } = compact([configuration, msg.parameters]);
       return this.connection.client
         .script(script, layout, msg.payload)
-        .then(response => node.send(merge(msg, { payload: response })))
+        .then(response => node.send(merge(msg, response)))
         .catch(error => node.error(error.message, error));
     });
   }
