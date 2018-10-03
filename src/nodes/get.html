@@ -1,0 +1,25 @@
+<script type="text/javascript">
+    RED.nodes.registerType('get-record',{
+        category: 'FileMaker',
+        defaults: {
+            client: { value:"", type: "filemaker-api-client" },
+            layout: { value: null, required: false }
+        },
+        inputs:1,
+        outputs:1,
+        icon: 'bridge-dash.png',
+        color: '#3FADB5',
+        label: "Get Record"
+    });
+</script>
+
+<script type="text/x-red" data-template-name="get-record">
+    <div class="form-row">
+        <label for="node-input-client">Client</label>
+        <input type="text" id="node-input-client">
+    </div>
+    <div class="form-row">
+        <label for="node-input-layout">Default Layout</label>
+        <input type="text" id="node-input-layout">
+    </div>
+</script>
