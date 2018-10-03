@@ -1,18 +1,18 @@
 module.exports = function(RED) {
   function deleteRecords(config) {
-    const { compact, merge } = require("../services");
+    const { compact, merge, parse } = require("../services");
     RED.nodes.createNode(this, config);
     const node = this;
     const { client, ...configuration } = config;
     node.connection = RED.nodes.getNode(client);
     node.on("input", msg => {
-      const recordId = msg.payload;
-      const { layout, ...parameters } = compact([
+      const { layout, recordId, ...parameters } = compact([
         configuration,
-        msg.parameters
+        msg.parameters,
+        msg.payload
       ]);
       return this.connection.client
-        .delete(layout, recordId, parameters)
+        .delete(layout, recordId, parse(parameters))
         .then(response => node.send(merge(msg, response)))
         .catch(error => node.error(error.message, error));
     });

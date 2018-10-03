@@ -1,18 +1,18 @@
 module.exports = function(RED) {
   function edit(config) {
-    const { compact, merge } = require("../services");
+    const { compact, merge, parse } = require("../services");
     RED.nodes.createNode(this, config);
     const node = this;
     const { client, ...configuration } = config;
     node.connection = RED.nodes.getNode(client);
     node.on("input", msg => {
-      const { recordId, data } = msg.payload;
-      const { layout, ...parameters } = compact([
+      const { layout,recordId, data, ...parameters } = compact([
         configuration,
-        msg.parameters
+        msg.parameters,
+        msg.payload
       ]);
       return this.connection.client
-        .edit(layout, recordId, data, parameters)
+        .edit(layout, recordId, data, parse(parameters))
         .then(response => node.send(merge(msg, response)))
         .catch(error => node.error(error.message, error));
     });

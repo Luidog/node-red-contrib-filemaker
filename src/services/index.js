@@ -43,6 +43,7 @@ const isJson = data => {
  * @param  {Any} values The value to attempt to parse.
  * @return {Object|Any} A json object or array of objects without the properties passed to it
  */
+
 const parse = object =>
   _.mapValues(object, value => (isJson(value) ? JSON.parse(value) : value));
 
