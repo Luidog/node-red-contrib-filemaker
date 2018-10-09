@@ -12,7 +12,7 @@ module.exports = function(RED) {
         msg.payload
       ]);
       return this.connection.client
-        .script(script, layout, param)
+        .script(layout, script, param)
         .then(response => node.send(merge(msg, response)))
         .catch(error => node.error(error.message, error));
     });
