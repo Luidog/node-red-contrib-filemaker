@@ -3,7 +3,11 @@
 
 [![npm version](https://img.shields.io/npm/v/node-red-contrib-filemaker.svg)](https://www.npmjs.com/package/node-red-contrib-filemaker) [![Build Status](https://img.shields.io/travis/Luidog/node-red-contrib-filemaker/master.svg)](https://travis-ci.org/Luidog/node-red-contrib-filemaker) [![Coverage Status](https://img.shields.io/coveralls/Luidog/node-red-contrib-filemaker/master.svg)](https://coveralls.io/r/Luidog/node-red-contrib-filemaker?branch=master)
 
-A node-red filemaker module. This module uses the Data API to connect with a FileMaker server.
+A node-red FileMaker module. It is uses [fms-api-client](https://github.com/Luidog/fms-api-client) to connect to the FileMaker Data API. These node expose fms-api-client's client methods and data transformation utility methods. Each node depend upon a configurable FileMaker Data API [client](https://github.com/Luidog/fms-api-client#client-creation). 
+
+Nodes are configured with required default parameters that will be used in the event that required property parameters are not found in msg.payload or msg.parameters. Data intended for a FileMaker record should be the in msg.payload.data property.
+
+[fms-api-client documentation](https://luidog.github.io/fms-api-client/)
 
 ## Installation
 
