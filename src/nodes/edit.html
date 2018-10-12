@@ -9,8 +9,8 @@
         },
         inputs:1,
         outputs:1,
-        icon: 'db.png',
-        color: '#3FADB5',
+        icon: 'edit.png',
+        color: '#39D1C0',
         label: "Edit Record"
     });
 </script>
@@ -32,4 +32,60 @@
         <label for="node-input-scripts">Scripts</label>
         <input type="text" id="node-input-scripts">
     </div>
+</script>
+<script type="text/x-red" data-help-name="edit-record">
+<p>This node edits a specific record in FileMaker. It uses the recordId it finds in
+<code>msg.payload.recordId</code> to specify the record to edit. It uses the data found
+in <code>msg.payload.data</code> to update the record.</p>
+
+This node will use the default layout set in its configuration or 
+a layout specified in <code>msg.parameters</code> or <code>msg.payload</code> .
+
+<h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">object</span>
+            <dd><b>recordId</b> <mark>required</mark> - <i>string</i><br>the recordId to target for editing</dd>
+            <dd><b>data</b> <mark>required</mark> - <i>object</i><br>The data to edit</dd>
+            <dd><b>layout</b> - <i>string</i><br>The layout to use when creating a record. Defaults to node configuration.</dd>
+            <dd><b>scripts</b> - <i>array</i><br>Any FileMaker scripts to run when deleting the record.</dd>
+        </dt>
+        <dt class="optional">parameters <span class="property-type">object</span>
+            <dd><b>layout</b> - <i>string</i><br>The layout to use when creating a record. Defaults to node configuration.</dd>
+            <dd><b>scripts</b> - <i>array</i><br>Any FileMaker scripts to run when creating a record.</dd>
+        </dt>
+    </dl>
+
+ <h3>Outputs</h3>
+     <ol class="node-ports">
+         <li>Standard output
+             <dl class="message-properties">
+                <dt>payload<span class="property-type">object</span>
+                    <dd>This node returns an empty payload</dd>
+                </dt>
+             </dl>
+         </li>
+         <li>Standard error
+             <dl class="message-properties">
+                 <dt>payload <span class="property-type">object</span></dt>
+                    <dd><b>message</b><i> - string </i><br>The FileMaker or client error message.</dd>
+                    <dd><b>code</b> - <i>string </i><br>The applicible FileMaker error code.</dd>
+             </dl>
+         </li>
+     </ol>
+
+<h3>Details</h3>
+    <p>This node will use the recordId found in <code>msg.payload.recordid</code> to delete a FileMaker record. The
+    The layout found either either <code>msg.payload.layout</code>, <code>msg.parameters.layout</code>or this node's
+    configuration is used to delete the record.
+    <p>The order of assignment for parameters are node configuration properties, message parameters properties,
+    message payload properties.</p>
+
+<h3>References</h3>
+    <ul>
+        <li><a href="https://github.com/Luidog/fms-api-client#edit-records">Edit Method</a> - Base client documentation</li>
+        <li><a href="https://github.com/Luidog/fms-api-client#script-array-syntax">Scripts Array</a> - scripts array documentation</li>
+        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">node-red-contrib-filemaker</a> - the node's github repository</li>
+        <li><a href="https://github.com/Luidog/fms-api-client">fms-api-client</a> - fms-api-client github repository</li>
+    </ul>
 </script>

@@ -4,11 +4,52 @@
         defaults: {},
         inputs:1,
         outputs:1,
-        icon: 'db.png',
-        color: '#3FADB5',
+        icon: 'fielddata.png',
+        color: '#39D1C0',
         label: "Extract Field Data"
     });
 </script>
 
 <script type="text/x-red" data-template-name="fieldData">
+</script>
+<script type="text/x-red" data-help-name="fieldData">
+<p>This node reduces the incoming payload data to only include the modId, recordId, and fieldData
+ of a response.</p>
+
+<h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">array | object</span>
+            <dd>the array or object to extract the recordId, fieldData, and modId from.</dd>
+        </dt>
+    </dl>
+
+ <h3>Outputs</h3>
+     <ol class="node-ports">
+         <li>Standard output
+             <dl class="message-properties">
+                <dt>payload<span class="property-type">array | object</span>
+                    <dd>This node returns an array of object or a single object.</dd>
+                </dt>
+             </dl>
+         </li>
+         <li>Standard error
+             <dl class="message-properties">
+                 <dt>payload <span class="property-type">object</span></dt>
+                    <dd><b>message</b><i> - string </i><br>The FileMaker or client error message.</dd>
+                    <dd><b>code</b> - <i>string </i><br>The applicible FileMaker error code.</dd>
+             </dl>
+         </li>
+     </ol>
+
+<h3>Details</h3>
+    <p>This node reduces the incoming payload data to only include the modId, recordId, and fieldData
+    of a response.</p>
+
+<h3>References</h3>
+    <ul>
+        <li><a href="https://github.com/Luidog/fms-api-client#fielddata-method">FieldId Method</a> - Base client documentation</li>
+        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">node-red-contrib-filemaker</a> - the node's github repository</li>
+        <li><a href="https://github.com/Luidog/fms-api-client">fms-api-client</a> - fms-api-client github repository</li>
+    </ul>
 </script>

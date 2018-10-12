@@ -20,25 +20,46 @@
         <label for="node-config-input-name">Name</label>
         <input type="text" id="node-config-input-name">
     </div>
+    <div>A name for this client.</div>
     <div class="form-row">
-        <label for="node-config-input-server">Host</label>
+        <label for="node-config-input-server">Server</label>
         <input type="text" id="node-config-input-server">
     </div>
+    <div>The FileMaker server's domain name.</div>
         <div class="form-row">
         <label for="node-config-input-application">Database</label>
         <input type="text" id="node-config-input-application">
     </div>
+    <div>The FileMaker database to connect to.</div>
         <div class="form-row">
-        <label for="node-config-input-user">User</label>
+        <label for="node-config-input-user">Account</label>
         <input type="text" id="node-config-input-user">
     </div>
+    <div>The FileMaker database account to use.</div>
         <div class="form-row">
         <label for="node-config-input-password">Password</label>
         <input type="password" id="node-config-input-password">
     </div>
+    <div>The FileMaker database account's password.</div>
     </div>
         <div class="form-row">
         <label for="node-config-input-usage">Track Data Usage</label>
         <input type="checkbox" id="node-config-input-usage">
     </div>
+    <div>Track client's input and output metrics.</div>
+</script>
+<script type="text/x-red" data-help-name="filemaker-api-client">
+<p>This node creates a FileMaker Data API client to maintain a Data API session</p>
+
+<h3>Details</h3>
+    <p>A Data API client is used to open and maintain a FileMaker Data API session.
+    A Client will automatically login and refresh the Data API access token via the 
+    supplied Data API credentials.</p>
+
+<h3>References</h3>
+    <ul>
+        <li><a href="https://github.com/Luidog/fms-api-client#client-creation">Client</a> - Base client documentation</li>
+        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">node-red-contrib-filemaker</a> - the node's github repository</li>
+        <li><a href="https://github.com/Luidog/fms-api-client">fms-api-client</a> - fms-api-client github repository</li>
+    </ul>
 </script>
