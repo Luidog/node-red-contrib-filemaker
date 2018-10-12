@@ -51,9 +51,9 @@ describe("Create Record Node", function() {
       const createNode = helper.getNode("771c5833.7d24d8");
       const helperNode = helper.getNode("n2");
       helperNode.on("input", function(msg) {
-        done();
         msg.should.have.property("payload");
       });
+      done();
       createNode.receive({ payload: { data: { name: "Han Solo" } } });
     });
   });
