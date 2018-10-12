@@ -27,7 +27,7 @@ coverage
 examples/
 test/
 #readme template
-README.template.md
+template.readme.md
 #CI
 .travis.yml
 #project styles
@@ -36,4 +36,4 @@ README.template.md
 # development node-red config
 red.dev.config.js
 # development pm2 config
-ecosystem.config.js
+ecosystem.dev.config.js
