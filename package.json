@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "description": "A node-red filemaker module. This module uses the Data API to connect with a FileMaker server.",
   "scripts": {
-    "dev": "nodemon --exec \"node-red\" ./*.*",
+    "dev": "pm2 start ecosystem.dev.config.js",
     "test": "nyc _mocha --recursive  \"test/**/*_spec.js\" --timeout=30000 --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "generate-readme": "mos"
@@ -12,14 +12,22 @@
     "type": "git",
     "url": "git+https://Luidog@github.com/Luidog/node-red-contrib-filemaker.git"
   },
-  "keywords": ["node-red", "filemaker", "data", "api", "node"],
+  "keywords": [
+    "node-red",
+    "filemaker",
+    "data",
+    "api",
+    "node"
+  ],
   "author": "Lui de la Parra",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Luidog/node-red-contrib-filemaker/issues"
   },
   "mos": {
-    "plugins": ["execute"]
+    "plugins": [
+      "execute"
+    ]
   },
   "node-red": {
     "nodes": {
@@ -46,6 +54,7 @@
   },
   "devDependencies": {
     "coveralls": "^3.0.1",
+    "dotenv": "^6.1.0",
     "eslint": "^4.11.0",
     "eslint-config-google": "^0.9.1",
     "eslint-config-prettier": "^2.7.0",
@@ -54,12 +63,13 @@
     "mocha-lcov-reporter": "^1.3.0",
     "mos": "^1.3.1",
     "mos-plugin-dependencies": "^2.2.2",
+    "mos-plugin-execute": "^1.0.2",
     "mos-plugin-installation": "^1.2.2",
     "mos-plugin-license": "^1.2.2",
-    "mos-plugin-execute": "^1.0.2",
-    "node-red": "^0.19.3",
+    "node-red": "^0.19.4",
     "node-red-node-test-helper": "^0.1.8",
     "nyc": "^11.8.0",
-    "prettier": "^1.8.2"
+    "prettier": "^1.8.2",
+    "varium": "^1.0.1"
   }
 }
