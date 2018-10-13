@@ -12,7 +12,7 @@ const compact = data => {
         object => (isObject(object) ? discardEmptyProperties(object) : {})
       )
     : discardEmptyProperties(data) || {};
-    
+
   return Object.assign({}, ...properties);
 };
 
@@ -30,12 +30,19 @@ const isObject = object => object !== null && typeof object === "object";
  */
 
 const isJson = data => {
+  data = typeof data !== "string" ? JSON.stringify(data) : data;
+
   try {
-    JSON.parse(data);
+    data = JSON.parse(data);
   } catch (e) {
     return false;
   }
-  return true;
+
+  if (typeof data === "object" && data !== null) {
+    return true;
+  }
+
+  return false;
 };
 
 /**
@@ -49,4 +56,4 @@ const isJson = data => {
 const parse = object =>
   _.mapValues(object, value => (isJson(value) ? JSON.parse(value) : value));
 
-module.exports = { compact, merge, parse };
+module.exports = { compact, merge, parse, isJson };
