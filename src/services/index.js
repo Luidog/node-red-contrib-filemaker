@@ -11,12 +11,15 @@ const compact = data => {
         data,
         object => (isObject(object) ? discardEmptyProperties(object) : {})
       )
-    : discardEmptyProperties(data) || {};
+    : isJson(data)
+      ? [discardEmptyProperties(data)]
+      : [{}];
 
   return Object.assign({}, ...properties);
 };
 
-const discardEmptyProperties = object => _.pickBy(object, _.identity);
+const discardEmptyProperties = object =>
+  _.pickBy(object, property => _.identity(property) || property === false);
 
 const isObject = object => object !== null && typeof object === "object";
 
@@ -48,7 +51,7 @@ const isJson = data => {
 /**
  * @method parse
  * @public
- * @description parse performs a try catch before attempting to parse the value as json. If the value is not valid json it wil return the value.
+ * @description parse iterates over an object's values and parses those values as json.
  * @param  {Any} values The value to attempt to parse.
  * @return {Object|Any} A json object or array of objects without the properties passed to it
  */
