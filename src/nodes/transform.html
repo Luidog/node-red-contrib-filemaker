@@ -18,24 +18,20 @@
         <input type="text" id="node-input-parameters">
     </div>
 </script>
-<script type="text/x-red" data-help-name="edit-record">
-<p>This node edits a specific record in FileMaker. It uses the recordId it finds in
-<code>msg.payload.recordId</code> to specify the record to edit. It uses the data found
-in <code>msg.payload.data</code> to update the record.</p>
-
-This node will use the default layout set in its configuration or 
-a layout specified in <code>msg.parameters</code> or <code>msg.payload</code> .
+<script type="text/x-red" data-help-name="transform">
+<p>This node transforms data in <code>msg.payload.data</code>. it reduces <code>{ table::field : value }</code> properties to <code>{ table: { field : value } } </code></p>
 
 <h3>Inputs</h3>
     <dl class="message-properties">
         <dt>payload
             <span class="property-type">object</span>
             <dd><b>data</b> <mark>required</mark> - <i>object</i><br>The data to edit</dd>
-            <dd><b>parameters</b> - <i>object</i><br>The parameters to use for the transformation</dd>
+            <dd><b>parameters</b> - <i>object</i><br> see optional parameter object</dd>
         </dt>
         <dt class="optional">parameters <span class="property-type">object</span>
-            <dd><b>layout</b> - <i>string</i><br>The layout to use when creating a record. Defaults to node configuration.</dd>
-            <dd><b>scripts</b> - <i>array</i><br>Any FileMaker scripts to run when creating a record.</dd>
+            <dd><b>convert</b> - <i>boolean</i><br>convert table::field properties.</dd>
+            <dd><b>fieldData</b> - <i>boolean</i><br>merge fieldData property into object.</dd>
+            <dd><b>portalData</b> - <i>boolean</i><br>merge portalData property into object</dd>
         </dt>
     </dl>
 
@@ -58,15 +54,11 @@ a layout specified in <code>msg.parameters</code> or <code>msg.payload</code> .
      </ol>
 
 <h3>Details</h3>
-    <p>This node will transform the data found in <code>msg.payload.data</code> from 
-    an object with `fieldData` and `portalData` propertiesto an object with array 
-    properties for portal data. converts Data API response data by converting 
-    table::field properties to objects. This method will transverse the response data
-     and converting { table::field : value} properties to { table:{ field : value } }.
-     The transform method will also convert portalData into arrays of objects. The transform
+    <p>This node converts Data API record data. This method will traverse the response data
+     and convert <code>{ table::field : value }</code> properties to <code>{ table: { field : value } }</code>. This node will also move portalData properties into arrays the main object. The transform
       method accepts three option properties. The three option properties are all booleans 
-      and true by default. The three option properties are convert,fieldData,portalData. 
-      The convert property controls the transfomation of table::field properties. 
+      and true by default. The three option properties are convert, fieldData, portalData. 
+      The convert property controls the transformation of table::field properties. 
       The fieldData property controls the merging of fieldData to the result. 
       The portalData property controls the merging of portalData to the result.
       Setting any propery to false its transformation off.</p>
