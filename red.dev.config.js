@@ -87,7 +87,7 @@ module.exports = {
 
   // Node-RED scans the `nodes` directory in the install directory to find nodes.
   // The following property can be used to specify an additional directory to scan.
-  //nodesDir: path.join('/home/nol/.node-red/nodes',
+  nodesDir: path.join(__dirname, "./src"),
 
   // By default, the Node-RED UI is available at http://localhost:1880/
   // The following property can be used to specify a different root path.
