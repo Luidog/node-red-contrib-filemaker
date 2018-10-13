@@ -6,7 +6,15 @@ module.exports = function(RED) {
     const node = this;
     node.on("input", msg => {
       const parameters = config.parameters || msg.parameters || {};
-      return node.send(merge(msg, transform(msg.payload, parse(parameters))));
+      node.send(
+        merge(
+          msg,
+          Object.assign(
+            { data: transform(msg.payload.data, parse(parameters)) },
+            msg.payload
+          )
+        )
+      );
     });
   }
   RED.nodes.registerType("transform", transform);
