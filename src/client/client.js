@@ -6,7 +6,7 @@ module.exports = function(RED) {
     const { Filemaker } = require("fms-api-client");
 
     RED.nodes.createNode(this, n);
-    connect("nedb://memory")
+    return connect("nedb://memory")
       .then(db => Filemaker.create(n))
       .then(client => client.save())
       .then(client => (this.client = client));
