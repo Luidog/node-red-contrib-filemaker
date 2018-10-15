@@ -1,13 +1,13 @@
 module.exports = function(RED) {
   function upload(config) {
-    const { compact, merge } = require("../services");
+    const { compact, merge, sanitizeParameters } = require("../services");
     RED.nodes.createNode(this, config);
     const node = this;
     const { client, ...configuration } = config;
     node.connection = RED.nodes.getNode(client);
     node.on("input", msg => {
       const { layout, field, filename, recordId, repetition } = compact([
-        configuration,
+        sanitizeParameters(configuration, ["filename", "layout", "field"]),
         msg.parameters,
         msg.payload
       ]);

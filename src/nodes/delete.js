@@ -1,13 +1,18 @@
 module.exports = function(RED) {
   function deleteRecords(config) {
-    const { compact, merge, parse } = require("../services");
+    const {
+      compact,
+      merge,
+      parse,
+      sanitizeParameters
+    } = require("../services");
     RED.nodes.createNode(this, config);
     const node = this;
     const { client, ...configuration } = config;
     node.connection = RED.nodes.getNode(client);
     node.on("input", msg => {
       const { layout, recordId, ...parameters } = compact([
-        configuration,
+        sanitizeParameters(configuration, ["layout", "scripts"]),
         msg.parameters,
         msg.payload
       ]);

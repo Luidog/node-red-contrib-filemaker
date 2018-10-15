@@ -1,13 +1,21 @@
 module.exports = function(RED) {
   function list(config) {
-    const { compact, merge, parse } = require("../services");
+    const { compact, merge, parse, sanitizeParameters } = require("../services");
     RED.nodes.createNode(this, config);
     const node = this;
     const { client, data, ...configuration } = config;
     node.connection = RED.nodes.getNode(client);
     node.on("input", msg => {
       const { layout, ...parameters } = compact([
-        configuration,
+        sanitizeParameters(configuration, [
+          "layout",
+          "limit",
+          "offset",
+          "sort",
+          "scripts",
+          "portals",
+          "data"
+        ]),
         msg.parameters,
         msg.payload
       ]);

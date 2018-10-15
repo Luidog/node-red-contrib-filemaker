@@ -59,4 +59,7 @@ const isJson = data => {
 const parse = object =>
   _.mapValues(object, value => (isJson(value) ? JSON.parse(value) : value));
 
-module.exports = { compact, merge, parse, isJson };
+const sanitizeParameters = (parameters, safeParameters) =>
+  _.pick(parameters, safeParameters);
+
+module.exports = { compact, merge, parse, isJson, sanitizeParameters };
