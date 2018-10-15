@@ -46,48 +46,48 @@ with its output.
 <h3>Inputs</h3>
     <dl class="message-properties">
         <dt>payload
-            <span class="property-type">object</span>
-            <dd><b>data</b> <mark>required</mark> - <i>object</i><br>The data to use when creating a record.</dd>
-            <dd><b>layout</b> - <i>string</i><br>The layout to use when creating a record. Defaults to node configuration.</dd>
-            <dd><b>scripts</b> - <i>array</i><br>Any FileMaker scripts to run when creating a record.</dd>
+            <span class="property-type">Object</span>
+            <dd><b>data</b> <mark>required</mark> - <i>Object</i><br>The data to use when creating a record.</dd>
+            <dd><b>layout</b> - <i>String</i><br>The layout to use when creating a record. Defaults to node configuration.</dd>
+            <dd><b>scripts</b> - <i>Array</i><br>Any FileMaker scripts to run when creating the record.</dd>
         </dt>
-        <dt class="optional">parameters <span class="property-type">object</span>
-            <dd><b>layout</b> - <i>string</i><br>The layout to use when creating a record. Defaults to node configuration.</dd>
-            <dd><b>scripts</b> - <i>array</i><br>Any FileMaker scripts to run when creating a record.</dd>
+        <dt class="optional">parameters <span class="property-type">Object</span>
+            <dd><b>layout</b> - <i>String</i><br>The layout to use when creating a record. Defaults to node configuration.</dd>
+            <dd><b>scripts</b> - <i>Array</i><br>Any FileMaker scripts to run when creating the record.</dd>
         </dt>
     </dl>
 
  <h3>Outputs</h3>
      <ol class="node-ports">
-         <li>Standard output
+         <li>Standard Output
              <dl class="message-properties">
-                <dt>payload<span class="property-type">object</span>
-                    <dd><b> recordId</b><i> - string </i><br>The record id for the new record.</dd>
-                    <dd><b> modId</b> - <i>string </i><br>The record's modification id.</dd>
+                <dt>payload<span class="property-type">Object</span>
+                    <dd><b>recordId</b> - <i>String</i><br>The record id for the new record.</dd>
+                    <dd><b>modId</b> - <i>String</i><br>The record's modification id.</dd>
                 </dt>
              </dl>
          </li>
-         <li>Standard error
+         <li>Standard Error
              <dl class="message-properties">
-                 <dt>payload <span class="property-type">object</span></dt>
-                    <dd><b>message</b><i> - string </i><br>The FileMaker or client error messag.e</dd>
-                    <dd><b>code</b> - <i>string </i><br>The applicible FileMaker error code.</dd>
+                 <dt>payload <span class="property-type">Object</span></dt>
+                    <dd><b>message</b> - <i>String</i><br>The FileMaker or client error messag.e</dd>
+                    <dd><b>code</b> - <i>String</i><br>The applicible FileMaker error code.</dd>
              </dl>
          </li>
      </ol>
 
 <h3>Details</h3>
-    <p>This node will use the data found in <code>msg.payload.data</code> to create a FileMaker record.
-    The layout found either either <code>msg.payload.layout</code>, <code>msg.parameters.layout</code>or this node's
+    <p>This node will use the data found in <code>msg.payload.data</code> to create a FileMaker record. It will use
+    the layout found in either <code>msg.payload.layout</code>, <code>msg.parameters.layout</code>, or this node's
     configuration.
-    <p>The order of assignment for parameters are node configuration properties, message parameters properties,
-    message payload properties.</p>
+    <p>The order of assignment for parameters are node configuration properties, message parameters,
+    message payload parameter properties.</p>
 
 <h3>References</h3>
     <ul>
-        <li><a href="https://github.com/Luidog/fms-api-client#create-records">Create Method</a> - Base client documentation</li>
+        <li><a href="https://github.com/Luidog/fms-api-client#create-records">Create Method</a> - base client documentation</li>
         <li><a href="https://github.com/Luidog/fms-api-client#script-array-syntax">Scripts Array</a> - scripts array documentation</li>
-        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">node-red-contrib-filemaker</a> - the node's github repository</li>
-        <li><a href="https://github.com/Luidog/fms-api-client">fms-api-client</a> - fms-api-client github repository</li>
+        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node-Red FileMaker</a> - the node's github repository</li>
+        <li><a href="https://github.com/Luidog/fms-api-client">FMS API Client</a> - fms-api-client github repository</li>
     </ul>
 </script>

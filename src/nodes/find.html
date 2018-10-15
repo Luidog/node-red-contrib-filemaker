@@ -58,3 +58,66 @@
         <input type="checkbox" id="node-input-data">
     </div>
 </script>
+<script type="text/x-red" data-help-name="perform-find">
+<p>This node performs a find in FileMaker. It uses the query found in
+<code>msg.payload.query</code> to perform the find.</p>
+
+This node will use the default layout set in its configuration or 
+a layout specified in <code>msg.parameters</code> or <code>msg.payload</code> .
+
+<h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">Object</span>
+            <dd><b>query</b> <mark>required</mark> - <i>object</i><br>the query to use in the perform find.</dd>
+            <dd><b>layout</b> - <i>String</i><br>The layout to use for the find. Defaults to node configuration.</dd>
+            <dd><b>limit</b> - <i>Number</i><br>The number of records to return in the query. Default is 100.</dd>
+            <dd><b>offset</b> - <i>Array</i><br>The position to start listing records from.</dd>
+            <dd><b>sort</b> - <i>Object</i><br>The sort order of the records.</dd>
+            <dd><b>portals</b> - <i>Array</i><br>An arry of portals to return with the query</dd>
+            <dd><b>scripts</b> - <i>Array</i><br>The FileMaker scripts to run when performing the find</dd>
+        </dt>
+        <dt class="optional">parameters <span class="property-type">Object</span>
+            <dd><b>layout</b> - <i>String</i><br>The layout to use for the find. Defaults to node configuration.</dd>
+            <dd><b>limit</b> - <i>Number</i><br>The number of records to return in the query. Default is 100.</dd>
+            <dd><b>offset</b> - <i>Array</i><br>The position to start listing records from.</dd>
+            <dd><b>sort</b> - <i>Object</i><br>The sort order of the records.</dd>
+            <dd><b>portals</b> - <i>Array</i><br>An arry of portals to return with the query</dd>
+            <dd><b>scripts</b> - <i>Array</i><br>The FileMaker scripts to run when performing the find</dd>
+        </dt>
+    </dl>
+
+ <h3>Outputs</h3>
+     <ol class="node-ports">
+         <li>Standard Output
+             <dl class="message-properties">
+                <dt>payload<span class="property-type">Object</span>
+                    <dd><b>data</b> - <i>Array</i><br>The found record set.</dd>
+                </dt>
+             </dl>
+         </li>
+         <li>Standard Error
+             <dl class="message-properties">
+                 <dt>payload <span class="property-type">Object</span></dt>
+                    <dd><b>message</b> - <i>String </i><br>The FileMaker or client error message.</dd>
+                    <dd><b>code</b> - <i>String </i><br>The applicible FileMaker error code.</dd>
+             </dl>
+         </li>
+     </ol>
+
+<h3>Details</h3>
+    <p>This node will use the recordId found in <code>msg.payload.recordid</code> to delete a FileMaker record. This
+    node uses the layout found in either <code>msg.payload.layout</code>, <code>msg.parameters.layout</code>, or this node's
+    configuration is used to delete the record.
+    <p>The order of assignment for parameters are node configuration properties, message parameters,
+    message payload parameter properties.</p>
+
+<h3>References</h3>
+    <ul>
+        <li><a href="https://github.com/Luidog/fms-api-client#find-records">Find Method</a> - base client documentation</li>
+        <li><a href="https://github.com/Luidog/fms-api-client#script-array-syntax">Scripts Array</a> - scripts array documentation</li>
+        <li><a href="https://github.com/Luidog/fms-api-client#portal-array-syntax">Portals Array</a> - portals array documentation</li>
+        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node-Red FileMaker</a> - the node's github repository</li>
+        <li><a href="https://github.com/Luidog/fms-api-client">FMS API Client</a> - fms-api-client github repository</li>
+    </ul>
+</script>
