@@ -7,7 +7,8 @@ module.exports = function(RED) {
     node.connection = RED.nodes.getNode(client);
     node.on("input", msg => {
       const data = configuration.globals || msg.payload;
-      return this.connection.client
+      let connection = await this.connection.client
+      connection
         .globals(data)
         .then(response => node.send(merge(msg, response)))
         .catch(error => node.error(error.message, error));

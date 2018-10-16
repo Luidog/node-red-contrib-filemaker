@@ -1,10 +1,11 @@
 /* global before describe beforeEach afterEach it */
-
+const { expect } = require("chai");
 const helper = require("node-red-node-test-helper");
 const environment = require("dotenv");
 const varium = require("varium");
 const create = require("../src/nodes/create.js");
 const client = require("../src/client/client.js");
+const catchNode = require("./core/25-catch.js")
 
 helper.init(require.resolve("node-red"));
 
@@ -24,10 +25,73 @@ describe("Create Record Node", function() {
     helper.stopServer(done);
   });
 
-  it("should send a message", function(done) {
+  it("should create a record", function(done) {
     var testFlows = [
       {
-        id: "f6c6ae45.9d8ed8",
+        id: "3783b2da.4346a6",
+        type: "filemaker-api-client",
+        server: process.env.FILEMAKER_SERVER,
+        name: "Sweet FM Client",
+        application: process.env.FILEMAKER_APPLICATION,
+        user: process.env.FILEMAKER_USERNAME,
+        password: process.env.FILEMAKER_PASSWORD,
+        usage: true
+      },
+      {
+        id: "n1",
+        type: "create-record",
+        client: "3783b2da.4346a6",
+        layout: "People",
+        scripts: "",
+        merge: true,
+        wires: [["n2"]]
+      },
+      { id: "n2", type: "helper" }
+    ];
+    helper.load([client, create], testFlows, function() {
+      const createNode = helper.getNode("n1");
+      const helperNode = helper.getNode("n2");
+      helperNode.on("input", function(msg) {
+        try {
+          expect(msg)
+            .to.be.an("object")
+            .with.any.keys("payload")
+            .and.property("payload")
+            .to.be.a("object")
+            .with.any.keys("recordId", "modId");
+          done();
+        } catch (err) {
+          done(err);
+        }
+      });
+      createNode.receive({ payload: { data: { name: "Han Solo" } } });
+    });
+  });
+  it("should throw an error with a message and a code", function(done) {
+    var testFlow = [
+      {
+        id: "f1",
+        type: "tab",
+        label: "Catch Create Error"
+      },
+      {
+        id: "n2",
+        type: "create-record",
+        z: "f1",
+        name: "create node",
+        client: "3783b2da.4346a6",
+        layout: "Devices",
+        scripts: "",
+        merge: true,
+        wires: [["n3"]]
+      },
+      {
+        id: "n3",
+        type: "helper",
+        z: "f1",
+      },
+      {
+        id: "3783b2da.4346a6",
         type: "filemaker-api-client",
         server: process.env.FILEMAKER_SERVER,
         name: "Mute Symphony",
@@ -37,25 +101,27 @@ describe("Create Record Node", function() {
         usage: true
       },
       {
-        id: "771c5833.7d24d8",
-        type: "create-record",
-        client: "f6c6ae45.9d8ed8",
-        layout: "People",
-        scripts: "",
-        merge: true,
-        wires: [["n2"]]
+        id: "n1",
+        type: "catch",
+        z: "f1",
+        name: "catch",
+        wires: [["n3"]]
       },
-      { id: "n2", type: "helper" }
     ];
-    helper.load([client, create], testFlows, function() {
-      const createNode = helper.getNode("771c5833.7d24d8");
-      const helperNode = helper.getNode("n2");
+    helper.load([client, create, catchNode], testFlow, function() {
+      const createNode = helper.getNode("n2");
+      const helperNode = helper.getNode("n3");
       helperNode.on("input", function(msg) {
-        done();
-        // msg.should.have.property("payload");
+        try {
+          expect(msg)
+            .to.be.an("object")
+            .with.any.keys("_msgid", "code","error","message");
+          done();
+        } catch (err) {
+          done(err);
+        }
       });
-      
-      createNode.receive({ payload: { data: { name: "Han Solo" } } });
+      createNode.receive({ payload: { data: { parent: "Han Solo" } } });
     });
   });
 });

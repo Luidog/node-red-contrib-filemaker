@@ -5,7 +5,7 @@ module.exports = function(RED) {
     const node = this;
     const { client, data, ...configuration } = config;
     node.connection = RED.nodes.getNode(client);
-    node.on("input", msg => {
+    node.on("input", async msg => {
       const { layout, ...parameters } = compact([
         sanitizeParameters(configuration, [
           "layout",
@@ -19,7 +19,8 @@ module.exports = function(RED) {
         msg.parameters,
         msg.payload
       ]);
-      return this.connection.client
+      let connection = await this.connection.client
+      connection
         .list(layout, parse(parameters))
         .then(response =>
           node.send(merge(msg, data ? response.data : response))

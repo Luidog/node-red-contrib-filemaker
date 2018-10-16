@@ -10,14 +10,16 @@ module.exports = function(RED) {
     const node = this;
     const { client, ...configuration } = config;
     node.connection = RED.nodes.getNode(client);
-    node.on("input", msg => {
+    node.on("input", async msg => {
+
       const { layout, recordId, data, ...parameters } = compact([
         sanitizeParameters(configuration, ["layout", "scripts", "merge"]),
         msg.parameters,
         msg.payload
       ]);
-      return this.connection.client
-        .edit(layout, recordId, data, parse(parameters))
+      let connection = await this.connection.client
+      connection
+        .edit(layout, recordId, data || {}, parse(parameters))
         .then(response => node.send(merge(msg, response)))
         .catch(error => node.error(error.message, error));
     });
