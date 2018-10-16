@@ -20,7 +20,7 @@ module.exports = function(RED) {
       connection
         .get(layout, recordId, parse(parameters))
         .then(response => node.send(merge(msg, response)))
-        .catch(error => node.error(error.message, error));
+        .catch(error => node.error(error.message, msg));
     });
   }
   RED.nodes.registerType("get-record", get);

@@ -15,7 +15,7 @@ module.exports = function(RED) {
       connection
         .upload(filename, layout, field, recordId, repetition)
         .then(response => node.send(merge(msg, response)))
-        .catch(error => node.error(error.message, error));
+        .catch(error => node.error(error.message, msg));
     });
   }
   RED.nodes.registerType("upload-file", upload);

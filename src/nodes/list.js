@@ -25,7 +25,7 @@ module.exports = function(RED) {
         .then(response =>
           node.send(merge(msg, data ? response.data : response))
         )
-        .catch(error => node.error(error.message, error));
+        .catch(error => node.error(error.message, msg));
     });
   }
   RED.nodes.registerType("list-records", list);

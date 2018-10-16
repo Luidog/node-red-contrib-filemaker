@@ -15,7 +15,7 @@ module.exports = function(RED) {
       connection
         .script(layout, script, param)
         .then(response => node.send(merge(msg, response)))
-        .catch(error => node.error(error.message, error));
+        .catch(error => node.error(error.message, msg));
     });
   }
   RED.nodes.registerType("trigger-script", script);
