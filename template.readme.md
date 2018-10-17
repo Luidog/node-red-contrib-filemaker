@@ -8,7 +8,7 @@ A node-red FileMaker module. It is uses [fms-api-client](https://github.com/Luid
 
 Nodes are configured with required default parameters that will be used in the event that required property parameters are not found in msg.payload or msg.parameters. Data intended for a FileMaker record should be the in msg.payload.data property.
 
-[fms-api-client documentation](https://luidog.github.io/fms-api-client/)
+[FMS API Client Documentation](https://luidog.github.io/fms-api-client/)
 
 <!--@license()-->
 ## License
@@ -26,7 +26,7 @@ npm install --save node-red-contrib-filemaker
 
 <!--@execute('npm run test',[])-->
 ```default
-> node-red-contrib-filemaker@0.2.0 test /Users/luidelaparra/Documents/Development/node-red-contrib-filemaker
+> node-red-contrib-filemaker@0.4.0 test /Users/luidelaparra/Documents/Development/node-red-contrib-filemaker
 > nyc _mocha --recursive  "test/**/*_spec.js" --timeout=30000 --exit
 
 
@@ -35,16 +35,29 @@ npm install --save node-red-contrib-filemaker
     ✓ should be loaded
 
   Create Record Node
-    ✓ should send a message (164ms)
+    ✓ should create a record (471ms)
+    ✓ should throw an error with a message and a code (216ms)
+
+  Delete Record Node
+    ✓ should be loaded
+    ✓ should delete a record (260ms)
+    ✓ should throw an error with a message and a code (179ms)
 
   Edit Record Node
     ✓ should be loaded
+    ✓ should edit a record (184ms)
+    ✓ should throw an error with a message and a code (178ms)
 
-  Field Data Utility Node
+  FieldData Utility Node
     ✓ should be loaded
+    ✓ should transform an array of data
+    ✓ should transform a single data object
+    ✓ should preserve the contents of other payload properties
 
-  Perform Find Node
+  Find Records Node
     ✓ should be loaded
+    ✓ should perform a find (280ms)
+    ✓ should throw an error with a message and a code (176ms)
 
   Get Record Node
     ✓ should be loaded
@@ -52,8 +65,12 @@ npm install --save node-red-contrib-filemaker
   List Records Node
     ✓ should be loaded
 
-  Field Data Utility Node
+  Record Id Utility Node
     ✓ should be loaded
+    ✓ should extract one record id from an array of data
+    ✓ should extract one record id from a data object
+    ✓ should extract many record ids from a data array
+    ✓ should preserve the contents of other payload properties
 
   Perform Script Node
     ✓ should be loaded
@@ -82,32 +99,36 @@ npm install --save node-red-contrib-filemaker
       ✓ it should return false for a string
       ✓ it should return false for null
 
-  Field Data Utility Node
+  Transform Utility Node
     ✓ should be loaded
+    ✓ should transform an array of data
+    ✓ should transform a single data object
+    ✓ should preserve the contents of other payload properties
 
   Perform Script Node
     ✓ should be loaded
 
 
-  29 passing (384ms)
+  47 passing (2s)
 
 ---------------|----------|----------|----------|----------|-------------------|
 File           |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
 ---------------|----------|----------|----------|----------|-------------------|
-All files      |    42.96 |       72 |    44.83 |    42.34 |                   |
+All files      |    73.01 |      100 |     74.6 |     72.5 |                   |
  client        |      100 |      100 |      100 |      100 |                   |
   client.js    |      100 |      100 |      100 |      100 |                   |
- nodes         |    25.69 |        0 |    27.27 |    26.17 |                   |
-  create.js    |    83.33 |      100 |       60 |    83.33 |             16,17 |
-  edit.js      |    16.67 |      100 |       20 |    16.67 |... 7,8,9,14,16,17 |
-  fieldData.js |       25 |      100 |    33.33 |    28.57 |         3,4,5,6,7 |
-  find.js      |    16.67 |        0 |       20 |    16.67 |... 7,8,9,14,17,19 |
-  get.js       |    16.67 |      100 |       20 |    16.67 |... 7,8,9,14,16,17 |
-  list.js      |    16.67 |        0 |       20 |    16.67 |... 7,8,9,14,17,19 |
-  recordId.js  |       25 |      100 |    33.33 |    28.57 |         3,4,5,6,7 |
-  script.js    |    16.67 |      100 |       20 |    16.67 |... 7,8,9,14,16,17 |
-  transform.js |    22.22 |        0 |    33.33 |    22.22 |     3,4,5,6,7,8,9 |
-  upload.js    |    16.67 |      100 |       20 |    16.67 |... 7,8,9,14,16,17 |
+ nodes         |    65.89 |      100 |    67.35 |    65.89 |                   |
+  create.js    |      100 |      100 |      100 |      100 |                   |
+  delete.js    |      100 |      100 |      100 |      100 |                   |
+  edit.js      |      100 |      100 |      100 |      100 |                   |
+  fieldData.js |      100 |      100 |      100 |      100 |                   |
+  find.js      |      100 |      100 |      100 |      100 |                   |
+  get.js       |    15.38 |      100 |       20 |    15.38 |... 14,19,20,22,23 |
+  list.js      |    15.38 |      100 |       20 |    15.38 |... 14,27,28,31,33 |
+  recordId.js  |      100 |      100 |      100 |      100 |                   |
+  script.js    |    15.38 |      100 |       20 |    15.38 |... ,9,14,15,17,18 |
+  transform.js |      100 |      100 |      100 |      100 |                   |
+  upload.js    |    15.38 |      100 |       20 |    15.38 |... ,9,14,15,17,18 |
  services      |      100 |      100 |      100 |      100 |                   |
   index.js     |      100 |      100 |      100 |      100 |                   |
 ---------------|----------|----------|----------|----------|-------------------|
