@@ -9,8 +9,7 @@
             sort: { value: null, required: false },
             query: { value: null, required: false },
             scripts: { value: null, required: false },
-            portals: { value: null, required: false },
-            data: { value: true, required: false}
+            portals: { value: null, required: false }
         },
         inputs:1,
         outputs:1,
@@ -53,17 +52,14 @@
         <label for="node-input-portals">Default Portals</label>
         <input type="text" id="node-input-portals">
     </div>
-    <div class="form-row">
-        <label for="node-input-data">Reduce Response</label>
-        <input type="checkbox" id="node-input-data">
-    </div>
 </script>
 <script type="text/x-red" data-help-name="perform-find">
 <p>This node performs a find in FileMaker. It uses the query found in
-<code>msg.payload.query</code> to perform the find.</p>
+<code>msg.payload.query</code> to perform the find. The query can be an object
+or an array. </p>
 
 This node will use the default layout set in its configuration or 
-a layout specified in <code>msg.parameters</code> or <code>msg.payload</code> .
+a layout specified in <code>msg.parameters</code> or <code>msg.payload</code>.
 
 <h3>Inputs</h3>
     <dl class="message-properties">
@@ -99,17 +95,16 @@ a layout specified in <code>msg.parameters</code> or <code>msg.payload</code> .
          <li>Standard Error
              <dl class="message-properties">
                  <dt>payload <span class="property-type">Object</span></dt>
-                    <dd><b>message</b> - <i>String </i><br>The FileMaker or client error message.</dd>
-                    <dd><b>code</b> - <i>String </i><br>The applicible FileMaker error code.</dd>
+                    <dd><b>message</b> - <i>String</i><br>The FileMaker or client error message.</dd>
+                    <dd><b>code</b> - <i>String</i><br>The applicible FileMaker error code.</dd>
              </dl>
          </li>
      </ol>
 
 <h3>Details</h3>
-    <p>This node will use the recordId found in <code>msg.payload.recordid</code> to delete a FileMaker record. This
+    <p>This node will use the query found in <code>msg.payload.query</code> to perform a find. This
     node uses the layout found in either <code>msg.payload.layout</code>, <code>msg.parameters.layout</code>, or this node's
-    configuration is used to delete the record.
-    <p>The order of assignment for parameters are node configuration properties, message parameters,
+    configuration as context for the find.<br/>The order of assignment for parameters are node configuration properties, message parameters,
     message payload parameter properties.</p>
 
 <h3>References</h3>
