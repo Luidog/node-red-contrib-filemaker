@@ -10,7 +10,7 @@ module.exports = {
     }
   },
   plugins: ['prettier'],
-  extends: ['google', 'eslint:recommended'],
+  extends: ['google', 'eslint:recommended',"prettier"],
   rules: {
     'prettier/prettier': 'error'
   }
