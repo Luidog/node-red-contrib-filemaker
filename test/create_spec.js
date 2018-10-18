@@ -5,7 +5,7 @@ const environment = require("dotenv");
 const varium = require("varium");
 const create = require("../src/nodes/create.js");
 const client = require("../src/client/client.js");
-const catchNode = require("./core/25-catch.js")
+const catchNode = require("./core/25-catch.js");
 
 helper.init(require.resolve("node-red"));
 
@@ -23,6 +23,13 @@ describe("Create Record Node", function() {
   afterEach(function(done) {
     helper.unload();
     helper.stopServer(done);
+  });
+
+  it("should be loaded", function(done) {
+    const testFlow = [{ id: "n1", type: "inject" }];
+    helper.load(create, testFlow, function() {
+      done();
+    });
   });
 
   it("should create a record", function(done) {
@@ -88,7 +95,7 @@ describe("Create Record Node", function() {
       {
         id: "n3",
         type: "helper",
-        z: "f1",
+        z: "f1"
       },
       {
         id: "3783b2da.4346a6",
@@ -106,7 +113,7 @@ describe("Create Record Node", function() {
         z: "f1",
         name: "catch",
         wires: [["n3"]]
-      },
+      }
     ];
     helper.load([client, create, catchNode], testFlow, function() {
       const createNode = helper.getNode("n2");
@@ -115,7 +122,7 @@ describe("Create Record Node", function() {
         try {
           expect(msg)
             .to.be.an("object")
-            .with.any.keys("_msgid", "code","error","message");
+            .with.any.keys("_msgid", "code", "error", "message");
           done();
         } catch (err) {
           done(err);

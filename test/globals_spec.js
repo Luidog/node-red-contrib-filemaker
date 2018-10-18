@@ -1,16 +1,15 @@
 /* global before describe beforeEach afterEach it */
 const { expect } = require("chai");
-const path = require("path");
 const helper = require("node-red-node-test-helper");
 const environment = require("dotenv");
 const varium = require("varium");
-const uploadNode = require("../src/nodes/upload.js");
+const globalsNode = require("../src/nodes/globals.js");
 const clientNode = require("../src/client/client.js");
 const catchNode = require("./core/25-catch.js");
 
 helper.init(require.resolve("node-red"));
 
-describe("Upload File Node", function() {
+describe("Set Globals Node", function() {
   before(function(done) {
     environment.config({ path: "./test/.env" });
     varium(process.env, "./test/env.manifest");
@@ -28,12 +27,12 @@ describe("Upload File Node", function() {
 
   it("should be loaded", function(done) {
     const testFlow = [{ id: "n1", type: "inject" }];
-    helper.load(uploadNode, testFlow, function() {
+    helper.load(globalsNode, testFlow, function() {
       done();
     });
   });
 
-  it("should upload to a record", function(done) {
+  it("should set globals", function(done) {
     var testFlows = [
       {
         id: "3783b2da.4346a6",
@@ -47,17 +46,17 @@ describe("Upload File Node", function() {
       },
       {
         id: "n1",
-        type: "upload-file",
+        type: "set-globals",
         client: "3783b2da.4346a6",
-        layout: "Devices",
+        layout: "People",
         scripts: "",
         merge: true,
         wires: [["n2"]]
       },
       { id: "n2", type: "helper" }
     ];
-    helper.load([clientNode, uploadNode], testFlows, function() {
-      const upload = helper.getNode("n1");
+    helper.load([clientNode, globalsNode], testFlows, function() {
+      const globals = helper.getNode("n1");
       const helperNode = helper.getNode("n2");
       helperNode.on("input", function(msg) {
         try {
@@ -69,12 +68,8 @@ describe("Upload File Node", function() {
           done(err);
         }
       });
-      upload.receive({
-        payload: {
-          file: path.join(__dirname, "./assets/placeholder.json"),
-          layout: "test",
-          field: "container"
-        }
+      globals.receive({
+        payload: { data: { "Globals::Field": "Millenium Falcon" } }
       });
     });
   });
@@ -83,13 +78,13 @@ describe("Upload File Node", function() {
       {
         id: "f1",
         type: "tab",
-        label: "Catch Upload Error"
+        label: "Catch Set Globals Error"
       },
       {
         id: "n2",
-        type: "upload-file",
+        type: "set-globals",
         z: "f1",
-        name: "Upload Node",
+        name: "globals node",
         client: "3783b2da.4346a6",
         layout: "Devices",
         scripts: "",
@@ -119,8 +114,8 @@ describe("Upload File Node", function() {
         wires: [["n3"]]
       }
     ];
-    helper.load([clientNode, uploadNode, catchNode], testFlow, function() {
-      const upload = helper.getNode("n2");
+    helper.load([clientNode, globalsNode, catchNode], testFlow, function() {
+      const globals = helper.getNode("n2");
       const helperNode = helper.getNode("n3");
       helperNode.on("input", function(msg) {
         try {
@@ -132,7 +127,7 @@ describe("Upload File Node", function() {
           done(err);
         }
       });
-      upload.receive({ payload: { layout: "none" } });
+      globals.receive({ payload: { data: { parent: "Han Solo" } } });
     });
   });
 });

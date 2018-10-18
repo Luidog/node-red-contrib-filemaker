@@ -1,4 +1,4 @@
-/* global describe beforeEach afterEach it */
+/* global describe before beforeEach afterEach it */
 const { expect } = require("chai");
 const helper = require("node-red-node-test-helper");
 const environment = require("dotenv");
