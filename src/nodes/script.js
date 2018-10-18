@@ -11,7 +11,7 @@ module.exports = function(RED) {
         msg.parameters,
         msg.payload
       ]);
-      let connection = await this.connection.client
+      let connection = await this.connection.client;
       connection
         .script(layout, script, param)
         .then(response => node.send(merge(msg, response)))
