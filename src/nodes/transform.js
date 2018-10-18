@@ -15,8 +15,8 @@ module.exports = function(RED) {
         merge(
           msg,
           Object.assign(
+            msg.payload,
             { data: transform(msg.payload.data, parse(parameters)) },
-            msg.payload
           )
         )
       );
