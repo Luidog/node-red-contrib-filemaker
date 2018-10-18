@@ -1,12 +1,15 @@
-# node-red-contrib-filemaker
 
-[![npm version](https://img.shields.io/npm/v/node-red-contrib-filemaker.svg)](https://www.npmjs.com/package/node-red-contrib-filemaker) [![Build Status](https://img.shields.io/travis/Luidog/node-red-contrib-filemaker/master.svg)](https://travis-ci.org/Luidog/node-red-contrib-filemaker) [![Coverage Status](https://img.shields.io/coveralls/Luidog/node-red-contrib-filemaker/master.svg)](https://coveralls.io/r/Luidog/node-red-contrib-filemaker?branch=master)
+# node-red-contrib-filemaker
 
 A node-red FileMaker module. It is uses [fms-api-client](https://github.com/Luidog/fms-api-client) to connect to the FileMaker Data API. These node expose fms-api-client's client methods and data transformation utility methods. Each node depend upon a configurable FileMaker Data API [client](https://github.com/Luidog/fms-api-client#client-creation). 
 
 Nodes are configured with required default parameters that will be used in the event that required property parameters are not found in msg.payload or msg.parameters. Data intended for a FileMaker record should be the in msg.payload.data property.
 
 [FMS API Client Documentation](https://luidog.github.io/fms-api-client/)
+
+## Project Information
+
+[![npm version](https://img.shields.io/npm/v/node-red-contrib-filemaker.svg)](https://www.npmjs.com/package/node-red-contrib-filemaker) [![Build Status](https://img.shields.io/travis/Luidog/node-red-contrib-filemaker/master.svg)](https://travis-ci.org/Luidog/node-red-contrib-filemaker) [![Coverage Status](https://img.shields.io/coveralls/Luidog/node-red-contrib-filemaker/master.svg)](https://coveralls.io/r/Luidog/node-red-contrib-filemaker?branch=master)
 
 ## License
 
@@ -19,7 +22,7 @@ npm install --save node-red-contrib-filemaker
 ```
 
 ```default
-> node-red-contrib-filemaker@0.4.0 test /Users/luidelaparra/Documents/Development/node-red-contrib-filemaker
+> node-red-contrib-filemaker@0.4.3 test /Users/luidelaparra/Documents/Development/node-red-contrib-filemaker
 > nyc _mocha --recursive  "test/**/*_spec.js" --timeout=30000 --exit
 
 
@@ -28,18 +31,19 @@ npm install --save node-red-contrib-filemaker
     ✓ should be loaded
 
   Create Record Node
-    ✓ should create a record (499ms)
-    ✓ should throw an error with a message and a code (219ms)
+    ✓ should be loaded
+    ✓ should create a record (461ms)
+    ✓ should throw an error with a message and a code (174ms)
 
   Delete Record Node
     ✓ should be loaded
-    ✓ should delete a record (257ms)
-    ✓ should throw an error with a message and a code (175ms)
+    ✓ should delete a record (270ms)
+    ✓ should throw an error with a message and a code (192ms)
 
   Edit Record Node
     ✓ should be loaded
-    ✓ should edit a record (185ms)
-    ✓ should throw an error with a message and a code (178ms)
+    ✓ should edit a record (182ms)
+    ✓ should throw an error with a message and a code (180ms)
 
   FieldData Utility Node
     ✓ should be loaded
@@ -49,14 +53,23 @@ npm install --save node-red-contrib-filemaker
 
   Find Records Node
     ✓ should be loaded
-    ✓ should perform a find (281ms)
-    ✓ should throw an error with a message and a code (181ms)
+    ✓ should perform a find (269ms)
+    ✓ should throw an error with a message and a code (182ms)
 
   Get Record Node
     ✓ should be loaded
+    ✓ should set globals (183ms)
+    ✓ should throw an error with a message and a code (184ms)
+
+  Set Globals Node
+    ✓ should be loaded
+    ✓ should set globals (171ms)
+    ✓ should throw an error with a message and a code (184ms)
 
   List Records Node
     ✓ should be loaded
+    ✓ should List records (315ms)
+    ✓ should throw an error with a message and a code (184ms)
 
   Record Id Utility Node
     ✓ should be loaded
@@ -65,8 +78,10 @@ npm install --save node-red-contrib-filemaker
     ✓ should extract many record ids from a data array
     ✓ should preserve the contents of other payload properties
 
-  Perform Script Node
+  Trigger Script Node
     ✓ should be loaded
+    ✓ should trigger a script (189ms)
+    ✓ should throw an error with a message and a code (180ms)
 
   Utility Services
     merge utility
@@ -98,35 +113,37 @@ npm install --save node-red-contrib-filemaker
     ✓ should transform a single data object
     ✓ should preserve the contents of other payload properties
 
-  Perform Script Node
+  Upload File Node
     ✓ should be loaded
+    ✓ should upload to a record (1375ms)
+    ✓ should throw an error with a message and a code
 
 
-  47 passing (2s)
+  59 passing (5s)
 
 ---------------|----------|----------|----------|----------|-------------------|
 File           |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
 ---------------|----------|----------|----------|----------|-------------------|
-All files      |    73.01 |      100 |     74.6 |     72.5 |                   |
+All files      |      100 |      100 |      100 |      100 |                   |
  client        |      100 |      100 |      100 |      100 |                   |
   client.js    |      100 |      100 |      100 |      100 |                   |
- nodes         |    65.89 |      100 |    67.35 |    65.89 |                   |
+ nodes         |      100 |      100 |      100 |      100 |                   |
   create.js    |      100 |      100 |      100 |      100 |                   |
   delete.js    |      100 |      100 |      100 |      100 |                   |
   edit.js      |      100 |      100 |      100 |      100 |                   |
   fieldData.js |      100 |      100 |      100 |      100 |                   |
   find.js      |      100 |      100 |      100 |      100 |                   |
-  get.js       |    15.38 |      100 |       20 |    15.38 |... 14,19,20,22,23 |
-  list.js      |    15.38 |      100 |       20 |    15.38 |... 14,27,28,31,33 |
+  get.js       |      100 |      100 |      100 |      100 |                   |
+  globals.js   |      100 |      100 |      100 |      100 |                   |
+  list.js      |      100 |      100 |      100 |      100 |                   |
   recordId.js  |      100 |      100 |      100 |      100 |                   |
-  script.js    |    15.38 |      100 |       20 |    15.38 |... ,9,14,15,17,18 |
+  script.js    |      100 |      100 |      100 |      100 |                   |
   transform.js |      100 |      100 |      100 |      100 |                   |
-  upload.js    |    15.38 |      100 |       20 |    15.38 |... ,9,14,15,17,18 |
+  upload.js    |      100 |      100 |      100 |      100 |                   |
  services      |      100 |      100 |      100 |      100 |                   |
   index.js     |      100 |      100 |      100 |      100 |                   |
 ---------------|----------|----------|----------|----------|-------------------|
 ```
-
 ## <a name="dependencies">Dependencies</a>
 
 - [fms-api-client](https://github.com/Luidog/fms-api-client): A FileMaker Data API client designed to allow easier interaction with a FileMaker application from a web environment.
