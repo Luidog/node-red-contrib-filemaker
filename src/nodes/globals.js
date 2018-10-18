@@ -6,7 +6,7 @@ module.exports = function(RED) {
     const { client, ...configuration } = config;
     node.connection = RED.nodes.getNode(client);
     node.on("input", async msg => {
-      const data = configuration.globals || msg.payload;
+      const data = configuration.globals || msg.payload.data;
       let connection = await this.connection.client;
       connection
         .globals(data)
