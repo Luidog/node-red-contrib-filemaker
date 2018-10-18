@@ -89,7 +89,7 @@ describe("Record Id Utility Node", function() {
             .and.property("payload")
             .to.be.a("object")
             .and.property("data")
-            .to.be.a("object");
+            .to.be.a("string");
           done();
         } catch (err) {
           done(err);
@@ -194,7 +194,7 @@ describe("Record Id Utility Node", function() {
             .and.property("payload")
             .to.be.a("object")
             .and.property("data")
-            .to.be.a("object");
+            .to.be.a("string");
           done();
         } catch (err) {
           done(err);
