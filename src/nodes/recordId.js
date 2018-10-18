@@ -8,7 +8,7 @@ module.exports = function(RED) {
       node.send(
         merge(
           msg,
-          Object.assign(msg.payload{ data: recordId(msg.payload.data) })
+          Object.assign(msg.payload, { data: recordId(msg.payload.data) })
         )
       )
     );
