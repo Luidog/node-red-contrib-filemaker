@@ -11,7 +11,7 @@ module.exports = function(RED) {
     const { client, ...configuration } = config;
     node.connection = RED.nodes.getNode(client);
     node.on("input", async msg => {
-      const { layout, data, query, ...parameters } = compact([
+      const { layout, query, ...parameters } = compact([
         sanitizeParameters(configuration, [
           "layout",
           "limit",
