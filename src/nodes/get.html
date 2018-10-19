@@ -23,3 +23,59 @@
         <input type="text" id="node-input-layout">
     </div>
 </script>
+<script type="text/x-red" data-help-name="get-record">
+<p>This node gets FileMaker record details. It uses the recordId found in
+<code>msg.payload.recordId</code>.
+
+This node will use the default layout set in its configuration or 
+a layout specified in <code>msg.parameters</code> or <code>msg.payload</code>.
+
+<h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">Object</span>
+            <dd><b>recordId</b> <mark>required</mark> - <i>Number | String</i><br>The record Id to target.</dd>
+            <dd><b>layout</b> - <i>String</i><br>The layout to use for the find. Defaults to node configuration.</dd>
+            <dd><b>portals</b> - <i>Array</i><br>An arry of portals to return with the query</dd>
+            <dd><b>scripts</b> - <i>Array</i><br>The FileMaker scripts to run when performing the find.</dd>
+        </dt>
+        <dt class="optional">parameters <span class="property-type">Object</span>
+            <dd><b>layout</b> - <i>String</i><br>The layout to use for the find. Defaults to node configuration.</dd>
+            <dd><b>portals</b> - <i>Array</i><br>An arry of portals to return with the query</dd>
+            <dd><b>scripts</b> - <i>Array</i><br>The FileMaker scripts to run when performing the find</dd>
+        </dt>
+    </dl>
+
+ <h3>Outputs</h3>
+     <ol class="node-ports">
+         <li>Standard Output
+             <dl class="message-properties">
+                <dt>payload<span class="property-type">Object</span>
+                    <dd><b>data</b> - <i>Array</i><br>The found record set.</dd>
+                </dt>
+             </dl>
+         </li>
+         <li>Standard Error
+            <dl class="message-properties">
+                 <dt>message <span class="property-type">Object</span></dt>
+                    <dd><b>message</b> - <i>String</i><br>The FileMaker or client error message.</dd>
+                    <dd><b>code</b> - <i>String</i><br>The applicible FileMaker error code.</dd>
+             </dl>
+         </li>
+     </ol>
+
+<h3>Details</h3>
+    <p>This node will use the recordId found in <code>msg.payload.recordId</code> to target a record. This
+    node uses the layout found in either <code>msg.payload.layout</code>, <code>msg.parameters.layout</code>, or this node's
+    configuration.<br/>The order of assignment for parameters are node configuration properties, message parameters,
+    message payload parameter properties.</p>
+
+<h3>References</h3>
+    <ul>
+        <li><a href="https://github.com/Luidog/fms-api-client#get-record-details">Get Method</a> - base client documentation</li>
+        <li><a href="https://github.com/Luidog/fms-api-client#script-array-syntax">Scripts Array</a> - scripts array documentation</li>
+        <li><a href="https://github.com/Luidog/fms-api-client#portal-array-syntax">Portals Array</a> - portals array documentation</li>
+        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node-Red FileMaker</a> - the node's github repository</li>
+        <li><a href="https://github.com/Luidog/fms-api-client">FMS API Client</a> - fms-api-client github repository</li>
+    </ul>
+</script>

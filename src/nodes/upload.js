@@ -6,14 +6,14 @@ module.exports = function(RED) {
     const { client, ...configuration } = config;
     node.connection = RED.nodes.getNode(client);
     node.on("input", async msg => {
-      const { layout, field, file, recordId, repetition } = compact([
+      const { layout, field, file, recordId, parameters } = compact([
         sanitizeParameters(configuration, ["file", "layout", "field"]),
         msg.parameters,
         msg.payload
       ]);
       let connection = await this.connection.client;
       connection
-        .upload(file, layout, field, recordId, repetition)
+        .upload(file, layout, field, recordId, parameters)
         .then(response => node.send(merge(msg, response)))
         .catch(error => node.error(error.message, msg));
     });

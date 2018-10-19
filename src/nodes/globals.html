@@ -23,3 +23,50 @@
         <input type="text" id="node-input-globals">
     </div>
 </script>
+<script type="text/x-red" data-help-name="set-globals">
+<p>This node sets globals for the current FileMaker session. It uses the data found in
+<code>msg.payload.data</code>.
+
+This node will use the default layout set in its configuration or 
+a layout specified in <code>msg.parameters</code> or <code>msg.payload</code>.
+
+<h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">Object</span>
+            <dd><b>data</b> <mark>required</mark> - <i>Object</i><br>The data to set the global.</dd>
+            <dd><b>parameters</b> - <i>Object</i><br>The FileMaker scripts to run when performing the find.</dd>
+        </dt>
+        <dt class="optional">parameters <span class="property-type">Object</span>
+            <dd><b>timeout</b> - <i>Number</i><br>A custom timeout for the request.</dd>
+        </dt>
+    </dl>
+
+ <h3>Outputs</h3>
+     <ol class="node-ports">
+         <li>Standard Output
+             <dl class="message-properties">
+                <dt>payload<span class="property-type">Object</span>
+                    <dd><b>data</b> - <i>Object</i><br>An empty object.</dd>
+                </dt>
+             </dl>
+         </li>
+         <li>Standard Error
+            <dl class="message-properties">
+                 <dt>message <span class="property-type">Object</span></dt>
+                    <dd><b>message</b> - <i>String</i><br>The FileMaker or client error message.</dd>
+                    <dd><b>code</b> - <i>String</i><br>The applicible FileMaker error code.</dd>
+             </dl>
+         </li>
+     </ol>
+
+<h3>Details</h3>
+    <p>This node will use the data found in <code>msg.payload.data</code> to set global data for the current FileMaker session.
+
+<h3>References</h3>
+    <ul>
+        <li><a href="https://github.com/Luidog/fms-api-client#set-session-globals">Set Globals Method</a> - base client documentation</li>
+        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node-Red FileMaker</a> - the node's github repository</li>
+        <li><a href="https://github.com/Luidog/fms-api-client">FMS API Client</a> - fms-api-client github repository</li>
+    </ul>
+</script>

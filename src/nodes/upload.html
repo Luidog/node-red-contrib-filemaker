@@ -33,3 +33,55 @@
         <input type="text" id="node-input-field">
     </div>
 </script>
+<script type="text/x-red" data-help-name="upload-file">
+<p>This node uploads binary data to a FileMaker container. This node expects
+<code>msg.payload.file</code> to be either a path to a file or buffer data.
+
+<h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">Object</span>
+            <dd><b>file</b> <mark>required</mark> - <i>Buffer | String</i><br>Buffer data or path to file.</dd>
+            <dd><b>layout</b> - <i>String</i><br>The layout to use for the find. Defaults to node configuration.</dd>
+            <dd><b>field</b> - <i>String</i><br>The layout to use for the find. Defaults to node configuration.</dd>
+            <dd><b>field</b> - <i>Number</i><br>The layout to use for the find. Defaults to node configuration.</dd>
+            <dd><b>parameters</b> - <i>Object</i><br> see optional parameter object</dd>
+        </dt>
+        <dt class="optional">parameters <span class="property-type">Object</span>
+            <dd><b>fieldRepetition</b> - <i>Number </i><br>Container field repetition to upload the data.</dd>
+            <dd><b>timeout</b> - <i>Number</i><br>Timeout for the request</dd>
+        </dt>
+    </dl>
+
+ <h3>Outputs</h3>
+     <ol class="node-ports">
+         <li>Standard output
+             <dl class="message-properties">
+                <dt>payload<span class="property-type">object</span>
+                <dt><b>modId</b> - <i>String</i><br>The modification id.</dt>
+                <dt><b>recordId</b> - <i>String</i><br>The record id.</dt>
+                </dt>
+             </dl>
+         </li>
+         <li>Standard error
+             <dl class="message-properties">
+                 <dt>message <span class="property-type">Object</span></dt>
+                    <dd><b>message</b> - <i>String</i><br>The FileMaker or client error message.</dd>
+                    <dd><b>code</b> - <i>String</i><br>The applicible FileMaker error code.</dd>
+             </dl>
+         </li>
+     </ol>
+
+<h3>Details</h3>
+    <p>This node uploads binary data to a Filemaker container. It expects a <code>msg.payload.file</code> to be either a path to a file or buffer data.This node uses the layout found in either <code>msg.payload.layout</code>,
+    <code>msg.parameters.layout</code>, or this node's
+    configuration is used to upload the data.<br/>The order of assignment for parameters are node configuration properties, message parameters,
+    message payload parameter properties.</p>
+
+<h3>References</h3>
+    <ul>
+        <li><a href="https://github.com/Luidog/fms-api-client#upload-files">Upload Method</a> - Base client documentation</li>
+        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">node-red-contrib-filemaker</a> - the node's github repository</li>
+        <li><a href="https://github.com/Luidog/fms-api-client">FMS API Client</a> - fms-api-client github repository</li>
+    </ul>
+</script>

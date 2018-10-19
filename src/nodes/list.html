@@ -50,31 +50,29 @@
 </script>
 
 <script type="text/x-red" data-help-name="list-records">
-<p>Lists Filemaker Records From the configured client.</p>
+<p>Lists FileMaker records for the specified layout.</p>
 
 <h3>Inputs</h3>
     <dl class="message-properties">
         <dt>payload
-            <span class="property-type">any</span>
+            <span class="property-type">Object</span>
             <dd> This node does not use the payload property.</dd>
         </dt>
-        <dd> The parameters to use when </dd>
-        <dt class="optional">topic <span class="property-type">string</span></dt>
-        <dd> the MQTT topic to publish to.</dd>
     </dl>
 
  <h3>Outputs</h3>
      <ol class="node-ports">
          <li>Standard output
              <dl class="message-properties">
-                 <dt>payload <span class="property-type">object</span></dt>
+                 <dt>payload <span class="property-type">Object</span></dt>
                  <dd>Contains the FileMaker Data API Response.</dd>
              </dl>
          </li>
          <li>Standard error
              <dl class="message-properties">
-                 <dt>error <span class="property-type">object</span></dt>
-                 <dd>the standard error of the command.</dd>
+                 <dt>message <span class="property-type">Object</span></dt>
+                    <dd><b>message</b> - <i>String</i><br>The FileMaker or client error message.</dd>
+                    <dd><b>code</b> - <i>String</i><br>The applicible FileMaker error code.</dd>
              </dl>
          </li>
      </ol>
