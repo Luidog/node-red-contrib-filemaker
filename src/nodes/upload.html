@@ -35,13 +35,13 @@
 </script>
 <script type="text/x-red" data-help-name="upload-file">
 <p>This node uploads binary data to a FileMaker container. This node expects
-<code>msg.payload.file</code> to be either a path to a file or buffer data.
+<code>msg.payload.file</code> to be either a path to a file or an object with a buffer and name property.
 
 <h3>Inputs</h3>
     <dl class="message-properties">
         <dt>payload
             <span class="property-type">Object</span>
-            <dd><b>file</b> <mark>required</mark> - <i>Buffer | String</i><br>Buffer data or path to file.</dd>
+            <dd><b>file</b> <mark>required</mark> - <i>Object | String</i><br>Object with name and buffer properties or string path to file.</dd>
             <dd><b>layout</b> - <i>String</i><br>The layout to use for the find. Defaults to node configuration.</dd>
             <dd><b>field</b> - <i>String</i><br>The layout to use for the find. Defaults to node configuration.</dd>
             <dd><b>field</b> - <i>Number</i><br>The layout to use for the find. Defaults to node configuration.</dd>
@@ -73,7 +73,7 @@
      </ol>
 
 <h3>Details</h3>
-    <p>This node uploads binary data to a Filemaker container. It expects a <code>msg.payload.file</code> to be either a path to a file or buffer data.This node uses the layout found in either <code>msg.payload.layout</code>,
+    <p>This node uploads binary data to a Filemaker container. It expects a <code>msg.payload.file</code> to be either a path to a file or any object with a buffer and name property.This node uses the layout found in either <code>msg.payload.layout</code>,
     <code>msg.parameters.layout</code>, or this node's
     configuration is used to upload the data.<br/>The order of assignment for parameters are node configuration properties, message parameters,
     message payload parameter properties.</p>
