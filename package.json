@@ -48,7 +48,7 @@
   },
   "homepage": "https://github.com/Luidog/node-red-contrib-filemaker#readme",
   "dependencies": {
-    "fms-api-client": "^1.6.2",
+    "fms-api-client": "^1.7.0",
     "lodash": "^4.17.11",
     "marpat": "^1.18.2"
   },
