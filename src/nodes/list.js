@@ -3,7 +3,6 @@ module.exports = function(RED) {
     const {
       compact,
       merge,
-      parse,
       sanitizeParameters
     } = require("../services");
     RED.nodes.createNode(this, config);
@@ -26,7 +25,7 @@ module.exports = function(RED) {
       ]);
       let connection = await this.connection.client;
       connection
-        .list(layout, parse(parameters))
+        .list(layout, parameters)
         .then(response =>
           node.send(merge(msg, Object.assign(msg.payload, response)))
         )
