@@ -36,12 +36,10 @@
 </script>
 <script type="text/x-red" data-help-name="create-record">
 <p>This node creates a record in FileMaker. It uses the data found in
-<code>msg.payload.data</code> to set fields.</p>
+<code>msg.payload.data</code> to set FileMaker fields.</p>
 
 This node will use the default layout set in its configuration or 
-a layout specified in <code>msg.payload</code> or <code>msg.parameters</code> 
-This node can be optionally configured to merge the data found in <code>msg.payload.data</code>
-with its output.
+a layout specified in <code>msg.payload</code> or <code>msg.parameters</code>. This node can be optionally configured to merge the data found in <code>msg.payload.data</code> with its output.
 
 <h3>Inputs</h3>
     <dl class="message-properties">
@@ -79,8 +77,7 @@ with its output.
 <h3>Details</h3>
     <p>This node will use the data found in <code>msg.payload.data</code> to create a FileMaker record. It will use
     the layout found in either <code>msg.payload.layout</code>, <code>msg.parameters.layout</code>, or this node's
-    configuration.<br/>The order of assignment for parameters are node configuration properties, message parameters,
-    message payload parameter properties.</p>
+    configuration.<br/>This node will automatically shift the properties found in data to a <code>fieldData</code> property if a <code>fieldData</code> property is not found. This node will also set related records via a portal if a <code>portalData</code> property is found.<br/>The order of assignment for parameters are node configuration properties, message parameters, message payload parameter properties.</p>
 
 <h3>References</h3>
     <ul>
