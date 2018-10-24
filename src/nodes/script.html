@@ -34,26 +34,23 @@
     </div>
 </script>
 <script type="text/x-red" data-help-name="trigger-script">
-<p>This node triggers a filemakers It uses the property
-<code>msg.payload.script</code>to trigger a script. This node also accepts <code>msg.payload.param</code> to set a script parameter.
+    <p>This node triggers a FileMaker script It uses the property
+    <code>msg.payload.script</code> for the name of the script to trigger. This node also accepts a script parameter. The script
+    patameter should be in <code>msg.payload.param</code>. This node will use the default layout set in its configuration or a layout specified in <code>msg.parameters</code> or <code>msg.payload</code> as context when triggering the script.</p>
 
-This node will use the default layout set in its configuration or 
-a layout specified in <code>msg.parameters</code> or <code>msg.payload</code>.
-
-<h3>Inputs</h3>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">Object</span>
-            <dd><b>script</b> <mark>required</mark> - <i>String</i><br>The name of the script to trigger</dd>
-            <dd><b>layout</b> - <i>String</i><br>The layout to use script. Defaults to node configuration.</dd>
-            <dd><b>param</b> - <i>Any</i><br>Script Parameters. Can be anything</dd>
-            <dd><b>parameter</b> - <i>Object</i><br>Optional parameters.</dd>
-        </dt>
-        <dt class="optional">parameters <span class="property-type">Object</span>
-            <dd><b>timeout</b> - <i>Number</i><br>A custom timeout for the request</dd>
-        </dt>
-    </dl>
-
+    <h3>Inputs</h3>
+        <dl class="message-properties">
+            <dt>payload
+                <span class="property-type">Object</span>
+                <dd><b>script</b> <mark>required</mark> - <i>String</i><br>The name of the script to trigger</dd>
+                <dd><b>layout</b> - <i>String</i><br>The layout to use script. Defaults to node configuration.</dd>
+                <dd><b>param</b> - <i>Any</i><br>Script Parameters. Can be anything</dd>
+                <dd><b>parameter</b> - <i>Object</i><br>Optional parameters.</dd>
+            </dt>
+            <dt class="optional">parameters <span class="property-type">Object</span>
+                <dd><b>timeout</b> - <i>Number</i><br>A custom timeout for the request</dd>
+            </dt>
+        </dl>
  <h3>Outputs</h3>
      <ol class="node-ports">
          <li>Standard Output
@@ -74,9 +71,7 @@ a layout specified in <code>msg.parameters</code> or <code>msg.payload</code>.
 
 <h3>Details</h3>
     <p>This node will use the script found in <code>msg.payload.script</code> to target a script. This
-    node uses the layout found in either <code>msg.payload.layout</code>, <code>msg.parameters.layout</code>, or this node's
-    configuration. This node will also use a property found in <code>msg.parameters.param</code> as a script parameter.<br/>The order of assignment for parameters are node configuration properties, message parameters,
-    message payload parameter properties.</p>
+    node uses the layout found in either <code>msg.payload.layout</code>, <code>msg.parameters.layout</code>, or this node's configuration. This node will also use a property found in <code>msg.parameters.param</code> as a script parameter.<br/>The order of assignment for parameters are node configuration properties, message parameters, message payload parameter properties.</p>
 
 <h3>References</h3>
     <ul>

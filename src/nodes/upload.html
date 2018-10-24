@@ -34,8 +34,7 @@
     </div>
 </script>
 <script type="text/x-red" data-help-name="upload-file">
-<p>This node uploads binary data to a FileMaker container. This node expects
-<code>msg.payload.file</code> to be either a path to a file or an object with a buffer and name property.
+<p>This node uploads binary data to a FileMaker container. This node expects <code>msg.payload.file</code> to be either a path to a file or an object with a buffer and name property.
 
 <h3>Inputs</h3>
     <dl class="message-properties">
@@ -53,10 +52,10 @@
         </dt>
     </dl>
 
- <h3>Outputs</h3>
-     <ol class="node-ports">
-         <li>Standard output
-             <dl class="message-properties">
+    <h3>Outputs</h3>
+        <ol class="node-ports">
+            <li>Standard output
+                <dl class="message-properties">
                 <dt>payload<span class="property-type">object</span>
                 <dt><b>modId</b> - <i>String</i><br>The modification id.</dt>
                 <dt><b>recordId</b> - <i>String</i><br>The record id.</dt>
@@ -78,10 +77,10 @@
     configuration is used to upload the data.<br/>The order of assignment for parameters are node configuration properties, message parameters,
     message payload parameter properties.</p>
 
-<h3>References</h3>
-    <ul>
-        <li><a href="https://github.com/Luidog/fms-api-client#upload-files">Upload Method</a> - Base client documentation</li>
-        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">node-red-contrib-filemaker</a> - the node's github repository</li>
-        <li><a href="https://github.com/Luidog/fms-api-client">FMS API Client</a> - fms-api-client github repository</li>
+    <h3>References</h3>
+        <ul>
+            <li><a href="https://github.com/Luidog/fms-api-client#upload-files">Upload Method</a> - Base client documentation</li>
+            <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">node-red-contrib-filemaker</a> - the node's github repository</li>
+            <li><a href="https://github.com/Luidog/fms-api-client">FMS API Client</a> - fms-api-client github repository</li>
     </ul>
 </script>

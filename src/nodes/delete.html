@@ -29,11 +29,7 @@
     </div>
 </script>
 <script type="text/x-red" data-help-name="delete-record">
-<p>This node deletes a specific record in FileMaker. It uses the recordId it finds in
-<code>msg.payload.recordId</code> to specify the record to delete.</p>
-
-This node will use the default layout set in its configuration or 
-a layout specified in <code>msg.parameters</code> or <code>msg.payload</code> 
+    <p>This node deletes a specific record in FileMaker. It uses the recordId it finds in <code>msg.payload.recordId</code> to target the record to delete. This node will use the default layout set in its configuration or a layout specified in <code>msg.parameters</code> or <code>msg.payload</code> 
 
 <h3>Inputs</h3>
     <dl class="message-properties">
@@ -68,10 +64,8 @@ a layout specified in <code>msg.parameters</code> or <code>msg.payload</code>
      </ol>
 
 <h3>Details</h3>
-    <p>This node will use the recordId found in <code>msg.payload.recordid</code> to delete a FileMaker record. This
-    node will use the layout found in either <code>msg.payload.layout</code>, <code>msg.parameters.layout</code>, or this node's
-    configuration to delete the record.<br/>The order of assignment for parameters are node configuration properties, message parameters,
-    message payload parameter properties.</p>
+    <p>This node will use the recordId found in <code>msg.payload.recordId</code> to delete a FileMaker record. This
+    node will use the layout found in either <code>msg.payload.layout</code>, <code>msg.parameters.layout</code>, or this node's configuration to delete the record.<br/>The order of assignment for parameters are node configuration properties, message parameters, message payload parameter properties.</p>
 
 
 <h3>References</h3>

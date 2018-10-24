@@ -34,12 +34,7 @@
     </div>
 </script>
 <script type="text/x-red" data-help-name="edit-record">
-<p>This node edits a specific record in FileMaker. It uses the recordId it finds in
-<code>msg.payload.recordId</code> to specify the record to edit. It uses the data found
-in <code>msg.payload.data</code> to update the record.</p>
-
-This node will use the default layout set in its configuration or 
-a layout specified in <code>msg.parameters</code> or <code>msg.payload</code> .
+<p>This node edits a specific record in FileMaker. It uses the recordId it finds in <code>msg.payload.recordId</code> to specify the record to edit. It uses the data found in <code>msg.payload.data</code> to edit the record.<br/>This node will use the default layout set in its configuration or a layout specified in <code>msg.parameters</code> or <code>msg.payload</code>.
 
 <h3>Inputs</h3>
     <dl class="message-properties">
@@ -75,9 +70,8 @@ a layout specified in <code>msg.parameters</code> or <code>msg.payload</code> .
      </ol>
 
 <h3>Details</h3>
-    <p>This node will use the recordId found in <code>msg.payload.recordid</code> to edit a FileMaker record. This
-    node uses the layout found in either <code>msg.payload.layout</code>, <code>msg.parameters.layout</code>, or this node's
-    configuration is used to edit the record.<br/>The order of assignment for parameters are node configuration properties, message parameters,
+    <p>This node will use the recordId found in <code>msg.payload.recordId</code> to target a FileMaker record. This
+    node uses the layout found in either <code>msg.payload.layout</code>, <code>msg.parameters.layout</code>, or this node's configuration as the context for editing the record. This node uses the data found in <code>msg.payload.data</code>to edit the FileMaker record. If a <code> fieldData</code> property is not found in <code>msg.payload.data</code> then one is created and all properties except <code>portalData</code> will be shifted to the <code>fieldData</code> property.<br/>The order of assignment for parameters are node configuration properties, message parameters,
     message payload parameter properties.</p>
 
 <h3>References</h3>

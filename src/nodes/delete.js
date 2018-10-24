@@ -1,10 +1,6 @@
 module.exports = function(RED) {
   function deleteRecords(config) {
-    const {
-      compact,
-      merge,
-      sanitizeParameters
-    } = require("../services");
+    const { compact, merge, sanitizeParameters } = require("../services");
     RED.nodes.createNode(this, config);
     const node = this;
     const { client, ...configuration } = config;
