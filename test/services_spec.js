@@ -14,22 +14,6 @@ describe("Utility Services", function() {
     });
   });
 
-  describe("parse utility", () => {
-    it("should parse stringified json", () => {
-      return expect(parse(JSON.stringify({ name: "Han Solo" }))).to.be.a(
-        "object"
-      );
-    });
-    it("should parse an object's property", () => {
-      return expect(
-        parse({ hero: JSON.stringify({ name: "Han Solo" }) })
-      ).to.be.a("object");
-    });
-    it("should not parse an an object's property if it is a string", () => {
-      return expect(parse({ hero: "Han Solo" })).to.be.a("object");
-    });
-  });
-
   describe("compact utility", function() {
     it("should accept an array of objects", function() {
       return expect(compact([{}, {}])).to.be.a("object");
