@@ -71,7 +71,7 @@ describe("Edit Record Node", function() {
           done(err);
         }
       });
-      testNode.receive({ payload: { recordId: 66896 } });
+      testNode.receive({ payload: { recordId: 67408 } });
     });
   });
 

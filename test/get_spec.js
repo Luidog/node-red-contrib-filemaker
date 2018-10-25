@@ -32,7 +32,7 @@ describe("Get Record Node", function() {
     });
   });
 
-  it("should set globals", function(done) {
+  it("should get a specific record", function(done) {
     var testFlows = [
       {
         id: "3783b2da.4346a6",
@@ -69,7 +69,7 @@ describe("Get Record Node", function() {
         }
       });
       get.receive({
-        payload: { recordId: 66896 }
+        payload: { recordId: 67408 }
       });
     });
   });

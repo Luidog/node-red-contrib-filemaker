@@ -142,7 +142,7 @@ describe("Transform Utility Node", function() {
         try {
           expect(msg)
             .to.be.an("object")
-            .with.any.keys("payload","test")
+            .with.any.keys("payload", "test")
             .and.property("payload")
             .to.be.a("object")
             .and.property("data")
@@ -172,5 +172,4 @@ describe("Transform Utility Node", function() {
       });
     });
   });
-
 });

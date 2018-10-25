@@ -49,7 +49,7 @@ describe("Upload File Node", function() {
         id: "n1",
         type: "upload-file",
         client: "3783b2da.4346a6",
-        layout: "Devices",
+        layout: "Images",
         scripts: "",
         merge: true,
         wires: [["n2"]]
@@ -72,7 +72,7 @@ describe("Upload File Node", function() {
       upload.receive({
         payload: {
           file: path.join(__dirname, "./assets/placeholder.json"),
-          layout: "test",
+          layout: "Images",
           field: "container"
         }
       });

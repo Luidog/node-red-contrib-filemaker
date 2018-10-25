@@ -69,7 +69,7 @@ describe("Set Globals Node", function() {
         }
       });
       globals.receive({
-        payload: { data: { "Globals::Field": "Millenium Falcon" } }
+        payload: { data: { "Globals::data": "Millenium Falcon" } }
       });
     });
   });
