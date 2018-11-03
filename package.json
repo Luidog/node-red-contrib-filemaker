@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-filemaker",
-  "version": "0.5.3",
+  "version": "0.6.0",
   "description": "A Node-Red FileMaker module. This module uses the Data API to connect with a FileMaker server.",
   "scripts": {
     "dev": "pm2 start ecosystem.dev.config.js",
