@@ -1,11 +1,15 @@
-module.exports = function(RED) {
+const { Filemaker } = require("fms-api-client");
+const { connect } = require("marpat");
+
+connect("nedb://memory");
+
+function configurationNode(RED) {
   function Client(n) {
-    const { connect } = require("marpat");
-    const { Filemaker } = require("fms-api-client");
+    let client = Filemaker.create(n);
+    this.client = client.save();
     RED.nodes.createNode(this, n);
-    this.client = connect("nedb://memory")
-      .then(db => Filemaker.create(n))
-      .then(client => client.save());
   }
   RED.nodes.registerType("filemaker-api-client", Client);
-};
+}
+
+module.exports = configurationNode;
