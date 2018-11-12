@@ -6,6 +6,13 @@
             layout: {value: null, required: true},
             scripts: {value: null, required: false}
         },
+        oneditprepare:function() {
+            this.editor = RED.editor.createEditor({
+                id: 'node-input-scripts',
+                mode: 'ace/mode/javascript',
+                value: $("#node-input-scripts").val()
+            });
+        },
         inputs:1,
         outputs:1,
         icon: 'delete.png',
@@ -23,9 +30,9 @@
         <label for="node-input-layout">Default Layout</label>
         <input type="text" id="node-input-layout">
     </div>
-    <div class="form-row">
+    <div class="form-row node-text-editor-row">
         <label for="node-input-scripts">Scripts</label>
-        <input type="text" id="node-input-scripts">
+        <div  style="height: 100px; min-height: 100px;" class="node-text-editor" type="text" id="node-input-scripts"></div>
     </div>
 </script>
 <script type="text/x-red" data-help-name="delete-record">

@@ -11,6 +11,28 @@
             scripts: { value: null, required: false },
             portals: { value: null, required: false }
         },
+        oneditprepare:function() {
+            this.queryEditor = RED.editor.createEditor({
+                id: 'node-input-sort',
+                mode: 'ace/mode/javascript',
+                value: $("#node-input-sort").val()
+            });  
+            this.queryEditor = RED.editor.createEditor({
+                id: 'node-input-query',
+                mode: 'ace/mode/javascript',
+                value: $("#node-input-query").val()
+            });   
+            this.portalEditor = RED.editor.createEditor({
+                id: 'node-input-portals',
+                mode: 'ace/mode/javascript',
+                value: $("#node-input-portals").val()
+            });    
+            this.scriptEditor = RED.editor.createEditor({
+                id: 'node-input-scripts',
+                mode: 'ace/mode/javascript',
+                value: $("#node-input-scripts").val()
+            });
+        },
         inputs:1,
         outputs:1,
         icon: 'find.png',
@@ -33,24 +55,24 @@
         <input type="number" id="node-input-limit">
     </div>
     <div class="form-row">
-        <label for="node-input-offset">Default offset</label>
+        <label for="node-input-offset">Default Offset</label>
         <input type="number" id="node-input-offset">
     </div>
-    <div class="form-row">
+    <div class="form-row node-text-editor-row">
         <label for="node-input-sort">Default Sort</label>
-        <input type="text" id="node-input-sort">
+        <div  style="height: 100px; min-height: 100px;" class="node-text-editor" type="text" id="node-input-sort"></div>
     </div>
-    <div class="form-row">
-        <label for="node-input-query">Default Query</label>
-        <input type="text" id="node-input-query">
+    <div class="form-row node-text-editor-row">
+        <label for="node-input-scripts">Default Query</label>
+        <div  style="height: 100px; min-height: 100px;" class="node-text-editor" type="text" id="node-input-query"></div>
     </div>
-    <div class="form-row">
-        <label for="node-input-script">Default Scripts</label>
-        <input type="text" id="node-input-script">
+    <div class="form-row node-text-editor-row">
+        <label for="node-input-scripts">Default Scripts</label>
+        <div  style="height: 50px; min-height: 50px;" class="node-text-editor" type="text" id="node-input-scripts"></div>
     </div>
-    <div class="form-row">
-        <label for="node-input-portals">Default Portals</label>
-        <input type="text" id="node-input-portals">
+        <div class="form-row node-text-editor-row">
+        <label for="node-input-scripts">Default Portals</label>
+        <div  style="height: 50px; min-height: 50px;" class="node-text-editor" type="text" id="node-input-portals"></div>
     </div>
 </script>
 <script type="text/x-red" data-help-name="perform-find">
