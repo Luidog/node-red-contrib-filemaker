@@ -5,9 +5,11 @@
             server: {value:"",required:true},
             name: {value:"",required:true},
             application: {value:"",required:true},
-            user:{value:"",required:true},
-            password:{value:"",required:true},
             usage: {value:true,required:false}
+        },
+        credentials: {
+            username: {type:"text"},
+            password: {type:"password"}
         },
         label: function() {
             return this.name || this.application;
@@ -31,9 +33,9 @@
         <input type="text" id="node-config-input-application">
     </div>
     <div>The FileMaker database to connect to.</div>
-        <div class="form-row">
-        <label for="node-config-input-user">Account</label>
-        <input type="text" id="node-config-input-user">
+    <div class="form-row">
+        <label for="node-config-input-username">Account</label>
+        <input type="text" id="node-config-input-username">
     </div>
     <div>The FileMaker database account to use.</div>
         <div class="form-row">
