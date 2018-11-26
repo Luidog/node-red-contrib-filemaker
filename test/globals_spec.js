@@ -35,13 +35,16 @@ describe("Set Globals Node", function() {
   it("should set globals", function(done) {
     var testFlows = [
       {
+        id: "f1",
+        type: "tab",
+        label: "Set Globals Test"
+      },
+      {
         id: "3783b2da.4346a6",
         type: "filemaker-api-client",
         server: process.env.FILEMAKER_SERVER,
         name: "Sweet FM Client",
         application: process.env.FILEMAKER_APPLICATION,
-        user: process.env.FILEMAKER_USERNAME,
-        password: process.env.FILEMAKER_PASSWORD,
         usage: true
       },
       {
@@ -51,27 +54,44 @@ describe("Set Globals Node", function() {
         layout: "People",
         scripts: "",
         merge: true,
-        wires: [["n2"]]
+        wires: [["n3"]]
       },
-      { id: "n2", type: "helper" }
+      {
+        id: "n2",
+        type: "catch",
+        z: "f1",
+        name: "catch",
+        wires: [["n3"]]
+      },
+      { id: "n3", type: "helper" }
     ];
-    helper.load([clientNode, globalsNode], testFlows, function() {
-      const globals = helper.getNode("n1");
-      const helperNode = helper.getNode("n2");
-      helperNode.on("input", function(msg) {
-        try {
-          expect(msg)
-            .to.be.an("object")
-            .with.any.keys("payload");
-          done();
-        } catch (err) {
-          done(err);
+    helper.load(
+      [clientNode, globalsNode, catchNode],
+      testFlows,
+      {
+        "3783b2da.4346a6": {
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
         }
-      });
-      globals.receive({
-        payload: { data: { "Globals::data": "Millenium Falcon" } }
-      });
-    });
+      },
+      function() {
+        const globals = helper.getNode("n1");
+        const helperNode = helper.getNode("n3");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("payload");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        globals.receive({
+          payload: { data: { "Globals::data": "Millenium Falcon" } }
+        });
+      }
+    );
   });
   it("should throw an error with a message and a code", function(done) {
     var testFlow = [
@@ -102,8 +122,6 @@ describe("Set Globals Node", function() {
         server: process.env.FILEMAKER_SERVER,
         name: "Mute Symphony",
         application: process.env.FILEMAKER_APPLICATION,
-        user: process.env.FILEMAKER_USERNAME,
-        password: process.env.FILEMAKER_PASSWORD,
         usage: true
       },
       {
@@ -114,20 +132,30 @@ describe("Set Globals Node", function() {
         wires: [["n3"]]
       }
     ];
-    helper.load([clientNode, globalsNode, catchNode], testFlow, function() {
-      const globals = helper.getNode("n2");
-      const helperNode = helper.getNode("n3");
-      helperNode.on("input", function(msg) {
-        try {
-          expect(msg)
-            .to.be.an("object")
-            .with.any.keys("_msgid", "code", "error", "message");
-          done();
-        } catch (err) {
-          done(err);
+    helper.load(
+      [clientNode, globalsNode, catchNode],
+      testFlow,
+      {
+        "3783b2da.4346a6": {
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
         }
-      });
-      globals.receive({ payload: { data: { parent: "Han Solo" } } });
-    });
+      },
+      function() {
+        const globals = helper.getNode("n2");
+        const helperNode = helper.getNode("n3");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("_msgid", "code", "error", "message");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        globals.receive({ payload: { data: { parent: "Han Solo" } } });
+      }
+    );
   });
 });

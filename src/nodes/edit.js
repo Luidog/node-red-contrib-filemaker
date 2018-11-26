@@ -12,8 +12,8 @@ module.exports = function(RED) {
         msg.payload
       ]);
 
-      let connection = await this.connection.client;
-      connection
+      let client = await this.connection.client;
+      client
         .edit(layout, recordId, data || {}, parameters)
         .then(response => node.send(merge(msg, response)))
         .catch(error => node.error(error.message, msg));

@@ -36,13 +36,16 @@ describe("Delete Record Node", function() {
   it("should delete a record", function(done) {
     const testFlow = [
       {
+        id: "f1",
+        type: "tab",
+        label: "Delete Record Test"
+      },
+      {
         id: "3783b2da.4346a6",
         type: "filemaker-api-client",
         server: process.env.FILEMAKER_SERVER,
         name: "Mute Symphony",
         application: process.env.FILEMAKER_APPLICATION,
-        user: process.env.FILEMAKER_USERNAME,
-        password: process.env.FILEMAKER_PASSWORD,
         usage: true
       },
       {
@@ -61,25 +64,40 @@ describe("Delete Record Node", function() {
         layout: "People",
         scripts: "",
         merge: true,
-        wires: [["n3"]]
+        wires: [["n4"]]
       },
-      { id: "n3", type: "helper" }
+      {
+        id: "n3",
+        type: "catch",
+        z: "f1",
+        name: "catch",
+        wires: [["n4"]]
+      },
+      { id: "n4", type: "helper" }
     ];
-    helper.load([clientNode, deleteNode, createNode], testFlow, function() {
-      const createNode = helper.getNode("n1");
-      const testNode = helper.getNode("n2");
-      const helperNode = helper.getNode("n3");
-      helperNode.on("input", function(msg) {
-
-        try {
-          expect(msg).to.be.an("object");
-          done();
-        } catch (err) {
-          done(err);
+    helper.load(
+      [clientNode, deleteNode, createNode, catchNode],
+      testFlow,
+      {
+        "3783b2da.4346a6": {
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
         }
-      });
-      createNode.receive({ payload: { data: {} } });
-    });
+      },
+      function() {
+        const createNode = helper.getNode("n1");
+        const helperNode = helper.getNode("n4");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg).to.be.an("object");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        createNode.receive({ payload: { data: {} } });
+      }
+    );
   });
 
   it("should throw an error with a message and a code", function(done) {
@@ -119,20 +137,30 @@ describe("Delete Record Node", function() {
       },
       { id: "n3", type: "helper" }
     ];
-    helper.load([clientNode, deleteNode, catchNode], testFlow, function() {
-      const testNode = helper.getNode("n2");
-      const helperNode = helper.getNode("n3");
-      helperNode.on("input", function(msg) {
-        try {
-          expect(msg)
-            .to.be.an("object")
-            .with.any.keys("_msgid", "code", "error",  "message");
-          done();
-        } catch (err) {
-          done(err);
+    helper.load(
+      [clientNode, deleteNode, catchNode],
+      testFlow,
+      {
+        "3783b2da.4346a6": {
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
         }
-      });
-      testNode.receive({ payload: {} });
-    });
+      },
+      function() {
+        const testNode = helper.getNode("n2");
+        const helperNode = helper.getNode("n3");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("_msgid", "code", "error", "message");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        testNode.receive({ payload: {} });
+      }
+    );
   });
 });

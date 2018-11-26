@@ -35,44 +35,65 @@ describe("Find Records Node", function() {
   it("should perform a find", function(done) {
     const testFlow = [
       {
+        id: "f1",
+        type: "tab",
+        label: "Perform Find Test"
+      },
+      {
         id: "3783b2da.4346a6",
         type: "filemaker-api-client",
         server: process.env.FILEMAKER_SERVER,
         name: "Mute Symphony",
         application: process.env.FILEMAKER_APPLICATION,
-        user: process.env.FILEMAKER_USERNAME,
-        password: process.env.FILEMAKER_PASSWORD,
         usage: true
       },
       {
         id: "n1",
         type: "perform-find",
+        z: "f1",
         client: "3783b2da.4346a6",
         layout: "People",
         scripts: "",
         merge: true,
-        wires: [["n2"]]
+        wires: [["n3"]]
       },
-      { id: "n2", type: "helper" }
+      {
+        id: "n2",
+        type: "catch",
+        z: "f1",
+        name: "catch",
+        wires: [["n3"]]
+      },
+      { id: "n3", type: "helper" }
     ];
-    helper.load([clientNode, findNode], testFlow, function() {
-      const testNode = helper.getNode("n1");
-      const helperNode = helper.getNode("n2");
-      helperNode.on("input", function(msg) {
-        try {
-          expect(msg)
-            .to.be.an("object")
-            .with.any.keys("payload")
-            .and.property("payload")
-            .to.be.a("object")
-            .with.any.keys("data");
-          done();
-        } catch (err) {
-          done(err);
+    helper.load(
+      [clientNode, findNode, catchNode],
+      testFlow,
+      {
+        "3783b2da.4346a6": {
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
         }
-      });
-      testNode.receive({ payload: { query: { name: '*' } } });
-    });
+      },
+      function() {
+        const testNode = helper.getNode("n1");
+        const helperNode = helper.getNode("n3");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("payload")
+              .and.property("payload")
+              .to.be.a("object")
+              .with.any.keys("data");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        testNode.receive({ payload: { query: { name: "*" } } });
+      }
+    );
   });
 
   it("should throw an error with a message and a code", function(done) {
@@ -112,20 +133,30 @@ describe("Find Records Node", function() {
       },
       { id: "n3", type: "helper" }
     ];
-    helper.load([clientNode, findNode, catchNode], testFlow, function() {
-      const testNode = helper.getNode("n2");
-      const helperNode = helper.getNode("n3");
-      helperNode.on("input", function(msg) {
-        try {
-          expect(msg)
-            .to.be.an("object")
-            .with.any.keys("_msgid", "code", "error", "code", "message");
-          done();
-        } catch (err) {
-          done(err);
+    helper.load(
+      [clientNode, findNode, catchNode],
+      testFlow,
+      {
+        "3783b2da.4346a6": {
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
         }
-      });
-      testNode.receive({ payload: { } });
-    });
+      },
+      function() {
+        const testNode = helper.getNode("n2");
+        const helperNode = helper.getNode("n3");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("_msgid", "code", "error", "code", "message");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        testNode.receive({ payload: {} });
+      }
+    );
   });
 });

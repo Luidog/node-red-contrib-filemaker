@@ -12,9 +12,9 @@ module.exports = function(RED) {
         msg.parameters,
         msg.payload
       ]);
-      let connection = await this.connection.client;
+      let client = await this.connection.client;
 
-      connection
+      client
         .create(layout, data, parameters)
         .then(response => node.send(merge(msg, response)))
         .catch(error => node.error(error.message, msg));
