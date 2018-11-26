@@ -35,14 +35,24 @@ describe("Trigger Script Node", function() {
   it("should trigger a script", function(done) {
     var testFlows = [
       {
+        id: "f1",
+        type: "tab",
+        label: "Script Test"
+      },
+      {
         id: "3783b2da.4346a6",
         type: "filemaker-api-client",
         server: process.env.FILEMAKER_SERVER,
         name: "Sweet FM Client",
         application: process.env.FILEMAKER_APPLICATION,
-        user: process.env.FILEMAKER_USERNAME,
-        password: process.env.FILEMAKER_PASSWORD,
         usage: true
+      },
+      {
+        id: "n2",
+        type: "catch",
+        z: "f1",
+        name: "catch",
+        wires: [["n3"]]
       },
       {
         id: "n1",
@@ -51,25 +61,35 @@ describe("Trigger Script Node", function() {
         layout: "People",
         scripts: "",
         merge: true,
-        wires: [["n2"]]
+        wires: [["n3"]]
       },
-      { id: "n2", type: "helper" }
+      { id: "n3", type: "helper" }
     ];
-    helper.load([clientNode, scriptNode], testFlows, function() {
-      const script = helper.getNode("n1");
-      const helperNode = helper.getNode("n2");
-      helperNode.on("input", function(msg) {
-        try {
-          expect(msg)
-            .to.be.an("object")
-            .with.any.keys("payload");
-          done();
-        } catch (err) {
-          done(err);
+    helper.load(
+      [clientNode, scriptNode, catchNode],
+      testFlows,
+      {
+        "3783b2da.4346a6": {
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
         }
-      });
-      script.receive({ payload: { script: "Node Red Test" } });
-    });
+      },
+      function() {
+        const script = helper.getNode("n1");
+        const helperNode = helper.getNode("n3");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("payload");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        script.receive({ payload: { script: "Node Red Test" } });
+      }
+    );
   });
   it("should throw an error with a message and a code", function(done) {
     var testFlow = [
@@ -100,8 +120,6 @@ describe("Trigger Script Node", function() {
         server: process.env.FILEMAKER_SERVER,
         name: "Mute Symphony",
         application: process.env.FILEMAKER_APPLICATION,
-        user: process.env.FILEMAKER_USERNAME,
-        password: process.env.FILEMAKER_PASSWORD,
         usage: true
       },
       {
@@ -112,20 +130,30 @@ describe("Trigger Script Node", function() {
         wires: [["n3"]]
       }
     ];
-    helper.load([clientNode, scriptNode, catchNode], testFlow, function() {
-      const script = helper.getNode("n2");
-      const helperNode = helper.getNode("n3");
-      helperNode.on("input", function(msg) {
-        try {
-          expect(msg)
-            .to.be.an("object")
-            .with.any.keys("_msgid", "code", "error", "message");
-          done();
-        } catch (err) {
-          done(err);
+    helper.load(
+      [clientNode, scriptNode, catchNode],
+      testFlow,
+      {
+        "3783b2da.4346a6": {
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
         }
-      });
-      script.receive({ payload: { layout: "none" } });
-    });
+      },
+      function() {
+        const script = helper.getNode("n2");
+        const helperNode = helper.getNode("n3");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("_msgid", "code", "error", "message");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        script.receive({ payload: { layout: "none" } });
+      }
+    );
   });
 });

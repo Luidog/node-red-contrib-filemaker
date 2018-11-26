@@ -31,17 +31,20 @@ describe("Create Record Node", function() {
       done();
     });
   });
-
   it("should create a record", function(done) {
     var testFlows = [
       {
+        id: "f1",
+        type: "tab",
+        label: "Create Record Test"
+      },
+      {
         id: "3783b2da.4346a6",
         type: "filemaker-api-client",
+        z: "f1",
         server: process.env.FILEMAKER_SERVER,
         name: "Sweet FM Client",
         application: process.env.FILEMAKER_APPLICATION,
-        user: process.env.FILEMAKER_USERNAME,
-        password: process.env.FILEMAKER_PASSWORD,
         usage: true
       },
       {
@@ -50,29 +53,47 @@ describe("Create Record Node", function() {
         client: "3783b2da.4346a6",
         layout: "People",
         scripts: "",
+        z: "f1",
         merge: true,
         wires: [["n2"]]
       },
-      { id: "n2", type: "helper" }
+      {
+        id: "n2",
+        type: "catch",
+        z: "f1",
+        name: "catch",
+        wires: [["n3"]]
+      },
+      { id: "n3", type: "helper" }
     ];
-    helper.load([client, create], testFlows, function() {
-      const createNode = helper.getNode("n1");
-      const helperNode = helper.getNode("n2");
-      helperNode.on("input", function(msg) {
-        try {
-          expect(msg)
-            .to.be.an("object")
-            .with.any.keys("payload")
-            .and.property("payload")
-            .to.be.a("object")
-            .with.any.keys("recordId", "modId");
-          done();
-        } catch (err) {
-          done(err);
+    helper.load(
+      [client, create, catchNode],
+      testFlows,
+      {
+        "3783b2da.4346a6": {
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
         }
-      });
-      createNode.receive({ payload: { data: { name: "Han Solo" } } });
-    });
+      },
+      function() {
+        const createNode = helper.getNode("n1");
+        const helperNode = helper.getNode("n2");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("payload")
+              .and.property("payload")
+              .to.be.a("object")
+              .with.any.keys("recordId", "modId");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        createNode.receive({ payload: { data: { name: "Han Solo" } } });
+      }
+    );
   });
   it("should throw an error with a message and a code", function(done) {
     var testFlow = [
@@ -103,8 +124,6 @@ describe("Create Record Node", function() {
         server: process.env.FILEMAKER_SERVER,
         name: "Mute Symphony",
         application: process.env.FILEMAKER_APPLICATION,
-        user: process.env.FILEMAKER_USERNAME,
-        password: process.env.FILEMAKER_PASSWORD,
         usage: true
       },
       {
@@ -115,20 +134,30 @@ describe("Create Record Node", function() {
         wires: [["n3"]]
       }
     ];
-    helper.load([client, create, catchNode], testFlow, function() {
-      const createNode = helper.getNode("n2");
-      const helperNode = helper.getNode("n3");
-      helperNode.on("input", function(msg) {
-        try {
-          expect(msg)
-            .to.be.an("object")
-            .with.any.keys("_msgid", "code", "error", "message");
-          done();
-        } catch (err) {
-          done(err);
+    helper.load(
+      [client, create, catchNode],
+      testFlow,
+      {
+        "3783b2da.4346a6": {
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
         }
-      });
-      createNode.receive({ payload: { data: { parent: "Han Solo" } } });
-    });
+      },
+      function() {
+        const createNode = helper.getNode("n2");
+        const helperNode = helper.getNode("n3");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("_msgid", "code", "error", "message");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        createNode.receive({ payload: { data: { parent: "Han Solo" } } });
+      }
+    );
   });
 });

@@ -5,7 +5,7 @@ const environment = require("dotenv");
 const varium = require("varium");
 const client = require("../src/client/client.js");
 const editNode = require("../src/nodes/edit.js");
-const catchNode = require("./core/25-catch.js")
+const catchNode = require("./core/25-catch.js");
 
 helper.init(require.resolve("node-red"));
 
@@ -35,13 +35,16 @@ describe("Edit Record Node", function() {
   it("should edit a record", function(done) {
     const testFlow = [
       {
+        id: "f1",
+        type: "tab",
+        label: "Edit Record Test"
+      },
+      {
         id: "3783b2da.4346a6",
         type: "filemaker-api-client",
         server: process.env.FILEMAKER_SERVER,
         name: "Mute Symphony",
         application: process.env.FILEMAKER_APPLICATION,
-        user: process.env.FILEMAKER_USERNAME,
-        password: process.env.FILEMAKER_PASSWORD,
         usage: true
       },
       {
@@ -51,32 +54,50 @@ describe("Edit Record Node", function() {
         layout: "People",
         scripts: "",
         merge: true,
-        wires: [["n2"]]
+        wires: [["n3"]]
       },
-      { id: "n2", type: "helper" }
+      {
+        id: "n2",
+        type: "catch",
+        z: "f1",
+        name: "catch",
+        wires: [["n3"]]
+      },
+      { id: "n3", type: "helper" }
     ];
-    helper.load([client, editNode], testFlow, function() {
-      const testNode = helper.getNode("n1");
-      const helperNode = helper.getNode("n2");
-      helperNode.on("input", function(msg) {
-        try {
-          expect(msg)
-            .to.be.an("object")
-            .with.any.keys("payload")
-            .and.property("payload")
-            .to.be.a("object")
-            .with.any.keys("recordId", "modId");
-          done();
-        } catch (err) {
-          done(err);
+    helper.load(
+      [client, editNode, catchNode],
+      testFlow,
+      {
+        "3783b2da.4346a6": {
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
         }
-      });
-      testNode.receive({ payload: { recordId: 67408 } });
-    });
+      },
+      function() {
+        const testNode = helper.getNode("n1");
+        const helperNode = helper.getNode("n3");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("payload")
+              .and.property("payload")
+              .to.be.a("object")
+              .with.any.keys("recordId", "modId");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        testNode.receive({ payload: { recordId: 67408 } });
+      }
+    );
   });
 
   it("should throw an error with a message and a code", function(done) {
-    const testFlow = [{
+    const testFlow = [
+      {
         id: "f1",
         type: "tab",
         label: "Catch Edit Error"
@@ -88,22 +109,20 @@ describe("Edit Record Node", function() {
         name: "Mute Symphony",
         z: "f1",
         application: process.env.FILEMAKER_APPLICATION,
-        user: process.env.FILEMAKER_USERNAME,
-        password: process.env.FILEMAKER_PASSWORD,
         usage: true
       },
       {
-        id: "n2",
+        id: "n1",
         type: "edit-record",
         client: "3783b2da.4346a6",
         layout: "People",
         z: "f1",
         scripts: "",
         merge: true,
-        wires: [["n2"]]
+        wires: [["n3"]]
       },
       {
-        id: "n1",
+        id: "n2",
         type: "catch",
         z: "f1",
         name: "catch",
@@ -111,20 +130,30 @@ describe("Edit Record Node", function() {
       },
       { id: "n3", type: "helper" }
     ];
-    helper.load([client, editNode, catchNode], testFlow, function() {
-      const testNode = helper.getNode("n2");
-      const helperNode = helper.getNode("n3");
-      helperNode.on("input", function(msg) {
-        try {
-          expect(msg)
-            .to.be.an("object")
-            .with.any.keys("_msgid","code","error","code","message");
-          done();
-        } catch (err) {
-          done(err);
+    helper.load(
+      [client, editNode, catchNode],
+      testFlow,
+      {
+        "3783b2da.4346a6": {
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
         }
-      });
-      testNode.receive({ payload: { } });
-    });
+      },
+      function() {
+        const testNode = helper.getNode("n1");
+        const helperNode = helper.getNode("n3");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("_msgid", "code", "error", "code", "message");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        testNode.receive({ payload: {} });
+      }
+    );
   });
 });

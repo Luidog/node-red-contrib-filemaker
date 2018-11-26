@@ -36,13 +36,16 @@ describe("Upload File Node", function() {
   it("should upload to a record", function(done) {
     var testFlows = [
       {
+        id: "f1",
+        type: "tab",
+        label: "Upload Test"
+      },
+      {
         id: "3783b2da.4346a6",
         type: "filemaker-api-client",
         server: process.env.FILEMAKER_SERVER,
         name: "Sweet FM Client",
         application: process.env.FILEMAKER_APPLICATION,
-        user: process.env.FILEMAKER_USERNAME,
-        password: process.env.FILEMAKER_PASSWORD,
         usage: true
       },
       {
@@ -52,31 +55,48 @@ describe("Upload File Node", function() {
         layout: "Images",
         scripts: "",
         merge: true,
-        wires: [["n2"]]
+        wires: [["n3"]]
       },
-      { id: "n2", type: "helper" }
+      {
+        id: "n2",
+        type: "catch",
+        z: "f1",
+        name: "catch",
+        wires: [["n3"]]
+      },
+      { id: "n3", type: "helper" }
     ];
-    helper.load([clientNode, uploadNode], testFlows, function() {
-      const upload = helper.getNode("n1");
-      const helperNode = helper.getNode("n2");
-      helperNode.on("input", function(msg) {
-        try {
-          expect(msg)
-            .to.be.an("object")
-            .with.any.keys("payload");
-          done();
-        } catch (err) {
-          done(err);
+    helper.load(
+      [clientNode, uploadNode, catchNode],
+      testFlows,
+      {
+        "3783b2da.4346a6": {
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
         }
-      });
-      upload.receive({
-        payload: {
-          file: path.join(__dirname, "./assets/placeholder.json"),
-          layout: "Images",
-          field: "container"
-        }
-      });
-    });
+      },
+      function() {
+        const upload = helper.getNode("n1");
+        const helperNode = helper.getNode("n3");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("payload");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        upload.receive({
+          payload: {
+            file: path.join(__dirname, "./assets/placeholder.json"),
+            layout: "Images",
+            field: "container"
+          }
+        });
+      }
+    );
   });
   it("should throw an error with a message and a code", function(done) {
     var testFlow = [
@@ -107,8 +127,6 @@ describe("Upload File Node", function() {
         server: process.env.FILEMAKER_SERVER,
         name: "Mute Symphony",
         application: process.env.FILEMAKER_APPLICATION,
-        user: process.env.FILEMAKER_USERNAME,
-        password: process.env.FILEMAKER_PASSWORD,
         usage: true
       },
       {
@@ -119,20 +137,30 @@ describe("Upload File Node", function() {
         wires: [["n3"]]
       }
     ];
-    helper.load([clientNode, uploadNode, catchNode], testFlow, function() {
-      const upload = helper.getNode("n2");
-      const helperNode = helper.getNode("n3");
-      helperNode.on("input", function(msg) {
-        try {
-          expect(msg)
-            .to.be.an("object")
-            .with.any.keys("_msgid", "code", "error", "message");
-          done();
-        } catch (err) {
-          done(err);
+    helper.load(
+      [clientNode, uploadNode, catchNode],
+      testFlow,
+      {
+        "3783b2da.4346a6": {
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
         }
-      });
-      upload.receive({ payload: { layout: "none" } });
-    });
+      },
+      function() {
+        const upload = helper.getNode("n2");
+        const helperNode = helper.getNode("n3");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("_msgid", "code", "error", "message");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        upload.receive({ payload: { layout: "none" } });
+      }
+    );
   });
 });

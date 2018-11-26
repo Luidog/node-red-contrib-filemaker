@@ -35,13 +35,16 @@ describe("List Records Node", function() {
   it("should List records", function(done) {
     var testFlows = [
       {
+        id: "f1",
+        type: "tab",
+        label: "List Test"
+      },
+      {
         id: "3783b2da.4346a6",
         type: "filemaker-api-client",
         server: process.env.FILEMAKER_SERVER,
         name: "Sweet FM Client",
         application: process.env.FILEMAKER_APPLICATION,
-        user: process.env.FILEMAKER_USERNAME,
-        password: process.env.FILEMAKER_PASSWORD,
         usage: true
       },
       {
@@ -51,25 +54,42 @@ describe("List Records Node", function() {
         layout: "Devices",
         scripts: "",
         merge: true,
-        wires: [["n2"]]
+        wires: [["n3"]]
       },
-      { id: "n2", type: "helper" }
+      {
+        id: "n2",
+        type: "catch",
+        z: "f1",
+        name: "catch",
+        wires: [["n3"]]
+      },
+      { id: "n3", type: "helper" }
     ];
-    helper.load([clientNode, listNode], testFlows, function() {
-      const list = helper.getNode("n1");
-      const helperNode = helper.getNode("n2");
-      helperNode.on("input", function(msg) {
-        try {
-          expect(msg)
-            .to.be.an("object")
-            .with.any.keys("payload");
-          done();
-        } catch (err) {
-          done(err);
+    helper.load(
+      [clientNode, listNode, catchNode],
+      testFlows,
+      {
+        "3783b2da.4346a6": {
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
         }
-      });
-      list.receive({ payload: { layout: "People" } });
-    });
+      },
+      function() {
+        const list = helper.getNode("n1");
+        const helperNode = helper.getNode("n3");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("payload");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        list.receive({ payload: { layout: "People" } });
+      }
+    );
   });
   it("should throw an error with a message and a code", function(done) {
     var testFlow = [
@@ -100,8 +120,6 @@ describe("List Records Node", function() {
         server: process.env.FILEMAKER_SERVER,
         name: "Mute Symphony",
         application: process.env.FILEMAKER_APPLICATION,
-        user: process.env.FILEMAKER_USERNAME,
-        password: process.env.FILEMAKER_PASSWORD,
         usage: true
       },
       {
@@ -112,20 +130,30 @@ describe("List Records Node", function() {
         wires: [["n3"]]
       }
     ];
-    helper.load([clientNode, listNode, catchNode], testFlow, function() {
-      const list = helper.getNode("n2");
-      const helperNode = helper.getNode("n3");
-      helperNode.on("input", function(msg) {
-        try {
-          expect(msg)
-            .to.be.an("object")
-            .with.any.keys("_msgid", "code", "error", "message");
-          done();
-        } catch (err) {
-          done(err);
+    helper.load(
+      [clientNode, listNode, catchNode],
+      testFlow,
+      {
+        "3783b2da.4346a6": {
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
         }
-      });
-      list.receive({ payload: { layout: "none" } });
-    });
+      },
+      function() {
+        const list = helper.getNode("n2");
+        const helperNode = helper.getNode("n3");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("_msgid", "code", "error", "message");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        list.receive({ payload: { layout: "none" } });
+      }
+    );
   });
 });
