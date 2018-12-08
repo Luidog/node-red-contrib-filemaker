@@ -1,0 +1,64 @@
+<script type="text/javascript">
+    RED.nodes.registerType('logout',{
+        category: 'FileMaker',
+        defaults: {
+            client: { value:"", type: "filemaker-api-client" },
+        },
+        inputs:1,
+        outputs:1,
+        icon: 'globals.png',
+        color: '#39D1C0',
+        label: "Logout"
+    });
+</script>
+
+<script type="text/x-red" data-template-name="logout">
+    <div class="form-row">
+        <label for="node-input-client">Client</label>
+        <input type="text" id="node-input-client">
+    </div>
+    <div class="form-row">
+        <label for="node-input-globals">Globals</label>
+        <input type="text" id="node-input-globals">
+    </div>
+</script>
+<script type="text/x-red" data-help-name="logout">
+    <p>This node closes the FileMaker Data API session and removes the authentication token from the datastore. </code>.
+
+    <h3>Inputs</h3>
+        <dl class="message-properties">
+            <dt>payload
+                <span class="property-type">Object</span>
+            </dt>
+            <dt class="optional">parameters <span class="property-type">None</span>
+            </dt>
+        </dl>
+
+    <h3>Outputs</h3>
+        <ol class="node-ports">
+            <li>Standard Output
+                <dl class="message-properties">
+                    <dt>payload<span class="property-type">Object</span>
+                    <dd><b>message</b> - <i>Object</i><br>A success message</dd>
+                    </dt>
+                </dl>
+            </li>
+            <li>Standard Error
+                <dl class="message-properties">
+                    <dt>message <span class="property-type">Object</span></dt>
+                    <dd><b>message</b> - <i>String</i><br>The FileMaker or client error message.</dd>
+                    <dd><b>code</b> - <i>String</i><br>The applicible FileMaker error code.</dd>
+                </dl>
+            </li>
+        </ol>
+
+    <h3>Details</h3>
+        <p>This node will close the currently open FileMaker Data API session and delete the associated authentication token.</p>
+
+    <h3>References</h3>
+        <ul>
+            <li><a href="https://github.com/Luidog/fms-api-client#logout-method">Logout Method</a> - base client documentation</li>
+            <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node-Red FileMaker</a> - the node's github repository</li>
+            <li><a href="https://github.com/Luidog/fms-api-client">FMS API Client</a> - fms-api-client github repository</li>
+        </ul>
+</script>

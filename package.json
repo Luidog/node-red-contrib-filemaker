@@ -32,6 +32,8 @@
   "node-red": {
     "nodes": {
       "client": "./src/client/client.js",
+      "login": "./src/nodes/login.js",
+      "logout": "./src/nodes/logout.js",
       "create-record": "./src/nodes/create.js",
       "edit-record": "./src/nodes/edit.js",
       "delete-record": "./src/nodes/delete.js",
