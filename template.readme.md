@@ -30,7 +30,7 @@ npm install --save node-red-contrib-filemaker
 
 <!--@execute('npm run test',[])-->
 ```default
-> node-red-contrib-filemaker@0.4.3 test /Users/luidelaparra/Documents/Development/node-red-contrib-filemaker
+> node-red-contrib-filemaker@0.7.0 test /Users/luidelaparra/Documents/Development/node-red-contrib-filemaker
 > nyc _mocha --recursive  "test/**/*_spec.js" --timeout=30000 --exit
 
 
@@ -40,18 +40,18 @@ npm install --save node-red-contrib-filemaker
 
   Create Record Node
     ✓ should be loaded
-    ✓ should create a record (461ms)
-    ✓ should throw an error with a message and a code (174ms)
+    ✓ should create a record (293ms)
+    ✓ should throw an error with a message and a code (181ms)
 
   Delete Record Node
     ✓ should be loaded
-    ✓ should delete a record (270ms)
-    ✓ should throw an error with a message and a code (192ms)
+    ✓ should delete a record (265ms)
+    ✓ should throw an error with a message and a code (174ms)
 
   Edit Record Node
     ✓ should be loaded
-    ✓ should edit a record (182ms)
-    ✓ should throw an error with a message and a code (180ms)
+    ✓ should edit a record (171ms)
+    ✓ should throw an error with a message and a code (177ms)
 
   FieldData Utility Node
     ✓ should be loaded
@@ -61,23 +61,38 @@ npm install --save node-red-contrib-filemaker
 
   Find Records Node
     ✓ should be loaded
-    ✓ should perform a find (269ms)
-    ✓ should throw an error with a message and a code (182ms)
+    ✓ should perform a find (226ms)
+    ✓ should throw an error with a message and a code (175ms)
 
   Get Record Node
     ✓ should be loaded
-    ✓ should set globals (183ms)
-    ✓ should throw an error with a message and a code (184ms)
+    ✓ should get a specific record (176ms)
+    ✓ should throw an error with a message and a code (167ms)
 
   Set Globals Node
     ✓ should be loaded
-    ✓ should set globals (171ms)
-    ✓ should throw an error with a message and a code (184ms)
+    ✓ should set globals (170ms)
+    ✓ should throw an error with a message and a code (172ms)
 
   List Records Node
     ✓ should be loaded
-    ✓ should List records (315ms)
-    ✓ should throw an error with a message and a code (184ms)
+    ✓ should List records (240ms)
+    ✓ should throw an error with a message and a code (181ms)
+
+  Login Node
+    ✓ should be loaded
+    ✓ should login to a Data API session (99ms)
+    ✓ should throw an error with a message and a code (1434ms)
+
+  Log Out Node
+    ✓ should be loaded
+    ✓ should close a Data API Session (175ms)
+{ payload: { message: true },
+  _msgid: '21b1ff32.3e935',
+  error: 
+   { message: 'No session to log out.',
+     source: { id: 'n1', type: 'logout', name: undefined, count: 1 } } }
+    ✓ should throw an error with a message and a code
 
   Record Id Utility Node
     ✓ should be loaded
@@ -88,16 +103,12 @@ npm install --save node-red-contrib-filemaker
 
   Trigger Script Node
     ✓ should be loaded
-    ✓ should trigger a script (189ms)
-    ✓ should throw an error with a message and a code (180ms)
+    ✓ should trigger a script (185ms)
+    ✓ should throw an error with a message and a code (177ms)
 
   Utility Services
     merge utility
       ✓ should merge data to the payload object
-    parse utility
-      ✓ should parse stringified json
-      ✓ should parse an object's property
-      ✓ should not parse an an object's property if it is a string
     compact utility
       ✓ should accept an array of objects
       ✓ should remove null properties
@@ -123,34 +134,37 @@ npm install --save node-red-contrib-filemaker
 
   Upload File Node
     ✓ should be loaded
-    ✓ should upload to a record (1375ms)
+    ✓ should upload to a record (1474ms)
     ✓ should throw an error with a message and a code
 
 
-  59 passing (5s)
+  62 passing (7s)
 
----------------|----------|----------|----------|----------|-------------------|
-File           |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
----------------|----------|----------|----------|----------|-------------------|
-All files      |      100 |      100 |      100 |      100 |                   |
- client        |      100 |      100 |      100 |      100 |                   |
-  client.js    |      100 |      100 |      100 |      100 |                   |
- nodes         |      100 |      100 |      100 |      100 |                   |
-  create.js    |      100 |      100 |      100 |      100 |                   |
-  delete.js    |      100 |      100 |      100 |      100 |                   |
-  edit.js      |      100 |      100 |      100 |      100 |                   |
-  fieldData.js |      100 |      100 |      100 |      100 |                   |
-  find.js      |      100 |      100 |      100 |      100 |                   |
-  get.js       |      100 |      100 |      100 |      100 |                   |
-  globals.js   |      100 |      100 |      100 |      100 |                   |
-  list.js      |      100 |      100 |      100 |      100 |                   |
-  recordId.js  |      100 |      100 |      100 |      100 |                   |
-  script.js    |      100 |      100 |      100 |      100 |                   |
-  transform.js |      100 |      100 |      100 |      100 |                   |
-  upload.js    |      100 |      100 |      100 |      100 |                   |
- services      |      100 |      100 |      100 |      100 |                   |
-  index.js     |      100 |      100 |      100 |      100 |                   |
----------------|----------|----------|----------|----------|-------------------|
+-----------------------|----------|----------|----------|----------|-------------------|
+File                   |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
+-----------------------|----------|----------|----------|----------|-------------------|
+All files              |      100 |      100 |      100 |      100 |                   |
+ client                |      100 |      100 |      100 |      100 |                   |
+  client.js            |      100 |      100 |      100 |      100 |                   |
+ nodes                 |      100 |      100 |      100 |      100 |                   |
+  create.js            |      100 |      100 |      100 |      100 |                   |
+  delete.js            |      100 |      100 |      100 |      100 |                   |
+  edit.js              |      100 |      100 |      100 |      100 |                   |
+  fieldData.js         |      100 |      100 |      100 |      100 |                   |
+  find.js              |      100 |      100 |      100 |      100 |                   |
+  get.js               |      100 |      100 |      100 |      100 |                   |
+  globals.js           |      100 |      100 |      100 |      100 |                   |
+  list.js              |      100 |      100 |      100 |      100 |                   |
+  login.js             |      100 |      100 |      100 |      100 |                   |
+  logout.js            |      100 |      100 |      100 |      100 |                   |
+  recordId.js          |      100 |      100 |      100 |      100 |                   |
+  script.js            |      100 |      100 |      100 |      100 |                   |
+  transform.js         |      100 |      100 |      100 |      100 |                   |
+  upload.js            |      100 |      100 |      100 |      100 |                   |
+ services              |      100 |      100 |      100 |      100 |                   |
+  index.js             |      100 |      100 |      100 |      100 |                   |
+  utilities.service.js |      100 |      100 |      100 |      100 |                   |
+-----------------------|----------|----------|----------|----------|-------------------|
 ```
 <!--/@-->
 
