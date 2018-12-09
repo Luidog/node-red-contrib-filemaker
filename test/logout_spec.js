@@ -10,7 +10,7 @@ const catchNode = require("./core/25-catch.js");
 
 helper.init(require.resolve("node-red"));
 
-describe("Log Out Node", function() {
+describe("Logout Node", function() {
   before(function(done) {
     environment.config({ path: "./test/.env" });
     varium(process.env, "./test/env.manifest");
@@ -132,7 +132,7 @@ describe("Log Out Node", function() {
         name: "catch",
         wires: [["n3"]]
       },
-      { id: "n3",z: "f1", type: "helper" }
+      { id: "n3", z: "f1", type: "helper" }
     ];
     helper.load(
       [clientNode, logoutNode, catchNode],
@@ -147,7 +147,6 @@ describe("Log Out Node", function() {
         const logout = helper.getNode("n1");
         const helperNode = helper.getNode("n3");
         helperNode.on("input", function(msg) {
-          console.log(msg)
           try {
             expect(msg)
               .to.be.an("object")
@@ -157,7 +156,7 @@ describe("Log Out Node", function() {
             done(err);
           }
         });
-        logout.receive({ payload: {message:true} });
+        logout.receive({ payload: { message: true } });
       }
     );
   });
