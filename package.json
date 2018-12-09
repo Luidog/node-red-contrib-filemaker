@@ -52,7 +52,7 @@
   "dependencies": {
     "fms-api-client": "^1.7.3",
     "lodash": "^4.17.11",
-    "marpat": "^1.18.2"
+    "marpat": "^1.19.2"
   },
   "devDependencies": {
     "chai": "^4.2.0",
