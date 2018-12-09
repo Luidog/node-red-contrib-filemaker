@@ -1,29 +1,25 @@
 <script type="text/javascript">
-    RED.nodes.registerType('logout',{
+    RED.nodes.registerType('login',{
         category: 'FileMaker',
         defaults: {
             client: { value:"", type: "filemaker-api-client" },
         },
         inputs:1,
         outputs:1,
-        icon: 'logout.png',
+        icon: 'login.png',
         color: '#39D1C0',
-        label: "Logout"
+        label: "Login"
     });
 </script>
 
-<script type="text/x-red" data-template-name="logout">
+<script type="text/x-red" data-template-name="login">
     <div class="form-row">
         <label for="node-input-client">Client</label>
         <input type="text" id="node-input-client">
     </div>
-    <div class="form-row">
-        <label for="node-input-globals">Globals</label>
-        <input type="text" id="node-input-globals">
-    </div>
 </script>
-<script type="text/x-red" data-help-name="logout">
-    <p>This node closes the open Data API session and removes the associated authentication token.
+<script type="text/x-red" data-help-name="login">
+    <p>This node starts the FileMaker Data API session and saves the authentication token.</code>.
 
     <h3>Inputs</h3>
         <dl class="message-properties">
@@ -37,7 +33,7 @@
             <li>Standard Output
                 <dl class="message-properties">
                     <dt>payload<span class="property-type">Object</span>
-                    <dd><b>message</b> - <i>Object</i><br>a success message</dd>
+                    <dd><b>token</b> - <i>String</i><br>authentication token</dd>
                     </dt>
                 </dl>
             </li>
@@ -45,16 +41,17 @@
                 <dl class="message-properties">
                     <dt>message <span class="property-type">Object</span></dt>
                     <dd><b>message</b> - <i>String</i><br>The FileMaker or client error message.</dd>
+                    <dd><b>code</b> - <i>String</i><br>The applicible FileMaker error code.</dd>
                 </dl>
             </li>
         </ol>
 
     <h3>Details</h3>
-        <p>This node closes the currently open Data API session and removes the associated authentication token</p>
+        <p>This node will close the currently open FileMaker Data API session and delete the associated authentication token.</p>
 
     <h3>References</h3>
         <ul>
-            <li><a href="https://github.com/Luidog/fms-api-client#logout-method">Logout Method</a> - base client documentation</li>
+            <li><a href="https://github.com/Luidog/fms-api-client#login-method">Login Method</a> - base client documentation</li>
             <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node-Red FileMaker</a> - the node's github repository</li>
             <li><a href="https://github.com/Luidog/fms-api-client">FMS API Client</a> - fms-api-client github repository</li>
         </ul>
