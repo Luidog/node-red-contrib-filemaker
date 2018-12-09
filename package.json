@@ -32,6 +32,8 @@
   "node-red": {
     "nodes": {
       "client": "./src/client/client.js",
+      "login": "./src/nodes/login.js",
+      "logout": "./src/nodes/logout.js",
       "create-record": "./src/nodes/create.js",
       "edit-record": "./src/nodes/edit.js",
       "delete-record": "./src/nodes/delete.js",
@@ -48,7 +50,7 @@
   },
   "homepage": "https://github.com/Luidog/node-red-contrib-filemaker#readme",
   "dependencies": {
-    "fms-api-client": "^1.7.1",
+    "fms-api-client": "^1.7.3",
     "lodash": "^4.17.11",
     "marpat": "^1.18.2"
   },
