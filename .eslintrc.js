@@ -4,14 +4,16 @@ module.exports = {
     es6: true
   },
   parserOptions: {
-    sourceType: 'module',
-    ecmaFeatures: {
-      experimentalObjectRestSpread: true
-    }
+    sourceType: "module",
+    ecmaVersion: 9
   },
-  plugins: ['prettier'],
-  extends: ['google', 'eslint:recommended',"prettier"],
+  globals: {
+    RED: false,
+    $: false
+  },
+  plugins: ["prettier", "html"],
+  extends: ["google", "eslint:recommended", "prettier"],
   rules: {
-    'prettier/prettier': 'error'
+    "prettier/prettier": "error"
   }
 };
