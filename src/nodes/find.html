@@ -1,43 +1,43 @@
 <script type="text/javascript">
-    RED.nodes.registerType('perform-find',{
-        category: 'FileMaker',
-        defaults: {
-            client: { value: "", type:"filemaker-api-client" },
-            layout: { value: null, required: true },
-            limit: { value: null, required: false },
-            offset: { value: null, required: false },
-            sort: { value: null, required: false },
-            query: { value: null, required: false },
-            scripts: { value: null, required: false },
-            portals: { value: null, required: false }
-        },
-        oneditprepare:function() {
-            this.queryEditor = RED.editor.createEditor({
-                id: 'node-input-sort',
-                mode: 'ace/mode/javascript',
-                value: $("#node-input-sort").val()
-            });  
-            this.queryEditor = RED.editor.createEditor({
-                id: 'node-input-query',
-                mode: 'ace/mode/javascript',
-                value: $("#node-input-query").val()
-            });   
-            this.portalEditor = RED.editor.createEditor({
-                id: 'node-input-portals',
-                mode: 'ace/mode/javascript',
-                value: $("#node-input-portals").val()
-            });    
-            this.scriptEditor = RED.editor.createEditor({
-                id: 'node-input-scripts',
-                mode: 'ace/mode/javascript',
-                value: $("#node-input-scripts").val()
-            });
-        },
-        inputs:1,
-        outputs:1,
-        icon: 'find.png',
-        color: '#39D1C0',
-        label: "Perform Find"
+    RED.nodes.registerType("perform-find", {
+      category: "FileMaker",
+      defaults: {
+        client: { value: "", type: "filemaker-api-client" },
+        layout: { value: null, required: true },
+        limit: { value: null, required: false },
+        offset: { value: null, required: false },
+        sort: { value: null, required: false },
+        query: { value: null, required: false },
+        scripts: { value: null, required: false },
+        portals: { value: null, required: false }
+      },
+      oneditprepare: function() {
+        this.queryEditor = RED.editor.createEditor({
+          id: "node-input-sort",
+          mode: "ace/mode/javascript",
+          value: $("#node-input-sort").val()
+        });
+        this.queryEditor = RED.editor.createEditor({
+          id: "node-input-query",
+          mode: "ace/mode/javascript",
+          value: $("#node-input-query").val()
+        });
+        this.portalEditor = RED.editor.createEditor({
+          id: "node-input-portals",
+          mode: "ace/mode/javascript",
+          value: $("#node-input-portals").val()
+        });
+        this.scriptEditor = RED.editor.createEditor({
+          id: "node-input-scripts",
+          mode: "ace/mode/javascript",
+          value: $("#node-input-scripts").val()
+        });
+      },
+      inputs: 1,
+      outputs: 1,
+      icon: "find.png",
+      color: "#39D1C0",
+      label: "Perform Find"
     });
 </script>
 

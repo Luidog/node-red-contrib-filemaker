@@ -1,23 +1,23 @@
 <script type="text/javascript">
-    RED.nodes.registerType('delete-record',{
-        category: 'FileMaker',
-        defaults: {
-            client: {value: "", type: "filemaker-api-client" },
-            layout: {value: null, required: true},
-            scripts: {value: null, required: false}
-        },
-        oneditprepare:function() {
-            this.editor = RED.editor.createEditor({
-                id: 'node-input-scripts',
-                mode: 'ace/mode/javascript',
-                value: $("#node-input-scripts").val()
-            });
-        },
-        inputs:1,
-        outputs:1,
-        icon: 'delete.png',
-        color: '#39D1C0',
-        label: "Delete Record"
+    RED.nodes.registerType("delete-record", {
+      category: "FileMaker",
+      defaults: {
+        client: { value: "", type: "filemaker-api-client" },
+        layout: { value: null, required: true },
+        scripts: { value: null, required: false }
+      },
+      oneditprepare: function() {
+        this.editor = RED.editor.createEditor({
+          id: "node-input-scripts",
+          mode: "ace/mode/javascript",
+          value: $("#node-input-scripts").val()
+        });
+      },
+      inputs: 1,
+      outputs: 1,
+      icon: "delete.png",
+      color: "#39D1C0",
+      label: "Delete Record"
     });
 </script>
 

@@ -1,24 +1,24 @@
 <script type="text/javascript">
-    RED.nodes.registerType('create-record',{
-        category: 'FileMaker',
-        defaults: {
-            client: { value: "" , type: "filemaker-api-client" },
-            layout: { value: null, required: true },
-            scripts: { value: null , required: false },
-            merge: { value: true, required: false }
-        },
-        oneditprepare:function() {
-            this.editor = RED.editor.createEditor({
-                id: 'node-input-scripts',
-                mode: 'ace/mode/html',
-                value: $("#node-input-scripts").val()
-            });
-        },
-        inputs:1,
-        outputs:1,
-        icon: 'create.png',
-        color: '#39D1C0',
-        label: "Create Record"
+    RED.nodes.registerType("create-record", {
+      category: "FileMaker",
+      defaults: {
+        client: { value: "", type: "filemaker-api-client" },
+        layout: { value: null, required: true },
+        scripts: { value: null, required: false },
+        merge: { value: true, required: false }
+      },
+      oneditprepare: function() {
+        this.editor = RED.editor.createEditor({
+          id: "node-input-scripts",
+          mode: "ace/mode/html",
+          value: $("#node-input-scripts").val()
+        });
+      },
+      inputs: 1,
+      outputs: 1,
+      icon: "create.png",
+      color: "#39D1C0",
+      label: "Create Record"
     });
 </script>
 

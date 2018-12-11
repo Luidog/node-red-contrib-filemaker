@@ -1,17 +1,17 @@
 <script type="text/javascript">
-    RED.nodes.registerType('trigger-script',{
-        category: 'FileMaker',
-        defaults: {
-            client: { value: "", type: "filemaker-api-client" },
-            layout: { value: null, required:true },
-            script: { value: null, required:true },
-            param: { value: null, required: false }
-        },
-        inputs:1,
-        outputs:1,
-        icon: 'script.png',
-        color: '#39D1C0',
-        label: "Trigger Script"
+    RED.nodes.registerType("trigger-script", {
+      category: "FileMaker",
+      defaults: {
+        client: { value: "", type: "filemaker-api-client" },
+        layout: { value: null, required: true },
+        script: { value: null, required: true },
+        param: { value: null, required: false }
+      },
+      inputs: 1,
+      outputs: 1,
+      icon: "script.png",
+      color: "#39D1C0",
+      label: "Trigger Script"
     });
 </script>
 

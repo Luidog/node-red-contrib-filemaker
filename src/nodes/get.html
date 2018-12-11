@@ -1,15 +1,29 @@
 <script type="text/javascript">
-    RED.nodes.registerType('get-record',{
-        category: 'FileMaker',
-        defaults: {
-            client: { value:"", type: "filemaker-api-client" },
-            layout: { value: null, required: false }
-        },
-        inputs:1,
-        outputs:1,
-        icon: 'get.png',
-        color: '#39D1C0',
-        label: "Get Record"
+    RED.nodes.registerType("get-record", {
+      category: "FileMaker",
+      defaults: {
+        client: { value: "", type: "filemaker-api-client" },
+        layout: { value: null, required: false }
+      },
+      inputs: 1,
+      outputs: 1,
+      icon: "get.png",
+      color: "#39D1C0",
+      label: "Get Record",
+      oneditprepare: function() {
+        if (!this.field) {
+          this.field = "layout";
+          $("#node-input-layout").val("layout");
+        }
+        if (!this.fieldType) {
+          this.fieldType = "msg";
+        }
+        $("#node-input-layout").typedInput({
+          default: "msg",
+          types: ["msg", "flow", "global"],
+          typeField: $("#node-input-fieldType")
+        });
+      }
     });
 </script>
 
