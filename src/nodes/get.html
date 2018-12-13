@@ -3,7 +3,10 @@
       category: "FileMaker",
       defaults: {
         client: { value: "", type: "filemaker-api-client" },
-        layout: { value: null, required: false }
+        layout: { value: "layout", required: false },
+        layoutType: { value: "", required: false },
+        recordId: { value: "msg", required: true },
+        output: { value: "payload", required: false }
       },
       inputs: 1,
       outputs: 1,
@@ -11,30 +14,53 @@
       color: "#39D1C0",
       label: "Get Record",
       oneditprepare: function() {
-        if (!this.field) {
-          this.field = "layout";
-          $("#node-input-layout").val("layout");
-        }
-        if (!this.fieldType) {
-          this.fieldType = "msg";
-        }
         $("#node-input-layout").typedInput({
           default: "msg",
-          types: ["msg", "flow", "global"],
-          typeField: $("#node-input-fieldType")
+          types: ["msg", "flow", "global", "str"],
+          typeField: $("#node-input-layoutType")
         });
+        $("#node-input-output").typedInput({
+          default: "msg",
+          types: ["msg"],
+          typeField: ".outputType"
+        });
+        $("#node-input-recordId").typedInput({
+          default: "msg",
+          types: ["msg"],
+          typeField: ".recordIdType"
+        });
+        $('#node-input-output').on('change',function(type,value){
+          console.log(type)
+        })
+        $('#node-input-layout').on('change',function(type,value){
+          console.log(value)
+          console.log(type)
+        })
+        $('#node-input-recordIdType').on('change',function(type,value){
+          console.log(value)
+        })
       }
-    });
+});
 </script>
-
 <script type="text/x-red" data-template-name="get-record">
     <div class="form-row">
         <label for="node-input-client">Client</label>
         <input type="text" id="node-input-client">
     </div>
     <div class="form-row">
-        <label for="node-input-layout">Default Layout</label>
+        <label for="node-input-layout">Layout</label>
+        <input type="hidden" id="node-input-layoutType">
         <input type="text" id="node-input-layout">
+    </div>
+    <div class="form-row">
+        <label for="node-input-layout">Record Id</label>
+        <input type="hidden" id="node-input-layoutType">
+        <input type="text" id="node-input-layout">
+    </div>
+    <div class="form-row">
+        <label for="node-input-output">Output</label>
+        <input type="hidden" id="node-input-outputType">
+        <input type="text" id="node-input-output">
     </div>
 </script>
 <script type="text/x-red" data-help-name="get-record">

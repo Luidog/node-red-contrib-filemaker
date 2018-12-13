@@ -4,17 +4,18 @@ module.exports = function(RED) {
     RED.nodes.createNode(this, config);
     const node = this;
     const { client, ...configuration } = config;
+    const context = node.context();
     node.connection = RED.nodes.getNode(client);
     node.on("input", async msg => {
-      const { layout, recordId, ...parameters } = compact([
-        sanitize(configuration, ["layout"]),
-        msg.parameters,
-        msg.payload
+      console.log("node context", context);
+      console.log("node configuration", configuration);
+      const { layout, recordId, output, ...parameters } = compact([
+        sanitize(configuration, ["layout", "output"])
       ]);
       let connection = await this.connection.client;
       connection
         .get(layout, recordId, parameters)
-        .then(response => node.send(merge(msg, response)))
+        .then(response => node.send(merge(msg, output, response)))
         .catch(error => node.error(error.message, msg));
     });
   }

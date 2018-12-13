@@ -12,8 +12,8 @@ const _ = require("lodash");
  * @return {Object} An object with only properties that are not null, undefined, or an empty string.
  */
 
-const merge = (message, payload) =>
-  Object.assign(message, { payload: payload });
+const merge = (message, property, payload) =>
+  Object.assign(message, { [property]: payload });
 
 /**
  * @method compact
