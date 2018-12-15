@@ -28,6 +28,7 @@ module.exports = function(RED) {
         node.context(),
         ["layout", "limit", "offset", "sort", "scripts", "portals"]
       );
+      console.log(parameters);
       let connection = await this.connection.client;
       connection
         .list(layout, parameters)

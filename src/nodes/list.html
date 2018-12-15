@@ -9,9 +9,12 @@
         limitType: {value:"num"},
         offset: { value: null, required: false },
         offsetType: { value:"num" },
-        sort: { value: null, required: false },
+        sort: { value: "{}", required: false },
+        sortType: {value:"json"},
         scripts: { value: null, required: false },
+        scriptsType: {value:"json"},
         portals: { value: null, required: false },
+        portalsType: {value:"json"},
         output: { value: "payload", required: false }
       },
       inputs: 1,
@@ -19,25 +22,12 @@
       icon: "list.png",
       color: "#39D1C0",
       label: "List Records",
-      oneditsave:function(){
-        console.log('save triggered')
-      },
       oneditprepare: function() {
-        RED.editor.createEditor({
-          id: 'node-input-scripts',
-          mode: "ace/mode/javascript",
-          value: $("#node-input-scripts").val()
+        $("#node-input-layout").typedInput({
+          default: 'str',
+          types: ['str','msg','flow','global'],
+          typeField: $("#node-input-layoutType")
         });
-        RED.editor.createEditor({
-                id: 'node-input-sort',
-                mode: "ace/mode/javascript",
-                value: $("#node-input-sort").val()
-            });
-        RED.editor.createEditor({
-                id: 'node-input-portals',
-                mode: "ace/mode/javascript",
-                value: $("#node-input-portals").val()
-            });
         $("#node-input-layout").typedInput({
           default: 'str',
           types: ['str','msg','flow','global'],
@@ -52,6 +42,21 @@
           default: 'num',
           types: ['num','msg','flow','global'],
           typeField: $("#node-input-offsetType")
+        });
+        $("#node-input-sort").typedInput({
+          default: 'json',
+          types: ['json','msg','flow','global'],
+          typeField: $("#node-input-sortType")
+        });
+        $("#node-input-scripts").typedInput({
+          default: 'json',
+          types: ['json','msg','flow','global'],
+          typeField: $("#node-input-scriptsType")
+        });
+        $("#node-input-portals").typedInput({
+          default: 'json',
+          types: ['json','msg','flow','global'],
+          typeField: $("#node-input-portalsType")
         });
         $("#node-input-output").typedInput({
           default: 'msg',
@@ -81,18 +86,26 @@
         <input type="hidden" id="node-input-offsetType">
         <input type="text" id="node-input-offset">
     </div>
-    <div class="form-row node-text-editor-row">
+    <div>
+      <hr>
+    </div>
+    <div class="form-row">
         <label for="node-input-scripts">Sort</label>
-        <div  style="height: 50px; min-height: 50px;" class="node-text-editor" type="text" id="node-input-sort"></div>
+        <input type="hidden" id="node-input-sortType">
+        <input type="text" id="node-input-sort">
     </div>
-    <div class="form-row node-text-editor-row">
+    <div class="form-row">
         <label for="node-input-scripts">Scripts</label>
-        <div  style="height: 50px; width: 311px ; min-height: 50px; float:right;" class="node-text-editor" type="text" id="node-input-scripts"></div>
+        <input type="hidden" id="node-input-scriptsType">
+        <input type="text" id="node-input-scripts">
     </div>
-        <div class="form-row node-text-editor-row">
+    </div>
+        <div class="form-row">
         <label for="node-input-scripts">Portals</label>
-        <div  style="height: 50px; width:200px ; min-height: 50px;" class="node-text-editor" type="text" id="node-input-portals"></div>
+        <input type="hidden" id="node-input-portalsType">
+        <input type="text" id="node-input-portals">
     </div>
+    <hr>
     <div class="form-row">
         <label for="node-input-output">Output</label>
         <input type="text" id="node-input-output">
