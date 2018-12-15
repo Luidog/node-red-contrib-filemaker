@@ -12,8 +12,27 @@ const _ = require("lodash");
  * @return {Object} An object with only properties that are not null, undefined, or an empty string.
  */
 
-const merge = (message, property, payload) =>
-  Object.assign(message, { [property]: payload });
+const merge = (message, property, payload) => _.set(message, property, payload);
+
+const constructParameters = (message, configuration, context, values) =>
+  compact(
+    _.map(values, value => {
+      let parameter = {};
+      let type = configuration[`${value}Type`];
+      if (type && type !== "msg" && type !== "flow" && type !== "context") {
+        parameter = { [value]: configuration[value] };
+      } else if (type === "msg") {
+        parameter = { [value]: _.get(message, configuration[value], "") };
+      } else if (type === "flow") {
+        parameter = { [value]: _.get(context.flow, configuration[value], "") };
+      } else if (type === "global") {
+        parameter = {
+          [value]: _.get(context.global, configuration[value], "")
+        };
+      }
+      return parameter;
+    })
+  );
 
 /**
  * @method compact
@@ -91,4 +110,4 @@ const isJson = data => {
 
 const sanitize = (data, parameters) => _.pick(data, parameters);
 
-module.exports = { compact, merge, isJson, sanitize };
+module.exports = { compact, merge, isJson, sanitize, constructParameters };
