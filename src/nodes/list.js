@@ -10,30 +10,21 @@ module.exports = function(RED) {
     const node = this;
     const { client, ...configuration } = config;
     node.connection = RED.nodes.getNode(client);
-    node.on("input", async msg => {
-      console.log(
-        "parameters",
-        constructParameters(msg, configuration, node.context(), [
-          "layout",
-          "limit",
-          "offset",
-          "sort",
-          "scripts",
-          "portals"
-        ])
-      );
+    node.on("input", async message => {
       const { layout, ...parameters } = constructParameters(
-        msg,
+        message,
         configuration,
         node.context(),
         ["layout", "limit", "offset", "sort", "scripts", "portals"]
       );
-      console.log(parameters);
+
       let connection = await this.connection.client;
       connection
         .list(layout, parameters)
-        .then(response => node.send(merge(msg, configuration.output, response)))
-        .catch(error => node.error(error.message, msg));
+        .then(response =>
+          node.send(merge(configuration.output, message, response))
+        )
+        .catch(error => node.error(error.message, message));
     });
   }
   RED.nodes.registerType("list-records", list);

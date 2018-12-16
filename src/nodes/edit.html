@@ -3,15 +3,37 @@
       category: "FileMaker",
       defaults: {
         client: { value: "", type: "filemaker-api-client" },
-        layout: { value: null, required: true },
-        merge: { value: true, required: false },
-        scripts: { value: null, required: false }
+        layout: {
+          value: 'payload',
+          required: true
+        },
+        layoutType: { value: "msg" },
+        recordId: { value: null, required: true },
+        recordIdType: { value: "" },
+        scripts: { value: null, required: false },
+        scriptsType: { value: "none" },
+        output: { value: "payload", required: true }
       },
       oneditprepare: function() {
-        this.editor = RED.editor.createEditor({
-          id: "node-input-scripts",
-          mode: "ace/mode/javascript",
-          value: $("#node-input-scripts").val()
+        var nullType = { value: "none", label: "None", icon: "", hasValue: false };
+        $("#node-input-layout").typedInput({
+          default: "str",
+          types: ["str", "msg", "flow", "global"],
+          typeField: $("#node-input-layoutType")
+        });
+        $("#node-input-scripts").typedInput({
+          default: "none",
+          types: ["json", "msg", "flow", "global", nullType],
+          typeField: $("#node-input-scriptsType")
+        });
+        $("#node-input-recordId").typedInput({
+          default: "num",
+          types: ["num", "msg", "flow", "global"],
+          typeField: $("#node-input-recordIdType")
+        });
+        $("#node-input-output").typedInput({
+          default: "msg",
+          types: ["msg"]
         });
       },
       inputs: 1,
@@ -24,20 +46,29 @@
 
 <script type="text/x-red" data-template-name="edit-record">
     <div class="form-row">
-        <label for="node-input-client">Client</label>
-        <input type="text" id="node-input-client">
-    </div>
-        <div class="form-row">
-        <label for="node-input-layout">Default Layout</label>
-        <input type="text" id="node-input-layout">
+      <label for="node-input-client">Client</label>
+      <input type="text" id="node-input-client">
     </div>
     <div class="form-row">
-        <label for="node-input-merge">Merge Response</label>
-        <input type="checkbox" id="node-input-merge">
+      <label for="node-input-layout">Layout</label>
+      <input type="hidden" id="node-input-layoutType">
+      <input type="text" id="node-input-layout">
     </div>
-    <div class="form-row node-text-editor-row">
+    <hr>
+    <div class="form-row">
+        <label for="node-input-recordId">Record Id</label>
+        <input type="hidden" id="node-input-recordIdType">
+        <input type="text" id="node-input-recordId">
+    </div>
+    <div class="form-row">
         <label for="node-input-scripts">Scripts</label>
-        <div  style="height: 100px; min-height: 100px;" class="node-text-editor" type="text" id="node-input-scripts"></div>
+        <input type="hidden" id="node-input-scriptsType">
+        <input type="text" id="node-input-scripts">
+    </div>
+    <hr>
+    <div class="form-row">
+        <label for="node-input-output">Output</label>
+        <input type="text" id="node-input-output">
     </div>
 </script>
 <script type="text/x-red" data-help-name="edit-record">

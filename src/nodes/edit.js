@@ -6,11 +6,12 @@ module.exports = function(RED) {
     const { client, ...configuration } = config;
     node.connection = RED.nodes.getNode(client);
     node.on("input", async msg => {
-      const { layout, recordId, data, ...parameters } = compact([
-        sanitize(configuration, ["layout", "scripts", "merge"]),
-        msg.parameters,
-        msg.payload
-      ]);
+      const { layout, recordId, data, ...parameters } = cconstructParameters(
+        message,
+        configuration,
+        node.context(),
+        ["layout", "scripts", "data", "merge", "recordId"]
+      );
 
       let client = await this.connection.client;
       client

@@ -12,7 +12,7 @@ const _ = require("lodash");
  * @return {Object} An object with only properties that are not null, undefined, or an empty string.
  */
 
-const merge = (message, property, payload) => _.set(message, property, payload);
+const merge = (property, message, payload) => _.set(message, property, payload);
 
 const constructParameters = (message, configuration, context, values) =>
   compact(
@@ -30,6 +30,7 @@ const constructParameters = (message, configuration, context, values) =>
           [value]: _.get(context.global, configuration[value], "")
         };
       }
+      console.log(parameter);
       return parameter;
     })
   );
