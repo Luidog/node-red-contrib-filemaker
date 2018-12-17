@@ -1,22 +1,24 @@
 module.exports = function(RED) {
   function edit(config) {
-    const { compact, merge, sanitize } = require("../services");
+    const { merge, constructParameters } = require("../services");
     RED.nodes.createNode(this, config);
     const node = this;
     const { client, ...configuration } = config;
     node.connection = RED.nodes.getNode(client);
-    node.on("input", async msg => {
-      const { layout, recordId, data, ...parameters } = compact([
-        sanitize(configuration, ["layout", "scripts", "merge"]),
-        msg.parameters,
-        msg.payload
-      ]);
-
+    node.on("input", async message => {
+      let { layout, recordId, data, ...parameters } = constructParameters(
+        message,
+        configuration,
+        node.context(),
+        ["layout", "scripts", "data", "merge", "recordId"]
+      );
       let client = await this.connection.client;
       client
-        .edit(layout, recordId, data || {}, parameters)
-        .then(response => node.send(merge(msg, response)))
-        .catch(error => node.error(error.message, msg));
+        .edit(layout, recordId, data, parameters)
+        .then(response =>
+          node.send(merge(configuration.output, message, response))
+        )
+        .catch(error => node.error(error.message, message));
     });
   }
   RED.nodes.registerType("edit-record", edit);

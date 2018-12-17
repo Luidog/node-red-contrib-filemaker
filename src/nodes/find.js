@@ -1,13 +1,16 @@
 module.exports = function(RED) {
   function find(config) {
-    const { compact, merge, sanitize } = require("../services");
+    const { merge, constructParameters } = require("../services");
     RED.nodes.createNode(this, config);
     const node = this;
     const { client, ...configuration } = config;
     node.connection = RED.nodes.getNode(client);
-    node.on("input", async msg => {
-      const { layout, query, ...parameters } = compact([
-        sanitize(configuration, [
+    node.on("input", async message => {
+      let { layout, query, ...parameters } = constructParameters(
+        message,
+        configuration,
+        node.context(),
+        [
           "layout",
           "limit",
           "offset",
@@ -16,17 +19,15 @@ module.exports = function(RED) {
           "scripts",
           "portals",
           "data"
-        ]),
-        msg.parameters,
-        msg.payload
-      ]);
+        ]
+      );
       let connection = await this.connection.client;
       connection
         .find(layout, query, parameters)
         .then(response =>
-          node.send(merge(msg, Object.assign(msg.payload, response)))
+          node.send(merge(configuration.output, message, response))
         )
-        .catch(error => node.error(error.message, msg));
+        .catch(error => node.error(error.message, message));
     });
   }
   RED.nodes.registerType("perform-find", find);

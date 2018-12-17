@@ -6,7 +6,7 @@ const { merge, parse, compact, isJson } = require("../src/services");
 describe("Utility Services", function() {
   describe("merge utility", () => {
     it("should merge data to the payload object", () => {
-      return expect(merge({}, { object: true }))
+      return expect(merge("payload", {}, { object: true }))
         .to.be.a("object")
         .and.to.include.keys("payload")
         .and.property("payload")

@@ -3,15 +3,44 @@
       category: "FileMaker",
       defaults: {
         client: { value: "", type: "filemaker-api-client" },
-        layout: { value: null, required: true },
-        script: { value: null, required: true },
-        param: { value: null, required: false }
+         layout: {
+          value: 'payload.layout',
+          required: true
+        },
+        layoutType: { value: "msg" },
+        script: { value: "payload.script", required: true },
+        scriptType: { value: "msg" },
+        parameter: { value: null, required: false },
+        parameterType: { value: "none" },
+        output: { value: "payload", required: true }
       },
       inputs: 1,
       outputs: 1,
       icon: "script.png",
       color: "#39D1C0",
-      label: "Trigger Script"
+      label: "Trigger Script",
+      oneditprepare: function() {
+        var nullType = { value: "none", label: "None", icon: "", hasValue: false };
+        $("#node-input-layout").typedInput({
+          default: "msg",
+          types: ["str", "msg", "flow", "global", nullType],
+          typeField: $("#node-input-layoutType")
+        });
+        $("#node-input-script").typedInput({
+          default: "msg",
+          types: ["str", "msg", "flow", "global", nullType],
+          typeField: $("#node-input-scriptType")
+        });
+        $("#node-input-parameter").typedInput({
+          default: "none",
+          types: ["json", "msg", "flow", "global", nullType],
+          typeField: $("#node-input-parameterType")
+        });
+        $("#node-input-output").typedInput({
+          default: "msg",
+          types: ["msg"]
+        });
+      }
     });
 </script>
 
@@ -22,15 +51,26 @@
     </div>
     <div class="form-row">
         <label for="node-input-layout">Layout</label>
+        <input type="hidden" id="node-input-layoutType">
         <input type="text" id="node-input-layout">
     </div>
+    <hr>
     <div class="form-row">
         <label for="node-input-script">Script</label>
+        <input type="hidden" id="node-input-scriptType">
         <input type="text" id="node-input-script">
     </div>
+    </div>
+        <div class="form-row">
+        <label for="node-input-parameter">Parameter</label>
+        <input type="hidden" id="node-input-parameterType">
+        <input type="text" id="node-input-parameter">
+    </div>
+    <hr>
     <div class="form-row">
-        <label for="node-input-param">Default Parameter</label>
-        <input type="text" id="node-input-param">
+        <label for="node-input-output">Output</label>
+        <input type="hidden" id="node-input-outputType">
+        <input type="text" id="node-input-output">
     </div>
 </script>
 <script type="text/x-red" data-help-name="trigger-script">

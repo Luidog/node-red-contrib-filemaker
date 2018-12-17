@@ -3,102 +3,157 @@
       category: "FileMaker",
       defaults: {
         client: { value: null, type: "filemaker-api-client", required: true },
-        layout: { value: null, required: true },
+        layout: {
+          value: 'payload.layout',
+          required: true
+        },
+        layoutType: { value: "msg" },
         limit: { value: null, required: false },
+        limitType: { value: "num" },
         offset: { value: null, required: false },
+        offsetType: { value: "num" },
         sort: { value: null, required: false },
+        sortType: { value: "none" },
         scripts: { value: null, required: false },
-        portals: { value: null, required: false }
+        scriptsType: { value: "none" },
+        portals: { value: null, required: false },
+        portalsType: { value: "none" },
+        output: { value: "payload", required: true }
       },
       inputs: 1,
       outputs: 1,
       icon: "list.png",
       color: "#39D1C0",
-      label: "List Records"
+      label: "List Records",
+      oneditprepare: function() {
+        var nullType = { value: "none", label: "None", icon: "", hasValue: false };
+        $("#node-input-layout").typedInput({
+          default: "msg",
+          types: ["str", "msg", "flow", "global"],
+          typeField: $("#node-input-layoutType")
+        });
+        $("#node-input-limit").typedInput({
+          default: "num",
+          types: ["num", "msg", "flow", "global"],
+          typeField: $("#node-input-limitType")
+        });
+        $("#node-input-offset").typedInput({
+          default: "num",
+          types: ["num", "msg", "flow", "global"],
+          typeField: $("#node-input-offsetType")
+        });
+        $("#node-input-sort").typedInput({
+          default: "none",
+          types: ["json", "msg", "flow", "global", nullType],
+          typeField: $("#node-input-sortType")
+        });
+        $("#node-input-scripts").typedInput({
+          default: "none",
+          types: ["json", "msg", "flow", "global", nullType],
+          typeField: $("#node-input-scriptsType")
+        });
+        $("#node-input-portals").typedInput({
+          default: "none",
+          types: ["json", "msg", "flow", "global", nullType],
+          typeField: $("#node-input-portalsType")
+        });
+        $("#node-input-output").typedInput({
+          default: "msg",
+          types: ["msg"]
+        });
+      }
     });
 </script>
 
 <script type="text/x-red" data-template-name="list-records">
     <div class="form-row">
-        <label for="node-input-client">FMS Client</label>
+        <label for="node-input-client">DAPI Client</label>
         <input type="text" id="node-input-client">
     </div>
     <div class="form-row">
-        <label for="node-input-layout">Default Layout</label>
+        <label for="node-input-layout">Layout</label>
+        <input type="hidden" id="node-input-layoutType">
         <input type="text" id="node-input-layout">
     </div>
     <div class="form-row">
-        <label for="node-input-limit">Default Limit</label>
-        <input type="number" id="node-input-limit">
+        <label for="node-input-limit">Limit</label>
+        <input type="hidden" id="node-input-limitType">
+        <input type="text" id="node-input-limit">
     </div>
     <div class="form-row">
-        <label for="node-input-offset">Default Offset</label>
-        <input type="number" id="node-input-offset">
+        <label for="node-input-offset">Offset</label>
+        <input type="hidden" id="node-input-offsetType">
+        <input type="text" id="node-input-offset">
+    </div>
+    <div>
+      <hr>
     </div>
     <div class="form-row">
-        <label for="node-input-sort">Default Sort</label>
+        <label for="node-input-sort">Sort</label>
+        <input type="hidden" id="node-input-sortType">
         <input type="text" id="node-input-sort">
     </div>
     <div class="form-row">
-        <label for="node-input-script">Scripts</label>
-        <input type="number" id="node-input-script">
+        <label for="node-input-scripts">Scripts</label>
+        <input type="hidden" id="node-input-scriptsType">
+        <input type="text" id="node-input-scripts">
     </div>
-    <div class="form-row">
+    </div>
+        <div class="form-row">
         <label for="node-input-portals">Portals</label>
-        <input type="number" id="node-input-portals">
+        <input type="hidden" id="node-input-portalsType">
+        <input type="text" id="node-input-portals">
+    </div>
+    <hr>
+    <div class="form-row">
+        <label for="node-input-output">Output</label>
+        <input type="hidden" id="node-input-outputType">
+        <input type="text" id="node-input-output">
     </div>
 </script>
 
 <script type="text/x-red" data-help-name="list-records">
-<p>Lists FileMaker records for the specified layout. This node will use the default layout set in its configuration or a layout specified in <code>msg.parameters</code> or <code>msg.payload</code>.</p>
+<p>Lists FileMaker records for a specified layout. By default this node will use the value found in <code>msg.payload</code></p>
 
 <h3>Inputs</h3>
     <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">Object</span>
-                <dd><b>layout</b> - <i>String</i><br>The layout to use for the list. Defaults to node configuration.</dd>
-                <dd><b>limit</b> - <i>Number</i><br>The number of records to return in the list. Default is 100.</dd>
-                <dd><b>offset</b> - <i>Array</i><br>The position to start listing records from.</dd>
-                <dd><b>sort</b> - <i>Object</i><br>The sort order of the records.</dd>
-                <dd><b>portals</b> - <i>Array</i><br>An arry of portals to return with the list</dd>
-                <dd><b>scripts</b> - <i>Array</i><br>The FileMaker scripts to run when listing records</dd>
-            </dt>
-            <dt class="optional">parameters <span class="property-type">Object</span>
-                <dd><b>layout</b> - <i>String</i><br>The layout to use for the find. Defaults to node configuration.</dd>
-                <dd><b>limit</b> - <i>Number</i><br>The number of records to return in the list. Default is 100.</dd>
-                <dd><b>offset</b> - <i>Array</i><br>The position to start listing records from.</dd>
-                <dd><b>sort</b> - <i>Object</i><br>The sort order of the records.</dd>
-                <dd><b>portals</b> - <i>Array</i><br>An arry of portals to return with the list</dd>
-                <dd><b>scripts</b> - <i>Array</i><br>The FileMaker scripts to run when listing records.</dd>
-            </dt>
+      <dt>layout<span class="property-type">String</span><dd>The layout to to use for listing records</dd>
+      <dt>limit<span class="property-type">Number</span><dd>The number of records to return in the list. Default is 100.</dd>
+      <dt>offset<span class="property-type">Number</span><dd>The position to start listing records from.</dd>
+      <dt>sort<span class="property-type">Object</span><dd>The sort order of the records.</dd>
+      <dt>portals<span class="property-type">Array</span><dd>An arry of portals to return with the list</dd>
+      <dt>scripts<span class="property-type">Array</span><dd>The FileMaker scripts to run when listing records</dd>
     </dl>
 
  <h3>Outputs</h3>
      <ol class="node-ports">
-         <li>Standard output
-             <dl class="message-properties">
-                 <dt>payload <span class="property-type">Object</span></dt>
-                 <dd>Contains the FileMaker Data API Response.</dd>
-             </dl>
+         <li>Standard Output
+         <dl class="message-properties">
+            <dt>data <span class="property-type">Array</span>
+              <dd>Contains the record data from the list query.</dd>
+            </dt>
+          </dl>
          </li>
-         <li>Standard error
+         <li>Standard Error
              <dl class="message-properties">
-                 <dt>message <span class="property-type">Object</span></dt>
-                    <dd><b>message</b> - <i>String</i><br>The FileMaker or client error message.</dd>
-                    <dd><b>code</b> - <i>String</i><br>The applicible FileMaker error code.</dd>
+                 <dt>message<span class="property-type">String</span>
+                    <dd>The FileMaker or client error message.</dd>
+                  </dt>
+                  <dt>error<span class="property-type">String</span>
+                    <dd>The applicible FileMaker error code.</dd>
+                  </dt>
              </dl>
          </li>
      </ol>
 
 <h3>Details</h3>
-    <p>This node will use the query found in <code>msg.payload.query</code> to perform a find. This
-    node uses the layout found in either <code>msg.payload.layout</code>, <code>msg.parameters.layout</code>, or this node's configuration as context for listing records. This node will also accept scripts and portals parameters. The scripts parameters are an array of scripts to run with the query. The portals parameter specifies the portal data to return in the query.<br/>The order of assignment for parameters are node configuration properties, message parameters, message payload parameter properties.</p>
+    <p>This node lists FileMaker records from the specified layout. This node will use the value found in <code>msg.payload</code></p>
     <h3>References</h3>
         <ul>
-            <li><a href="https://github.com/Luidog/fms-api-client#list-records">List Method</a> - base client documentation</li>
-            <li><a href="https://github.com/Luidog/fms-api-client#script-array-syntax">Scripts Array</a> - scripts array documentation</li>
-            <li><a href="https://github.com/Luidog/fms-api-client#portal-array-syntax">Portals Array</a> - portals array documentation</li>
-            <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node-Red FileMaker</a> - the node's github repository</li>
-            <li><a href="https://github.com/Luidog/fms-api-client">FMS API Client</a> - fms-api-client github repository</li>
+            <li><a href="https://github.com/Luidog/fms-api-client#list-records">List Method</a> - Base Client Documentation.</li>
+            <li><a href="https://github.com/Luidog/fms-api-client#script-array-syntax">Scripts Array</a> - Scripts Array Documentation</li>
+            <li><a href="https://github.com/Luidog/fms-api-client#portal-array-syntax">Portals Array</a> - Portals Array Documentation</li>
+            <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node-Red FileMaker</a> - The Node's Github Repository</li>
+            <li><a href="https://github.com/Luidog/fms-api-client">FMS API Client</a> - fms-api-client Github Repository</li>
         </ul>
 </script>

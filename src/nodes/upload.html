@@ -3,15 +3,56 @@
       category: "FileMaker",
       defaults: {
         client: { value: "", type: "filemaker-api-client" },
-        file: { value: null },
-        layout: { value: null, required: true },
-        field: { value: null, required: true }
+        layout: {
+          value: 'payload.layout',
+          required: true
+        },
+        layoutType: { value: "msg" },
+        file: { value: "payload.file" },
+        fileType: { value: "msg" },
+        field: { value: 'payload.field', required: true },
+        fieldType: { value: "msg" },
+        parameters: { value: null, required: false },
+        parametersType: { value: "none" },
+        output: { value: "payload", required: true }
       },
       inputs: 1,
       outputs: 1,
       icon: "upload.png",
       color: "#39D1C0",
-      label: "Upload File"
+      label: "Upload File",
+      oneditprepare: function() {
+        var nullType = { value: "none", label: "None", icon: "", hasValue: false };
+        $("#node-input-layout").typedInput({
+          default: "msg",
+          types: ["str", "msg", "flow", "global"],
+          typeField: $("#node-input-layoutType")
+        });
+        $("#node-input-layout").typedInput({
+          default: "msg",
+          types: ["str", "msg", "flow", "global"],
+          typeField: $("#node-input-layoutType")
+        });
+        $("#node-input-file").typedInput({
+          default: "msg",
+          types: ["msg","flow", "global","bin","json"],
+          typeField: $("#node-input-fileType")
+        });
+        $("#node-input-field").typedInput({
+          default: "msg",
+          types: ["msg","flow", "global","json"],
+          typeField: $("#node-input-fieldType")
+        });
+        $("#node-input-parameters").typedInput({
+          default: "none",
+          types: ["json", "msg", "flow", "global", nullType],
+          typeField: $("#node-input-parametersType")
+        });
+        $("#node-input-output").typedInput({
+          default: "msg",
+          types: ["msg"]
+        });
+      }
     });
 </script>
 
@@ -20,17 +61,31 @@
         <label for="node-input-client">Client</label>
         <input type="text" id="node-input-client">
     </div>
-        <div class="form-row">
-        <label for="node-input-file">Default File</label>
-        <input type="text" id="node-input-filename">
-    </div>
     <div class="form-row">
-        <label for="node-input-layout">Default Layout</label>
+        <label for="node-input-layout">Layout</label>
+        <input type="hidden" id="node-input-layoutType">
         <input type="text" id="node-input-layout">
     </div>
+    <hr>
     <div class="form-row">
-        <label for="node-input-field">Default Field</label>
+        <label for="node-input-file">File</label>
+        <input type="hidden" id="node-input-fileType">
+        <input type="text" id="node-input-file">
+    </div>
+    <div class="form-row">
+        <label for="node-input-field">Field</label>
+        <input type="hidden" id="node-input-fieldType">
         <input type="text" id="node-input-field">
+    </div>
+    <div class="form-row">
+        <label for="node-input-parameters">Field</label>
+        <input type="hidden" id="node-input-parametersType">
+        <input type="text" id="node-input-parameters">
+    </div>
+    <hr>
+    <div class="form-row">
+        <label for="node-input-output">Output</label>
+        <input type="text" id="node-input-output">
     </div>
 </script>
 <script type="text/x-red" data-help-name="upload-file">

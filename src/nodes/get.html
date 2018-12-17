@@ -3,7 +3,15 @@
       category: "FileMaker",
       defaults: {
         client: { value: "", type: "filemaker-api-client" },
-        layout: { value: null, required: false }
+        layout: { value: "payload.layout", required: false },
+        layoutType: { value: "msg", required: false },
+        recordId: { value: "payload.recordId", required: true },
+        recordIdType: { value: "msg" },
+        scripts: { value: null, required: false },
+        scriptsType: { value: "none" },
+        portals: { value: null, required: false },
+        portalsType: { value: "none" },
+        output: { value: "payload", required: false }
       },
       inputs: 1,
       outputs: 1,
@@ -11,30 +19,66 @@
       color: "#39D1C0",
       label: "Get Record",
       oneditprepare: function() {
-        if (!this.field) {
-          this.field = "layout";
-          $("#node-input-layout").val("layout");
-        }
-        if (!this.fieldType) {
-          this.fieldType = "msg";
-        }
+        var nullType = { value: "none", label: "None", icon: "", hasValue: false };
         $("#node-input-layout").typedInput({
           default: "msg",
-          types: ["msg", "flow", "global"],
-          typeField: $("#node-input-fieldType")
+          types: ["msg", "flow", "global", "str"],
+          typeField: $("#node-input-layoutType")
+        });
+        $("#node-input-recordId").typedInput({
+          default: "msg",
+          types: ["msg"],
+          typeField: ".recordIdType"
+        });
+        $("#node-input-scripts").typedInput({
+          default: "none",
+          types: ["json", "msg", "flow", "global", nullType],
+          typeField: $("#node-input-scriptsType")
+        });
+        $("#node-input-portals").typedInput({
+          default: "none",
+          types: ["json", "msg", "flow", "global", nullType],
+          typeField: $("#node-input-portalsType")
+        });
+        $("#node-input-output").typedInput({
+          default: "msg",
+          types: ["msg"],
+          typeField: ".outputType"
         });
       }
-    });
+});
 </script>
-
 <script type="text/x-red" data-template-name="get-record">
     <div class="form-row">
         <label for="node-input-client">Client</label>
         <input type="text" id="node-input-client">
     </div>
     <div class="form-row">
-        <label for="node-input-layout">Default Layout</label>
+        <label for="node-input-layout">Layout</label>
+        <input type="hidden" id="node-input-layoutType">
         <input type="text" id="node-input-layout">
+    </div>
+    <hr>
+    <div class="form-row">
+        <label for="node-input-recordId">Record Id</label>
+        <input type="hidden" id="node-input-recordIdType">
+        <input type="text" id="node-input-recordId">
+    </div>
+    <div class="form-row">
+        <label for="node-input-scripts">Scripts</label>
+        <input type="hidden" id="node-input-scriptsType">
+        <input type="text" id="node-input-scripts">
+    </div>
+    <div class="form-row">
+        <label for="node-input-portals">Portals</label>
+        <input type="hidden" id="node-input-portalsType">
+        <input type="text" id="node-input-portals">
+    </div>
+    <hr>
+    <div class="form-row">
+        <label for="node-input-output">Output</label>
+        <input type="hidden" id="node-input-outputType">
+        <input type="text" id="node-input-output">
     </div>
 </script>
 <script type="text/x-red" data-help-name="get-record">

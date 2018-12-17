@@ -2,20 +2,53 @@
     RED.nodes.registerType("transform", {
       category: "FileMaker",
       defaults: {
-        parameters: { value: null, required: false }
+        parameters: { value: null, required: false },
+        parameterType: { value: 'none', required: false },
+        data: { value: "payload.data", required: false },
+        dataType: { value: "msg" },
+        output: { value: "payload.data", required: true }
       },
       inputs: 1,
       outputs: 1,
       icon: "transform.png",
       color: "#39D1C0",
-      label: "Transform Response"
+      label: "Transform Response",
+      oneditprepare: function() {
+        var nullType = { value: "none", label: "None", icon: "", hasValue: false };
+        $("#node-input-data").typedInput({
+          default: "msg",
+          types: ["json", "msg", "flow", "global"],
+          typeField: $("#node-input-dataType")
+        });
+        $("#node-input-parameters").typedInput({
+          default: "none",
+          types: ["msg","json", "flow", "global", nullType],
+          typeField: $("#node-input-parametersType")
+        });
+        $("#node-input-output").typedInput({
+          default: "msg",
+          types: ["msg"]
+        });
+      }
     });
 </script>
 
 <script type="text/x-red" data-template-name="transform">
     <div class="form-row">
-        <label for="node-input-parameters">Default Parameters</label>
+        <label for="node-input-data">Data</label>
+        <input type="hidden" id="node-input-dataType">
+        <input type="text" id="node-input-data">
+    </div>
+    <hr>
+    <div class="form-row">
+        <label for="node-input-parameters">Parameters</label>
+        <input type="hidden" id="node-input-parametersType">
         <input type="text" id="node-input-parameters">
+    </div>
+    <hr>
+    <div class="form-row">
+        <label for="node-input-output">Output</label>
+        <input type="text" id="node-input-output">
     </div>
 </script>
 <script type="text/x-red" data-help-name="transform">

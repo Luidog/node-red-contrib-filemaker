@@ -3,15 +3,45 @@
       category: "FileMaker",
       defaults: {
         client: { value: "", type: "filemaker-api-client" },
-        layout: { value: null, required: true },
+        layout: {
+          value: 'payload.layout',
+          required: true
+        },
+        
+        layoutType: { value: "msg" },
+        data: { value: null, required: false },
+        dataType: { value: "none" },
         scripts: { value: null, required: false },
-        merge: { value: true, required: false }
+        scriptsType: { value: "none" },
+        merge: { value: false, required: false },
+        mergeType: { value: "bool" },
+        output: { value: "payload", required: true }
       },
       oneditprepare: function() {
-        this.editor = RED.editor.createEditor({
-          id: "node-input-scripts",
-          mode: "ace/mode/html",
-          value: $("#node-input-scripts").val()
+        var nullType = { value: "none", label: "None", icon: "", hasValue: false };
+        $("#node-input-layout").typedInput({
+          default: "str",
+          types: ["str", "msg", "flow", "global"],
+          typeField: $("#node-input-layoutType")
+        });
+        $("#node-input-scripts").typedInput({
+          default: "none",
+          types: ["json", "msg", "flow", "global", nullType],
+          typeField: $("#node-input-scriptsType")
+        });
+        $("#node-input-data").typedInput({
+          default: "none",
+          types: ["json", "msg", "flow", "global", nullType],
+          typeField: $("#node-input-dataType")
+        });
+        $("#node-input-merge").typedInput({
+          default: "bool",
+          types: ["bool", "msg", "flow", "global"],
+          typeField: $("#node-input-mergeType")
+        });
+        $("#node-input-output").typedInput({
+          default: "msg",
+          types: ["msg"]
         });
       },
       inputs: 1,
@@ -27,69 +57,75 @@
         <label for="node-input-client">Client</label>
         <input type="text" id="node-input-client">
     </div>
-        <div class="form-row">
-        <label for="node-input-layout">Default Layout</label>
+    <div class="form-row">
+        <label for="node-input-layout">Layout</label>
+        <input type="hidden" id="node-input-layoutType">
         <input type="text" id="node-input-layout">
     </div>
+    <hr>
     <div class="form-row">
-        <label for="node-input-merge">Merge Response</label>
-        <input type="checkbox" id="node-input-merge">
+        <label for="node-input-layout">Data</label>
+        <input type="hidden" id="node-input-dataType">
+        <input type="text" id="node-input-data">
     </div>
-    <div class="form-row node-text-editor-row">
+    <div class="form-row">
         <label for="node-input-scripts">Scripts</label>
-        <div  style="height: 100px; min-height: 100px;" class="node-text-editor" type="text" id="node-input-scripts"></div>
+        <input type="hidden" id="node-input-scriptsType">
+        <input type="text" id="node-input-scripts">
+    </div>
+    <div class="form-row">
+        <label for="node-input-merge">Merge Data</label>
+        <input type="hidden" id="node-input-mergeType">
+        <input type="text" id="node-input-merge">
+    </div>
+    <hr>
+    <div class="form-row">
+        <label for="node-input-output">Output</label>
+        <input type="text" id="node-input-output">
     </div>
 </script>
 <script type="text/x-red" data-help-name="create-record">
-<p>This node creates a record in FileMaker. It uses the data found in
-<code>msg.payload.data</code> to set FileMaker fields.</p>
-
-This node will use the default layout set in its configuration or 
-a layout specified in <code>msg.payload</code> or <code>msg.parameters</code>. This node can be optionally configured to merge the data found in <code>msg.payload.data</code> with its output.
+<p>This node creates a record in FileMaker. By default This node will use the value in <code>msg.payload</code> as the layout context when creating a record.</p>
 
 <h3>Inputs</h3>
     <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">Object</span>
-            <dd><b>data</b> <mark>required</mark> - <i>Object</i><br>The data to use when creating a record.</dd>
-            <dd><b>layout</b> - <i>String</i><br>The layout to use when creating a record. Defaults to node configuration.</dd>
-            <dd><b>scripts</b> - <i>Array</i><br>Any FileMaker scripts to run when creating the record.</dd>
-        </dt>
-        <dt class="optional">parameters <span class="property-type">Object</span>
-            <dd><b>layout</b> - <i>String</i><br>The layout to use when creating a record. Defaults to node configuration.</dd>
-            <dd><b>scripts</b> - <i>Array</i><br>Any FileMaker scripts to run when creating the record.</dd>
-        </dt>
+      <dt>layout<span class="property-type">String</span><dd>The layout to use when creating a record</dd>
+      <dt>data<span class="property-type">Object</span><dd>The data to use when creating a record</dd>
+      <dt>scripts<span class="property-type">Array</span><dd>The scripts to run when creating a record.</dd>
+      <dt>merge<span class="property-type">Boolean</span><dd>Merge input data with FileMaker response .</dd>
     </dl>
 
  <h3>Outputs</h3>
      <ol class="node-ports">
          <li>Standard Output
-             <dl class="message-properties">
-                <dt>payload<span class="property-type">Object</span>
-                    <dd><b>recordId</b> - <i>String</i><br>The record id for the new record.</dd>
-                    <dd><b>modId</b> - <i>String</i><br>The record's modification id.</dd>
-                </dt>
-             </dl>
+         <dl class="message-properties">
+            <dt>recordId<span class="property-type">String</span>
+              <dd>The record id for the created record.</dd>
+            </dt>
+            <dt>modId<span class="property-type">String</span>
+              <dd>The modification id for the created record.</dd>
+            </dt>
+          </dl>
          </li>
          <li>Standard Error
              <dl class="message-properties">
-                 <dt>message <span class="property-type">Object</span></dt>
-                    <dd><b>message</b> - <i>String</i><br>The FileMaker or client error message.</dd>
-                    <dd><b>code</b> - <i>String</i><br>The applicible FileMaker error code.</dd>
+                 <dt>message<span class="property-type">String</span>
+                    <dd>The FileMaker or client error message.</dd>
+                  </dt>
+                  <dt>error<span class="property-type">String</span>
+                    <dd>The applicible FileMaker error code.</dd>
+                  </dt>
              </dl>
          </li>
      </ol>
 
 <h3>Details</h3>
-    <p>This node will use the data found in <code>msg.payload.data</code> to create a FileMaker record. It will use
-    the layout found in either <code>msg.payload.layout</code>, <code>msg.parameters.layout</code>, or this node's
-    configuration.<br/>This node will automatically shift the properties found in data to a <code>fieldData</code> property if a <code>fieldData</code> property is not found. This node will also set related records via a portal if a <code>portalData</code> property is found.<br/>The order of assignment for parameters are node configuration properties, message parameters, message payload parameter properties.</p>
-
+  <p>This node creates a record in FileMaker. By default This node will use the value in <code>msg.payload</code> as the layout context when creating a record.</p>
 <h3>References</h3>
     <ul>
-        <li><a href="https://github.com/Luidog/fms-api-client#create-records">Create Method</a> - base client documentation</li>
-        <li><a href="https://github.com/Luidog/fms-api-client#script-array-syntax">Scripts Array</a> - scripts array documentation</li>
-        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node-Red FileMaker</a> - the node's github repository</li>
-        <li><a href="https://github.com/Luidog/fms-api-client">FMS API Client</a> - fms-api-client github repository</li>
+        <li><a href="https://github.com/Luidog/fms-api-client#create-records">Create Method</a> - Base Client Documentatio.</li>
+        <li><a href="https://github.com/Luidog/fms-api-client#script-array-syntax">Scripts Array</a> - Scripts Array Documentation</li>
+        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node-Red FileMaker</a> - The Node's Github Repository</li>
+        <li><a href="https://github.com/Luidog/fms-api-client">FMS API Client</a> - fms-api-client Github Repository</li>
     </ul>
 </script>

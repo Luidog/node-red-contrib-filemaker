@@ -1,16 +1,41 @@
 <script type="text/javascript">
     RED.nodes.registerType("recordId", {
       category: "FileMaker",
-      defaults: {},
+      defaults: {
+        data: { value: "payload.data", required: false },
+        dataType: { value: "msg" },
+        output: { value: "payload.data", required: true }
+      },
       inputs: 1,
       outputs: 1,
       icon: "recordId.png",
       color: "#39D1C0",
-      label: "Extract Record IDs"
+      label: "Extract Record IDs",
+      oneditprepare: function() {
+        $("#node-input-data").typedInput({
+          default: "msg",
+          types: ["json", "msg", "flow", "global"],
+          typeField: $("#node-input-dataType")
+        });
+        $("#node-input-output").typedInput({
+          default: "msg",
+          types: ["msg"]
+        });
+      }
     });
 </script>
 
 <script type="text/x-red" data-template-name="recordId">
+    <div class="form-row">
+        <label for="node-input-data">Data</label>
+        <input type="hidden" id="node-input-dataType">
+        <input type="text" id="node-input-data">
+    </div>
+    <hr>
+    <div class="form-row">
+        <label for="node-input-output">Output</label>
+        <input type="text" id="node-input-output">
+    </div>
 </script>
 <script type="text/x-red" data-help-name="recordId">
 <p>This node transforms data in <code>msg.payload.data</code>. It reduces data to recordIds.</p>

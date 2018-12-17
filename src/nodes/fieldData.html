@@ -1,16 +1,40 @@
 <script type="text/javascript">
     RED.nodes.registerType("fieldData", {
       category: "FileMaker",
-      defaults: {},
+      defaults: {        
+        data: { value: "payload.data", required: false },
+        dataType: { value: "msg" },
+        output: { value: "payload.data", required: true }
+      },
       inputs: 1,
       outputs: 1,
       icon: "fielddata.png",
       color: "#39D1C0",
-      label: "Extract Field Data"
+      label: "Extract Field Data",
+      oneditprepare: function() {
+        $("#node-input-data").typedInput({
+          default: "msg",
+          types: ["json", "msg", "flow", "global"],
+          typeField: $("#node-input-dataType")
+        });
+        $("#node-input-output").typedInput({
+          default: "msg",
+          types: ["msg"]
+        });
+      }
     });
 </script>
-
 <script type="text/x-red" data-template-name="fieldData">
+    <div class="form-row">
+        <label for="node-input-data">Data</label>
+        <input type="hidden" id="node-input-dataType">
+        <input type="text" id="node-input-data">
+    </div>
+    <hr>
+    <div class="form-row">
+        <label for="node-input-output">Output</label>
+        <input type="text" id="node-input-output">
+    </div>
 </script>
 <script type="text/x-red" data-help-name="fieldData">
 <p>This node reduces the records found in <code>msg.payload.data</code> to only include the modId, recordId, and fieldData. This node will move all properties in the fieldData object to the main object.</p>

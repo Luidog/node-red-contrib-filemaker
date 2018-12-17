@@ -34,52 +34,58 @@ describe("Login Node", function() {
   it("should login to a Data API session", function(done) {
     var testFlow = [
       {
-        id: "f1",
+        id: "ad6ac1ee.a379",
         type: "tab",
-        label: "Login To Data API Session"
+        label: "Login",
+        disabled: false,
+        info: ""
       },
       {
-        id: "n1",
+        id: "b2ee9af1.20e748",
+        type: "catch",
+        z: "ad6ac1ee.a379",
+        name: "",
+        scope: null,
+        x: 220,
+        y: 100,
+        wires: [["f7fa61c6.78379"]]
+      },
+      {
+        id: "f7fa61c6.78379",
+        type: "helper"
+      },
+      {
+        id: "612b70ca.81566",
         type: "login",
-        z: "f1",
-        name: "login Node",
-        client: "3783b2da.4346a6",
-        wires: [["n2"]]
+        z: "ad6ac1ee.a379",
+        client: "e5173483.adc92",
+        output: "payload",
+        x: 230,
+        y: 40,
+        wires: [["f7fa61c6.78379"]]
       },
       {
-        id: "n2",
-        type: "helper",
-        z: "f1"
-      },
-      {
-        id: "3783b2da.4346a6",
+        id: "e5173483.adc92",
         type: "filemaker-api-client",
+        z: "",
         server: process.env.FILEMAKER_SERVER,
         name: "Mute Symphony",
         application: process.env.FILEMAKER_APPLICATION,
         usage: true
-      },
-      {
-        id: "n3",
-        type: "catch",
-        z: "f1",
-        name: "catch",
-        wires: [["n2"]]
       }
     ];
     helper.load(
       [clientNode, loginNode, catchNode],
       testFlow,
       {
-        "3783b2da.4346a6": {
+        "e5173483.adc92": {
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }
       },
       function() {
-        const login = helper.getNode("n1");
-
-        const helperNode = helper.getNode("n2");
+        const loginNode = helper.getNode("612b70ca.81566");
+        const helperNode = helper.getNode("f7fa61c6.78379");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
@@ -92,7 +98,7 @@ describe("Login Node", function() {
             done(err);
           }
         });
-        login.receive({ payload: {} });
+        loginNode.receive({ payload: {} });
       }
     );
   });

@@ -3,15 +3,51 @@
       category: "FileMaker",
       defaults: {
         client: { value: "", type: "filemaker-api-client" },
-        layout: { value: null, required: true },
-        merge: { value: true, required: false },
-        scripts: { value: null, required: false }
+        layout: {
+          value: 'payload.layout',
+          required: true
+        },
+        layoutType: { value: "msg" },
+        recordId: { value: null, required: true },
+        recordIdType: { value: "" },
+        data: { value: null, required: false },
+        dataType: { value: "none" },
+        scripts: { value: null, required: false },
+        scriptsType: { value: "none" },
+        merge: { value: false, required: false },
+        mergeType: { value: "bool" },
+        output: { value: "payload", required: true }
       },
       oneditprepare: function() {
-        this.editor = RED.editor.createEditor({
-          id: "node-input-scripts",
-          mode: "ace/mode/javascript",
-          value: $("#node-input-scripts").val()
+        var nullType = { value: "none", label: "None", icon: "", hasValue: false };
+        $("#node-input-layout").typedInput({
+          default: "str",
+          types: ["str", "msg", "flow", "global"],
+          typeField: $("#node-input-layoutType")
+        });
+        $("#node-input-scripts").typedInput({
+          default: "none",
+          types: ["json", "msg", "flow", "global", nullType],
+          typeField: $("#node-input-scriptsType")
+        });
+        $("#node-input-recordId").typedInput({
+          default: "num",
+          types: ["num", "msg", "flow", "global"],
+          typeField: $("#node-input-recordIdType")
+        });
+        $("#node-input-data").typedInput({
+          default: "none",
+          types: ["json", "msg", "flow", "global", nullType],
+          typeField: $("#node-input-dataType")
+        });
+        $("#node-input-merge").typedInput({
+          default: "bool",
+          types: ["bool", "msg", "flow", "global"],
+          typeField: $("#node-input-mergeType")
+        });
+        $("#node-input-output").typedInput({
+          default: "msg",
+          types: ["msg"]
         });
       },
       inputs: 1,
@@ -24,20 +60,39 @@
 
 <script type="text/x-red" data-template-name="edit-record">
     <div class="form-row">
-        <label for="node-input-client">Client</label>
-        <input type="text" id="node-input-client">
-    </div>
-        <div class="form-row">
-        <label for="node-input-layout">Default Layout</label>
-        <input type="text" id="node-input-layout">
+      <label for="node-input-client">Client</label>
+      <input type="text" id="node-input-client">
     </div>
     <div class="form-row">
-        <label for="node-input-merge">Merge Response</label>
-        <input type="checkbox" id="node-input-merge">
+      <label for="node-input-layout">Layout</label>
+      <input type="hidden" id="node-input-layoutType">
+      <input type="text" id="node-input-layout">
     </div>
-    <div class="form-row node-text-editor-row">
+    <hr>
+    <div class="form-row">
+        <label for="node-input-layout">Data</label>
+        <input type="hidden" id="node-input-dataType">
+        <input type="text" id="node-input-data">
+    </div>
+    <div class="form-row">
+        <label for="node-input-recordId">Record Id</label>
+        <input type="hidden" id="node-input-recordIdType">
+        <input type="text" id="node-input-recordId">
+    </div>
+    <div class="form-row">
         <label for="node-input-scripts">Scripts</label>
-        <div  style="height: 100px; min-height: 100px;" class="node-text-editor" type="text" id="node-input-scripts"></div>
+        <input type="hidden" id="node-input-scriptsType">
+        <input type="text" id="node-input-scripts">
+    </div>
+    <div class="form-row">
+        <label for="node-input-merge">Merge Data</label>
+        <input type="hidden" id="node-input-mergeType">
+        <input type="text" id="node-input-merge">
+    </div>
+    <hr>
+    <div class="form-row">
+        <label for="node-input-output">Output</label>
+        <input type="text" id="node-input-output">
     </div>
 </script>
 <script type="text/x-red" data-help-name="edit-record">
@@ -45,33 +100,33 @@
 
 <h3>Inputs</h3>
     <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">Object</span>
-            <dd><b>recordId</b> <mark>required</mark> - <i>String</i><br>the recordId to target for editing</dd>
-            <dd><b>data</b> <mark>required</mark> - <i>object</i><br>The data to edit</dd>
-            <dd><b>layout</b> - <i>String</i><br>The layout to use when creating a record. Defaults to node configuration.</dd>
-            <dd><b>scripts</b> - <i>Array</i><br>Any FileMaker scripts to run when deleting the record.</dd>
-        </dt>
-        <dt class="optional">parameters <span class="property-type">Object</span>
-            <dd><b>layout</b> - <i>String</i><br>The layout to use when creating a record. Defaults to node configuration.</dd>
-            <dd><b>scripts</b> - <i>Array</i><br>Any FileMaker scripts to run when creating a record.</dd>
-        </dt>
+      <dt>layout<span class="property-type">String</span><dd>The layout to use when deleting the record.</dd>
+      <dt>recordId<span class="property-type">Number</span><dd>The record id to target for deletion.</dd>
+      <dt>data<span class="property-type">Object</span><dd>The data to use when creating a record</dd>
+      <dt>scripts<span class="property-type">Array</span><dd>The scripts to run when creating a record.</dd>
+      <dt>merge<span class="property-type">Boolean</span><dd>Merge input data with FileMaker response .</dd>
     </dl>
 
  <h3>Outputs</h3>
      <ol class="node-ports">
          <li>Standard Output
-             <dl class="message-properties">
-                <dt>payload<span class="property-type">Object</span>
-                    <dd><b>modId</b> - <i>String</i><br>The modification id.</dd>
-                </dt>
-             </dl>
+         <dl class="message-properties">
+            <dt>recordId<span class="property-type">String</span>
+              <dd>The record id for the created record.</dd>
+            </dt>
+            <dt>modId<span class="property-type">String</span>
+              <dd>The modification id for the created record.</dd>
+            </dt>
+          </dl>
          </li>
          <li>Standard Error
              <dl class="message-properties">
-                 <dt>message <span class="property-type">Object</span></dt>
-                    <dd><b>message</b> - <i>String</i><br>The FileMaker or client error message.</dd>
-                    <dd><b>code</b> - <i>String</i><br>The applicible FileMaker error code.</dd>
+                 <dt>message<span class="property-type">String</span>
+                    <dd>The FileMaker or client error message.</dd>
+                  </dt>
+                  <dt>error<span class="property-type">String</span>
+                    <dd>The applicible FileMaker error code.</dd>
+                  </dt>
              </dl>
          </li>
      </ol>

@@ -1,31 +1,30 @@
 module.exports = function(RED) {
   function list(config) {
-    const { compact, merge, sanitize } = require("../services");
+    const {
+      compact,
+      merge,
+      sanitize,
+      constructParameters
+    } = require("../services");
     RED.nodes.createNode(this, config);
     const node = this;
     const { client, ...configuration } = config;
     node.connection = RED.nodes.getNode(client);
-    node.on("input", async msg => {
-      const { layout, ...parameters } = compact([
-        sanitize(configuration, [
-          "layout",
-          "limit",
-          "offset",
-          "sort",
-          "scripts",
-          "portals",
-          "data"
-        ]),
-        msg.parameters,
-        msg.payload
-      ]);
+    node.on("input", async message => {
+      const { layout, ...parameters } = constructParameters(
+        message,
+        configuration,
+        node.context(),
+        ["layout", "limit", "offset", "sort", "scripts", "portals"]
+      );
+
       let connection = await this.connection.client;
       connection
         .list(layout, parameters)
         .then(response =>
-          node.send(merge(msg, Object.assign(msg.payload, response)))
+          node.send(merge(configuration.output, message, response))
         )
-        .catch(error => node.error(error.message, msg));
+        .catch(error => node.error(error.message, message));
     });
   }
   RED.nodes.registerType("list-records", list);

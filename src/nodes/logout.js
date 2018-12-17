@@ -1,17 +1,18 @@
 module.exports = function(RED) {
-  function logout(config) {
+  function logout(configuration) {
     const { merge } = require("../services");
-    RED.nodes.createNode(this, config);
+    RED.nodes.createNode(this, configuration);
     const node = this;
-    const { client } = config;
+    const { client } = configuration;
     node.connection = RED.nodes.getNode(client);
-
-    node.on("input", async msg => {
+    node.on("input", async message => {
       let client = await this.connection.client;
       client
         .logout()
-        .then(response => node.send(merge(msg, response)))
-        .catch(error => node.error(error.message, msg));
+        .then(response =>
+          node.send(merge(configuration.output, message, response))
+        )
+        .catch(error => node.error(error.message, message));
     });
   }
   RED.nodes.registerType("logout", logout);
