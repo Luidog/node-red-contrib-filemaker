@@ -126,4 +126,82 @@ describe("Transform Utility Node", function() {
       }
     );
   });
+  it("should throw an error with a message and a code", function(done) {
+    const testFlow = [
+      {
+        id: "bb39084f.0bba9",
+        type: "tab",
+        label: "Transform Data",
+        disabled: false,
+        info: ""
+      },
+      {
+        id: "1a8a1be2.50d8e4",
+        type: "helper"
+      },
+      {
+        id: "242464a4.f640e4",
+        type: "catch",
+        z: "bb39084f.0bba9",
+        name: "",
+        scope: null,
+        x: 580,
+        y: 100,
+        wires: [["1a8a1be2.50d8e4"]]
+      },
+      {
+        id: "84f24eb5.f61b6",
+        type: "transform",
+        z: "bb39084f.0bba9",
+        parameters: "",
+        parameterType: "none",
+        data: "payload.data",
+        dataType: "msg",
+        output: "payload.data",
+        x: 540,
+        y: 40,
+        wires: [["1a8a1be2.50d8e4"]]
+      },
+      {
+        id: "e5173483.adc92",
+        type: "filemaker-api-client",
+        z: "",
+        server: process.env.FILEMAKER_SERVER,
+        name: "Mute Symphony",
+        application: process.env.FILEMAKER_APPLICATION,
+        usage: true
+      }
+    ];
+    helper.load(
+      [clientNode, transformNode, catchNode],
+      testFlow,
+      {
+        "e5173483.adc92": {
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
+        }
+      },
+      function() {
+        var transformNode = helper.getNode("84f24eb5.f61b6");
+        var helperNode = helper.getNode("1a8a1be2.50d8e4");
+        helperNode.on("input", function(msg) {
+          try {
+            console.log(msg);
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("payload", "error")
+              .and.property("error")
+              .to.be.an("object")
+              .with.any.keys("message", "source");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        transformNode.receive({
+          payload: { data: "data" }
+        });
+      }
+    );
+  });
 });
