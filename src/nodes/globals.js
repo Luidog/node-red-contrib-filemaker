@@ -13,7 +13,6 @@ module.exports = function(RED) {
         node.context(),
         ["data"]
       );
-      console.log(data);
       connection
         .globals(data)
         .then(response =>
