@@ -35,49 +35,72 @@ describe("Find Records Node", function() {
   it("should perform a find", function(done) {
     const testFlow = [
       {
-        id: "f1",
+        id: "37b558cf.8553c",
         type: "tab",
-        label: "Perform Find Test"
+        label: "Perform Find",
+        disabled: false,
+        info: ""
       },
       {
-        id: "3783b2da.4346a6",
+        id: "641ec5c9.c3f73c",
+        type: "catch",
+        z: "37b558cf.8553c",
+        name: "",
+        scope: null,
+        x: 260,
+        y: 100,
+        wires: [["cfc785d0.b2ba"]]
+      },
+      {
+        id: "cfc785d0.b2ba",
+        type: "helper"
+      },
+      {
+        id: "f15d2a17.bbc65",
+        type: "perform-find",
+        z: "37b558cf.8553c",
+        client: "e5173483.adc92",
+        layout: "payload.layout",
+        layoutType: "msg",
+        limit: "",
+        limitType: "num",
+        offset: "",
+        offsetType: "num",
+        sort: "",
+        sortType: "none",
+        query: "payload.query",
+        queryType: "msg",
+        scripts: "",
+        scriptsType: "none",
+        portals: "",
+        portalsType: "none",
+        output: "payload",
+        x: 250,
+        y: 40,
+        wires: [["cfc785d0.b2ba"]]
+      },
+      {
+        id: "e5173483.adc92",
         type: "filemaker-api-client",
+        z: "",
         server: process.env.FILEMAKER_SERVER,
         name: "Mute Symphony",
         application: process.env.FILEMAKER_APPLICATION,
         usage: true
-      },
-      {
-        id: "n1",
-        type: "perform-find",
-        z: "f1",
-        client: "3783b2da.4346a6",
-        layout: "People",
-        scripts: "",
-        merge: true,
-        wires: [["n3"]]
-      },
-      {
-        id: "n2",
-        type: "catch",
-        z: "f1",
-        name: "catch",
-        wires: [["n3"]]
-      },
-      { id: "n3", type: "helper" }
+      }
     ];
     helper.load(
       [clientNode, findNode, catchNode],
       testFlow,
       {
-        "3783b2da.4346a6": {
+        "e5173483.adc92": {
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }
       },
       function() {
-        const testNode = helper.getNode("n1");
-        const helperNode = helper.getNode("n3");
+        const findNode = helper.getNode("f15d2a17.bbc65");
+        const helperNode = helper.getNode("cfc785d0.b2ba");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
@@ -91,7 +114,9 @@ describe("Find Records Node", function() {
             done(err);
           }
         });
-        testNode.receive({ payload: { query: { name: "*" } } });
+        findNode.receive({
+          payload: { layout: "people", query: { name: "*" } }
+        });
       }
     );
   });

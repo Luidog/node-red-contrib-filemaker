@@ -4,6 +4,7 @@ const helper = require("node-red-node-test-helper");
 const environment = require("dotenv");
 const varium = require("varium");
 const getNode = require("../src/nodes/get.js");
+const createNode = require("../src/nodes/create.js");
 const clientNode = require("../src/client/client.js");
 const catchNode = require("./core/25-catch.js");
 
@@ -35,48 +36,84 @@ describe("Get Record Node", function() {
   it("should get a specific record", function(done) {
     var testFlows = [
       {
-        id: "f1",
+        id: "815dccb7.ff2788",
         type: "tab",
-        label: "Get Specific Record Test"
+        label: "Get Record",
+        disabled: false,
+        info: ""
       },
       {
-        id: "3783b2da.4346a6",
+        id: "fd67ed3.ff0801",
+        type: "helper"
+      },
+      {
+        id: "f8b67949.c0a5d",
+        type: "create-record",
+        z: "815dccb7.ff2788",
+        client: "e5173483.adc92",
+        layout: "payload.layout",
+        layoutType: "msg",
+        data: "payload.data",
+        dataType: "msg",
+        scripts: "",
+        scriptsType: "none",
+        merge: "false",
+        mergeType: "bool",
+        output: "payload",
+        x: 260,
+        y: 40,
+        wires: [["9cd0b5a3.6b08d"]]
+      },
+      {
+        id: "fa335834.e85638",
+        type: "catch",
+        z: "815dccb7.ff2788",
+        name: "",
+        scope: null,
+        x: 460,
+        y: 100,
+        wires: [["fd67ed3.ff0801"]]
+      },
+      {
+        id: "9cd0b5a3.6b08d",
+        type: "get-record",
+        z: "815dccb7.ff2788",
+        client: "e5173483.adc92",
+        layout: "payload.layout",
+        layoutType: "msg",
+        recordId: "payload.recordId",
+        recordIdType: "msg",
+        scripts: "",
+        scriptsType: "none",
+        portals: "",
+        portalsType: "none",
+        output: "payload",
+        x: 450,
+        y: 40,
+        wires: [["fd67ed3.ff0801"]]
+      },
+      {
+        id: "e5173483.adc92",
         type: "filemaker-api-client",
+        z: "",
         server: process.env.FILEMAKER_SERVER,
-        name: "Sweet FM Client",
+        name: "Mute Symphony",
         application: process.env.FILEMAKER_APPLICATION,
         usage: true
-      },
-      {
-        id: "n1",
-        type: "get-record",
-        client: "3783b2da.4346a6",
-        layout: "People",
-        scripts: "",
-        merge: true,
-        wires: [["n3"]]
-      },
-      {
-        id: "n2",
-        type: "catch",
-        z: "f1",
-        name: "catch",
-        wires: [["n3"]]
-      },
-      { id: "n3", type: "helper" }
+      }
     ];
     helper.load(
-      [clientNode, getNode, catchNode],
+      [clientNode, createNode, getNode, catchNode],
       testFlows,
       {
-        "3783b2da.4346a6": {
+        "e5173483.adc92": {
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }
       },
       function() {
-        const get = helper.getNode("n1");
-        const helperNode = helper.getNode("n3");
+        const getNode = helper.getNode("9cd0b5a3.6b08d");
+        const helperNode = helper.getNode("fd67ed3.ff0801");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
@@ -87,8 +124,8 @@ describe("Get Record Node", function() {
             done(err);
           }
         });
-        get.receive({
-          payload: { recordId: 67408 }
+        getNode.receive({
+          payload: { layout: "people", data: { name: "Anakin Skywalker" } }
         });
       }
     );
@@ -142,7 +179,7 @@ describe("Get Record Node", function() {
         }
       },
       function() {
-        const get = helper.getNode("n2");
+        const getNode = helper.getNode("n2");
         const helperNode = helper.getNode("n3");
         helperNode.on("input", function(msg) {
           try {
@@ -154,7 +191,9 @@ describe("Get Record Node", function() {
             done(err);
           }
         });
-        get.receive({ payload: { recordId: "" } });
+        getNode.receive({
+          payload: { layout: "people", data: { name: "Anakin Skywalker" } }
+        });
       }
     );
   });

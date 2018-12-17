@@ -3,7 +3,7 @@
 const helper = require("node-red-node-test-helper");
 const environment = require("dotenv");
 const varium = require("varium");
-const client = require("../src/client/client.js");
+const clientNode = require("../src/client/client.js");
 
 helper.init(require.resolve("node-red"));
 
@@ -25,7 +25,7 @@ describe("Client Node", function() {
 
   it("should be loaded", function(done) {
     const testFlows = [{ id: "n1", type: "inject" }];
-    helper.load(client, testFlows, function() {
+    helper.load(clientNode, testFlows, function() {
       done();
     });
   });

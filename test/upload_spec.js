@@ -36,48 +36,66 @@ describe("Upload File Node", function() {
   it("should upload to a record", function(done) {
     var testFlows = [
       {
-        id: "f1",
+        id: "146270a1.3bd87f",
         type: "tab",
-        label: "Upload Test"
+        label: "Upload File From Path",
+        disabled: false,
+        info: ""
       },
       {
-        id: "3783b2da.4346a6",
+        id: "44103afd.2b0cd4",
+        type: "helper"
+      },
+      {
+        id: "705e457f.31fc0c",
+        type: "catch",
+        z: "146270a1.3bd87f",
+        name: "",
+        scope: null,
+        x: 260,
+        y: 100,
+        wires: [["44103afd.2b0cd4"]]
+      },
+      {
+        id: "556248ef.700408",
+        type: "upload-file",
+        z: "146270a1.3bd87f",
+        client: "e5173483.adc92",
+        layout: "payload.layout",
+        layoutType: "msg",
+        file: "payload.file",
+        fileType: "msg",
+        field: "payload.field",
+        fieldType: "msg",
+        parameters: "",
+        parametersType: "none",
+        output: "payload",
+        x: 250,
+        y: 40,
+        wires: [["44103afd.2b0cd4"]]
+      },
+      {
+        id: "e5173483.adc92",
         type: "filemaker-api-client",
+        z: "",
         server: process.env.FILEMAKER_SERVER,
-        name: "Sweet FM Client",
+        name: "Mute Symphony",
         application: process.env.FILEMAKER_APPLICATION,
         usage: true
-      },
-      {
-        id: "n1",
-        type: "upload-file",
-        client: "3783b2da.4346a6",
-        layout: "Images",
-        scripts: "",
-        merge: true,
-        wires: [["n3"]]
-      },
-      {
-        id: "n2",
-        type: "catch",
-        z: "f1",
-        name: "catch",
-        wires: [["n3"]]
-      },
-      { id: "n3", type: "helper" }
+      }
     ];
     helper.load(
       [clientNode, uploadNode, catchNode],
       testFlows,
       {
-        "3783b2da.4346a6": {
+        "e5173483.adc92": {
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }
       },
       function() {
-        const upload = helper.getNode("n1");
-        const helperNode = helper.getNode("n3");
+        const uploadNode = helper.getNode("556248ef.700408");
+        const helperNode = helper.getNode("44103afd.2b0cd4");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
@@ -88,7 +106,7 @@ describe("Upload File Node", function() {
             done(err);
           }
         });
-        upload.receive({
+        uploadNode.receive({
           payload: {
             file: path.join(__dirname, "./assets/placeholder.json"),
             layout: "Images",

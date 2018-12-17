@@ -36,57 +36,82 @@ describe("Delete Record Node", function() {
   it("should delete a record", function(done) {
     const testFlow = [
       {
-        id: "f1",
+        id: "c76706d3.5d9aa",
         type: "tab",
-        label: "Delete Record Test"
+        label: "Delete Record",
+        disabled: false,
+        info: ""
       },
       {
-        id: "3783b2da.4346a6",
+        id: "170d96e0.3341c9",
+        type: "delete-record",
+        z: "c76706d3.5d9aa",
+        client: "e5173483.adc92",
+        layout: "payload.layout",
+        layoutType: "msg",
+        recordId: "payload.recordId",
+        recordIdType: "msg",
+        scripts: "",
+        scriptsType: "none",
+        output: "payload",
+        x: 540,
+        y: 40,
+        wires: [["ed53a9a5.d69f6"]]
+      },
+      {
+        id: "42c2ddf9.1030ec",
+        type: "create-record",
+        z: "c76706d3.5d9aa",
+        client: "e5173483.adc92",
+        layout: "payload.layout",
+        layoutType: "msg",
+        data: "",
+        dataType: "none",
+        scripts: "",
+        scriptsType: "none",
+        merge: "false",
+        mergeType: "bool",
+        output: "payload",
+        x: 340,
+        y: 40,
+        wires: [["170d96e0.3341c9"]]
+      },
+      {
+        id: "bf1c5ed7.0affa",
+        type: "catch",
+        z: "c76706d3.5d9aa",
+        name: "",
+        scope: null,
+        x: 560,
+        y: 100,
+        wires: [["ed53a9a5.d69f6"]]
+      },
+      {
+        id: "ed53a9a5.d69f6",
+        type: "helper"
+      },
+      {
+        id: "e5173483.adc92",
         type: "filemaker-api-client",
+        z: "",
         server: process.env.FILEMAKER_SERVER,
         name: "Mute Symphony",
         application: process.env.FILEMAKER_APPLICATION,
         usage: true
-      },
-      {
-        id: "n1",
-        type: "create-record",
-        client: "3783b2da.4346a6",
-        layout: "People",
-        scripts: "",
-        merge: true,
-        wires: [["n2"]]
-      },
-      {
-        id: "n2",
-        type: "delete-record",
-        client: "3783b2da.4346a6",
-        layout: "People",
-        scripts: "",
-        merge: true,
-        wires: [["n4"]]
-      },
-      {
-        id: "n3",
-        type: "catch",
-        z: "f1",
-        name: "catch",
-        wires: [["n4"]]
-      },
-      { id: "n4", type: "helper" }
+      }
     ];
     helper.load(
       [clientNode, deleteNode, createNode, catchNode],
       testFlow,
       {
-        "3783b2da.4346a6": {
+        "e5173483.adc92": {
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }
       },
       function() {
-        const createNode = helper.getNode("n1");
-        const helperNode = helper.getNode("n4");
+        const createNode = helper.getNode("42c2ddf9.1030ec");
+        const helperNode = helper.getNode("ed53a9a5.d69f6");
         helperNode.on("input", function(msg) {
           try {
             expect(msg).to.be.an("object");
@@ -95,7 +120,7 @@ describe("Delete Record Node", function() {
             done(err);
           }
         });
-        createNode.receive({ payload: { data: {} } });
+        createNode.receive({ payload: { layout: "people" } });
       }
     );
   });

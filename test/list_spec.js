@@ -35,48 +35,70 @@ describe("List Records Node", function() {
   it("should List records", function(done) {
     var testFlows = [
       {
-        id: "f1",
+        id: "b8b203cb.2fdb5",
         type: "tab",
-        label: "List Test"
+        label: "List Records",
+        disabled: false,
+        info: ""
       },
       {
-        id: "3783b2da.4346a6",
+        id: "3a50c4e9.9b3824",
+        type: "helper"
+      },
+      {
+        id: "f9a81ba9.646118",
+        type: "catch",
+        z: "b8b203cb.2fdb5",
+        name: "",
+        scope: null,
+        x: 260,
+        y: 100,
+        wires: [["3a50c4e9.9b3824"]]
+      },
+      {
+        id: "3c1de137.e4ac3e",
+        type: "list-records",
+        z: "b8b203cb.2fdb5",
+        client: "e5173483.adc92",
+        layout: "payload.layout",
+        layoutType: "msg",
+        limit: "",
+        limitType: "num",
+        offset: "",
+        offsetType: "num",
+        sort: "",
+        sortType: "none",
+        scripts: "",
+        scriptsType: "none",
+        portals: "",
+        portalsType: "none",
+        output: "payload",
+        x: 250,
+        y: 40,
+        wires: [["3a50c4e9.9b3824"]]
+      },
+      {
+        id: "e5173483.adc92",
         type: "filemaker-api-client",
+        z: "",
         server: process.env.FILEMAKER_SERVER,
-        name: "Sweet FM Client",
+        name: "Mute Symphony",
         application: process.env.FILEMAKER_APPLICATION,
         usage: true
-      },
-      {
-        id: "n1",
-        type: "list-records",
-        client: "3783b2da.4346a6",
-        layout: "Devices",
-        scripts: "",
-        merge: true,
-        wires: [["n3"]]
-      },
-      {
-        id: "n2",
-        type: "catch",
-        z: "f1",
-        name: "catch",
-        wires: [["n3"]]
-      },
-      { id: "n3", type: "helper" }
+      }
     ];
     helper.load(
       [clientNode, listNode, catchNode],
       testFlows,
       {
-        "3783b2da.4346a6": {
+        "e5173483.adc92": {
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }
       },
       function() {
-        const list = helper.getNode("n1");
-        const helperNode = helper.getNode("n3");
+        const listNode = helper.getNode("3c1de137.e4ac3e");
+        const helperNode = helper.getNode("3a50c4e9.9b3824");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
@@ -87,7 +109,9 @@ describe("List Records Node", function() {
             done(err);
           }
         });
-        list.receive({ payload: { layout: "People" } });
+        listNode.receive({
+          payload: { layout: "people", data: { name: "Anakin Skywalker" } }
+        });
       }
     );
   });

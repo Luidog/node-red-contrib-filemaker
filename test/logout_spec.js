@@ -35,59 +35,68 @@ describe("Logout Node", function() {
   it("should close a Data API Session", function(done) {
     var testFlow = [
       {
-        id: "f1",
+        id: "6962fe42.cdf3c8",
         type: "tab",
-        label: "Logout Data API Session"
+        label: "Logout",
+        disabled: false,
+        info: ""
       },
       {
-        id: "n2",
-        type: "login",
-        z: "f1",
-        name: "login Node",
-        client: "3783b2da.4346a6",
-        wires: [["n3"]]
+        id: "cf630498.a2d95",
+        type: "catch",
+        z: "6962fe42.cdf3c8",
+        name: "",
+        scope: null,
+        x: 420,
+        y: 100,
+        wires: [["e9ddafb9.e26ad"]]
       },
       {
-        id: "n3",
+        id: "e9ddafb9.e26ad",
+        type: "helper"
+      },
+      {
+        id: "3b340eca.5904c2",
         type: "logout",
-        z: "f1",
-        name: "logout Node",
-        client: "3783b2da.4346a6",
-        wires: [["n4"]]
+        z: "6962fe42.cdf3c8",
+        client: "e5173483.adc92",
+        output: "payload",
+        x: 420,
+        y: 40,
+        wires: [["e9ddafb9.e26ad"]]
       },
       {
-        id: "n4",
-        type: "helper",
-        z: "f1"
+        id: "64a87699.ec6f2",
+        type: "login",
+        z: "6962fe42.cdf3c8",
+        client: "e5173483.adc92",
+        output: "token",
+        x: 260,
+        y: 40,
+        wires: [["3b340eca.5904c2"]]
       },
       {
-        id: "3783b2da.4346a6",
+        id: "e5173483.adc92",
         type: "filemaker-api-client",
+        z: "",
         server: process.env.FILEMAKER_SERVER,
         name: "Mute Symphony",
         application: process.env.FILEMAKER_APPLICATION,
         usage: true
-      },
-      {
-        id: "n1",
-        type: "catch",
-        z: "f1",
-        name: "catch",
-        wires: [["n4"]]
       }
     ];
     helper.load(
       [clientNode, loginNode, logoutNode, catchNode],
       testFlow,
       {
-        "3783b2da.4346a6": {
+        "e5173483.adc92": {
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }
       },
       function() {
-        const login = helper.getNode("n2");
-        const helperNode = helper.getNode("n4");
+        const loginNode = helper.getNode("64a87699.ec6f2");
+        const helperNode = helper.getNode("e9ddafb9.e26ad");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
@@ -98,7 +107,7 @@ describe("Logout Node", function() {
             done(err);
           }
         });
-        login.receive({ payload: {} });
+        loginNode.receive({ payload: {} });
       }
     );
   });

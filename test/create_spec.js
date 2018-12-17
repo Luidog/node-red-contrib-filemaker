@@ -3,8 +3,8 @@ const { expect } = require("chai");
 const helper = require("node-red-node-test-helper");
 const environment = require("dotenv");
 const varium = require("varium");
-const create = require("../src/nodes/create.js");
-const client = require("../src/client/client.js");
+const createNode = require("../src/nodes/create.js");
+const clientNode = require("../src/client/client.js");
 const catchNode = require("./core/25-catch.js");
 
 helper.init(require.resolve("node-red"));
@@ -27,57 +27,73 @@ describe("Create Record Node", function() {
 
   it("should be loaded", function(done) {
     const testFlow = [{ id: "n1", type: "inject" }];
-    helper.load(create, testFlow, function() {
+    helper.load(clientNode, testFlow, function() {
       done();
     });
   });
   it("should create a record", function(done) {
     var testFlows = [
       {
-        id: "f1",
+        id: "ec096890.cdd65",
         type: "tab",
-        label: "Create Record Test"
+        label: "Create Record",
+        disabled: false,
+        info: ""
       },
       {
-        id: "3783b2da.4346a6",
+        id: "369e311d.23d2de",
+        type: "helper"
+      },
+      {
+        id: "d3becaad.b78ce",
+        type: "catch",
+        z: "ec096890.cdd65",
+        name: "",
+        scope: null,
+        x: 360,
+        y: 100,
+        wires: [["369e311d.23d2de"]]
+      },
+      {
+        id: "db596a45.2ca398",
+        type: "create-record",
+        z: "ec096890.cdd65",
+        client: "e5173483.adc92",
+        layout: "payload.layout",
+        layoutType: "msg",
+        data: "",
+        dataType: "none",
+        scripts: "",
+        scriptsType: "none",
+        merge: "false",
+        mergeType: "bool",
+        output: "payload",
+        x: 340,
+        y: 40,
+        wires: [["369e311d.23d2de"]]
+      },
+      {
+        id: "e5173483.adc92",
         type: "filemaker-api-client",
-        z: "f1",
+        z: "",
         server: process.env.FILEMAKER_SERVER,
-        name: "Sweet FM Client",
+        name: "Mute Symphony",
         application: process.env.FILEMAKER_APPLICATION,
         usage: true
-      },
-      {
-        id: "n1",
-        type: "create-record",
-        client: "3783b2da.4346a6",
-        layout: "People",
-        scripts: "",
-        z: "f1",
-        merge: true,
-        wires: [["n2"]]
-      },
-      {
-        id: "n2",
-        type: "catch",
-        z: "f1",
-        name: "catch",
-        wires: [["n3"]]
-      },
-      { id: "n3", type: "helper" }
+      }
     ];
     helper.load(
-      [client, create, catchNode],
+      [clientNode, createNode, catchNode],
       testFlows,
       {
-        "3783b2da.4346a6": {
+        "e5173483.adc92": {
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }
       },
       function() {
-        const createNode = helper.getNode("n1");
-        const helperNode = helper.getNode("n2");
+        const createNode = helper.getNode("db596a45.2ca398");
+        const helperNode = helper.getNode("369e311d.23d2de");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
@@ -91,7 +107,7 @@ describe("Create Record Node", function() {
             done(err);
           }
         });
-        createNode.receive({ payload: { data: { name: "Han Solo" } } });
+        createNode.receive({ payload: { layout: "people" } });
       }
     );
   });
@@ -135,7 +151,7 @@ describe("Create Record Node", function() {
       }
     ];
     helper.load(
-      [client, create, catchNode],
+      [clientNode, createNode, catchNode],
       testFlow,
       {
         "3783b2da.4346a6": {

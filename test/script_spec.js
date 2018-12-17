@@ -35,48 +35,64 @@ describe("Trigger Script Node", function() {
   it("should trigger a script", function(done) {
     var testFlows = [
       {
-        id: "f1",
+        id: "28016085.26f9f8",
         type: "tab",
-        label: "Script Test"
+        label: "Trigger Script",
+        disabled: false,
+        info: ""
       },
       {
-        id: "3783b2da.4346a6",
+        id: "d89553b1.68315",
+        type: "helper"
+      },
+      {
+        id: "7320f090.489cd",
+        type: "catch",
+        z: "28016085.26f9f8",
+        name: "",
+        scope: null,
+        x: 280,
+        y: 100,
+        wires: [["d89553b1.68315"]]
+      },
+      {
+        id: "ad6b4a61.a752a8",
+        type: "trigger-script",
+        z: "28016085.26f9f8",
+        client: "e5173483.adc92",
+        layout: "payload.layout",
+        layoutType: "msg",
+        script: "payload.script",
+        scriptType: "msg",
+        parameter: "",
+        parameterType: "none",
+        output: "payload",
+        x: 260,
+        y: 40,
+        wires: [["d89553b1.68315"]]
+      },
+      {
+        id: "e5173483.adc92",
         type: "filemaker-api-client",
+        z: "",
         server: process.env.FILEMAKER_SERVER,
-        name: "Sweet FM Client",
+        name: "Mute Symphony",
         application: process.env.FILEMAKER_APPLICATION,
         usage: true
-      },
-      {
-        id: "n2",
-        type: "catch",
-        z: "f1",
-        name: "catch",
-        wires: [["n3"]]
-      },
-      {
-        id: "n1",
-        type: "trigger-script",
-        client: "3783b2da.4346a6",
-        layout: "People",
-        scripts: "",
-        merge: true,
-        wires: [["n3"]]
-      },
-      { id: "n3", type: "helper" }
+      }
     ];
     helper.load(
       [clientNode, scriptNode, catchNode],
       testFlows,
       {
-        "3783b2da.4346a6": {
+        "e5173483.adc92": {
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }
       },
       function() {
-        const script = helper.getNode("n1");
-        const helperNode = helper.getNode("n3");
+        const scriptNode = helper.getNode("ad6b4a61.a752a8");
+        const helperNode = helper.getNode("d89553b1.68315");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
@@ -87,7 +103,9 @@ describe("Trigger Script Node", function() {
             done(err);
           }
         });
-        script.receive({ payload: { script: "Node Red Test" } });
+        scriptNode.receive({
+          payload: { layout: "people", script: "Mos Eisley Test" }
+        });
       }
     );
   });
