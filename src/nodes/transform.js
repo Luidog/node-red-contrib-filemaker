@@ -1,7 +1,7 @@
 module.exports = function(RED) {
   function transform(configuration) {
     const { transform } = require("fms-api-client");
-    const { merge, constructParameters } = require("../services");
+    const { merge, isJson, constructParameters } = require("../services");
     RED.nodes.createNode(this, configuration);
     const node = this;
     node.on("input", message => {
@@ -12,9 +12,13 @@ module.exports = function(RED) {
         ["data"]
       );
       try {
-        node.send(
-          merge(configuration.output, message, transform(data, parameters))
-        );
+        if (isJson(data)) {
+          node.send(
+            merge(configuration.output, message, transform(data, parameters))
+          );
+        } else {
+          throw Error("data must be valid json");
+        }
       } catch (error) {
         node.error(error.message, message);
       }
