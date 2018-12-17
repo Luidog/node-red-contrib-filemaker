@@ -1,10 +1,10 @@
 /* global describe beforeEach afterEach it */
 var { expect } = require("chai");
 const helper = require("node-red-node-test-helper");
-const client = require("../src/client/client.js");
+const clientNode = require("../src/client/client.js");
 const createNode = require("../src/nodes/create.js");
 const getNode = require("../src/nodes/get.js");
-const fieldData = require("../src/nodes/fieldData.js");
+const fieldDataNode = require("../src/nodes/fieldData.js");
 const catchNode = require("./core/25-catch.js");
 
 helper.init(require.resolve("node-red"));
@@ -21,7 +21,7 @@ describe("FieldData Utility Node", function() {
 
   it("should be loaded", function(done) {
     var testFlows = [{ id: "n1", type: "inject" }];
-    helper.load(fieldData, testFlows, function() {
+    helper.load(fieldDataNode, testFlows, function() {
       done();
     });
   });
@@ -106,7 +106,7 @@ describe("FieldData Utility Node", function() {
       }
     ];
     helper.load(
-      [client, createNode, getNode, fieldData, catchNode],
+      [clientNode, createNode, getNode, fieldDataNode, catchNode],
       testFlow,
       {
         "e5173483.adc92": {
@@ -136,5 +136,62 @@ describe("FieldData Utility Node", function() {
         });
       }
     );
+  });
+  it("should reject with an error message and code", function(done) {
+    var testFlow = [
+      {
+        id: "95ec0b93.d02568",
+        type: "tab",
+        label: "Select Field Data Error",
+        disabled: false,
+        info: ""
+      },
+      {
+        id: "453f2d7f.a0fd9c",
+        type: "helper"
+      },
+      {
+        id: "5970d726.97a278",
+        type: "catch",
+        z: "95ec0b93.d02568",
+        name: "",
+        scope: null,
+        x: 300,
+        y: 100,
+        wires: [["453f2d7f.a0fd9c"]]
+      },
+      {
+        id: "e3d9bda2.01c0d8",
+        type: "fieldData",
+        z: "95ec0b93.d02568",
+        data: "payload.data",
+        dataType: "msg",
+        output: "payload.data",
+        x: 270,
+        y: 40,
+        wires: [["453f2d7f.a0fd9c"]]
+      }
+    ];
+    helper.load([fieldDataNode, catchNode], testFlow, function() {
+      var fieldDataNode = helper.getNode("e3d9bda2.01c0d8");
+      var helperNode = helper.getNode("453f2d7f.a0fd9c");
+      helperNode.on("input", function(msg) {
+        try {
+          expect(msg)
+            .to.be.an("object")
+            .with.any.keys("payload")
+            .and.property("payload")
+            .to.be.a("object")
+            .and.property("data")
+            .to.be.a("string");
+          done();
+        } catch (err) {
+          done(err);
+        }
+      });
+      fieldDataNode.receive({
+        payload: { data: "none" }
+      });
+    });
   });
 });

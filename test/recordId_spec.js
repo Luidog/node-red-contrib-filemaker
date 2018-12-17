@@ -125,4 +125,71 @@ describe("Record Id Utility Node", function() {
       }
     );
   });
+  it("should reject with an error message and a code", function(done) {
+    let testFlow = [
+      {
+        id: "a0254177.9c8dc",
+        type: "tab",
+        label: "Select Record Id Error",
+        disabled: false,
+        info: ""
+      },
+      {
+        id: "c03adb39.c4a738",
+        type: "helper"
+      },
+      {
+        id: "bb98f3db.1ee78",
+        type: "catch",
+        z: "a0254177.9c8dc",
+        name: "",
+        scope: null,
+        x: 360,
+        y: 100,
+        wires: [["c03adb39.c4a738"]]
+      },
+      {
+        id: "faf29df7.988c78",
+        type: "recordId",
+        z: "a0254177.9c8dc",
+        data: "payload.data",
+        dataType: "msg",
+        output: "payload.data",
+        x: 330,
+        y: 40,
+        wires: [["c03adb39.c4a738"]]
+      }
+    ];
+    helper.load(
+      [recordIdNode, catchNode],
+      testFlow,
+      {
+        "e5173483.adc92": {
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
+        }
+      },
+      function() {
+        const recordIdNode = helper.getNode("faf29df7.988c78");
+        const helperNode = helper.getNode("c03adb39.c4a738");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("payload")
+              .and.property("payload")
+              .to.be.a("object")
+              .and.property("data")
+              .to.be.a("string");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        recordIdNode.receive({
+          payload: { data: "none" }
+        });
+      }
+    );
+  });
 });
