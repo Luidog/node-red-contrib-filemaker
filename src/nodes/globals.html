@@ -3,13 +3,26 @@
       category: "FileMaker",
       defaults: {
         client: { value: "", type: "filemaker-api-client" },
-        globals: { value: null, required: false }
+        data: { value: "payload.data", required: false },
+        dataType: { value: "msg" },
+        output: { value: "payload", required: false }
       },
       inputs: 1,
       outputs: 1,
       icon: "globals.png",
       color: "#39D1C0",
-      label: "Set Globals"
+      label: "Set Globals",
+      oneditprepare: function() {
+        $("#node-input-data").typedInput({
+          default: "msg",
+          types: ["json", "msg", "flow", "global"],
+          typeField: $("#node-input-dataType")
+        });
+        $("#node-input-output").typedInput({
+          default: "msg",
+          types: ["msg"]
+        });
+      }
     });
 </script>
 
@@ -18,9 +31,17 @@
         <label for="node-input-client">Client</label>
         <input type="text" id="node-input-client">
     </div>
+    <hr>
     <div class="form-row">
-        <label for="node-input-globals">Globals</label>
-        <input type="text" id="node-input-globals">
+        <label for="node-input-data">Data</label>
+        <input type="hidden" id="node-input-dataType">
+        <input type="text" id="node-input-data">
+    </div>
+    <hr>
+    <div class="form-row">
+        <label for="node-input-output">Output</label>
+        <input type="hidden" id="node-input-outputType">
+        <input type="text" id="node-input-output">
     </div>
 </script>
 <script type="text/x-red" data-help-name="set-globals">

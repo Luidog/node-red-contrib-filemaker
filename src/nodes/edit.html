@@ -4,14 +4,18 @@
       defaults: {
         client: { value: "", type: "filemaker-api-client" },
         layout: {
-          value: 'payload',
+          value: 'payload.layout',
           required: true
         },
         layoutType: { value: "msg" },
         recordId: { value: null, required: true },
         recordIdType: { value: "" },
+        data: { value: null, required: false },
+        dataType: { value: "none" },
         scripts: { value: null, required: false },
         scriptsType: { value: "none" },
+        merge: { value: false, required: false },
+        mergeType: { value: "bool" },
         output: { value: "payload", required: true }
       },
       oneditprepare: function() {
@@ -30,6 +34,16 @@
           default: "num",
           types: ["num", "msg", "flow", "global"],
           typeField: $("#node-input-recordIdType")
+        });
+        $("#node-input-data").typedInput({
+          default: "none",
+          types: ["json", "msg", "flow", "global", nullType],
+          typeField: $("#node-input-dataType")
+        });
+        $("#node-input-merge").typedInput({
+          default: "bool",
+          types: ["bool", "msg", "flow", "global"],
+          typeField: $("#node-input-mergeType")
         });
         $("#node-input-output").typedInput({
           default: "msg",
@@ -56,6 +70,11 @@
     </div>
     <hr>
     <div class="form-row">
+        <label for="node-input-layout">Data</label>
+        <input type="hidden" id="node-input-dataType">
+        <input type="text" id="node-input-data">
+    </div>
+    <div class="form-row">
         <label for="node-input-recordId">Record Id</label>
         <input type="hidden" id="node-input-recordIdType">
         <input type="text" id="node-input-recordId">
@@ -64,6 +83,11 @@
         <label for="node-input-scripts">Scripts</label>
         <input type="hidden" id="node-input-scriptsType">
         <input type="text" id="node-input-scripts">
+    </div>
+    <div class="form-row">
+        <label for="node-input-merge">Merge Data</label>
+        <input type="hidden" id="node-input-mergeType">
+        <input type="text" id="node-input-merge">
     </div>
     <hr>
     <div class="form-row">
@@ -76,33 +100,33 @@
 
 <h3>Inputs</h3>
     <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">Object</span>
-            <dd><b>recordId</b> <mark>required</mark> - <i>String</i><br>the recordId to target for editing</dd>
-            <dd><b>data</b> <mark>required</mark> - <i>object</i><br>The data to edit</dd>
-            <dd><b>layout</b> - <i>String</i><br>The layout to use when creating a record. Defaults to node configuration.</dd>
-            <dd><b>scripts</b> - <i>Array</i><br>Any FileMaker scripts to run when deleting the record.</dd>
-        </dt>
-        <dt class="optional">parameters <span class="property-type">Object</span>
-            <dd><b>layout</b> - <i>String</i><br>The layout to use when creating a record. Defaults to node configuration.</dd>
-            <dd><b>scripts</b> - <i>Array</i><br>Any FileMaker scripts to run when creating a record.</dd>
-        </dt>
+      <dt>layout<span class="property-type">String</span><dd>The layout to use when deleting the record.</dd>
+      <dt>recordId<span class="property-type">Number</span><dd>The record id to target for deletion.</dd>
+      <dt>data<span class="property-type">Object</span><dd>The data to use when creating a record</dd>
+      <dt>scripts<span class="property-type">Array</span><dd>The scripts to run when creating a record.</dd>
+      <dt>merge<span class="property-type">Boolean</span><dd>Merge input data with FileMaker response .</dd>
     </dl>
 
  <h3>Outputs</h3>
      <ol class="node-ports">
          <li>Standard Output
-             <dl class="message-properties">
-                <dt>payload<span class="property-type">Object</span>
-                    <dd><b>modId</b> - <i>String</i><br>The modification id.</dd>
-                </dt>
-             </dl>
+         <dl class="message-properties">
+            <dt>recordId<span class="property-type">String</span>
+              <dd>The record id for the created record.</dd>
+            </dt>
+            <dt>modId<span class="property-type">String</span>
+              <dd>The modification id for the created record.</dd>
+            </dt>
+          </dl>
          </li>
          <li>Standard Error
              <dl class="message-properties">
-                 <dt>message <span class="property-type">Object</span></dt>
-                    <dd><b>message</b> - <i>String</i><br>The FileMaker or client error message.</dd>
-                    <dd><b>code</b> - <i>String</i><br>The applicible FileMaker error code.</dd>
+                 <dt>message<span class="property-type">String</span>
+                    <dd>The FileMaker or client error message.</dd>
+                  </dt>
+                  <dt>error<span class="property-type">String</span>
+                    <dd>The applicible FileMaker error code.</dd>
+                  </dt>
              </dl>
          </li>
      </ol>

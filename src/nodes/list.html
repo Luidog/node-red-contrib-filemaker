@@ -4,7 +4,7 @@
       defaults: {
         client: { value: null, type: "filemaker-api-client", required: true },
         layout: {
-          value: 'payload',
+          value: 'payload.layout',
           required: true
         },
         layoutType: { value: "msg" },
@@ -26,16 +26,9 @@
       color: "#39D1C0",
       label: "List Records",
       oneditprepare: function() {
-
         var nullType = { value: "none", label: "None", icon: "", hasValue: false };
         $("#node-input-layout").typedInput({
           default: "msg",
-          types: ["str", "msg", "flow", "global"],
-          typeField: $("#node-input-layoutType")
-        });
-        $("#node-input-layout").typedInput('validate');
-        $("#node-input-layout").typedInput({
-          default: "str",
           types: ["str", "msg", "flow", "global"],
           typeField: $("#node-input-layoutType")
         });
@@ -96,7 +89,7 @@
       <hr>
     </div>
     <div class="form-row">
-        <label for="node-input-scripts">Sort</label>
+        <label for="node-input-sort">Sort</label>
         <input type="hidden" id="node-input-sortType">
         <input type="text" id="node-input-sort">
     </div>
@@ -107,7 +100,7 @@
     </div>
     </div>
         <div class="form-row">
-        <label for="node-input-scripts">Portals</label>
+        <label for="node-input-portals">Portals</label>
         <input type="hidden" id="node-input-portalsType">
         <input type="text" id="node-input-portals">
     </div>

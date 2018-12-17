@@ -1,11 +1,6 @@
 module.exports = function(RED) {
   function create(config) {
-    const {
-      compact,
-      merge,
-      sanitize,
-      constructParameters
-    } = require("../services");
+    const { merge, constructParameters } = require("../services");
     RED.nodes.createNode(this, config);
     const node = this;
     const { client, ...configuration } = config;

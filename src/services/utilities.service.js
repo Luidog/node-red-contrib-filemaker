@@ -12,7 +12,10 @@ const _ = require("lodash");
  * @return {Object} An object with only properties that are not null, undefined, or an empty string.
  */
 
-const merge = (property, message, payload) => _.set(message, property, payload);
+const merge = (property, message, payload) =>
+  isJson(message[property])
+    ? _.set(message, property, Object.assign(message[property], payload))
+    : _.set(message, property, payload);
 
 const constructParameters = (message, configuration, context, values) =>
   compact(
@@ -20,20 +23,25 @@ const constructParameters = (message, configuration, context, values) =>
       let parameter = {};
       let type = configuration[`${value}Type`];
       if (type && type !== "msg" && type !== "flow" && type !== "context") {
-        parameter = { [value]: configuration[value] };
+        parameter = { [value]: parseJson(configuration[value]) };
       } else if (type === "msg") {
-        parameter = { [value]: _.get(message, configuration[value], "") };
+        parameter = {
+          [value]: _.get(message, parseJson(configuration[value]), "")
+        };
       } else if (type === "flow") {
-        parameter = { [value]: _.get(context.flow, configuration[value], "") };
+        parameter = {
+          [value]: _.get(context.flow, parseJson(configuration[value]), "")
+        };
       } else if (type === "global") {
         parameter = {
-          [value]: _.get(context.global, configuration[value], "")
+          [value]: _.get(context.global, parseJson(configuration[value]), "")
         };
       }
-      console.log(parameter);
       return parameter;
     })
   );
+
+const parseJson = value => (isJson(value) ? JSON.parse(value) : value);
 
 /**
  * @method compact

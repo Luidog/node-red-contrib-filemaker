@@ -3,9 +3,14 @@
       category: "FileMaker",
       defaults: {
         client: { value: "", type: "filemaker-api-client" },
-        layout: { value: "layout", required: false },
-        layoutType: { value: "", required: false },
-        recordId: { value: "msg", required: true },
+        layout: { value: "payload.layout", required: false },
+        layoutType: { value: "msg", required: false },
+        recordId: { value: "payload.recordId", required: true },
+        recordIdType: { value: "msg" },
+        scripts: { value: null, required: false },
+        scriptsType: { value: "none" },
+        portals: { value: null, required: false },
+        portalsType: { value: "none" },
         output: { value: "payload", required: false }
       },
       inputs: 1,
@@ -14,31 +19,32 @@
       color: "#39D1C0",
       label: "Get Record",
       oneditprepare: function() {
+        var nullType = { value: "none", label: "None", icon: "", hasValue: false };
         $("#node-input-layout").typedInput({
           default: "msg",
           types: ["msg", "flow", "global", "str"],
           typeField: $("#node-input-layoutType")
-        });
-        $("#node-input-output").typedInput({
-          default: "msg",
-          types: ["msg"],
-          typeField: ".outputType"
         });
         $("#node-input-recordId").typedInput({
           default: "msg",
           types: ["msg"],
           typeField: ".recordIdType"
         });
-        $('#node-input-output').on('change',function(type,value){
-          console.log(type)
-        })
-        $('#node-input-layout').on('change',function(type,value){
-          console.log(value)
-          console.log(type)
-        })
-        $('#node-input-recordIdType').on('change',function(type,value){
-          console.log(value)
-        })
+        $("#node-input-scripts").typedInput({
+          default: "none",
+          types: ["json", "msg", "flow", "global", nullType],
+          typeField: $("#node-input-scriptsType")
+        });
+        $("#node-input-portals").typedInput({
+          default: "none",
+          types: ["json", "msg", "flow", "global", nullType],
+          typeField: $("#node-input-portalsType")
+        });
+        $("#node-input-output").typedInput({
+          default: "msg",
+          types: ["msg"],
+          typeField: ".outputType"
+        });
       }
 });
 </script>
@@ -52,11 +58,23 @@
         <input type="hidden" id="node-input-layoutType">
         <input type="text" id="node-input-layout">
     </div>
+    <hr>
     <div class="form-row">
-        <label for="node-input-layout">Record Id</label>
-        <input type="hidden" id="node-input-layoutType">
-        <input type="text" id="node-input-layout">
+        <label for="node-input-recordId">Record Id</label>
+        <input type="hidden" id="node-input-recordIdType">
+        <input type="text" id="node-input-recordId">
     </div>
+    <div class="form-row">
+        <label for="node-input-scripts">Scripts</label>
+        <input type="hidden" id="node-input-scriptsType">
+        <input type="text" id="node-input-scripts">
+    </div>
+    <div class="form-row">
+        <label for="node-input-portals">Portals</label>
+        <input type="hidden" id="node-input-portalsType">
+        <input type="text" id="node-input-portals">
+    </div>
+    <hr>
     <div class="form-row">
         <label for="node-input-output">Output</label>
         <input type="hidden" id="node-input-outputType">
