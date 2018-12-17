@@ -22,7 +22,7 @@ const constructParameters = (message, configuration, context, values) =>
     _.map(values, value => {
       let parameter = {};
       let type = configuration[`${value}Type`];
-      if (type && type !== "msg" && type !== "flow" && type !== "context") {
+      if (type && type !== "msg" && type !== "flow" && type !== "global") {
         parameter = { [value]: parseJson(configuration[value]) };
       } else if (type === "msg") {
         parameter = {
@@ -30,11 +30,11 @@ const constructParameters = (message, configuration, context, values) =>
         };
       } else if (type === "flow") {
         parameter = {
-          [value]: _.get(context.flow, parseJson(configuration[value]), "")
+          [value]: context.flow.get(configuration[value])
         };
       } else if (type === "global") {
         parameter = {
-          [value]: _.get(context.global, parseJson(configuration[value]), "")
+          [value]: context.global.get(configuration[value])
         };
       }
       return parameter;
