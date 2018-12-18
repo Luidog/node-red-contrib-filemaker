@@ -117,9 +117,9 @@
 
 <h3>Inputs</h3>
     <dl class="message-properties">
-      <dt>layout<span class="property-type">String</span><dd>The layout to to use for listing records</dd>
+      <dt>layout<span class="property-type">String</span><dd>The layout to use when listing records</dd>
       <dt>limit<span class="property-type">Number</span><dd>The number of records to return in the list. Default is 100.</dd>
-      <dt>offset<span class="property-type">Number</span><dd>The position to start listing records from.</dd>
+      <dt>offset<span class="property-type">Number</span><dd>The position to start listing records.</dd>
       <dt>sort<span class="property-type">Object</span><dd>The sort order of the records.</dd>
       <dt>portals<span class="property-type">Array</span><dd>An array of portals to return with the list.</dd>
       <dt>scripts<span class="property-type">Array</span><dd>The FileMaker scripts to run when listing records.</dd>
@@ -130,7 +130,7 @@
          <li>Standard Output
          <dl class="message-properties">
             <dt>data <span class="property-type">Array</span>
-              <dd>Contains the record data from the list query.</dd>
+              <dd>listed records.</dd>
             </dt>
           </dl>
          </li>
@@ -147,13 +147,18 @@
      </ol>
 
 <h3>Details</h3>
-    <p>This node lists FileMaker records from the specified layout. This node will use the value found in <code>msg.payload</code></p>
+    <p>This node lists FileMaker records from the specified layout. By default this node will use <code>msg.payload.layout</code>
+       as the layout context for listing records. <br/><br/>This node can be configured to use either static or dynamic input 
+       parameters. Dynamic parameters may be read from either the <code>msg</code> property or the <code>flow</code> or 
+       <code>global</code> context.<br/><br/>The default output of this node is <code>msg.payload</code>. This node can also 
+       be configured to merge its output with any property on the <code>msg</code> object.
+    </p>
     <h3>References</h3>
         <ul>
             <li><a href="https://github.com/Luidog/fms-api-client#list-records">List Method</a> - Base Client Documentation.</li>
             <li><a href="https://github.com/Luidog/fms-api-client#script-array-syntax">Scripts Array</a> - Scripts Array Documentation</li>
             <li><a href="https://github.com/Luidog/fms-api-client#portal-array-syntax">Portals Array</a> - Portals Array Documentation</li>
             <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node-Red FileMaker</a> - The Node's Github Repository</li>
-            <li><a href="https://github.com/Luidog/fms-api-client">FMS API Client</a> - fms-api-client Github Repository</li>
+            <li><a href="https://github.com/Luidog/fms-api-client">Data API Client</a> - Data API Client Github Repository</li>
         </ul>
 </script>
