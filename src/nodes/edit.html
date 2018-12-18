@@ -4,7 +4,7 @@
       defaults: {
         client: { value: "", type: "filemaker-api-client" },
         layout: {
-          value: 'payload.layout',
+          value: "payload.layout",
           required: true
         },
         layoutType: { value: "msg" },
@@ -96,15 +96,17 @@
     </div>
 </script>
 <script type="text/x-red" data-help-name="edit-record">
-<p>This node edits a specific record in FileMaker. It uses the recordId it finds in <code>msg.payload.recordId</code> to specify the record to edit. It uses the data found in <code>msg.payload.data</code> to edit the record.<br/>This node will use the default layout set in its configuration or a layout specified in <code>msg.parameters</code> or <code>msg.payload</code>.
+<p>This node edits a specific record in FileMaker. Defaults are <code>msg.payload.recordId</code> as the record Id
+to target for editing, the data in <code>msg.payload.data</code> for editing record field and portal data, and 
+<code>msg.payload.layout</code> as the layout context.</p>
 
 <h3>Inputs</h3>
     <dl class="message-properties">
-      <dt>layout<span class="property-type">String</span><dd>The layout to use when deleting the record.</dd>
-      <dt>recordId<span class="property-type">Number</span><dd>The record id to target for deletion.</dd>
-      <dt>data<span class="property-type">Object</span><dd>The data to use when creating a record</dd>
-      <dt>scripts<span class="property-type">Array</span><dd>The scripts to run when creating a record.</dd>
-      <dt>merge<span class="property-type">Boolean</span><dd>Merge input data with FileMaker response .</dd>
+      <dt>layout<span class="property-type">String</span><dd>The layout to use when editing the record.</dd>
+      <dt>recordId<span class="property-type">Number</span><dd>The record id to target for edits.</dd>
+      <dt>data<span class="property-type">Object</span><dd>The data to use for field or portal data edits.</dd>
+      <dt>scripts<span class="property-type">Array</span><dd>The scripts to run when editing a record.</dd>
+      <dt>merge<span class="property-type">Boolean</span><dd>Whether to merge the data parameter with the Data API response.</dd>
     </dl>
 
  <h3>Outputs</h3>
@@ -122,7 +124,7 @@
          <li>Standard Error
              <dl class="message-properties">
                  <dt>message<span class="property-type">String</span>
-                    <dd>The FileMaker or client error message.</dd>
+                    <dd>The FileMaker or Data API client error message.</dd>
                   </dt>
                   <dt>error<span class="property-type">String</span>
                     <dd>The applicible FileMaker error code.</dd>
@@ -132,15 +134,18 @@
      </ol>
 
 <h3>Details</h3>
-    <p>This node will use the recordId found in <code>msg.payload.recordId</code> to target a FileMaker record. This
-    node uses the layout found in either <code>msg.payload.layout</code>, <code>msg.parameters.layout</code>, or this node's configuration as the context for editing the record. This node uses the data found in <code>msg.payload.data</code>to edit the FileMaker record. If a <code> fieldData</code> property is not found in <code>msg.payload.data</code> then one is created and all properties except <code>portalData</code> will be shifted to the <code>fieldData</code> property.<br/>The order of assignment for parameters are node configuration properties, message parameters,
-    message payload parameter properties.</p>
+<p>This node edits a specific record in FileMaker. By default this node will use <code>msg.payload.recordId</code> as the record Id
+to target for editing, the data found in <code>msg.payload.data</code> for editing field and portal data, and <code>msg.payload.layout</code>
+ as the layout context.<br/><br/>This node can be configured to use either static or dynamic input parameters. Dynamic parameters may be
+read from either the <code>msg</code> property or the <code>flow</code> or <code>global</code> context.<br/><br/>
+The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its 
+output with any property on the <code>msg</code> object.</p>
 
 <h3>References</h3>
     <ul>
-        <li><a href="https://github.com/Luidog/fms-api-client#edit-records">Edit Method</a> - base client documentation</li>
-        <li><a href="https://github.com/Luidog/fms-api-client#script-array-syntax">Scripts Array</a> - scripts array documentation</li>
-        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node-Red FileMaker</a> - the node's github repository</li>
-        <li><a href="https://github.com/Luidog/fms-api-client">FMS API Client</a> - fms-api-client github repository</li>
+        <li><a href="https://github.com/Luidog/fms-api-client#edit-records">Edit Method</a> - Base Client Method Documentation</li>
+        <li><a href="https://github.com/Luidog/fms-api-client#script-array-syntax">Scripts Array</a> - Scripts Array Documentation</li>
+        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node Red FileMaker</a> - The Node's Github Repository</li>
+        <li><a href="https://github.com/Luidog/fms-api-client">Data API Client</a> - Data API Client Github Repository</li>
     </ul>
 </script>
