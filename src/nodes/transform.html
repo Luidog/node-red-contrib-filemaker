@@ -95,7 +95,7 @@
 
 <h3>Details</h3>
     <p>This node converts Data API record data. This node will traverse the incoming data and convert <code>{ table::field : value }</code> 
-    properties to <code>{ table: { field : value } }</code>.This node will also move portalData properties into arrays the main object.
+    properties to <code>{ table: { field : value } }</code>.This node will also move portalData properties into the main object.
     The transform method accepts an additional parameters object.<br/><br/>The parameters object can have three boolean properties. The <code>convert</code> property 
     controls the transformation of <code>table::field</code> properties. The <code>fieldData</code> property controls the merging of fieldData into to the result.
     The <code>portalData</code> property controls the merging of portalData to the result. Provide a parameter object and set one of the parameters to false to turn
