@@ -112,6 +112,86 @@ describe("Create Record Node", function() {
       }
     );
   });
+  it("should create allow the filemaker response to be merged to the message object", function(done) {
+    var testFlows = [
+      {
+        id: "ec096890.cdd65",
+        type: "tab",
+        label: "Create Record",
+        disabled: false,
+        info: ""
+      },
+      {
+        id: "369e311d.23d2de",
+        type: "helper"
+      },
+      {
+        id: "d3becaad.b78ce",
+        type: "catch",
+        z: "ec096890.cdd65",
+        name: "",
+        scope: null,
+        x: 360,
+        y: 100,
+        wires: [["369e311d.23d2de"]]
+      },
+      {
+        id: "db596a45.2ca398",
+        type: "create-record",
+        z: "ec096890.cdd65",
+        client: "e5173483.adc92",
+        layout: "payload.layout",
+        layoutType: "msg",
+        data: "",
+        dataType: "none",
+        scripts: "",
+        scriptsType: "none",
+        merge: "true",
+        mergeType: "bool",
+        output: "payload",
+        x: 340,
+        y: 40,
+        wires: [["369e311d.23d2de"]]
+      },
+      {
+        id: "e5173483.adc92",
+        type: "filemaker-api-client",
+        z: "",
+        server: process.env.FILEMAKER_SERVER,
+        name: "Mute Symphony",
+        application: process.env.FILEMAKER_APPLICATION,
+        usage: true
+      }
+    ];
+    helper.load(
+      [clientNode, createNode, catchNode],
+      testFlows,
+      {
+        "e5173483.adc92": {
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
+        }
+      },
+      function() {
+        const createNode = helper.getNode("db596a45.2ca398");
+        const helperNode = helper.getNode("369e311d.23d2de");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("payload")
+              .and.property("payload")
+              .to.be.a("object")
+              .with.any.keys("recordId", "modId");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        createNode.receive({ payload: { layout: "people" } });
+      }
+    );
+  });
   it("should use flow context to create a record.", function(done) {
     var testFlows = [
       {
@@ -321,40 +401,52 @@ describe("Create Record Node", function() {
   it("should throw an error with a message and a code", function(done) {
     var testFlow = [
       {
-        id: "f1",
+        id: "ec096890.cdd65",
         type: "tab",
-        label: "Catch Create Error"
+        label: "Create Record",
+        disabled: false,
+        info: ""
       },
       {
-        id: "n2",
+        id: "369e311d.23d2de",
+        type: "helper"
+      },
+      {
+        id: "d3becaad.b78ce",
+        type: "catch",
+        z: "ec096890.cdd65",
+        name: "",
+        scope: null,
+        x: 360,
+        y: 100,
+        wires: [["369e311d.23d2de"]]
+      },
+      {
+        id: "db596a45.2ca398",
         type: "create-record",
-        z: "f1",
-        name: "create node",
-        client: "3783b2da.4346a6",
-        layout: "Devices",
+        z: "ec096890.cdd65",
+        client: "e5173483.adc92",
+        layout: "payload.layout",
+        layoutType: "msg",
+        data: "",
+        dataType: "none",
         scripts: "",
-        merge: true,
-        wires: [["n3"]]
+        scriptsType: "none",
+        merge: "false",
+        mergeType: "bool",
+        output: "payload",
+        x: 340,
+        y: 40,
+        wires: [["369e311d.23d2de"]]
       },
       {
-        id: "n3",
-        type: "helper",
-        z: "f1"
-      },
-      {
-        id: "3783b2da.4346a6",
+        id: "e5173483.adc92",
         type: "filemaker-api-client",
+        z: "",
         server: process.env.FILEMAKER_SERVER,
         name: "Mute Symphony",
         application: process.env.FILEMAKER_APPLICATION,
         usage: true
-      },
-      {
-        id: "n1",
-        type: "catch",
-        z: "f1",
-        name: "catch",
-        wires: [["n3"]]
       }
     ];
     helper.load(
@@ -367,8 +459,8 @@ describe("Create Record Node", function() {
         }
       },
       function() {
-        const createNode = helper.getNode("n2");
-        const helperNode = helper.getNode("n3");
+        const createNode = helper.getNode("db596a45.2ca398");
+        const helperNode = helper.getNode("369e311d.23d2de");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)

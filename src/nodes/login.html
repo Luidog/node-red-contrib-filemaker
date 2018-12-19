@@ -32,40 +32,45 @@
     </div>
 </script>
 <script type="text/x-red" data-help-name="login">
-    <p>This node starts the FileMaker Data API session and saves the authentication token.</code>.
+    <p>This node starts a FileMaker Data API session and saves the authentication token.</p>
 
     <h3>Inputs</h3>
         <dl class="message-properties">
             <dt>payload
                 <span class="property-type">Any</span>
+                <dd>This node accepts any payload.</dd>
             </dt>
         </dl>
 
-    <h3>Outputs</h3>
-        <ol class="node-ports">
-            <li>Standard Output
-                <dl class="message-properties">
-                    <dt>payload<span class="property-type">Object</span>
-                    <dd><b>token</b> - <i>String</i><br>authentication token</dd>
-                    </dt>
-                </dl>
-            </li>
-            <li>Standard Error
-                <dl class="message-properties">
-                    <dt>message <span class="property-type">Object</span></dt>
-                    <dd><b>message</b> - <i>String</i><br>The FileMaker or client error message.</dd>
-                    <dd><b>code</b> - <i>String</i><br>The applicible FileMaker error code.</dd>
-                </dl>
-            </li>
-        </ol>
+<h3>Outputs</h3>
+     <ol class="node-ports">
+         <li>Standard Output
+         <dl class="message-properties">
+            <dt>token<span class="property-type">String</span>
+              <dd>The Data API authentication token.</dd>
+            </dt>
+         </dl>
+         </li>
+         <li>Standard Error
+             <dl class="message-properties">
+                 <dt>message<span class="property-type">String</span>
+                    <dd>The FileMaker or Data API client error message.</dd>
+                  </dt>
+                  <dt>error<span class="property-type">String</span>
+                    <dd>The applicible FileMaker error code.</dd>
+                  </dt>
+             </dl>
+         </li>
+     </ol>
 
     <h3>Details</h3>
-        <p>This node will close the currently open FileMaker Data API session and delete the associated authentication token.</p>
+        <p>This node will open a FileMaker Data API session. This node will also save the resulting authentication
+        for future use by the configured client.</p>
 
     <h3>References</h3>
         <ul>
-            <li><a href="https://github.com/Luidog/fms-api-client#login-method">Login Method</a> - base client documentation</li>
-            <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node-Red FileMaker</a> - the node's github repository</li>
-            <li><a href="https://github.com/Luidog/fms-api-client">FMS API Client</a> - fms-api-client github repository</li>
+          <li><a href="https://github.com/Luidog/fms-api-client#login-method">Login Method</a> - Base Client Method Documentation</li>
+          <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node Red FileMaker</a> - The Node's Github Repository</li>
+          <li><a href="https://github.com/Luidog/fms-api-client">Data API Client</a> - Data API Client Github Repository</li>
         </ul>
 </script>

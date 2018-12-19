@@ -32,12 +32,13 @@
     </div>
 </script>
 <script type="text/x-red" data-help-name="logout">
-    <p>This node closes the open Data API session and removes the associated authentication token.
+    <p>This node closes an open Data API session and removes the associated authentication token.<p>
 
     <h3>Inputs</h3>
         <dl class="message-properties">
             <dt>payload
                 <span class="property-type">Any</span>
+                <dd>This node accepts any payload.</dd>
             </dt>
         </dl>
 
@@ -45,26 +46,27 @@
         <ol class="node-ports">
             <li>Standard Output
                 <dl class="message-properties">
-                    <dt>payload<span class="property-type">Object</span>
-                    <dd><b>message</b> - <i>Object</i><br>a success message</dd>
+                    <dt>message<span class="property-type">String</span>
+                    <dd>a success message.</dd>
                     </dt>
                 </dl>
             </li>
             <li>Standard Error
                 <dl class="message-properties">
-                    <dt>message <span class="property-type">Object</span></dt>
-                    <dd><b>message</b> - <i>String</i><br>The FileMaker or client error message.</dd>
+                    <dt>message <span class="property-type">String</span>
+                    <dd>The FileMaker or client error message.</dd>
+                    </dt>
                 </dl>
             </li>
         </ol>
 
     <h3>Details</h3>
-        <p>This node closes the currently open Data API session and removes the associated authentication token</p>
+        <p>This node closes the currently open Data API session and removes the associated authentication token.</p>
 
     <h3>References</h3>
         <ul>
-            <li><a href="https://github.com/Luidog/fms-api-client#logout-method">Logout Method</a> - base client documentation</li>
-            <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node-Red FileMaker</a> - the node's github repository</li>
-            <li><a href="https://github.com/Luidog/fms-api-client">FMS API Client</a> - fms-api-client github repository</li>
+            <li><a href="https://github.com/Luidog/fms-api-client#logout-method">Logout Method</a> - Base Client Method Documentation</li>
+            <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node Red FileMaker</a> - The Node's Github Repository</li>
+            <li><a href="https://github.com/Luidog/fms-api-client">Data API Client</a> - Data API Client Github Repository</li>
         </ul>
 </script>
