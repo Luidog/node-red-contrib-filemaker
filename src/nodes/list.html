@@ -4,7 +4,7 @@
       defaults: {
         client: { value: null, type: "filemaker-api-client", required: true },
         layout: {
-          value: 'payload.layout',
+          value: "payload.layout",
           required: true
         },
         layoutType: { value: "msg" },
@@ -113,7 +113,7 @@
 </script>
 
 <script type="text/x-red" data-help-name="list-records">
-<p>Lists FileMaker records for a specified layout. By default this node will use the value found in <code>msg.payload</code></p>
+<p>Lists FileMaker records for a specified layout. By default this node will use the value found in <code>msg.payload.layout</code> as layout context.</p>
 
 <h3>Inputs</h3>
     <dl class="message-properties">
