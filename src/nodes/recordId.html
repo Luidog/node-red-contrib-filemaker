@@ -38,41 +38,37 @@
     </div>
 </script>
 <script type="text/x-red" data-help-name="recordId">
-<p>This node transforms data in <code>msg.payload.data</code>. It reduces data to recordIds.</p>
-
-<h3>Inputs</h3>
-    <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">Object</span>
-            <dd><b>data</b> <mark>required</mark> - <i>Object</i><br>The data to reduce.</dd>
-        </dt>
-    </dl>
+<p>This node reduces the data found in <code>msg.payload.data</code> to only include the <code>recordId</code> property.</p>
 
  <h3>Outputs</h3>
      <ol class="node-ports">
-         <li>Standard output
-             <dl class="message-properties">
-                <dt>payload<span class="property-type">Object</span>
-                    <dd><b>data</b> - <i>Object | Array</i><br>The reduced data</dd>
-                </dt>
-             </dl>
+         <li>Standard Output
+              <dl class="message-properties">
+                <dt>data<span class="property-type">Array | String</span>
+              <dd>A single recordId string or an array of strings.</dd>
+            </dt>
+          </dl>
          </li>
-         <li>Standard error
+         <li>Standard Error
              <dl class="message-properties">
-                 <dt>message <span class="property-type">Object</span></dt>
-                    <dd><b>message</b> - <i>String</i><br>The FileMaker or client error message.</dd>
-                    <dd><b>code</b> - <i>String</i><br>The applicible FileMaker error code.</dd>
+                 <dt>message<span class="property-type">String</span>
+                    <dd>fieldData error message.</dd>
+                  </dt>
              </dl>
          </li>
      </ol>
 
 <h3>Details</h3>
-    <p>This node converts Data API record data. This method will traverse data and reduce it to an array of recordIds or a single recordId.</p>
+   <p>This node reduces the data found in <code>msg.payload.data</code> to only include the <code>modId</code>,
+ <code>recordId</code>, and <code>fieldData</code> properties.<br/><br/>This node can be configured to use either static or dynamic input parameters. Dynamic parameters may be
+read from either the <code>msg</code> property or the <code>flow</code> or <code>global</code> context.<br/><br/>
+The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its 
+output with any property on the <code>msg</code> object.</p>
 
 <h3>References</h3>
     <ul>
-        <li><a href="https://github.com/Luidog/fms-api-client#recordid-method">RecordId Method</a> - Base client documentation</li>
-        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">node-red-contrib-filemaker</a> - the node's github repository</li>
-        <li><a href="https://github.com/Luidog/fms-api-client">fms-api-client</a> - fms-api-client github repository</li>
+        <li><a href="https://github.com/Luidog/fms-api-client#recordid-method">RecordId Method</a> - Base Client Method Documentation</li>
+        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node Red FileMaker</a> - The Node's Github Repository</li>
+        <li><a href="https://github.com/Luidog/fms-api-client">Data API Client</a> - Data API Client Github Repository</li>
     </ul>
 </script>

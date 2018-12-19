@@ -3,7 +3,7 @@
       category: "FileMaker",
       defaults: {
         parameters: { value: null, required: false },
-        parameterType: { value: 'none', required: false },
+        parameterType: { value: "none", required: false },
         data: { value: "payload.data", required: false },
         dataType: { value: "msg" },
         output: { value: "payload.data", required: true }
@@ -22,7 +22,7 @@
         });
         $("#node-input-parameters").typedInput({
           default: "none",
-          types: ["msg","json", "flow", "global", nullType],
+          types: ["msg", "json", "flow", "global", nullType],
           typeField: $("#node-input-parametersType")
         });
         $("#node-input-output").typedInput({
