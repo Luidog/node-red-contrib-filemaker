@@ -16,6 +16,7 @@ module.exports = function(RED) {
         "file",
         "layout",
         "field",
+        "recordId",
         "parameters"
       ]);
       let connection = await this.connection.client;
