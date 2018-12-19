@@ -4,14 +4,16 @@
       defaults: {
         client: { value: "", type: "filemaker-api-client" },
         layout: {
-          value: 'payload.layout',
+          value: "payload.layout",
           required: true
         },
         layoutType: { value: "msg" },
         file: { value: "payload.file" },
         fileType: { value: "msg" },
-        field: { value: 'payload.field', required: true },
+        field: { value: "payload.field", required: true },
         fieldType: { value: "msg" },
+        recordId: { value: null, required: true },
+        recordIdType: { value: "" },
         parameters: { value: null, required: false },
         parametersType: { value: "none" },
         output: { value: "payload", required: true }
@@ -35,13 +37,18 @@
         });
         $("#node-input-file").typedInput({
           default: "msg",
-          types: ["msg","flow", "global","bin","json"],
+          types: ["msg", "flow", "global", "bin", "json"],
           typeField: $("#node-input-fileType")
         });
         $("#node-input-field").typedInput({
           default: "msg",
-          types: ["msg","flow", "global","json"],
+          types: ["msg", "flow", "global", "json"],
           typeField: $("#node-input-fieldType")
+        });
+        $("#node-input-recordId").typedInput({
+          default: "num",
+          types: ["num", "msg", "flow", "global"],
+          typeField: $("#node-input-recordIdType")
         });
         $("#node-input-parameters").typedInput({
           default: "none",
@@ -89,53 +96,59 @@
     </div>
 </script>
 <script type="text/x-red" data-help-name="upload-file">
-<p>This node uploads binary data to a FileMaker container. This node expects <code>msg.payload.file</code> to be either a path to a file or an object with a buffer and name property.
+<p>This node uploads binary data to a FileMaker container. Defaults are  <code>msg.payload.file</code> as either a string path or buffer object
+and <code>msg.payload.layout</code> as the layout context.
 
 <h3>Inputs</h3>
     <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">Object</span>
-            <dd><b>file</b> <mark>required</mark> - <i>Object | String</i><br>Object with name and buffer properties or string path to file.</dd>
-            <dd><b>layout</b> - <i>String</i><br>The layout to use for the find. Defaults to node configuration.</dd>
-            <dd><b>field</b> - <i>String</i><br>The layout to use for the find. Defaults to node configuration.</dd>
-            <dd><b>field</b> - <i>Number</i><br>The layout to use for the find. Defaults to node configuration.</dd>
-            <dd><b>parameters</b> - <i>Object</i><br> see optional parameter object</dd>
-        </dt>
+      <dt>file<span class="property-type">String | Object</span><dd>a path or buffer object to upload to FileMaker.</dd>
+      <dt>layout<span class="property-type">String</span><dd>The layout to use when uploading a file.</dd>
+      <dt>field<span class="property-type">string</span><dd>The name of the container field to insert a file into.</dd>
+      <dt>recordId<span class="property-type">Number</span><dd>The record record id record to upload a file into. If omitted a new record will be created.</dd>
         <dt class="optional">parameters <span class="property-type">Object</span>
             <dd><b>fieldRepetition</b> - <i>Number </i><br>Container field repetition to upload the data.</dd>
-            <dd><b>timeout</b> - <i>Number</i><br>Timeout for the request</dd>
+            <dd><b>timeout</b> - <i>Number</i><br>Timeout for the request.</dd>
         </dt>
     </dl>
 
-    <h3>Outputs</h3>
-        <ol class="node-ports">
-            <li>Standard output
-                <dl class="message-properties">
-                <dt>payload<span class="property-type">object</span>
-                <dt><b>modId</b> - <i>String</i><br>The modification id.</dt>
-                <dt><b>recordId</b> - <i>String</i><br>The record id.</dt>
-                </dt>
-             </dl>
-         </li>
-         <li>Standard error
+<h3>Outputs</h3>
+    <ol class="node-ports">
+        <li>Standard Output
+          <dl class="message-properties">
+            <dt>recordId<span class="property-type">String</span>
+              <dd>The record Id for the created or updated record.</dd>
+            </dt>
+            <dt>modId<span class="property-type">String</span>
+              <dd>The modification Id for the created or updated record.</dd>
+            </dt>
+          </dl>
+        </li>
+         <li>Standard Error
              <dl class="message-properties">
-                 <dt>message <span class="property-type">Object</span></dt>
-                    <dd><b>message</b> - <i>String</i><br>The FileMaker or client error message.</dd>
-                    <dd><b>code</b> - <i>String</i><br>The applicible FileMaker error code.</dd>
+                 <dt>message<span class="property-type">String</span>
+                    <dd>The FileMaker or Data API client error message.</dd>
+                  </dt>
+                  <dt>error<span class="property-type">String</span>
+                    <dd>The applicible FileMaker error code.</dd>
+                  </dt>
              </dl>
          </li>
      </ol>
 
 <h3>Details</h3>
-    <p>This node uploads binary data to a Filemaker container. It expects a <code>msg.payload.file</code> to be either a path to a file or any object with a buffer and name property.This node uses the layout found in either <code>msg.payload.layout</code>,
-    <code>msg.parameters.layout</code>, or this node's
-    configuration is used to upload the data.<br/>The order of assignment for parameters are node configuration properties, message parameters,
-    message payload parameter properties.</p>
+    <p>This node uploads binary data to a Filemaker container field. By default this node will use a string or object in <code>msg.payload.file</code> as the file to insert into a container field.
+    If the file property is a string it will be treated as a local path to a file relative to the Node Red process. This node can also handle buffered data in the form of an object with a <code>buffer</code>
+    property and a <code>name</code> property.<br><br>The buffer property should be buffered file data and the name property should be the name of the file. This node will create a FileMaker record unless a
+    recordId property is passed to it. This node can also be configured with an optional parameter object. The parameter object can include timeout and fieldRepetition properties. These properties specify the
+    a container field repetition and upload request timeout.<br/><br/>This node can be configured to use either static or dynamic input parameters. Dynamic parameters may be
+    read from either the <code>msg</code> property or the <code>flow</code> or <code>global</code> context.<br/><br/>
+    The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its 
+    output with any property on the <code>msg</code> object.</p>
 
     <h3>References</h3>
         <ul>
-            <li><a href="https://github.com/Luidog/fms-api-client#upload-files">Upload Method</a> - Base client documentation</li>
-            <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">node-red-contrib-filemaker</a> - the node's github repository</li>
-            <li><a href="https://github.com/Luidog/fms-api-client">FMS API Client</a> - fms-api-client github repository</li>
+            <li><a href="https://github.com/Luidog/fms-api-client#upload-files">Upload Method</a> - Base Client Method Documentation</li>
+            <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node Red FileMaker</a> - The Node's Github Repository</li>
+            <li><a href="https://github.com/Luidog/fms-api-client">Data API Client</a> - Data API Client Github Repository</li>
     </ul>
 </script>
