@@ -186,7 +186,6 @@ describe("Transform Utility Node", function() {
         var helperNode = helper.getNode("1a8a1be2.50d8e4");
         helperNode.on("input", function(msg) {
           try {
-            console.log(msg);
             expect(msg)
               .to.be.an("object")
               .with.any.keys("payload", "error")
