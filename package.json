@@ -43,8 +43,8 @@
       "trigger-script": "./src/nodes/script.js",
       "upload-file": "./src/nodes/upload.js",
       "set-globals": "./src/nodes/globals.js",
-      "fieldData": "./src/nodes/fieldData.js",
-      "recordId": "./src/nodes/recordId.js",
+      "field-data": "./src/nodes/fieldData.js",
+      "record-id": "./src/nodes/recordId.js",
       "transform": "./src/nodes/transform.js"
     }
   },

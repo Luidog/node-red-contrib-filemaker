@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType("fieldData", {
+    RED.nodes.registerType("field-data", {
       category: "FileMaker",
       defaults: {
         data: { value: "payload.data", required: false },
@@ -24,7 +24,7 @@
       }
     });
 </script>
-<script type="text/x-red" data-template-name="fieldData">
+<script type="text/x-red" data-template-name="field-data">
     <div class="form-row">
         <label for="node-input-data">Data</label>
         <input type="hidden" id="node-input-dataType">
@@ -36,7 +36,7 @@
         <input type="text" id="node-input-output">
     </div>
 </script>
-<script type="text/x-red" data-help-name="fieldData">
+<script type="text/x-red" data-help-name="field-data">
 <p>This node reduces the data found in <code>msg.payload.data</code> to only include the <code>modId</code>,
  <code>recordId</code>, and <code>fieldData</code> properties.</p>
 

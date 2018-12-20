@@ -18,5 +18,5 @@ module.exports = function(RED) {
       }
     });
   }
-  RED.nodes.registerType("fieldData", fieldData);
+  RED.nodes.registerType("field-data", fieldData);
 };
