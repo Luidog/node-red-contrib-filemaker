@@ -72,7 +72,7 @@ describe("Record Id Utility Node", function() {
       },
       {
         id: "c2e318c8.f96378",
-        type: "recordId",
+        type: "record-id",
         z: "eff0d28.1c78bb",
         data: "payload.data",
         dataType: "msg",
@@ -150,7 +150,7 @@ describe("Record Id Utility Node", function() {
       },
       {
         id: "faf29df7.988c78",
-        type: "recordId",
+        type: "record-id",
         z: "a0254177.9c8dc",
         data: "payload.data",
         dataType: "msg",
