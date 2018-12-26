@@ -1,0 +1,150 @@
+<script type="text/javascript">
+    RED.nodes.registerType("container-data", {
+      category: "FileMaker",
+      defaults: {
+        parameters: { value: null, required: false },
+        parameterType: { value: "none", required: false },
+        data: { value: "payload.data", required: false },
+        dataType: { value: "msg" },
+        field: { value: "payload.field", required: false },
+        fieldType: { value: "msg"},
+        name: { value: "payload.name", required: false },
+        nameType: { value: "msg"},
+        destination: { value: "payload.destination", required: false },
+        destinationType: { value: "msg"},
+        output: { value: "payload.data", required: true }
+      },
+      inputs: 1,
+      outputs: 1,
+      icon: "container.png",
+      color: "#39D1C0",
+      label: "Extract Container Data",
+      oneditprepare: function() {
+        var nullType = { value: "none", label: "None", icon: "", hasValue: false };
+        $("#node-input-data").typedInput({
+          default: "msg",
+          types: ["json", "msg", "flow", "global"],
+          typeField: $("#node-input-dataType")
+        });
+        $("#node-input-parameters").typedInput({
+          default: "none",
+          types: ["msg", "json", "flow", "global", nullType],
+          typeField: $("#node-input-parametersType")
+        });
+        $("#node-input-field").typedInput({
+          default: "msg",
+          types: ["msg", "str", "flow", "global", nullType],
+          typeField: $("#node-input-fieldType")
+        });
+        $("#node-input-name").typedInput({
+          default: "msg",
+          types: ["msg", "str", "flow", "global", nullType],
+          typeField: $("#node-input-nameType")
+        });
+        $("#node-input-destination").typedInput({
+          default: "msg",
+          types: ["msg", "str", "flow", "global", nullType],
+          typeField: $("#node-input-destinationType")
+        });
+        $("#node-input-output").typedInput({
+          default: "msg",
+          types: ["msg"]
+        });
+      }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="container-data">
+    <div class="form-row">
+        <label for="node-input-data">Data</label>
+        <input type="hidden" id="node-input-dataType">
+        <input type="text" id="node-input-data">
+    </div>
+    <hr>
+    <div class="form-row">
+        <label for="node-input-field">Container Field</label>
+        <input type="hidden" id="node-input-fieldType">
+        <input type="text" id="node-input-field">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name">File Name</label>
+        <input type="hidden" id="node-input-nameType">
+        <input type="text" id="node-input-name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-destination">Destination</label>
+        <input type="hidden" id="node-input-destinationType">
+        <input type="text" id="node-input-destination">
+    </div>
+    <hr>
+    <div class="form-row">
+        <label for="node-input-output">Output</label>
+        <input type="text" id="node-input-output">
+    </div>
+</script>
+<script type="text/x-red" data-help-name="container-data">
+  <p>This node transforms data in <code>msg.payload.data</code>. It reduces <code>{ table::field : value }</code> properties to <code>{ table: { field : value } }</code> properties.</p>
+
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+      <dt>data<span class="property-type">Array | Object</span><dd>The layout to use when running the script.</dd>
+      <dt>field<span class="property-type">String</span><dd>The name of the script to run.</dd>
+      <dt>destination<span class="property-type">String</span><dd>The parameter to send to the script.</dd>
+      <dt>name<span class="property-type">String</span><dd>The parameter to send to the script.</dd>
+      <dt>parmeters<span class="property-type">Object</span><dd>The parameter to send to the script.</dd>
+    </dl>
+
+<h3>Outputs</h3>
+     <ol class="node-ports">
+         <li>Standard Output
+              <dl class="message-properties">
+                <dt>data<span class="property-type">Array | Object</span>
+              <dd>Data can be either a single object or an array of objects.</dd>
+            </dt>
+          </dl>
+         </li>
+         <li>Standard Error
+             <dl class="message-properties">
+                 <dt>message<span class="property-type">String</span>
+                    <dd>transform error message.</dd>
+                  </dt>
+             </dl>
+         </li>
+     </ol>
+
+  <h3>Outputs</h3>
+     <ol class="node-ports">
+         <li>Standard output
+             <dl class="message-properties">
+                <dt>data<span class="property-type">Array | Object</span>
+                    <dd>The transformed data.</dd>
+                </dt>
+             </dl>
+         </li>
+         <li>Standard error
+            <dl class="message-properties">
+                 <dt>message <span class="property-type">Object</span></dt>
+                    <dd><b>message</b> - <i>String</i><br>The FileMaker or client error message.</dd>
+                    <dd><b>code</b> - <i>String</i><br>The applicible FileMaker error code.</dd>
+             </dl>
+         </li>
+     </ol>
+
+<h3>Details</h3>
+    <p>This node converts Data API record data. This node will traverse the incoming data and convert <code>{ table::field : value }</code> 
+    properties to <code>{ table: { field : value } }</code>.This node will also move portalData properties into the main object.
+    The transform method accepts an additional parameters object.<br/><br/>The parameters object can have three boolean properties. The <code>convert</code> property 
+    controls the transformation of <code>table::field</code> properties. The <code>fieldData</code> property controls the merging of fieldData into to the result.
+    The <code>portalData</code> property controls the merging of portalData to the result. Provide a parameter object and set one of the parameters to false to turn
+    off that parameter.<br/><br/>This node can be configured to use either static or dynamic input parameters. Dynamic parameters may be
+read from either the <code>msg</code> property or the <code>flow</code> or <code>global</code> context.<br/><br/>
+The default output of this node is <code>msg.payload.data</code>. This node can also be configured to merge its 
+output with any property on the <code>msg</code> object.</p>
+
+<h3>References</h3>
+    <ul>
+        <li><a href="https://github.com/Luidog/fms-api-client#transform-method">Transform Method</a> - Base client documentation</li>
+        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">node-red-contrib-filemaker</a> - the node's github repository</li>
+        <li><a href="https://github.com/Luidog/fms-api-client">fms-api-client</a> - fms-api-client github repository</li>
+    </ul>
+</script>
