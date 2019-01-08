@@ -18,8 +18,8 @@
       outputs: 1,
       icon: "container.png",
       color: "#39D1C0",
-      paletteLabel: "Container Data",
-      label: "Extract Container Data",
+      paletteLabel: "Containers",
+      label: "Extract Containers",
       oneditprepare: function() {
         var nullType = { value: "none", label: "None", icon: "", hasValue: false };
         $("#node-input-data").typedInput({
@@ -84,7 +84,9 @@
     </div>
 </script>
 <script type="text/x-red" data-help-name="dapi-container-data">
-  <p>This node transforms data in <code>msg.payload.data</code>. It reduces <code>{ table::field : value }</code> properties to <code>{ table: { field : value } }</code> properties.</p>
+  <p>This node retrieves container data from <code>msg.payload.data</code>. This node will use the <code>msg.payload.field</code> 
+  parameter as the container to target, <code>msg.payload.name</code>, as a name for the file, and 
+  <code>msg.payload.destination</code> as the path to save the file.</p>
 
     <h3>Inputs</h3>
     <dl class="message-properties">
@@ -92,7 +94,9 @@
       <dt>field<span class="property-type">String</span><dd>The name of the container field. This can be a nested property.</dd>
       <dt>destination<span class="property-type">String</span><dd>Either "buffer" for a buffer object or the path to create files.</dd>
       <dt>name<span class="property-type">String</span><dd>The name of the file in the container field. This can be a property in data or a string.</dd>
-      <dt>parameters<span class="property-type">Object</span><dd>Additional request configuration parameters.</dd>
+      <dt class="optional">parameters <span class="property-type">Object</span>
+        <dd><b>timeout</b> - <i>Number</i><br>Timeout for the request.</dd>
+        </dt>
     </dl>
 
 <h3>Outputs</h3>
@@ -132,19 +136,22 @@
      </ol>
 
 <h3>Details</h3>
-    <p>This node converts Data API record data. This node will traverse the incoming data and convert <code>{ table::field : value }</code> 
-    properties to <code>{ table: { field : value } }</code>.This node will also move portalData properties into the main object.
-    The transform method accepts an additional parameters object.<br/><br/>The parameters object can have three boolean properties. The <code>convert</code> property 
-    controls the transformation of <code>table::field</code> properties. The <code>fieldData</code> property controls the merging of fieldData into to the result.
-    The <code>portalData</code> property controls the merging of portalData to the result. Provide a parameter object and set one of the parameters to false to turn
-    off that parameter.<br/><br/>This node can be configured to use either static or dynamic input parameters. Dynamic parameters may be
-read from either the <code>msg</code> property or the <code>flow</code> or <code>global</code> context.<br/><br/>
-The default output of this node is <code>msg.payload.data</code>. This node can also be configured to merge its 
-output with any property on the <code>msg</code> object.</p>
+  <p>This node retrieves container data from <code>msg.payload.data</code>. It will retrieve FileMaker container data by
+   following the links returned by the Data API. This node will accept either a single data object or an array of objects.
+    The node will use the <code>msg.payload.field</code> parameter to target container data urls in the data parameter. 
+    This node will also use a <code>msg.payload.name</code> parameter for naming the incoming container data.<br/><br/> 
+    If a name parameter is provided that is not a property or nested property in the data parameter, the name parameter 
+    itself will be used. The destination parameter should be either 'buffer' to indicate that an object with a file's 
+    name and buffer should be returned or the a path, relative to the current working directory, where the utility 
+    should write container data to a file. This utility will also accept optional request parameters to modify the 
+    http request.<br/><br/>This node can be configured to use either static or dynamic input parameters. Dynamic parameters 
+    may be read from either the <code>msg</code> property or the <code>flow</code> or <code>global</code> context.<br/><br/>
+    The default output of this node is <code>msg.payload.data</code>. This node can also be configured to merge its 
+    output with any property on the <code>msg</code> object.</p></p>
 
 <h3>References</h3>
     <ul>
-        <li><a href="https://github.com/Luidog/fms-api-client#transform-method">Transform Method</a> - Base client documentation</li>
+        <li><a href="https://github.com/Luidog/fms-api-client#transform-method">Container Data Utility</a> - Base client documentation</li>
         <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">node-red-contrib-filemaker</a> - the node's github repository</li>
         <li><a href="https://github.com/Luidog/fms-api-client">fms-api-client</a> - fms-api-client github repository</li>
     </ul>
