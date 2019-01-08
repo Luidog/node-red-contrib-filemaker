@@ -7,11 +7,11 @@
         data: { value: "payload.data", required: false },
         dataType: { value: "msg" },
         field: { value: "payload.field", required: false },
-        fieldType: { value: "msg"},
+        fieldType: { value: "msg" },
         name: { value: "payload.name", required: false },
-        nameType: { value: "msg"},
+        nameType: { value: "msg" },
         destination: { value: "payload.destination", required: false },
-        destinationType: { value: "msg"},
+        destinationType: { value: "msg" },
         output: { value: "payload.data", required: true }
       },
       inputs: 1,
@@ -88,11 +88,11 @@
 
     <h3>Inputs</h3>
     <dl class="message-properties">
-      <dt>data<span class="property-type">Array | Object</span><dd>The layout to use when running the script.</dd>
-      <dt>field<span class="property-type">String</span><dd>The name of the script to run.</dd>
-      <dt>destination<span class="property-type">String</span><dd>The parameter to send to the script.</dd>
-      <dt>name<span class="property-type">String</span><dd>The parameter to send to the script.</dd>
-      <dt>parmeters<span class="property-type">Object</span><dd>The parameter to send to the script.</dd>
+      <dt>data<span class="property-type">Array | Object</span><dd>The data to retrieve container data from.</dd>
+      <dt>field<span class="property-type">String</span><dd>The name of the container field. This can be a nested property.</dd>
+      <dt>destination<span class="property-type">String</span><dd>Either "buffer" for a buffer object or the path to create files.</dd>
+      <dt>name<span class="property-type">String</span><dd>The name of the file in the container field. This can be a property in data or a string.</dd>
+      <dt>parameters<span class="property-type">Object</span><dd>Additional request configuration parameters.</dd>
     </dl>
 
 <h3>Outputs</h3>
@@ -107,7 +107,7 @@
          <li>Standard Error
              <dl class="message-properties">
                  <dt>message<span class="property-type">String</span>
-                    <dd>transform error message.</dd>
+                    <dd>container data error message.</dd>
                   </dt>
              </dl>
          </li>
@@ -118,7 +118,7 @@
          <li>Standard output
              <dl class="message-properties">
                 <dt>data<span class="property-type">Array | Object</span>
-                    <dd>The transformed data.</dd>
+                    <dd>The container datas path and filename</dd>
                 </dt>
              </dl>
          </li>
