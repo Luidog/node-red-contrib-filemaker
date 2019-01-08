@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType("create-record", {
+    RED.nodes.registerType("dapi-create-record", {
       category: "FileMaker",
       defaults: {
         client: { value: "", type: "filemaker-api-client" },
@@ -45,13 +45,14 @@
       },
       inputs: 1,
       outputs: 1,
+      paletteLabel: "Create Record",
       icon: "create.png",
       color: "#39D1C0",
       label: "Create Record"
     });
 </script>
 
-<script type="text/x-red" data-template-name="create-record">
+<script type="text/x-red" data-template-name="dapi-create-record">
     <div class="form-row">
         <label for="node-input-client">Client</label>
         <input type="text" id="node-input-client">
@@ -83,7 +84,7 @@
         <input type="text" id="node-input-output">
     </div>
 </script>
-<script type="text/x-red" data-help-name="create-record">
+<script type="text/x-red" data-help-name="dapi-create-record">
 <p>This node creates a record in FileMaker. Defaults are <code>msg.payload.layout</code> for layout context and
 <code>msg.payload.data</code> for setting field or portal data.</p>
 

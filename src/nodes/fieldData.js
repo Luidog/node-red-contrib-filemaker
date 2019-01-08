@@ -18,5 +18,5 @@ module.exports = function(RED) {
       }
     });
   }
-  RED.nodes.registerType("field-data", fieldData);
+  RED.nodes.registerType("dapi-field-data", fieldData);
 };

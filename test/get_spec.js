@@ -48,7 +48,7 @@ describe("Get Record Node", function() {
       },
       {
         id: "f8b67949.c0a5d",
-        type: "create-record",
+        type: "dapi-create-record",
         z: "815dccb7.ff2788",
         client: "e5173483.adc92",
         layout: "payload.layout",
@@ -76,7 +76,7 @@ describe("Get Record Node", function() {
       },
       {
         id: "9cd0b5a3.6b08d",
-        type: "get-record",
+        type: "dapi-get-record",
         z: "815dccb7.ff2788",
         client: "e5173483.adc92",
         layout: "payload.layout",
@@ -139,7 +139,7 @@ describe("Get Record Node", function() {
       },
       {
         id: "n2",
-        type: "get-record",
+        type: "dapi-get-record",
         z: "f1",
         name: "Get Node",
         client: "3783b2da.4346a6",

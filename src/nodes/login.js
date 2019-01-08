@@ -16,5 +16,5 @@ module.exports = function(RED) {
         .catch(error => node.error(error.message, message));
     });
   }
-  RED.nodes.registerType("login", login);
+  RED.nodes.registerType("dapi-login", login);
 };

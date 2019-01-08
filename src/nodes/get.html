@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType("get-record", {
+    RED.nodes.registerType("dapi-get-record", {
       category: "FileMaker",
       defaults: {
         client: { value: "", type: "filemaker-api-client" },
@@ -17,6 +17,7 @@
       outputs: 1,
       icon: "get.png",
       color: "#39D1C0",
+      paletteLabel: "Get Record",
       label: "Get Record",
       oneditprepare: function() {
         var nullType = { value: "none", label: "None", icon: "", hasValue: false };
@@ -48,7 +49,7 @@
       }
 });
 </script>
-<script type="text/x-red" data-template-name="get-record">
+<script type="text/x-red" data-template-name="dapi-get-record">
     <div class="form-row">
         <label for="node-input-client">Client</label>
         <input type="text" id="node-input-client">
@@ -81,7 +82,7 @@
         <input type="text" id="node-input-output">
     </div>
 </script>
-<script type="text/x-red" data-help-name="get-record">
+<script type="text/x-red" data-help-name="dapi-get-record">
     <p>This node gets specific FileMaker record details. Defaults are <code>msg.payload.layout</code>
      as the layout context, and <code>msg.payload.recordId</code> as the record id to target.</p>
 

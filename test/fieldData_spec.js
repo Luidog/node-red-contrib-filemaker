@@ -40,7 +40,7 @@ describe("FieldData Utility Node", function() {
       },
       {
         id: "ffdef185.7d8578",
-        type: "create-record",
+        type: "dapi-create-record",
         z: "737aeefc.65dcd8",
         client: "e5173483.adc92",
         layout: "payload.layout",
@@ -68,7 +68,7 @@ describe("FieldData Utility Node", function() {
       },
       {
         id: "e3e225bd.df3f68",
-        type: "get-record",
+        type: "dapi-get-record",
         z: "737aeefc.65dcd8",
         client: "e5173483.adc92",
         layout: "payload.layout",
@@ -86,7 +86,7 @@ describe("FieldData Utility Node", function() {
       },
       {
         id: "ffd6eb0e.fd17",
-        type: "field-data",
+        type: "dapi-field-data",
         z: "737aeefc.65dcd8",
         data: "payload.data",
         dataType: "msg",
@@ -162,7 +162,7 @@ describe("FieldData Utility Node", function() {
       },
       {
         id: "e3d9bda2.01c0d8",
-        type: "field-data",
+        type: "dapi-field-data",
         z: "95ec0b93.d02568",
         data: "payload.data",
         dataType: "msg",

@@ -21,5 +21,5 @@ module.exports = function(RED) {
         .catch(error => node.error(error.message, message));
     });
   }
-  RED.nodes.registerType("edit-record", edit);
+  RED.nodes.registerType("dapi-edit-record", edit);
 };

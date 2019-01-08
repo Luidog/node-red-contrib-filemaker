@@ -21,5 +21,5 @@ module.exports = function(RED) {
         .catch(error => node.error(error.message, message));
     });
   }
-  RED.nodes.registerType("delete-record", deleteRecords);
+  RED.nodes.registerType("dapi-delete-record", deleteRecords);
 };

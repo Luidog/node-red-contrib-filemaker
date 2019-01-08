@@ -58,7 +58,7 @@ describe("Upload File Node", function() {
       },
       {
         id: "556248ef.700408",
-        type: "upload-file",
+        type: "dapi-upload-file",
         z: "146270a1.3bd87f",
         client: "e5173483.adc92",
         layout: "payload.layout",
@@ -125,7 +125,7 @@ describe("Upload File Node", function() {
       },
       {
         id: "n2",
-        type: "upload-file",
+        type: "dapi-upload-file",
         z: "f1",
         name: "Upload Node",
         client: "3783b2da.4346a6",

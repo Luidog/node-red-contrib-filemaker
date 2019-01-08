@@ -31,26 +31,27 @@
   },
   "node-red": {
     "nodes": {
-      "client": "./src/client/client.js",
-      "login": "./src/nodes/login.js",
-      "logout": "./src/nodes/logout.js",
-      "create-record": "./src/nodes/create.js",
-      "edit-record": "./src/nodes/edit.js",
-      "delete-record": "./src/nodes/delete.js",
-      "get-record": "./src/nodes/get.js",
-      "list-records": "./src/nodes/list.js",
-      "perform-find": "./src/nodes/find.js",
-      "trigger-script": "./src/nodes/script.js",
-      "upload-file": "./src/nodes/upload.js",
-      "set-globals": "./src/nodes/globals.js",
-      "field-data": "./src/nodes/fieldData.js",
-      "record-id": "./src/nodes/recordId.js",
-      "transform": "./src/nodes/transform.js"
+      "dapi-client": "./src/client/client.js",
+      "dapi-login": "./src/nodes/login.js",
+      "dapi-logout": "./src/nodes/logout.js",
+      "dapi-create-record": "./src/nodes/create.js",
+      "dapi-edit-record": "./src/nodes/edit.js",
+      "dapi-delete-record": "./src/nodes/delete.js",
+      "dapi-get-record": "./src/nodes/get.js",
+      "dapi-list-records": "./src/nodes/list.js",
+      "dapi-perform-find": "./src/nodes/find.js",
+      "dapi-trigger-script": "./src/nodes/script.js",
+      "dapi-upload-file": "./src/nodes/upload.js",
+      "dapi-set-globals": "./src/nodes/globals.js",
+      "dapi-field-data": "./src/nodes/fieldData.js",
+      "dapi-record-id": "./src/nodes/recordId.js",
+      "dapi-transform": "./src/nodes/transform.js",
+      "dapi-container-data": "./src/nodes/containerData.js"
     }
   },
   "homepage": "https://github.com/Luidog/node-red-contrib-filemaker#readme",
   "dependencies": {
-    "fms-api-client": "^1.8.0",
+    "fms-api-client": "^1.8.1",
     "lodash": "^4.17.11",
     "marpat": "^1.19.2"
   },

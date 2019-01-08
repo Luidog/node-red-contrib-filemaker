@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType("trigger-script", {
+    RED.nodes.registerType("dapi-trigger-script", {
       category: "FileMaker",
       defaults: {
         client: { value: "", type: "filemaker-api-client" },
@@ -18,6 +18,7 @@
       outputs: 1,
       icon: "script.png",
       color: "#39D1C0",
+      paletteLabel: "Trigger Script",
       label: "Trigger Script",
       oneditprepare: function() {
         var nullType = { value: "none", label: "None", icon: "", hasValue: false };
@@ -44,7 +45,7 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="trigger-script">
+<script type="text/x-red" data-template-name="dapi-trigger-script">
     <div class="form-row">
         <label for="node-input-client">Client</label>
         <input type="text" id="node-input-client">
@@ -73,7 +74,7 @@
         <input type="text" id="node-input-output">
     </div>
 </script>
-<script type="text/x-red" data-help-name="trigger-script">
+<script type="text/x-red" data-help-name="dapi-trigger-script">
     <p>This node triggers a FileMaker script. Defaults are <code>msg.payload.layout</code>
      as the layout context, and <code>msg.payload.script</code> as the script to run.</p>
 

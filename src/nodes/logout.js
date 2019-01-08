@@ -15,5 +15,5 @@ module.exports = function(RED) {
         .catch(error => node.error(error.message, message));
     });
   }
-  RED.nodes.registerType("logout", logout);
+  RED.nodes.registerType("dapi-logout", logout);
 };

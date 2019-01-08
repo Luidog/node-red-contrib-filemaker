@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType("field-data", {
+    RED.nodes.registerType("dapi-field-data", {
       category: "FileMaker",
       defaults: {
         data: { value: "payload.data", required: false },
@@ -10,6 +10,7 @@
       outputs: 1,
       icon: "fielddata.png",
       color: "#39D1C0",
+      paletteLabel: "Field Data",
       label: "Extract Field Data",
       oneditprepare: function() {
         $("#node-input-data").typedInput({
@@ -24,7 +25,7 @@
       }
     });
 </script>
-<script type="text/x-red" data-template-name="field-data">
+<script type="text/x-red" data-template-name="dapi-field-data">
     <div class="form-row">
         <label for="node-input-data">Data</label>
         <input type="hidden" id="node-input-dataType">
@@ -36,7 +37,7 @@
         <input type="text" id="node-input-output">
     </div>
 </script>
-<script type="text/x-red" data-help-name="field-data">
+<script type="text/x-red" data-help-name="dapi-field-data">
 <p>This node reduces the data found in <code>msg.payload.data</code> to only include the <code>modId</code>,
  <code>recordId</code>, and <code>fieldData</code> properties.</p>
 

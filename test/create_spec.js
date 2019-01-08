@@ -57,7 +57,7 @@ describe("Create Record Node", function() {
       },
       {
         id: "db596a45.2ca398",
-        type: "create-record",
+        type: "dapi-create-record",
         z: "ec096890.cdd65",
         client: "e5173483.adc92",
         layout: "payload.layout",
@@ -137,7 +137,7 @@ describe("Create Record Node", function() {
       },
       {
         id: "db596a45.2ca398",
-        type: "create-record",
+        type: "dapi-create-record",
         z: "ec096890.cdd65",
         client: "e5173483.adc92",
         layout: "payload.layout",
@@ -217,7 +217,7 @@ describe("Create Record Node", function() {
       },
       {
         id: "db596a45.2ca398",
-        type: "create-record",
+        type: "dapi-create-record",
         z: "ec096890.cdd65",
         client: "e5173483.adc92",
         layout: "layout",
@@ -320,7 +320,7 @@ describe("Create Record Node", function() {
       },
       {
         id: "db596a45.2ca398",
-        type: "create-record",
+        type: "dapi-create-record",
         z: "ec096890.cdd65",
         client: "e5173483.adc92",
         layout: "layout",
@@ -423,7 +423,7 @@ describe("Create Record Node", function() {
       },
       {
         id: "db596a45.2ca398",
-        type: "create-record",
+        type: "dapi-create-record",
         z: "ec096890.cdd65",
         client: "e5173483.adc92",
         layout: "payload.layout",

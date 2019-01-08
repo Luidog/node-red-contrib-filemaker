@@ -22,5 +22,5 @@ module.exports = function(RED) {
         .catch(error => node.error(error.message, message));
     });
   }
-  RED.nodes.registerType("get-record", get);
+  RED.nodes.registerType("dapi-get-record", get);
 };

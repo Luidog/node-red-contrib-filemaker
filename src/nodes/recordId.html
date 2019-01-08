@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType("record-id", {
+    RED.nodes.registerType("dapi-record-id", {
       category: "FileMaker",
       defaults: {
         data: { value: "payload.data", required: false },
@@ -10,6 +10,7 @@
       outputs: 1,
       icon: "recordId.png",
       color: "#39D1C0",
+      paletteLabel: "Record IDs",
       label: "Extract Record IDs",
       oneditprepare: function() {
         $("#node-input-data").typedInput({
@@ -25,7 +26,7 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="record-id">
+<script type="text/x-red" data-template-name="dapi-record-id">
     <div class="form-row">
         <label for="node-input-data">Data</label>
         <input type="hidden" id="node-input-dataType">
@@ -37,7 +38,7 @@
         <input type="text" id="node-input-output">
     </div>
 </script>
-<script type="text/x-red" data-help-name="record-id">
+<script type="text/x-red" data-help-name="dapi-record-id">
 <p>This node reduces the data found in <code>msg.payload.data</code> to only include the <code>recordId</code> property.</p>
 
  <h3>Outputs</h3>

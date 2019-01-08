@@ -57,7 +57,7 @@ describe("List Records Node", function() {
       },
       {
         id: "3c1de137.e4ac3e",
-        type: "list-records",
+        type: "dapi-list-records",
         z: "b8b203cb.2fdb5",
         client: "e5173483.adc92",
         layout: "payload.layout",
@@ -124,7 +124,7 @@ describe("List Records Node", function() {
       },
       {
         id: "n2",
-        type: "list-records",
+        type: "dapi-list-records",
         z: "f1",
         name: "List Node",
         client: "3783b2da.4346a6",

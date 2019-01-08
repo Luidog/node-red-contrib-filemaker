@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType("perform-find", {
+    RED.nodes.registerType("dapi-perform-find", {
       category: "FileMaker",
       defaults: {
         client: { value: "", type: "filemaker-api-client" },
@@ -67,12 +67,13 @@
       inputs: 1,
       outputs: 1,
       icon: "find.png",
+      paletteLabel: "Perform Find",
       color: "#39D1C0",
       label: "Perform Find"
     });
 </script>
 
-<script type="text/x-red" data-template-name="perform-find">
+<script type="text/x-red" data-template-name="dapi-perform-find">
     <div class="form-row">
         <label for="node-input-client">DAPI Client</label>
         <input type="text" id="node-input-client">
@@ -123,7 +124,7 @@
         <input type="text" id="node-input-output">
     </div>
 </script>
-<script type="text/x-red" data-help-name="perform-find">
+<script type="text/x-red" data-help-name="dapi-perform-find">
   <p>This node performs a find in FileMaker. Defaults are <code>msg.payload.layout</code> as the layout context, and <code>msg.payload.query</code>
   as query parameters.</p>
 

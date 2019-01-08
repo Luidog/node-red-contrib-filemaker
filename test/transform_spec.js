@@ -49,7 +49,7 @@ describe("Transform Utility Node", function() {
       },
       {
         id: "d5b348ab.46ac08",
-        type: "list-records",
+        type: "dapi-list-records",
         z: "bb39084f.0bba9",
         client: "e5173483.adc92",
         layout: "payload.layout",
@@ -71,7 +71,7 @@ describe("Transform Utility Node", function() {
       },
       {
         id: "84f24eb5.f61b6",
-        type: "transform",
+        type: "dapi-transform",
         z: "bb39084f.0bba9",
         parameters: "",
         parameterType: "none",
@@ -151,7 +151,7 @@ describe("Transform Utility Node", function() {
       },
       {
         id: "84f24eb5.f61b6",
-        type: "transform",
+        type: "dapi-transform",
         z: "bb39084f.0bba9",
         parameters: "",
         parameterType: "none",

@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType("transform", {
+    RED.nodes.registerType("dapi-transform", {
       category: "FileMaker",
       defaults: {
         parameters: { value: null, required: false },
@@ -12,6 +12,7 @@
       outputs: 1,
       icon: "transform.png",
       color: "#39D1C0",
+      paletteLabel: "Transform Response",
       label: "Transform Response",
       oneditprepare: function() {
         var nullType = { value: "none", label: "None", icon: "", hasValue: false };
@@ -33,7 +34,7 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="transform">
+<script type="text/x-red" data-template-name="dapi-transform">
     <div class="form-row">
         <label for="node-input-data">Data</label>
         <input type="hidden" id="node-input-dataType">
@@ -51,7 +52,7 @@
         <input type="text" id="node-input-output">
     </div>
 </script>
-<script type="text/x-red" data-help-name="transform">
+<script type="text/x-red" data-help-name="dapi-transform">
   <p>This node transforms data in <code>msg.payload.data</code>. It reduces <code>{ table::field : value }</code> properties to <code>{ table: { field : value } }</code> properties.</p>
 
 <h3>Outputs</h3>

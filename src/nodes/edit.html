@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType("edit-record", {
+    RED.nodes.registerType("dapi-edit-record", {
       category: "FileMaker",
       defaults: {
         client: { value: "", type: "filemaker-api-client" },
@@ -54,11 +54,12 @@
       outputs: 1,
       icon: "edit.png",
       color: "#39D1C0",
+      paletteLabel: "Edit Record",
       label: "Edit Record"
     });
 </script>
 
-<script type="text/x-red" data-template-name="edit-record">
+<script type="text/x-red" data-template-name="dapi-edit-record">
     <div class="form-row">
       <label for="node-input-client">Client</label>
       <input type="text" id="node-input-client">
@@ -95,7 +96,7 @@
         <input type="text" id="node-input-output">
     </div>
 </script>
-<script type="text/x-red" data-help-name="edit-record">
+<script type="text/x-red" data-help-name="dapi-edit-record">
 <p>This node edits a specific record in FileMaker. Defaults are <code>msg.payload.recordId</code> as the record Id
 to target for editing, the data in <code>msg.payload.data</code> for editing record field and portal data, and 
 <code>msg.payload.layout</code> as the layout context.</p>

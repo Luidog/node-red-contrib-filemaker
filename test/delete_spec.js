@@ -44,7 +44,7 @@ describe("Delete Record Node", function() {
       },
       {
         id: "170d96e0.3341c9",
-        type: "delete-record",
+        type: "dapi-delete-record",
         z: "c76706d3.5d9aa",
         client: "e5173483.adc92",
         layout: "payload.layout",
@@ -60,7 +60,7 @@ describe("Delete Record Node", function() {
       },
       {
         id: "42c2ddf9.1030ec",
-        type: "create-record",
+        type: "dapi-create-record",
         z: "c76706d3.5d9aa",
         client: "e5173483.adc92",
         layout: "payload.layout",
@@ -145,7 +145,7 @@ describe("Delete Record Node", function() {
       },
       {
         id: "n2",
-        type: "delete-record",
+        type: "dapi-delete-record",
         client: "3783b2da.4346a6",
         layout: "People",
         z: "f1",

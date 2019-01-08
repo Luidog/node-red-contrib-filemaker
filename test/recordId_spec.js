@@ -50,7 +50,7 @@ describe("Record Id Utility Node", function() {
       },
       {
         id: "871850c1.2c366",
-        type: "list-records",
+        type: "dapi-list-records",
         z: "eff0d28.1c78bb",
         client: "e5173483.adc92",
         layout: "payload.layout",
@@ -72,7 +72,7 @@ describe("Record Id Utility Node", function() {
       },
       {
         id: "c2e318c8.f96378",
-        type: "record-id",
+        type: "dapi-record-id",
         z: "eff0d28.1c78bb",
         data: "payload.data",
         dataType: "msg",
@@ -150,7 +150,7 @@ describe("Record Id Utility Node", function() {
       },
       {
         id: "faf29df7.988c78",
-        type: "record-id",
+        type: "dapi-record-id",
         z: "a0254177.9c8dc",
         data: "payload.data",
         dataType: "msg",

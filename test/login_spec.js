@@ -56,7 +56,7 @@ describe("Login Node", function() {
       },
       {
         id: "612b70ca.81566",
-        type: "login",
+        type: "dapi-login",
         z: "ad6ac1ee.a379",
         client: "e5173483.adc92",
         output: "payload",
@@ -111,7 +111,7 @@ describe("Login Node", function() {
       },
       {
         id: "n1",
-        type: "login",
+        type: "dapi-login",
         z: "f1",
         name: "login Node",
         client: "3783b2da.4346a6",

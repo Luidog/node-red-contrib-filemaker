@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType("list-records", {
+    RED.nodes.registerType("dapi-list-records", {
       category: "FileMaker",
       defaults: {
         client: { value: null, type: "filemaker-api-client", required: true },
@@ -24,6 +24,7 @@
       outputs: 1,
       icon: "list.png",
       color: "#39D1C0",
+      paletteLabel: "List Records",
       label: "List Records",
       oneditprepare: function() {
         var nullType = { value: "none", label: "None", icon: "", hasValue: false };
@@ -65,7 +66,7 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="list-records">
+<script type="text/x-red" data-template-name="dapi-list-records">
     <div class="form-row">
         <label for="node-input-client">DAPI Client</label>
         <input type="text" id="node-input-client">
@@ -112,7 +113,7 @@
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="list-records">
+<script type="text/x-red" data-help-name="dapi-list-records">
 <p>Lists FileMaker records for a specified layout. By default this node will use the value found in <code>msg.payload.layout</code> as layout context.</p>
 
 <h3>Inputs</h3>

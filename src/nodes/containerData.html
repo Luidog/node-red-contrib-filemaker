@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType("container-data", {
+    RED.nodes.registerType("dapi-container-data", {
       category: "FileMaker",
       defaults: {
         parameters: { value: null, required: false },
@@ -18,6 +18,7 @@
       outputs: 1,
       icon: "container.png",
       color: "#39D1C0",
+      paletteLabel: "Container Data",
       label: "Extract Container Data",
       oneditprepare: function() {
         var nullType = { value: "none", label: "None", icon: "", hasValue: false };
@@ -54,7 +55,7 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="container-data">
+<script type="text/x-red" data-template-name="dapi-container-data">
     <div class="form-row">
         <label for="node-input-data">Data</label>
         <input type="hidden" id="node-input-dataType">
@@ -82,7 +83,7 @@
         <input type="text" id="node-input-output">
     </div>
 </script>
-<script type="text/x-red" data-help-name="container-data">
+<script type="text/x-red" data-help-name="dapi-container-data">
   <p>This node transforms data in <code>msg.payload.data</code>. It reduces <code>{ table::field : value }</code> properties to <code>{ table: { field : value } }</code> properties.</p>
 
     <h3>Inputs</h3>

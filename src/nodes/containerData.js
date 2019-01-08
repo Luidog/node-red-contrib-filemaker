@@ -1,7 +1,7 @@
 module.exports = function(RED) {
   function containerData(configuration) {
     const { containerData } = require("fms-api-client");
-    const { merge, isJson, constructParameters } = require("../services");
+    const { merge, constructParameters } = require("../services");
     RED.nodes.createNode(this, configuration);
     const node = this;
     node.on("input", message => {
@@ -18,11 +18,10 @@ module.exports = function(RED) {
         "destination",
         "parameters"
       ]);
-      console.log(process.cwd());
       containerData(data, field, destination, name, parameters)
         .then(files => node.send(merge(configuration.output, message, files)))
         .catch(error => node.error(error.message, message));
     });
   }
-  RED.nodes.registerType("container-data", containerData);
+  RED.nodes.registerType("dapi-container-data", containerData);
 };

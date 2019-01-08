@@ -22,5 +22,5 @@ module.exports = function(RED) {
         .catch(error => node.error(error.message, message));
     });
   }
-  RED.nodes.registerType("list-records", list);
+  RED.nodes.registerType("dapi-list-records", list);
 };
