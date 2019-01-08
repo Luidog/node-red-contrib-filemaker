@@ -1,4 +1,4 @@
-/* global describe beforeEach afterEach it */
+/* global describe before beforeEach afterEach it */
 const { expect } = require("chai");
 const helper = require("node-red-node-test-helper");
 const environment = require("dotenv");
@@ -58,7 +58,7 @@ describe("Edit Record Node", function() {
       },
       {
         id: "791e43cb.29487c",
-        type: "create-record",
+        type: "dapi-create-record",
         z: "f8662af9.79e6b8",
         client: "e5173483.adc92",
         layout: "payload.layout",
@@ -76,7 +76,7 @@ describe("Edit Record Node", function() {
       },
       {
         id: "2e084d48.3df1ca",
-        type: "edit-record",
+        type: "dapi-edit-record",
         z: "f8662af9.79e6b8",
         client: "e5173483.adc92",
         layout: "payload.layout",
@@ -159,7 +159,7 @@ describe("Edit Record Node", function() {
       },
       {
         id: "n1",
-        type: "edit-record",
+        type: "dapi-edit-record",
         client: "3783b2da.4346a6",
         layout: "People",
         z: "f1",

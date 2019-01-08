@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType("upload-file", {
+    RED.nodes.registerType("dapi-upload-file", {
       category: "FileMaker",
       defaults: {
         client: { value: "", type: "filemaker-api-client" },
@@ -22,6 +22,7 @@
       outputs: 1,
       icon: "upload.png",
       color: "#39D1C0",
+      paletteLabel: "Upload",
       label: "Upload File",
       oneditprepare: function() {
         var nullType = { value: "none", label: "None", icon: "", hasValue: false };
@@ -42,7 +43,7 @@
         });
         $("#node-input-field").typedInput({
           default: "msg",
-          types: ["msg", "flow", "global", "json"],
+          types: ["str", "msg", "flow", "global", "json"],
           typeField: $("#node-input-fieldType")
         });
         $("#node-input-recordId").typedInput({
@@ -63,7 +64,7 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="upload-file">
+<script type="text/x-red" data-template-name="dapi-upload-file">
     <div class="form-row">
         <label for="node-input-client">Client</label>
         <input type="text" id="node-input-client">
@@ -85,7 +86,7 @@
         <input type="text" id="node-input-field">
     </div>
     <div class="form-row">
-        <label for="node-input-parameters">Field</label>
+        <label for="node-input-parameters">Parameters</label>
         <input type="hidden" id="node-input-parametersType">
         <input type="text" id="node-input-parameters">
     </div>
@@ -95,7 +96,7 @@
         <input type="text" id="node-input-output">
     </div>
 </script>
-<script type="text/x-red" data-help-name="upload-file">
+<script type="text/x-red" data-help-name="dapi-upload-file">
 <p>This node uploads binary data to a FileMaker container. Defaults are  <code>msg.payload.file</code> as either a string path or buffer object
 and <code>msg.payload.layout</code> as the layout context.
 

@@ -57,7 +57,7 @@ describe("Logout Node", function() {
       },
       {
         id: "3b340eca.5904c2",
-        type: "logout",
+        type: "dapi-logout",
         z: "6962fe42.cdf3c8",
         client: "e5173483.adc92",
         output: "payload",
@@ -67,7 +67,7 @@ describe("Logout Node", function() {
       },
       {
         id: "64a87699.ec6f2",
-        type: "login",
+        type: "dapi-login",
         z: "6962fe42.cdf3c8",
         client: "e5173483.adc92",
         output: "token",
@@ -130,7 +130,7 @@ describe("Logout Node", function() {
       {
         id: "n1",
         z: "f1",
-        type: "logout",
+        type: "dapi-logout",
         client: "3783b2da.4346a6",
         wires: [["n3"]]
       },

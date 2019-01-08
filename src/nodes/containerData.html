@@ -1,0 +1,158 @@
+<script type="text/javascript">
+    RED.nodes.registerType("dapi-container-data", {
+      category: "FileMaker",
+      defaults: {
+        parameters: { value: null, required: false },
+        parameterType: { value: "none", required: false },
+        data: { value: "payload.data", required: false },
+        dataType: { value: "msg" },
+        field: { value: "payload.field", required: false },
+        fieldType: { value: "msg" },
+        name: { value: "payload.name", required: false },
+        nameType: { value: "msg" },
+        destination: { value: "payload.destination", required: false },
+        destinationType: { value: "msg" },
+        output: { value: "payload.data", required: true }
+      },
+      inputs: 1,
+      outputs: 1,
+      icon: "container.png",
+      color: "#39D1C0",
+      paletteLabel: "Containers",
+      label: "Extract Containers",
+      oneditprepare: function() {
+        var nullType = { value: "none", label: "None", icon: "", hasValue: false };
+        $("#node-input-data").typedInput({
+          default: "msg",
+          types: ["json", "msg", "flow", "global"],
+          typeField: $("#node-input-dataType")
+        });
+        $("#node-input-parameters").typedInput({
+          default: "none",
+          types: ["msg", "json", "flow", "global", nullType],
+          typeField: $("#node-input-parametersType")
+        });
+        $("#node-input-field").typedInput({
+          default: "msg",
+          types: ["msg", "str", "flow", "global", nullType],
+          typeField: $("#node-input-fieldType")
+        });
+        $("#node-input-name").typedInput({
+          default: "msg",
+          types: ["msg", "str", "flow", "global", nullType],
+          typeField: $("#node-input-nameType")
+        });
+        $("#node-input-destination").typedInput({
+          default: "msg",
+          types: ["msg", "str", "flow", "global", nullType],
+          typeField: $("#node-input-destinationType")
+        });
+        $("#node-input-output").typedInput({
+          default: "msg",
+          types: ["msg"]
+        });
+      }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="dapi-container-data">
+    <div class="form-row">
+        <label for="node-input-data">Data</label>
+        <input type="hidden" id="node-input-dataType">
+        <input type="text" id="node-input-data">
+    </div>
+    <hr>
+    <div class="form-row">
+        <label for="node-input-field">Container Field</label>
+        <input type="hidden" id="node-input-fieldType">
+        <input type="text" id="node-input-field">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name">File Name</label>
+        <input type="hidden" id="node-input-nameType">
+        <input type="text" id="node-input-name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-destination">Destination</label>
+        <input type="hidden" id="node-input-destinationType">
+        <input type="text" id="node-input-destination">
+    </div>
+    <hr>
+    <div class="form-row">
+        <label for="node-input-output">Output</label>
+        <input type="text" id="node-input-output">
+    </div>
+</script>
+<script type="text/x-red" data-help-name="dapi-container-data">
+  <p>This node retrieves container data from <code>msg.payload.data</code>. This node will use the <code>msg.payload.field</code> 
+  parameter as the container to target, <code>msg.payload.name</code>, as a name for the file, and 
+  <code>msg.payload.destination</code> as the path to save the file.</p>
+
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+      <dt>data<span class="property-type">Array | Object</span><dd>The data to retrieve container data from.</dd>
+      <dt>field<span class="property-type">String</span><dd>The name of the container field. This can be a nested property.</dd>
+      <dt>destination<span class="property-type">String</span><dd>Either "buffer" for a buffer object or the path to create files.</dd>
+      <dt>name<span class="property-type">String</span><dd>The name of the file in the container field. This can be a property in data or a string.</dd>
+      <dt class="optional">parameters <span class="property-type">Object</span>
+        <dd><b>timeout</b> - <i>Number</i><br>Timeout for the request.</dd>
+        </dt>
+    </dl>
+
+<h3>Outputs</h3>
+     <ol class="node-ports">
+         <li>Standard Output
+              <dl class="message-properties">
+                <dt>data<span class="property-type">Array | Object</span>
+              <dd>Data can be either a single object or an array of objects.</dd>
+            </dt>
+          </dl>
+         </li>
+         <li>Standard Error
+             <dl class="message-properties">
+                 <dt>message<span class="property-type">String</span>
+                    <dd>container data error message.</dd>
+                  </dt>
+             </dl>
+         </li>
+     </ol>
+
+  <h3>Outputs</h3>
+     <ol class="node-ports">
+         <li>Standard output
+             <dl class="message-properties">
+                <dt>data<span class="property-type">Array | Object</span>
+                    <dd>The container datas path and filename</dd>
+                </dt>
+             </dl>
+         </li>
+         <li>Standard error
+            <dl class="message-properties">
+                 <dt>message <span class="property-type">Object</span></dt>
+                    <dd><b>message</b> - <i>String</i><br>The FileMaker or client error message.</dd>
+                    <dd><b>code</b> - <i>String</i><br>The applicible FileMaker error code.</dd>
+             </dl>
+         </li>
+     </ol>
+
+<h3>Details</h3>
+  <p>This node retrieves container data from <code>msg.payload.data</code>. It will retrieve FileMaker container data by
+   following the links returned by the Data API. This node will accept either a single data object or an array of objects.
+    The node will use the <code>msg.payload.field</code> parameter to target container data urls in the data parameter. 
+    This node will also use a <code>msg.payload.name</code> parameter for naming the incoming container data.<br/><br/> 
+    If a name parameter is provided that is not a property or nested property in the data parameter, the name parameter 
+    itself will be used. The destination parameter should be either 'buffer' to indicate that an object with a file's 
+    name and buffer should be returned or the a path, relative to the current working directory, where the utility 
+    should write container data to a file. This utility will also accept optional request parameters to modify the 
+    http request.<br/><br/>This node can be configured to use either static or dynamic input parameters. Dynamic parameters 
+    may be read from either the <code>msg</code> property or the <code>flow</code> or <code>global</code> context.<br/><br/>
+    The default output of this node is <code>msg.payload.data</code>. This node can also be configured to merge its 
+    output with any property on the <code>msg</code> object.</p></p>
+
+<h3>References</h3>
+    <ul>
+        <li><a href="https://github.com/Luidog/fms-api-client#transform-method">Container Data Utility</a> - Base client documentation</li>
+        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">node-red-contrib-filemaker</a> - the node's github repository</li>
+        <li><a href="https://github.com/Luidog/fms-api-client">fms-api-client</a> - fms-api-client github repository</li>
+    </ul>
+</script>

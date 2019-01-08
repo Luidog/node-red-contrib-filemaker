@@ -1,7 +1,7 @@
 /* global describe it */
 
 const { expect } = require("chai");
-const { merge, parse, compact, isJson } = require("../src/services");
+const { merge, sanitize, compact, isJson } = require("../src/services");
 
 describe("Utility Services", function() {
   describe("merge utility", () => {
@@ -11,6 +11,14 @@ describe("Utility Services", function() {
         .and.to.include.keys("payload")
         .and.property("payload")
         .to.be.a("object");
+    });
+  });
+
+  describe("sanitize utility", function() {
+    it("should discard unspecified properties", function() {
+      return expect(sanitize({ keep: true, discard: true }, ["keep"]))
+        .to.be.a("object")
+        .and.to.not.have.keys("discard");
     });
   });
 

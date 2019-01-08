@@ -57,7 +57,7 @@ describe("Set Globals Node", function() {
       },
       {
         id: "53d52c68.273e3c",
-        type: "set-globals",
+        type: "dapi-set-globals",
         z: "c596ca8d.d68938",
         client: "e5173483.adc92",
         data: "payload.data",
@@ -114,7 +114,7 @@ describe("Set Globals Node", function() {
       },
       {
         id: "n2",
-        type: "set-globals",
+        type: "dapi-set-globals",
         z: "f1",
         name: "globals node",
         client: "3783b2da.4346a6",

@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType("set-globals", {
+    RED.nodes.registerType("dapi-set-globals", {
       category: "FileMaker",
       defaults: {
         client: { value: "", type: "filemaker-api-client" },
@@ -11,6 +11,7 @@
       outputs: 1,
       icon: "globals.png",
       color: "#39D1C0",
+      paletteLabel: "Globals",
       label: "Set Globals",
       oneditprepare: function() {
         $("#node-input-data").typedInput({
@@ -26,7 +27,7 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="set-globals">
+<script type="text/x-red" data-template-name="dapi-set-globals">
     <div class="form-row">
         <label for="node-input-client">Client</label>
         <input type="text" id="node-input-client">
@@ -44,7 +45,7 @@
         <input type="text" id="node-input-output">
     </div>
 </script>
-<script type="text/x-red" data-help-name="set-globals">
+<script type="text/x-red" data-help-name="dapi-set-globals">
     <p>This node sets globals for the current FileMaker session. Default is <code>msg.payload.data</code> for setting global record field data.<p>
 
     <h3>Inputs</h3>

@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType("delete-record", {
+    RED.nodes.registerType("dapi-delete-record", {
       category: "FileMaker",
       defaults: {
         client: { value: "", type: "filemaker-api-client" },
@@ -39,12 +39,13 @@
       inputs: 1,
       outputs: 1,
       icon: "delete.png",
+      paletteLabel: "Delete",
       color: "#39D1C0",
       label: "Delete Record"
     });
 </script>
 
-<script type="text/x-red" data-template-name="delete-record">
+<script type="text/x-red" data-template-name="dapi-delete-record">
     <div class="form-row">
         <label for="node-input-client">Client</label>
         <input type="text" id="node-input-client">
@@ -71,7 +72,7 @@
         <input type="text" id="node-input-output">
     </div>
 </script>
-<script type="text/x-red" data-help-name="delete-record">
+<script type="text/x-red" data-help-name="dapi-delete-record">
 <p>This node deletes a specific record in FileMaker. Defaults are <code>msg.payload.recordId</code> as the record Id
 to target for deletion and <code>msg.payload.layout</code> as the layout context.</p>
 
@@ -79,7 +80,7 @@ to target for deletion and <code>msg.payload.layout</code> as the layout context
     <dl class="message-properties">
       <dt>layout<span class="property-type">String</span><dd>The layout to use when deleting a record.</dd>
       <dt>recordId<span class="property-type">Number</span><dd>The record id to target for deletion.</dd>
-      <dt>scripts<span class="property-type">Array</span><dd>The scripts to run when deleting a record.</dd>
+      <dt>scripts<span class="property-type">Array</span><dd>The scripts to run when deleting a record.<a target="_blank" href="https://github.com/Luidog/fms-api-client#script-array-syntax"> More Info.</a></dd>
     </dl>
 
  <h3>Outputs</h3>

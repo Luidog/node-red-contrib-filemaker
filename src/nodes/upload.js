@@ -28,5 +28,5 @@ module.exports = function(RED) {
         .catch(error => node.error(error.message, message));
     });
   }
-  RED.nodes.registerType("upload-file", upload);
+  RED.nodes.registerType("dapi-upload-file", upload);
 };

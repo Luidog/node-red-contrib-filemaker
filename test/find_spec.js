@@ -57,7 +57,7 @@ describe("Find Records Node", function() {
       },
       {
         id: "f15d2a17.bbc65",
-        type: "perform-find",
+        type: "dapi-perform-find",
         z: "37b558cf.8553c",
         client: "e5173483.adc92",
         layout: "payload.layout",
@@ -141,7 +141,7 @@ describe("Find Records Node", function() {
       },
       {
         id: "n2",
-        type: "perform-find",
+        type: "dapi-perform-find",
         client: "3783b2da.4346a6",
         layout: "People",
         z: "f1",

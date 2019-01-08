@@ -21,5 +21,5 @@ module.exports = function(RED) {
         .catch(error => node.error(error.message, message));
     });
   }
-  RED.nodes.registerType("set-globals", globals);
+  RED.nodes.registerType("dapi-set-globals", globals);
 };

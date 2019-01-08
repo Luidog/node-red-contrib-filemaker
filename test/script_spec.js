@@ -57,7 +57,7 @@ describe("Trigger Script Node", function() {
       },
       {
         id: "ad6b4a61.a752a8",
-        type: "trigger-script",
+        type: "dapi-trigger-script",
         z: "28016085.26f9f8",
         client: "e5173483.adc92",
         layout: "payload.layout",
@@ -118,7 +118,7 @@ describe("Trigger Script Node", function() {
       },
       {
         id: "n2",
-        type: "trigger-script",
+        type: "dapi-trigger-script",
         z: "f1",
         name: "Script Node",
         client: "3783b2da.4346a6",

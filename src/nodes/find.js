@@ -30,5 +30,5 @@ module.exports = function(RED) {
         .catch(error => node.error(error.message, message));
     });
   }
-  RED.nodes.registerType("perform-find", find);
+  RED.nodes.registerType("dapi-perform-find", find);
 };

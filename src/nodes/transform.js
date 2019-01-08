@@ -24,5 +24,5 @@ module.exports = function(RED) {
       }
     });
   }
-  RED.nodes.registerType("transform", transform);
+  RED.nodes.registerType("dapi-transform", transform);
 };

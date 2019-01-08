@@ -18,5 +18,5 @@ module.exports = function(RED) {
       }
     });
   }
-  RED.nodes.registerType("recordId", recordId);
+  RED.nodes.registerType("dapi-record-id", recordId);
 };

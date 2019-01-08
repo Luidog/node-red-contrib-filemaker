@@ -21,5 +21,5 @@ module.exports = function(RED) {
         .catch(error => node.error(error.message, message));
     });
   }
-  RED.nodes.registerType("trigger-script", script);
+  RED.nodes.registerType("dapi-trigger-script", script);
 };
