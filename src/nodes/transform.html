@@ -62,8 +62,10 @@
                 <dt>data<span class="property-type">Array | Object</span>
               <dd>Data can be either a single object or an array of objects.</dd>
             </dt>
-              <dt>parameters<span class="property-type">Object</span>
-              <dd>Optional transformation parameters controlling how data is transformed.</dd>
+            <dt class="optional">parameters <span class="property-type">Object</span>
+              <dd><b>fieldData</b> - <i>Boolean</i><br>whether to include fieldData in the result</dd>
+              <dd><b>portalData</b> - <i>Boolean</i><br>whether to include portalData in the result.</dd>
+              <dd><b>convert</b> - <i>Boolean</i><br>Wether to transform table::field data.</dd>
             </dt>
           </dl>
          </li>
@@ -97,7 +99,7 @@
 <h3>Details</h3>
     <p>This node converts Data API record data. This node will traverse the incoming data and convert <code>{ table::field : value }</code> 
     properties to <code>{ table: { field : value } }</code>.This node will also move portalData properties into the main object.
-    The transform method accepts an additional parameters object.<br/><br/>The parameters object can have three boolean properties. The <code>convert</code> property 
+    The transform method accepts an additional parameters object.<a target="_blank" href="https://github.com/Luidog/fms-api-client#transform-utility-results"> See Example.</a><br/><br/>The parameters object can have three boolean properties. The <code>convert</code> property 
     controls the transformation of <code>table::field</code> properties. The <code>fieldData</code> property controls the merging of fieldData into to the result.
     The <code>portalData</code> property controls the merging of portalData to the result. Provide a parameter object and set one of the parameters to false to turn
     off that parameter.<br/><br/>This node can be configured to use either static or dynamic input parameters. Dynamic parameters may be
@@ -107,8 +109,8 @@ output with any property on the <code>msg</code> object.</p>
 
 <h3>References</h3>
     <ul>
-        <li><a href="https://github.com/Luidog/fms-api-client#transform-method">Transform Method</a> - Base client documentation</li>
-        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">node-red-contrib-filemaker</a> - the node's github repository</li>
-        <li><a href="https://github.com/Luidog/fms-api-client">fms-api-client</a> - fms-api-client github repository</li>
+        <li><a href="https://github.com/Luidog/fms-api-client#transform-method">Transform Utility</a> - Base Client Utility Documentation</li>
+        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node Red FileMaker</a> - The Node's Github Repository</li>
+        <li><a href="https://github.com/Luidog/fms-api-client">Data API Client</a> - Data API Client Github Repository</li>
     </ul>
 </script>
