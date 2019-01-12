@@ -26,7 +26,7 @@ npm install --save node-red-contrib-filemaker
 
 <!--@execute('npm run test',[])-->
 ```default
-> node-red-contrib-filemaker@0.9.5 test /Users/luidelaparra/Documents/Development/node-red-contrib-filemaker
+> node-red-contrib-filemaker@0.9.6 test /node-red-contrib-filemaker
 > nyc _mocha --recursive  "test/**/*_spec.js" --timeout=30000 --exit
 
 
