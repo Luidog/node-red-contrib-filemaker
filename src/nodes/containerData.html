@@ -96,6 +96,8 @@
       <dt>name<span class="property-type">String</span><dd>The name of the file in the container field. This can be a property in data or a string.</dd>
       <dt class="optional">parameters <span class="property-type">Object</span>
         <dd><b>timeout</b> - <i>Number</i><br>Timeout for the request.</dd>
+        <dd><b>agent</b> - <i>Object</i><br>Agent to use when making the request.</dd>
+        <dd><b>proxy</b> - <i>Object</i><br>Proxy server to use when making the request.</dd>
         </dt>
     </dl>
 
@@ -117,24 +119,6 @@
          </li>
      </ol>
 
-  <h3>Outputs</h3>
-     <ol class="node-ports">
-         <li>Standard output
-             <dl class="message-properties">
-                <dt>data<span class="property-type">Array | Object</span>
-                    <dd>The container datas path and filename</dd>
-                </dt>
-             </dl>
-         </li>
-         <li>Standard error
-            <dl class="message-properties">
-                 <dt>message <span class="property-type">Object</span></dt>
-                    <dd><b>message</b> - <i>String</i><br>The FileMaker or client error message.</dd>
-                    <dd><b>code</b> - <i>String</i><br>The applicible FileMaker error code.</dd>
-             </dl>
-         </li>
-     </ol>
-
 <h3>Details</h3>
   <p>This node retrieves container data from <code>msg.payload.data</code>. It will retrieve FileMaker container data by
    following the links returned by the Data API. This node will accept either a single data object or an array of objects.
@@ -151,8 +135,8 @@
 
 <h3>References</h3>
     <ul>
-        <li><a href="https://github.com/Luidog/fms-api-client#transform-method">Container Data Utility</a> - Base client documentation</li>
-        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">node-red-contrib-filemaker</a> - the node's github repository</li>
-        <li><a href="https://github.com/Luidog/fms-api-client">fms-api-client</a> - fms-api-client github repository</li>
+        <li><a href="https://github.com/Luidog/fms-api-client#containerdata-utility">Container Data Utility</a> - Base Client Utility Documentation</li>
+        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node Red FileMaker</a> - The Node's Github Repository</li>
+        <li><a href="https://github.com/Luidog/fms-api-client">Data API Client</a> - Data API Client Github Repository</li>
     </ul>
 </script>

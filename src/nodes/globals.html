@@ -11,8 +11,8 @@
       outputs: 1,
       icon: "globals.png",
       color: "#39D1C0",
-      paletteLabel: "Globals",
-      label: "Set Globals",
+      paletteLabel: "Globals Fields",
+      label: "Set Globals Fields",
       oneditprepare: function() {
         $("#node-input-data").typedInput({
           default: "msg",
@@ -46,11 +46,11 @@
     </div>
 </script>
 <script type="text/x-red" data-help-name="dapi-set-globals">
-    <p>This node sets globals for the current FileMaker session. Default is <code>msg.payload.data</code> for setting global record field data.<p>
+    <p>This node sets global fields for the current FileMaker session. Default is <code>msg.payload.data</code> for setting global fields.<p>
 
     <h3>Inputs</h3>
     <dl class="message-properties">
-      <dt>data<span class="property-type">Object</span><dd>The data to use to set global record fields.</dd>
+      <dt>data<span class="property-type">Object</span><dd>The data to use to set global fields.</dd>
     </dl>
 
  <h3>Outputs</h3>
@@ -58,7 +58,7 @@
          <li>Standard Output
          <dl class="message-properties">
             <dt>data<span class="property-type">Object</span>
-              <dd>The updated global record data.</dd>
+              <dd>The updated global field data.</dd>
             </dt>
           </dl>
          </li>
