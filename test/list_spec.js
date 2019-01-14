@@ -103,7 +103,15 @@ describe("List Records Node", function() {
           try {
             expect(msg)
               .to.be.an("object")
-              .with.any.keys("payload");
+              .with.any.keys("payload")
+              .and.property("payload")
+              .to.be.a("object")
+              .with.any.keys("data")
+              .and.property("data")
+              .to.be.a("array")
+              .and.property(0)
+              .to.be.a("object")
+              .with.any.keys("recordId", "modId");
             done();
           } catch (err) {
             done(err);

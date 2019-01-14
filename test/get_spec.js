@@ -112,20 +112,28 @@ describe("Get Record Node", function() {
         }
       },
       function() {
-        const getNode = helper.getNode("9cd0b5a3.6b08d");
+        const createNode = helper.getNode("f8b67949.c0a5d");
         const helperNode = helper.getNode("fd67ed3.ff0801");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
               .to.be.an("object")
-              .with.any.keys("payload");
+              .with.any.keys("payload")
+              .and.property("payload")
+              .to.be.a("object")
+              .with.any.keys("data")
+              .and.property("data")
+              .to.be.an("array")
+              .and.property(0)
+              .to.be.a("object")
+              .to.have.any.keys("modId", "recordId");
             done();
           } catch (err) {
             done(err);
           }
         });
-        getNode.receive({
-          payload: { layout: "people", data: { name: "Anakin Skywalker" } }
+        createNode.receive({
+          payload: { layout: "people", data: { name: "Mace Windu" } }
         });
       }
     );

@@ -93,7 +93,13 @@ describe("Set Globals Node", function() {
           try {
             expect(msg)
               .to.be.an("object")
-              .with.any.keys("payload");
+              .with.any.keys("payload")
+              .and.property("payload")
+              .to.be.an("object")
+              .with.any.keys("data")
+              .and.property("data")
+              .to.be.an("object")
+              .with.any.keys("Globals::data");
             done();
           } catch (err) {
             done(err);

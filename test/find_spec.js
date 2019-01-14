@@ -108,7 +108,12 @@ describe("Find Records Node", function() {
               .with.any.keys("payload")
               .and.property("payload")
               .to.be.a("object")
-              .with.any.keys("data");
+              .with.any.keys("data")
+              .and.property("data")
+              .to.be.a("array")
+              .and.property(0)
+              .to.be.a("object")
+              .with.any.keys("recordId", "modId");
             done();
           } catch (err) {
             done(err);

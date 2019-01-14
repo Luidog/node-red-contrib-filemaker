@@ -125,7 +125,10 @@ describe("FieldData Utility Node", function() {
               .and.property("payload")
               .to.be.a("object")
               .and.property("data")
-              .to.be.a("array");
+              .to.be.a("array")
+              .and.property(0)
+              .to.be.a("object")
+              .with.any.keys("recordId", "modId");
             done();
           } catch (err) {
             done(err);
