@@ -73,7 +73,7 @@ describe("Trigger Script Node", function() {
       },
       {
         id: "e5173483.adc92",
-        type: "filemaker-api-client",
+        type: "dapi-client",
         z: "",
         server: process.env.FILEMAKER_SERVER,
         name: "Mute Symphony",
@@ -134,7 +134,7 @@ describe("Trigger Script Node", function() {
       },
       {
         id: "3783b2da.4346a6",
-        type: "filemaker-api-client",
+        type: "dapi-client",
         server: process.env.FILEMAKER_SERVER,
         name: "Mute Symphony",
         application: process.env.FILEMAKER_APPLICATION,

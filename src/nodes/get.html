@@ -2,7 +2,7 @@
     RED.nodes.registerType("dapi-get-record", {
       category: "FileMaker",
       defaults: {
-        client: { value: "", type: "filemaker-api-client" },
+        client: { value: "", type: "dapi-client" },
         layout: { value: "payload.layout", required: false },
         layoutType: { value: "msg", required: false },
         recordId: { value: "payload.recordId", required: true },

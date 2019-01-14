@@ -112,7 +112,7 @@ describe("Container Data Node", function() {
       },
       {
         id: "e5173483.adc92",
-        type: "filemaker-api-client",
+        type: "dapi-client",
         z: "",
         server: "https://fm.mutesymphony.com",
         name: "Node Red Test",
@@ -229,7 +229,7 @@ describe("Container Data Node", function() {
       },
       {
         id: "3783b2da.4346a6",
-        type: "filemaker-api-client",
+        type: "dapi-client",
         z: "",
         server: "https://fm.mutesymphony.com",
         name: "Node Red Test",

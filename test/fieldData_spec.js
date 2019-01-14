@@ -97,7 +97,7 @@ describe("FieldData Utility Node", function() {
       },
       {
         id: "e5173483.adc92",
-        type: "filemaker-api-client",
+        type: "dapi-client",
         z: "",
         server: process.env.FILEMAKER_SERVER,
         name: "Mute Symphony",

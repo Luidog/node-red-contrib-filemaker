@@ -6,12 +6,12 @@
         parameterType: { value: "none", required: false },
         data: { value: "payload.data", required: false },
         dataType: { value: "msg" },
-        field: { value: "payload.field", required: false },
-        fieldType: { value: "msg" },
-        name: { value: "payload.name", required: false },
-        nameType: { value: "msg" },
-        destination: { value: "payload.destination", required: false },
-        destinationType: { value: "msg" },
+        field: { value: "fieldData.container", required: false },
+        fieldType: { value: "str" },
+        name: { value: "fieldData.filename", required: false },
+        nameType: { value: "str" },
+        destination: { value: "buffer", required: false },
+        destinationType: { value: "buffer" },
         output: { value: "payload.data", required: true }
       },
       inputs: 1,
@@ -22,6 +22,11 @@
       label: "Extract Containers",
       oneditprepare: function() {
         var nullType = { value: "none", label: "None", icon: "", hasValue: false };
+        var bufferType = {
+            value: "buffer",
+            label: "Buffer Object",
+            icon: "", //red/images/typedInput/bin.png
+            hasValue: false };
         $("#node-input-data").typedInput({
           default: "msg",
           types: ["json", "msg", "flow", "global"],
@@ -33,18 +38,18 @@
           typeField: $("#node-input-parametersType")
         });
         $("#node-input-field").typedInput({
-          default: "msg",
+          default: "str",
           types: ["msg", "str", "flow", "global", nullType],
           typeField: $("#node-input-fieldType")
         });
         $("#node-input-name").typedInput({
-          default: "msg",
+          default: "str",
           types: ["msg", "str", "flow", "global", nullType],
           typeField: $("#node-input-nameType")
         });
         $("#node-input-destination").typedInput({
-          default: "msg",
-          types: ["msg", "str", "flow", "global", nullType],
+          default: "buffer",
+          types: [ bufferType, "str","msg", "flow", "global"],
           typeField: $("#node-input-destinationType")
         });
         $("#node-input-output").typedInput({
@@ -77,6 +82,11 @@
         <input type="hidden" id="node-input-destinationType">
         <input type="text" id="node-input-destination">
     </div>
+    <div class="form-row">
+        <label for="node-input-parameters">Parameters</label>
+        <input type="hidden" id="node-input-parametersType">
+        <input type="text" id="node-input-parameters">
+    </div>
     <hr>
     <div class="form-row">
         <label for="node-input-output">Output</label>
@@ -84,14 +94,14 @@
     </div>
 </script>
 <script type="text/x-red" data-help-name="dapi-container-data">
-  <p>This node retrieves container data from <code>msg.payload.data</code>. This node will use the <code>msg.payload.field</code> 
-  parameter as the container to target, <code>msg.payload.name</code>, as a name for the file, and 
-  <code>msg.payload.destination</code> as the path to save the file.</p>
+  <p>This node retrieves container data from <code>msg.payload.data</code>. This node requires a <code>container</code> property 
+  a <code>name</code> property and a <code>destination</code> property. Each property should be a <code>dot notation</code>path
+  to the required data, such as <code>fieldData.container</code> and <code>fieldData.fileName</code></p>
 
     <h3>Inputs</h3>
     <dl class="message-properties">
       <dt>data<span class="property-type">Array | Object</span><dd>The data to retrieve container data from.</dd>
-      <dt>field<span class="property-type">String</span><dd>The name of the container field. This can be a nested property.</dd>
+      <dt>field<span class="property-type">String</span><dd>A dot notation path to the container field.</dd>
       <dt>destination<span class="property-type">String</span><dd>Either "buffer" for a buffer object or the path to create files.</dd>
       <dt>name<span class="property-type">String</span><dd>The name of the file in the container field. This can be a property in data or a string.</dd>
       <dt class="optional">parameters <span class="property-type">Object</span>
@@ -120,10 +130,10 @@
      </ol>
 
 <h3>Details</h3>
-  <p>This node retrieves container data from <code>msg.payload.data</code>. It will retrieve FileMaker container data by
-   following the links returned by the Data API. This node will accept either a single data object or an array of objects.
-    The node will use the <code>msg.payload.field</code> parameter to target container data urls in the data parameter. 
-    This node will also use a <code>msg.payload.name</code> parameter for naming the incoming container data.<br/><br/> 
+  <p>This node retrieves container data from <code>msg.payload.data</code>. It will use the urls returned by the Data API to download container data.
+    This node will accept either a single object or an array of objects. It expects to recieve a <code>container</code> property 
+  a <code>name</code> property and a <code>destination</code> property. Each property should be a dot notation path to the required data, such as
+  <code>fieldData.container</code> and <code>fieldData.fileName</code>. This node will also use a <code>msg.payload.name</code> parameter for naming the incoming container data.<br/><br/> 
     If a name parameter is provided that is not a property or nested property in the data parameter, the name parameter 
     itself will be used. The destination parameter should be either 'buffer' to indicate that an object with a file's 
     name and buffer should be returned or the a path, relative to the current working directory, where the utility 
@@ -131,7 +141,7 @@
     http request.<br/><br/>This node can be configured to use either static or dynamic input parameters. Dynamic parameters 
     may be read from either the <code>msg</code> property or the <code>flow</code> or <code>global</code> context.<br/><br/>
     The default output of this node is <code>msg.payload.data</code>. This node can also be configured to merge its 
-    output with any property on the <code>msg</code> object.</p></p>
+    output with any property on the <code>msg</code> object.</p>
 
 <h3>References</h3>
     <ul>

@@ -15,7 +15,7 @@ function configurationNode(RED) {
 
     this.client = client.save();
   }
-  RED.nodes.registerType("filemaker-api-client", Client, {
+  RED.nodes.registerType("dapi-client", Client, {
     credentials: {
       username: { type: "text" },
       password: { type: "password" }

@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType('filemaker-api-client',{
+    RED.nodes.registerType('dapi-client',{
         category: 'config',
         defaults: {
             server: {value:"",required:true},
@@ -17,7 +17,7 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="filemaker-api-client">
+<script type="text/x-red" data-template-name="dapi-client">
     <div class="form-row">
         <label for="node-config-input-name">Name</label>
         <input type="text" id="node-config-input-name">
@@ -50,7 +50,7 @@
     </div>
     <div>Track client's input and output metrics.</div>
 </script>
-<script type="text/x-red" data-help-name="filemaker-api-client">
+<script type="text/x-red" data-help-name="dapi-client">
 <p>This node creates a FileMaker Data API client to maintain a Data API session</p>
 
 <h3>Details</h3>
