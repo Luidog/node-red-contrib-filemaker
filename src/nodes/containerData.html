@@ -23,10 +23,11 @@
       oneditprepare: function() {
         var nullType = { value: "none", label: "None", icon: "", hasValue: false };
         var bufferType = {
-            value: "buffer",
-            label: "Buffer Object",
-            icon: "", //red/images/typedInput/bin.png
-            hasValue: false };
+          value: "buffer",
+          label: "Buffer Object",
+          icon: "",
+          hasValue: false
+        };
         $("#node-input-data").typedInput({
           default: "msg",
           types: ["json", "msg", "flow", "global"],
@@ -49,7 +50,7 @@
         });
         $("#node-input-destination").typedInput({
           default: "buffer",
-          types: [ bufferType, "str","msg", "flow", "global"],
+          types: [bufferType, "str", "msg", "flow", "global"],
           typeField: $("#node-input-destinationType")
         });
         $("#node-input-output").typedInput({
