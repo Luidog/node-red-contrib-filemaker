@@ -96,9 +96,7 @@ describe("Get Record Node", function() {
         id: "e5173483.adc92",
         type: "dapi-client",
         z: "",
-        server: process.env.FILEMAKER_SERVER,
-        name: "Mute Symphony",
-        application: process.env.FILEMAKER_APPLICATION,
+        name: "Node Red Test Client",
         usage: true
       }
     ];
@@ -107,6 +105,8 @@ describe("Get Record Node", function() {
       testFlows,
       {
         "e5173483.adc92": {
+          server: process.env.FILEMAKER_SERVER,
+          application: process.env.FILEMAKER_APPLICATION,
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }
@@ -164,9 +164,7 @@ describe("Get Record Node", function() {
       {
         id: "3783b2da.4346a6",
         type: "dapi-client",
-        server: process.env.FILEMAKER_SERVER,
-        name: "Mute Symphony",
-        application: process.env.FILEMAKER_APPLICATION,
+        name: "Node Red Test Client",
         usage: true
       },
       {
@@ -182,6 +180,8 @@ describe("Get Record Node", function() {
       testFlow,
       {
         "3783b2da.4346a6": {
+          server: process.env.FILEMAKER_SERVER,
+          application: process.env.FILEMAKER_APPLICATION,
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }
