@@ -94,11 +94,9 @@ describe("Get Record Node", function() {
       },
       {
         id: "e5173483.adc92",
-        type: "filemaker-api-client",
+        type: "dapi-client",
         z: "",
-        server: process.env.FILEMAKER_SERVER,
-        name: "Mute Symphony",
-        application: process.env.FILEMAKER_APPLICATION,
+        name: "Node Red Test Client",
         usage: true
       }
     ];
@@ -107,25 +105,35 @@ describe("Get Record Node", function() {
       testFlows,
       {
         "e5173483.adc92": {
+          server: process.env.FILEMAKER_SERVER,
+          application: process.env.FILEMAKER_APPLICATION,
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }
       },
       function() {
-        const getNode = helper.getNode("9cd0b5a3.6b08d");
+        const createNode = helper.getNode("f8b67949.c0a5d");
         const helperNode = helper.getNode("fd67ed3.ff0801");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
               .to.be.an("object")
-              .with.any.keys("payload");
+              .with.any.keys("payload")
+              .and.property("payload")
+              .to.be.a("object")
+              .with.any.keys("data")
+              .and.property("data")
+              .to.be.an("array")
+              .and.property(0)
+              .to.be.a("object")
+              .to.have.any.keys("modId", "recordId");
             done();
           } catch (err) {
             done(err);
           }
         });
-        getNode.receive({
-          payload: { layout: "people", data: { name: "Anakin Skywalker" } }
+        createNode.receive({
+          payload: { layout: "people", data: { name: "Mace Windu" } }
         });
       }
     );
@@ -155,10 +163,8 @@ describe("Get Record Node", function() {
       },
       {
         id: "3783b2da.4346a6",
-        type: "filemaker-api-client",
-        server: process.env.FILEMAKER_SERVER,
-        name: "Mute Symphony",
-        application: process.env.FILEMAKER_APPLICATION,
+        type: "dapi-client",
+        name: "Node Red Test Client",
         usage: true
       },
       {
@@ -174,6 +180,8 @@ describe("Get Record Node", function() {
       testFlow,
       {
         "3783b2da.4346a6": {
+          server: process.env.FILEMAKER_SERVER,
+          application: process.env.FILEMAKER_APPLICATION,
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }

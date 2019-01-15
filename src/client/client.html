@@ -1,57 +1,58 @@
 <script type="text/javascript">
-    RED.nodes.registerType('filemaker-api-client',{
-        category: 'config',
-        defaults: {
-            server: {value:"",required:true},
-            name: {value:"",required:true},
-            application: {value:"",required:true},
-            usage: {value:true,required:false}
-        },
-        credentials: {
-            username: {type:"text"},
-            password: {type:"password"}
-        },
-        label: function() {
-            return this.name || this.application;
-        }
+    RED.nodes.registerType("dapi-client", {
+      category: "config",
+      defaults: {
+        name: { value: null, required: true },
+        usage: { value: false, required: false }
+      },
+      credentials: {
+        server: { type: "text", required: true },
+        application: { type: "text", required: true },
+        username: { type: "text", required: true },
+        password: { type: "password", required: true }
+      },
+      label: function() {
+        return this.name || "Unconfigured Client";
+      }
     });
 </script>
 
-<script type="text/x-red" data-template-name="filemaker-api-client">
+<script type="text/x-red" data-template-name="dapi-client">
     <div class="form-row">
         <label for="node-config-input-name">Name</label>
         <input type="text" id="node-config-input-name">
     </div>
-    <div>A name for this client.</div>
+    <hr>
+
     <div class="form-row">
         <label for="node-config-input-server">Server</label>
         <input type="text" id="node-config-input-server">
     </div>
-    <div>The FileMaker server's domain name.</div>
-        <div class="form-row">
+    <div class="form-row">
         <label for="node-config-input-application">Database</label>
         <input type="text" id="node-config-input-application">
     </div>
-    <div>The FileMaker database to connect to.</div>
+    <hr>
     <div class="form-row">
         <label for="node-config-input-username">Account</label>
         <input type="text" id="node-config-input-username">
     </div>
-    <div>The FileMaker database account to use.</div>
-        <div class="form-row">
+    <div class="form-row">
         <label for="node-config-input-password">Password</label>
         <input type="password" id="node-config-input-password">
     </div>
-    <div>The FileMaker database account's password.</div>
-    </div>
-        <div class="form-row">
-        <label for="node-config-input-usage">Track Data Usage</label>
-        <input type="checkbox" id="node-config-input-usage">
-    </div>
-    <div>Track client's input and output metrics.</div>
 </script>
-<script type="text/x-red" data-help-name="filemaker-api-client">
+<script type="text/x-red" data-help-name="dapi-client">
 <p>This node creates a FileMaker Data API client to maintain a Data API session</p>
+
+<h3>Configuration</h3>
+    <dl class="message-properties">
+      <dt>name<span class="property-type">String</span><dd>A name for the client</dd>
+      <dt>server<span class="property-type">String</span><dd>The FQDN address of the FileMaker Server to connect to. The server must have a valid SSL.</dd>
+      <dt>database<span class="property-type">String</span><dd>The FileMaker database to connect to</dd>
+      <dt>account<span class="property-type">String</span><dd>The account to use to connect to the FileMaker database.</dd>
+      <dt>password<span class="property-type">String</span><dd>The credentials for the account used to connect to the FileMaker database.</dd>
+    </dl>
 
 <h3>Details</h3>
     <p>A Data API client is used to open and maintain a FileMaker Data API session.
@@ -60,8 +61,8 @@
 
 <h3>References</h3>
     <ul>
-        <li><a href="https://github.com/Luidog/fms-api-client#client-creation">Client</a> - Base client documentation</li>
-        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">node-red-contrib-filemaker</a> - the node's github repository</li>
-        <li><a href="https://github.com/Luidog/fms-api-client">fms-api-client</a> - fms-api-client github repository</li>
+        <li><a href="https://github.com/Luidog/fms-api-client#client-creation">Client</a> - Base Client Documentation</li>
+        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node Red FileMaker</a> - The Node's Github Repository</li>
+        <li><a href="https://github.com/Luidog/fms-api-client">Data API Client</a> - Data API Client Github Repository</li>
     </ul>
 </script>

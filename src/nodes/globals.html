@@ -2,7 +2,7 @@
     RED.nodes.registerType("dapi-set-globals", {
       category: "FileMaker",
       defaults: {
-        client: { value: "", type: "filemaker-api-client" },
+        client: { value: "", type: "dapi-client" },
         data: { value: "payload.data", required: false },
         dataType: { value: "msg" },
         output: { value: "payload", required: false }
@@ -11,7 +11,7 @@
       outputs: 1,
       icon: "globals.png",
       color: "#39D1C0",
-      paletteLabel: "Globals Fields",
+      paletteLabel: "Globals",
       label: "Set Globals Fields",
       oneditprepare: function() {
         $("#node-input-data").typedInput({

@@ -66,11 +66,9 @@ describe("Login Node", function() {
       },
       {
         id: "e5173483.adc92",
-        type: "filemaker-api-client",
+        type: "dapi-client",
         z: "",
-        server: process.env.FILEMAKER_SERVER,
-        name: "Mute Symphony",
-        application: process.env.FILEMAKER_APPLICATION,
+        name: "Node Red Test Client",
         usage: true
       }
     ];
@@ -79,6 +77,8 @@ describe("Login Node", function() {
       testFlow,
       {
         "e5173483.adc92": {
+          server: process.env.FILEMAKER_SERVER,
+          application: process.env.FILEMAKER_APPLICATION,
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }
@@ -90,9 +90,10 @@ describe("Login Node", function() {
           try {
             expect(msg)
               .to.be.an("object")
-              .with.any.keys("payload")
+              .with.any.keys("payload", "_msgid")
               .and.property("payload")
-              .to.have.any.keys("token", "_msgid");
+              .to.be.an("object")
+              .with.any.keys("token");
             done();
           } catch (err) {
             done(err);
@@ -124,10 +125,8 @@ describe("Login Node", function() {
       },
       {
         id: "3783b2da.4346a6",
-        type: "filemaker-api-client",
-        server: process.env.FILEMAKER_SERVER,
-        name: "Mute Symphony",
-        application: process.env.FILEMAKER_APPLICATION,
+        type: "dapi-client",
+        name: "Node Red Test Client",
         usage: true
       },
       {
@@ -143,6 +142,8 @@ describe("Login Node", function() {
       testFlow,
       {
         "3783b2da.4346a6": {
+          server: process.env.FILEMAKER_SERVER,
+          application: process.env.FILEMAKER_APPLICATION,
           username: process.env.FILEMAKER_USERNAME,
           password: "wrong-password"
         }

@@ -25,7 +25,108 @@ describe("Record Id Utility Node", function() {
       done();
     });
   });
-  it("should extract record ids from an array of data", function(done) {
+  it("should extract record ids from a single object", function(done) {
+    let testFlow = [
+      {
+        id: "eff0d28.1c78bb",
+        type: "tab",
+        label: "Select Record Id",
+        disabled: false,
+        info: ""
+      },
+      {
+        id: "abcce428.f88018",
+        type: "helper"
+      },
+      {
+        id: "b4b1ae5f.4801b8",
+        type: "catch",
+        z: "eff0d28.1c78bb",
+        name: "",
+        scope: null,
+        x: 560,
+        y: 100,
+        wires: [["abcce428.f88018"]]
+      },
+      {
+        id: "871850c1.2c366",
+        type: "dapi-list-records",
+        z: "eff0d28.1c78bb",
+        client: "e5173483.adc92",
+        layout: "payload.layout",
+        layoutType: "msg",
+        limit: "",
+        limitType: "num",
+        offset: "",
+        offsetType: "num",
+        sort: "",
+        sortType: "none",
+        scripts: "",
+        scriptsType: "none",
+        portals: "",
+        portalsType: "none",
+        output: "payload",
+        x: 330,
+        y: 40,
+        wires: [["c2e318c8.f96378"]]
+      },
+      {
+        id: "c2e318c8.f96378",
+        type: "dapi-record-id",
+        z: "eff0d28.1c78bb",
+        data: "payload.data[0]",
+        dataType: "msg",
+        output: "payload.data",
+        x: 530,
+        y: 40,
+        wires: [["abcce428.f88018"]]
+      },
+      {
+        id: "e5173483.adc92",
+        type: "dapi-client",
+        z: "",
+        name: "Node Red Test Client",
+        usage: true
+      }
+    ];
+    helper.load(
+      [recordIdNode, clientNode, listNode, catchNode],
+      testFlow,
+      {
+        "e5173483.adc92": {
+          server: process.env.FILEMAKER_SERVER,
+          application: process.env.FILEMAKER_APPLICATION,
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
+        }
+      },
+      function() {
+        var listNode = helper.getNode("871850c1.2c366");
+        var helperNode = helper.getNode("abcce428.f88018");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("payload")
+              .and.property("payload")
+              .to.be.an("object")
+              .with.any.keys("data")
+              .and.property("data")
+              .to.be.a("string");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        listNode.receive({
+          payload: {
+            layout: "people"
+          }
+        });
+      }
+    );
+  });
+  it("should extract record ids from an array of objects", function(done) {
     let testFlow = [
       {
         id: "eff0d28.1c78bb",
@@ -83,11 +184,9 @@ describe("Record Id Utility Node", function() {
       },
       {
         id: "e5173483.adc92",
-        type: "filemaker-api-client",
+        type: "dapi-client",
         z: "",
-        server: process.env.FILEMAKER_SERVER,
-        name: "Mute Symphony",
-        application: process.env.FILEMAKER_APPLICATION,
+        name: "Node Red Test Client",
         usage: true
       }
     ];
@@ -96,6 +195,8 @@ describe("Record Id Utility Node", function() {
       testFlow,
       {
         "e5173483.adc92": {
+          server: process.env.FILEMAKER_SERVER,
+          application: process.env.FILEMAKER_APPLICATION,
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }
@@ -111,7 +212,9 @@ describe("Record Id Utility Node", function() {
               .and.property("payload")
               .to.be.a("object")
               .and.property("data")
-              .to.be.a("array");
+              .to.be.a("array")
+              .and.property(0)
+              .to.be.a("string");
             done();
           } catch (err) {
             done(err);
@@ -165,6 +268,8 @@ describe("Record Id Utility Node", function() {
       testFlow,
       {
         "e5173483.adc92": {
+          server: process.env.FILEMAKER_SERVER,
+          application: process.env.FILEMAKER_APPLICATION,
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }

@@ -1,8 +1,10 @@
+const path = require("path");
+
 module.exports = {
   apps: [
     {
       name: "node-red-dev",
-      script: "/usr/local/bin/node-red",
+      script: path.join(__dirname, "./node_modules/.bin/node-red"),
       args: "-v -s ./red.dev.config.js",
       instances: 1,
       autorestart: true,
