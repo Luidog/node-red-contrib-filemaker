@@ -29,11 +29,9 @@ module.exports = function(RED) {
               node.send(merge(configuration.output, message, files))
             )
             .catch(error => node.error(error.message, message))
-        : await containerData(data, field, destination, name, parameters)
-            .then(files =>
-              node.send(merge(configuration.output, message, files))
-            )
-            .catch(error => node.error(error.message, message));
+        : await containerData(data, field, destination, name, parameters).then(
+            files => node.send(merge(configuration.output, message, files))
+          );
     });
   }
   RED.nodes.registerType("dapi-container-data", containerData);

@@ -6,10 +6,10 @@
         parameterType: { value: "none", required: false },
         data: { value: "payload.data", required: false },
         dataType: { value: "msg" },
-        field: { value: "fieldData.container", required: false },
-        fieldType: { value: "str" },
-        name: { value: "fieldData.filename", required: false },
-        nameType: { value: "str" },
+        field: { value: "payload.container", required: false },
+        fieldType: { value: "msg" },
+        name: { value: "paload.filename", required: false },
+        nameType: { value: "msg" },
         destination: { value: "buffer", required: false },
         destinationType: { value: "buffer" },
         output: { value: "payload.data", required: true }
@@ -39,12 +39,12 @@
           typeField: $("#node-input-parametersType")
         });
         $("#node-input-field").typedInput({
-          default: "str",
+          default: "msg",
           types: ["msg", "str", "flow", "global", nullType],
           typeField: $("#node-input-fieldType")
         });
         $("#node-input-name").typedInput({
-          default: "str",
+          default: "msg",
           types: ["msg", "str", "flow", "global", nullType],
           typeField: $("#node-input-nameType")
         });
