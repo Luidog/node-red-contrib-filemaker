@@ -26,7 +26,7 @@ npm install --save node-red-contrib-filemaker
 
 <!--@execute('npm run test',[])-->
 ```default
-> node-red-contrib-filemaker@0.8.1 test /Users/luidelaparra/Documents/Development/node-red-contrib-filemaker
+> node-red-contrib-filemaker@0.9.6 test /node-red-contrib-filemaker
 > nyc _mocha --recursive  "test/**/*_spec.js" --timeout=30000 --exit
 
 
@@ -34,72 +34,79 @@ npm install --save node-red-contrib-filemaker
   Client Node
     ✓ should be loaded
 
+  Container Data Node
+    ✓ should be loaded
+    ✓ should download Container Data (2533ms)
+    ✓ should throw an error with a message and a code (1467ms)
+
   Create Record Node
     ✓ should be loaded
-    ✓ should create a record (429ms)
-    ✓ should create allow the filemaker response to be merged to the message object (181ms)
-    ✓ should use flow context to create a record. (182ms)
-    ✓ should use global context to create a record. (181ms)
-    ✓ should throw an error with a message and a code (1426ms)
+    ✓ should create a record (176ms)
+    ✓ should create allow the filemaker response to be merged to the message object (187ms)
+    ✓ should use flow context to create a record. (189ms)
+    ✓ should use global context to create a record. (180ms)
+    ✓ should throw an error with a message and a code (1418ms)
 
   Delete Record Node
     ✓ should be loaded
     ✓ should delete a record (273ms)
-    ✓ should throw an error with a message and a code (180ms)
+    ✓ should throw an error with a message and a code (177ms)
 
   Edit Record Node
     ✓ should be loaded
-    ✓ should edit a record (258ms)
-    ✓ should throw an error with a message and a code (169ms)
+    ✓ should edit a record (266ms)
+    ✓ should throw an error with a message and a code (175ms)
 
   FieldData Utility Node
     ✓ should be loaded
-    ✓ should transform an array of data (277ms)
+    ✓ should transform an array of data (275ms)
     ✓ should reject with an error message and code
 
   Find Records Node
     ✓ should be loaded
-    ✓ should perform a find (246ms)
-    ✓ should throw an error with a message and a code (184ms)
+    ✓ should perform a find (272ms)
+    ✓ should throw an error with a message and a code (188ms)
 
   Get Record Node
     ✓ should be loaded
-    ✓ should get a specific record (174ms)
-    ✓ should throw an error with a message and a code (172ms)
+    ✓ should get a specific record (179ms)
+    ✓ should throw an error with a message and a code (171ms)
 
   Set Globals Node
     ✓ should be loaded
-    ✓ should set globals (175ms)
-    ✓ should throw an error with a message and a code (171ms)
+    ✓ should set globals (185ms)
+    ✓ should throw an error with a message and a code (180ms)
 
   List Records Node
     ✓ should be loaded
-    ✓ should List records (245ms)
-    ✓ should throw an error with a message and a code (184ms)
+    ✓ should List records (264ms)
+    ✓ should throw an error with a message and a code (187ms)
 
   Login Node
     ✓ should be loaded
-    ✓ should login to a Data API session (94ms)
-    ✓ should throw an error with a message and a code (1436ms)
+    ✓ should login to a Data API session (92ms)
+    ✓ should throw an error with a message and a code (1418ms)
 
   Logout Node
     ✓ should be loaded
-    ✓ should close a Data API Session (196ms)
+    ✓ should close a Data API Session (179ms)
     ✓ should throw an error with a message and a code
 
   Record Id Utility Node
     ✓ should be loaded
-    ✓ should extract record ids from an array of data (250ms)
+    ✓ should extract record ids from an array of data (260ms)
     ✓ should reject with an error message and a code
 
   Trigger Script Node
     ✓ should be loaded
-    ✓ should trigger a script (193ms)
-    ✓ should throw an error with a message and a code (169ms)
+    ✓ should trigger a script (190ms)
+    ✓ should throw an error with a message and a code (186ms)
 
   Utility Services
     merge utility
       ✓ should merge data to the payload object
+    sanitize utility
+      ✓ should discard unspecified properties
     compact utility
       ✓ should accept an array of objects
       ✓ should remove null properties
@@ -119,33 +126,25 @@ npm install --save node-red-contrib-filemaker
 
   Transform Utility Node
     ✓ should be loaded
-    ✓ should transform an array of data (234ms)
-{ payload: { data: 'data' },
-  _msgid: '48532c7f.d48714',
-  error: 
-   { message: 'data must be valid json',
-     source: 
-      { id: '84f24eb5.f61b6',
-        type: 'transform',
-        name: undefined,
-        count: 1 } } }
+    ✓ should transform an array of data (268ms)
     ✓ should throw an error with a message and a code
 
   Upload File Node
     ✓ should be loaded
-    ✓ should upload to a record (1367ms)
+    ✓ should upload to a record (358ms)
     ✓ should throw an error with a message and a code
 
 
-  61 passing (9s)
+  65 passing (12s)
 
 -----------------------|----------|----------|----------|----------|-------------------|
 File                   |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
 -----------------------|----------|----------|----------|----------|-------------------|
-All files              |    99.55 |      100 |     98.7 |      100 |                   |
+All files              |      100 |      100 |      100 |      100 |                   |
  client                |      100 |      100 |      100 |      100 |                   |
   client.js            |      100 |      100 |      100 |      100 |                   |
  nodes                 |      100 |      100 |      100 |      100 |                   |
+  containerData.js     |      100 |      100 |      100 |      100 |                   |
   create.js            |      100 |      100 |      100 |      100 |                   |
   delete.js            |      100 |      100 |      100 |      100 |                   |
   edit.js              |      100 |      100 |      100 |      100 |                   |
@@ -160,9 +159,9 @@ All files              |    99.55 |      100 |     98.7 |      100 |            
   script.js            |      100 |      100 |      100 |      100 |                   |
   transform.js         |      100 |      100 |      100 |      100 |                   |
   upload.js            |      100 |      100 |      100 |      100 |                   |
- services              |    97.37 |      100 |    90.91 |      100 |                   |
+ services              |      100 |      100 |      100 |      100 |                   |
   index.js             |      100 |      100 |      100 |      100 |                   |
-  utilities.service.js |    97.22 |      100 |    90.91 |      100 |                   |
+  utilities.service.js |      100 |      100 |      100 |      100 |                   |
 -----------------------|----------|----------|----------|----------|-------------------|
 ```
 <!--/@-->

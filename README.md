@@ -17,9 +17,8 @@ MIT © Lui de la Parra
 ```sh
 npm install --save node-red-contrib-filemaker
 ```
-
 ```default
-> node-red-contrib-filemaker@0.9.0 test /node-red-contrib-filemaker
+> node-red-contrib-filemaker@0.9.6 test /node-red-contrib-filemaker
 > nyc _mocha --recursive  "test/**/*_spec.js" --timeout=30000 --exit
 
 
@@ -27,72 +26,79 @@ npm install --save node-red-contrib-filemaker
   Client Node
     ✓ should be loaded
 
+  Container Data Node
+    ✓ should be loaded
+    ✓ should download Container Data (2533ms)
+    ✓ should throw an error with a message and a code (1467ms)
+
   Create Record Node
     ✓ should be loaded
-    ✓ should create a record (424ms)
-    ✓ should create allow the filemaker response to be merged to the message object (181ms)
-    ✓ should use flow context to create a record. (184ms)
-    ✓ should use global context to create a record. (179ms)
-    ✓ should throw an error with a message and a code (1430ms)
+    ✓ should create a record (176ms)
+    ✓ should create allow the filemaker response to be merged to the message object (187ms)
+    ✓ should use flow context to create a record. (189ms)
+    ✓ should use global context to create a record. (180ms)
+    ✓ should throw an error with a message and a code (1418ms)
 
   Delete Record Node
     ✓ should be loaded
-    ✓ should delete a record (276ms)
-    ✓ should throw an error with a message and a code (180ms)
+    ✓ should delete a record (273ms)
+    ✓ should throw an error with a message and a code (177ms)
 
   Edit Record Node
     ✓ should be loaded
-    ✓ should edit a record (260ms)
-    ✓ should throw an error with a message and a code (173ms)
+    ✓ should edit a record (266ms)
+    ✓ should throw an error with a message and a code (175ms)
 
   FieldData Utility Node
     ✓ should be loaded
-    ✓ should transform an array of data (268ms)
+    ✓ should transform an array of data (275ms)
     ✓ should reject with an error message and code
 
   Find Records Node
     ✓ should be loaded
-    ✓ should perform a find (250ms)
-    ✓ should throw an error with a message and a code (180ms)
+    ✓ should perform a find (272ms)
+    ✓ should throw an error with a message and a code (188ms)
 
   Get Record Node
     ✓ should be loaded
-    ✓ should get a specific record (180ms)
-    ✓ should throw an error with a message and a code (170ms)
+    ✓ should get a specific record (179ms)
+    ✓ should throw an error with a message and a code (171ms)
 
   Set Globals Node
     ✓ should be loaded
-    ✓ should set globals (176ms)
-    ✓ should throw an error with a message and a code (166ms)
+    ✓ should set globals (185ms)
+    ✓ should throw an error with a message and a code (180ms)
 
   List Records Node
     ✓ should be loaded
-    ✓ should List records (247ms)
-    ✓ should throw an error with a message and a code (175ms)
+    ✓ should List records (264ms)
+    ✓ should throw an error with a message and a code (187ms)
 
   Login Node
     ✓ should be loaded
-    ✓ should login to a Data API session (99ms)
-    ✓ should throw an error with a message and a code (1437ms)
+    ✓ should login to a Data API session (92ms)
+    ✓ should throw an error with a message and a code (1418ms)
 
   Logout Node
     ✓ should be loaded
-    ✓ should close a Data API Session (188ms)
+    ✓ should close a Data API Session (179ms)
     ✓ should throw an error with a message and a code
 
   Record Id Utility Node
     ✓ should be loaded
-    ✓ should extract record ids from an array of data (239ms)
+    ✓ should extract record ids from an array of data (260ms)
     ✓ should reject with an error message and a code
 
   Trigger Script Node
     ✓ should be loaded
-    ✓ should trigger a script (176ms)
-    ✓ should throw an error with a message and a code (174ms)
+    ✓ should trigger a script (190ms)
+    ✓ should throw an error with a message and a code (186ms)
 
   Utility Services
     merge utility
       ✓ should merge data to the payload object
+    sanitize utility
+      ✓ should discard unspecified properties
     compact utility
       ✓ should accept an array of objects
       ✓ should remove null properties
@@ -112,24 +118,26 @@ npm install --save node-red-contrib-filemaker
 
   Transform Utility Node
     ✓ should be loaded
-    ✓ should transform an array of data (226ms)
+    ✓ should transform an array of data (268ms)
     ✓ should throw an error with a message and a code
 
   Upload File Node
     ✓ should be loaded
-    ✓ should upload to a record (1343ms)
+    ✓ should upload to a record (358ms)
+undefined
     ✓ should throw an error with a message and a code
 
 
-  61 passing (9s)
+  65 passing (12s)
 
 -----------------------|----------|----------|----------|----------|-------------------|
 File                   |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
 -----------------------|----------|----------|----------|----------|-------------------|
-All files              |    99.55 |      100 |     98.7 |      100 |                   |
+All files              |      100 |      100 |      100 |      100 |                   |
  client                |      100 |      100 |      100 |      100 |                   |
   client.js            |      100 |      100 |      100 |      100 |                   |
  nodes                 |      100 |      100 |      100 |      100 |                   |
+  containerData.js     |      100 |      100 |      100 |      100 |                   |
   create.js            |      100 |      100 |      100 |      100 |                   |
   delete.js            |      100 |      100 |      100 |      100 |                   |
   edit.js              |      100 |      100 |      100 |      100 |                   |
@@ -144,12 +152,11 @@ All files              |    99.55 |      100 |     98.7 |      100 |            
   script.js            |      100 |      100 |      100 |      100 |                   |
   transform.js         |      100 |      100 |      100 |      100 |                   |
   upload.js            |      100 |      100 |      100 |      100 |                   |
- services              |    97.37 |      100 |    90.91 |      100 |                   |
+ services              |      100 |      100 |      100 |      100 |                   |
   index.js             |      100 |      100 |      100 |      100 |                   |
-  utilities.service.js |    97.22 |      100 |    90.91 |      100 |                   |
+  utilities.service.js |      100 |      100 |      100 |      100 |                   |
 -----------------------|----------|----------|----------|----------|-------------------|
 ```
-
 ## <a name="dependencies">Dependencies</a>
 
 - [fms-api-client](https://github.com/Luidog/fms-api-client): A FileMaker Data API client designed to allow easier interaction with a FileMaker application from a web environment.
