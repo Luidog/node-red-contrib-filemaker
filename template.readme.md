@@ -2,13 +2,11 @@
 # node-red-contrib-filemaker
 <!--/@-->
 
-A Node Red FileMaker module. This model module uses [fms-api-client](https://github.com/Luidog/fms-api-client) to connect to the FileMaker Data API. These node expose fms-api-client's client methods and data transformation utilities as Node Red nodes. Each node depend upon a configurable FileMaker Data API [client](https://github.com/Luidog/fms-api-client#client-creation). 
+Node Red FileMaker nodes. These nodes use [fms-api-client](https://github.com/Luidog/fms-api-client) to connect to FileMaker Server. Each node exposes an fms-api-client method or utility. Nodes connecting to FileMaker Server depend upon a configurable FileMaker Data API [client](https://github.com/Luidog/fms-api-client#client-creation).
 
 ## Project Information
 
 [![npm version](https://badge.fury.io/js/node-red-contrib-filemaker.svg)](https://www.npmjs.com/package/node-red-contrib-filemaker) [![Build Status](https://travis-ci.com/Luidog/node-red-contrib-filemaker.svg?branch=master)](https://travis-ci.com/Luidog/node-red-contrib-filemaker) [![Coverage Status](https://img.shields.io/coveralls/Luidog/node-red-contrib-filemaker/master.svg)](https://coveralls.io/r/Luidog/node-red-contrib-filemaker?branch=master) [![Known Vulnerabilities](https://snyk.io/test/github/Luidog/node-red-contrib-filemaker/badge.svg?targetFile=package.json)](https://snyk.io/test/github/Luidog/node-red-contrib-filemaker?targetFile=package.json)
-
-[FMS API Client Documentation](https://luidog.github.io/fms-api-client/)
 
 <!--@license()-->
 ## License
@@ -26,7 +24,7 @@ npm install --save node-red-contrib-filemaker
 
 <!--@execute('npm run test',[])-->
 ```default
-> node-red-contrib-filemaker@0.9.6 test /Users/luidelaparra/Documents/Development/node-red-contrib-filemaker
+> node-red-contrib-filemaker@0.9.8 test /Users/luidelaparra/Documents/Development/node-red-contrib-filemaker
 > nyc _mocha --recursive  "test/**/*_spec.js" --timeout=30000 --exit
 
 
