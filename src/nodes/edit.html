@@ -2,6 +2,7 @@
     RED.nodes.registerType("dapi-edit-record", {
       category: "FileMaker",
       defaults: {
+        name: { value: null, required: false },
         client: { value: "", type: "dapi-client" },
         layout: {
           value: "payload.layout",
@@ -55,44 +56,51 @@
       icon: "edit.png",
       color: "#39D1C0",
       paletteLabel: "Edit",
-      label: "Edit Record"
+      label: function() {
+        return this.name || "Edit Record";
+      }
     });
 </script>
 
 <script type="text/x-red" data-template-name="dapi-edit-record">
     <div class="form-row">
-      <label for="node-input-client">Client</label>
+        <label for="node-input-name"><i class="fa fa-tag" aria-hidden="true"></i> <span>Name</span></label>
+        <input type="text" id="node-input-name" placeholder="Specific Node">
+    </div>
+    <hr>
+    <div class="form-row">
+      <label for="node-input-client"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Client</span></label>
       <input type="text" id="node-input-client">
     </div>
     <div class="form-row">
-      <label for="node-input-layout">Layout</label>
+      <label for="node-input-layout"><i class="fa fa-list-alt" aria-hidden="true"></i> <span>Layout</span></label>
       <input type="hidden" id="node-input-layoutType">
       <input type="text" id="node-input-layout">
     </div>
     <hr>
     <div class="form-row">
-        <label for="node-input-layout">Data</label>
+        <label for="node-input-layout"><i class="fa fa-align-left" aria-hidden="true"></i> <span>Data</span></label>
         <input type="hidden" id="node-input-dataType">
         <input type="text" id="node-input-data">
     </div>
     <div class="form-row">
-        <label for="node-input-recordId">Record Id</label>
+        <label for="node-input-recordId"><i class="fa fa-bullseye" aria-hidden="true"></i> <span>Record Id</span></label>
         <input type="hidden" id="node-input-recordIdType">
         <input type="text" id="node-input-recordId">
     </div>
     <div class="form-row">
-        <label for="node-input-scripts">Scripts</label>
+        <label for="node-input-scripts"><i class="fa fa-files-o" aria-hidden="true"></i> <span>Scripts</span></label>
         <input type="hidden" id="node-input-scriptsType">
         <input type="text" id="node-input-scripts">
     </div>
     <div class="form-row">
-        <label for="node-input-merge">Merge Data</label>
+        <label for="node-input-merge"><i class="fa fa-indent" aria-hidden="true"></i> <span>Merge Data</span></label>
         <input type="hidden" id="node-input-mergeType">
         <input type="text" id="node-input-merge">
     </div>
     <hr>
     <div class="form-row">
-        <label for="node-input-output">Output</label>
+        <label for="node-input-output"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> <span>Output</span></label>
         <input type="text" id="node-input-output">
     </div>
 </script>
@@ -104,7 +112,7 @@ to target for editing, the data in <code>msg.payload.data</code> for editing rec
 <h3>Inputs</h3>
     <dl class="message-properties">
       <dt>layout<span class="property-type">String</span><dd>The layout to use when editing the record.</dd>
-      <dt>recordId<span class="property-type">Number</span><dd>The record id to target for edits.</dd>
+      <dt>recordId<span class="property-type">String | Number</span><dd>The record id to target for edits.</dd>
       <dt>data<span class="property-type">Object</span><dd>The data to use for field or portal data edits.<a target="_blank" href="https://github.com/Luidog/fms-api-client#data-syntax"> More Info.</a></dd>
       <dt>scripts<span class="property-type">Array</span><dd>The scripts to run when editing a record.<a target="_blank" href="https://github.com/Luidog/fms-api-client#script-array-syntax"> More Info.</a></dd>
       <dt>merge<span class="property-type">Boolean</span><dd>Whether to merge the data parameter with the Data API response.<a target="_blank" href="https://github.com/Luidog/fms-api-client#data-merge"> More Info.</a></dd>

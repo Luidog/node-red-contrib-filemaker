@@ -51,7 +51,7 @@
 <script type="text/x-red" data-template-name="dapi-delete-record">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag" aria-hidden="true"></i> <span>Name</span></label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <input type="text" id="node-input-name" placeholder="Specific Node">
     </div>
     <hr>
     <div class="form-row">
@@ -87,7 +87,7 @@ to target for deletion and <code>msg.payload.layout</code> as the layout context
 <h3>Inputs</h3>
     <dl class="message-properties">
       <dt>layout<span class="property-type">String</span><dd>The layout to use when deleting a record.</dd>
-      <dt>recordId<span class="property-type">Number</span><dd>The record id to target for deletion.</dd>
+      <dt>recordId<span class="property-type">String | Number</span><dd>The record id to target for deletion.</dd>
       <dt>scripts<span class="property-type">Array</span><dd>The scripts to run when deleting a record.<a target="_blank" href="https://github.com/Luidog/fms-api-client#script-array-syntax"> More Info.</a></dd>
     </dl>
 

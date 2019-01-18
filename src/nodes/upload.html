@@ -70,7 +70,7 @@
 <script type="text/x-red" data-template-name="dapi-upload-file">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag" aria-hidden="true"></i> <span>Name</span></label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <input type="text" id="node-input-name" placeholder="Specific Node">
     </div>
     <hr>
     <div class="form-row">
@@ -117,13 +117,13 @@ and <code>msg.payload.layout</code> as the layout context.
     <dl class="message-properties">
       <dt>file<span class="property-type">String | Object</span><dd>a path or buffer object to upload to FileMaker.</dd>
       <dt>layout<span class="property-type">String</span><dd>The layout to use when uploading a file.</dd>
-      <dt>field<span class="property-type">string</span><dd>The name of the container field to insert a file into.</dd>
-      <dt>recordId<span class="property-type">Number</span><dd>The record record id record to upload a file into. If omitted a new record will be created.</dd>
+      <dt>field<span class="property-type">String</span><dd>The name of the container field to insert a file into.</dd>
+      <dt>recordId<span class="property-type">String | Number</span><dd>The record record id record to upload a file into. If omitted a new record will be created.</dd>
         <dt class="optional">parameters <span class="property-type">Object</span>
-            <dd><b>fieldRepetition</b> - <i>Number </i><br>Container field repetition to upload the data.</dd>
-            <dd><b>timeout</b> - <i>Number</i><br>Timeout for the request.</dd>
-            <dd><b>agent</b> - <i>Object</i><br>Agent to use when making the request.</dd>
-            <dd><b>proxy</b> - <i>Object</i><br>Proxy server to use when making the request.</dd>
+            <dd><b>fieldRepetition</b> - <i>String | Number</i><br/>Container field repetition to upload the data.</dd>
+            <dd><b>timeout</b> - <i>Number</i><br/>Timeout for the request.</dd>
+            <dd><b>agent</b> - <i>Object</i><br/>Agent to use when making the request.</dd>
+            <dd><b>proxy</b> - <i>Object</i><br/>Proxy server to use when making the request.</dd>
         </dt>
     </dl>
 
@@ -154,7 +154,7 @@ and <code>msg.payload.layout</code> as the layout context.
 <h3>Details</h3>
     <p>This node uploads binary data to a Filemaker container field. By default this node will use a string or object in <code>msg.payload.file</code> as the file to insert into a container field.
     If the file property is a string it will be treated as a local path to a file relative to the Node Red process. This node can also handle buffered data in the form of an object with a <code>buffer</code>
-    property and a <code>name</code> property.<br><br>The buffer property should be buffered file data and the name property should be the name of the file. This node will create a FileMaker record unless a
+    property and a <code>name</code> property.<br/><br/>The buffer property should be buffered file data and the name property should be the name of the file. This node will create a FileMaker record unless a
     recordId property is passed to it. This node can also be configured with an optional parameter object. The parameter object can include timeout and fieldRepetition properties. These properties specify the
     a container field repetition and upload request timeout.<br/><br/>This node can be configured to use either static or dynamic input parameters. Dynamic parameters may be
     read from either the <code>msg</code> property or the <code>flow</code> or <code>global</code> context.<br/><br/>
