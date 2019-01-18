@@ -17,6 +17,21 @@ const merge = (property, message, payload) =>
     ? _.set(message, property, Object.assign(message[property], payload))
     : _.set(message, property, payload);
 
+/**
+ * @method castBooleans
+ * @private
+ * @description traverses an object and casts all "true" and "false" strings as the appropriate boolean type.
+ * @param  {Object} object  The object to map for true and false strings.
+ * @return {Object} an object with true and false strings mapped to their boolean counterparts.
+ */
+
+const castBooleans = object =>
+  _.mapValues(
+    object,
+    (value, key, index) =>
+      value === "true" || value === "false" ? value === "true" : value
+  );
+
 const constructParameters = (message, configuration, context, values) =>
   compact(
     _.map(values, value => {
@@ -119,4 +134,11 @@ const isJson = data => {
 
 const sanitize = (data, parameters) => _.pick(data, parameters);
 
-module.exports = { compact, merge, isJson, sanitize, constructParameters };
+module.exports = {
+  compact,
+  merge,
+  isJson,
+  sanitize,
+  constructParameters,
+  castBooleans
+};

@@ -141,6 +141,114 @@ describe("Edit Record Node", function() {
     );
   });
 
+  it("should support merging data when editing a record", function(done) {
+    const testFlow = [
+      {
+        id: "f8662af9.79e6b8",
+        type: "tab",
+        label: "Edit Record Merge Test",
+        disabled: false,
+        info: ""
+      },
+      {
+        id: "44471c63.16ac64",
+        type: "helper"
+      },
+      {
+        id: "69d29232.370f4c",
+        type: "catch",
+        z: "f8662af9.79e6b8",
+        name: "",
+        scope: null,
+        x: 460,
+        y: 100,
+        wires: [["44471c63.16ac64"]]
+      },
+      {
+        id: "791e43cb.29487c",
+        type: "dapi-create-record",
+        z: "f8662af9.79e6b8",
+        client: "e5173483.adc92",
+        layout: "payload.layout",
+        layoutType: "msg",
+        data: "payload.data",
+        dataType: "msg",
+        scripts: "",
+        scriptsType: "none",
+        merge: "false",
+        mergeType: "bool",
+        output: "payload",
+        x: 260,
+        y: 40,
+        wires: [["2e084d48.3df1ca"]]
+      },
+      {
+        id: "2e084d48.3df1ca",
+        type: "dapi-edit-record",
+        z: "f8662af9.79e6b8",
+        client: "e5173483.adc92",
+        layout: "payload.layout",
+        layoutType: "msg",
+        recordId: "payload.recordId",
+        recordIdType: "msg",
+        data: '{"name":"Darth Vader"}',
+        dataType: "json",
+        scripts: "",
+        scriptsType: "none",
+        merge: "true",
+        mergeType: "bool",
+        output: "payload",
+        x: 450,
+        y: 40,
+        wires: [["44471c63.16ac64"]]
+      },
+      {
+        id: "e5173483.adc92",
+        type: "dapi-client",
+        z: "",
+        name: "Node Red Test Client",
+        usage: true
+      }
+    ];
+    helper.load(
+      [client, createNode, editNode, catchNode],
+      testFlow,
+      {
+        "e5173483.adc92": {
+          server: process.env.FILEMAKER_SERVER,
+          application: process.env.FILEMAKER_APPLICATION,
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
+        }
+      },
+      function() {
+        const createNode = helper.getNode("791e43cb.29487c");
+        const helperNode = helper.getNode("44471c63.16ac64");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("payload")
+              .and.property("payload")
+              .to.be.a("object")
+              .with.any.keys("recordId", "modId", "name");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        createNode.receive({
+          payload: {
+            layout: "people",
+            data: {
+              name: "Anakin Skywalker"
+            }
+          }
+        });
+      }
+    );
+  });
+
   it("should throw an error with a message and a code", function(done) {
     const testFlow = [
       {
