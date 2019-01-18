@@ -17,6 +17,34 @@ const merge = (property, message, payload) =>
     ? _.set(message, property, Object.assign(message[property], payload))
     : _.set(message, property, payload);
 
+/**
+ * @method castBooleans
+ * @public
+ * @description traverses an object and casts all "true" and "false" strings as the appropriate boolean type.
+ * @param  {Object} object  The object to map for true and false strings.
+ * @return {Object} an object with true and false strings mapped to their boolean counterparts.
+ */
+
+const castBooleans = object =>
+  _.mapValues(
+    object,
+    (value, key, index) =>
+      value === "true" || value === "false" ? value === "true" : value
+  );
+
+/**
+ * @method constructParameters
+ * @public
+ * @description composes a object from the values defined in the values parameter. It will
+ * traverse the incoming node message, the node's configuration, and the current context to
+ * construct the appopriate parameters based on the values passed to it.
+ * @param  {Object} message  The incoming message recieved by the node.
+ * @param  {Object} configuration  The current node's configuration.
+ * @param  {Object} context  The node's current context.
+ * @param  {Array} values  An array of allowed values.
+ * @return {Object} an object with true and false strings mapped to their boolean counterparts.
+ */
+
 const constructParameters = (message, configuration, context, values) =>
   compact(
     _.map(values, value => {
@@ -40,6 +68,15 @@ const constructParameters = (message, configuration, context, values) =>
       return parameter;
     })
   );
+
+/**
+ * @method parseJson
+ * @public
+ * @description checks if the passed parameter is valid json. If the value is not json it is
+ * returned without modification. If the parameter is json it is parsed and returned.
+ * @param  {Any} values The value to attempt to parse.
+ * @return {Any|Object} a parsed json object or the original value.
+ */
 
 const parseJson = value => (isJson(value) ? JSON.parse(value) : value);
 
@@ -68,7 +105,7 @@ const compact = data => {
  * @method discardEmpty
  * @private
  * @description discard properties that are null, an empty string or undefined.
- * @param  {Object} data The data to be evaluated as json.
+ * @param  {Object} object The object to be evaluated and modified.
  * @return {Object} an object with only properties that are not null, undefined, or an empty string.
  */
 
@@ -79,44 +116,51 @@ const discardEmpty = object =>
  * @method isObject
  * @public
  * @description The isObject function tests incoming data to see if it is null or an object.
- * @param  {Any} data The data to check
- * @return {Boolean}      A boolean result depending on if the data passed to it is an object
+ * @param  {Any} value The data to check
+ * @return {Boolean} A boolean result depending on if the data passed to it is an object
  */
 
-const isObject = data => data !== null && typeof data === "object";
+const isObject = value => value !== null && typeof value === "object";
 
 /**
  * @method isJson
  * @public
- * @description The isJson function uses tests the incoming data to see if
+ * @description The isJson function uses tests the incoming value to see if
  * it is json or a string. This function will than attempt to parse the
- * incoming data. If parsing fails it will return false. If the resulting
- * data is not an object or is null it will return false, otherwise true.
- * @param  {Any} data The data to be evaluated as json.
- * @return {Boolean}      A boolean result depending on if the data passed to it is valid JSON
+ * incoming value. If parsing fails it will return false. If the resulting
+ * value is not an object or is null it will return false, otherwise true.
+ * @param  {Any} value The value to be evaluated as json.
+ * @return {Boolean}      A boolean result depending on if the value passed to it is valid JSON
  */
 
-const isJson = data => {
-  data = typeof data !== "string" ? JSON.stringify(data) : data;
+const isJson = value => {
+  value = typeof value !== "string" ? JSON.stringify(value) : value;
 
   try {
-    data = JSON.parse(data);
+    value = JSON.parse(value);
   } catch (e) {
     return false;
   }
 
-  return isObject(data) ? true : false;
+  return isObject(value) ? true : false;
 };
 
 /**
- * @method sanitizeParameters
+ * @method sanitize
  * @public
- * @description selects only the parameters sent specified from the incoming paraeters
- * @param  {Object} values The value to attempt to parse.
- * @param  {Array} safeParameters an array of parameters that are safe to be included in the result
- * @return {Object} A json object with only the parameters passed to it.
+ * @description picks only the properties passed to it from the object it recieves.
+ * @param  {Object} object The object to use when picking properties.
+ * @param  {Array} properties An array of properties to pick.
+ * @return {Object} A json object with only the properties specified.
  */
 
-const sanitize = (data, parameters) => _.pick(data, parameters);
+const sanitize = (object, properties) => _.pick(object, properties);
 
-module.exports = { compact, merge, isJson, sanitize, constructParameters };
+module.exports = {
+  compact,
+  merge,
+  isJson,
+  sanitize,
+  constructParameters,
+  castBooleans
+};

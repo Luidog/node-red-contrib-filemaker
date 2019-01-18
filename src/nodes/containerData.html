@@ -2,14 +2,15 @@
     RED.nodes.registerType("dapi-container-data", {
       category: "FileMaker",
       defaults: {
+        name: { value: null, required: false },
         parameters: { value: null, required: false },
         parameterType: { value: "none", required: false },
         data: { value: "payload.data", required: false },
         dataType: { value: "msg" },
         field: { value: "payload.container", required: false },
         fieldType: { value: "msg" },
-        name: { value: "paload.filename", required: false },
-        nameType: { value: "msg" },
+        filename: { value: "paload.filename", required: false },
+        filenameType: { value: "msg" },
         destination: { value: "buffer", required: false },
         destinationType: { value: "buffer" },
         output: { value: "payload.data", required: true }
@@ -19,7 +20,9 @@
       icon: "container.png",
       color: "#39D1C0",
       paletteLabel: "Containers",
-      label: "Extract Containers",
+      label: function() {
+        return this.name || "Extract Containers";
+      },
       oneditprepare: function() {
         var nullType = { value: "none", label: "None", icon: "", hasValue: false };
         var bufferType = {
@@ -43,10 +46,10 @@
           types: ["msg", "str", "flow", "global", nullType],
           typeField: $("#node-input-fieldType")
         });
-        $("#node-input-name").typedInput({
+        $("#node-input-filename").typedInput({
           default: "msg",
           types: ["msg", "str", "flow", "global", nullType],
-          typeField: $("#node-input-nameType")
+          typeField: $("#node-input-filenameType")
         });
         $("#node-input-destination").typedInput({
           default: "buffer",
@@ -62,42 +65,48 @@
 </script>
 
 <script type="text/x-red" data-template-name="dapi-container-data">
+      <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag" aria-hidden="true"></i> <span>Name</span></label>
+        <input type="text" id="node-input-name" placeholder="Specific Node">
+    </div>
+    <hr>
     <div class="form-row">
-        <label for="node-input-data">Data</label>
+        <label for="node-input-data"><i class="fa fa-align-left" aria-hidden="true"></i> <span>Data</span></label>
         <input type="hidden" id="node-input-dataType">
         <input type="text" id="node-input-data">
     </div>
     <hr>
     <div class="form-row">
-        <label for="node-input-field">Container Field</label>
+        <label for="node-input-field"><i class="fa fa-file-image-o" aria-hidden="true"></i> <span>Container</span></label>
         <input type="hidden" id="node-input-fieldType">
         <input type="text" id="node-input-field">
     </div>
     <div class="form-row">
-        <label for="node-input-name">File Name</label>
-        <input type="hidden" id="node-input-nameType">
-        <input type="text" id="node-input-name">
+        <label for="node-input-filename"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Filename</span></label>
+        <input type="hidden" id="node-input-filenameType">
+        <input type="text" id="node-input-filename">
     </div>
     <div class="form-row">
-        <label for="node-input-destination">Destination</label>
+        <label for="node-input-destination"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> <span>Destination</span></label>
         <input type="hidden" id="node-input-destinationType">
         <input type="text" id="node-input-destination">
     </div>
     <div class="form-row">
-        <label for="node-input-parameters">Parameters</label>
+        <label for="node-input-parameters"><i class="fa fa-list" aria-hidden="true"></i> <span>Parameters</span></label>
         <input type="hidden" id="node-input-parametersType">
         <input type="text" id="node-input-parameters">
     </div>
     <hr>
     <div class="form-row">
-        <label for="node-input-output">Output</label>
+        <label for="node-input-output"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> <span>Output</span></label>
         <input type="text" id="node-input-output">
     </div>
 </script>
 <script type="text/x-red" data-help-name="dapi-container-data">
-  <p>This node retrieves container data from <code>msg.payload.data</code>. This node requires a <code>container</code> property 
-  a <code>name</code> property and a <code>destination</code> property. Each property should be a <code>dot notation</code>path
-  to the required data, such as <code>fieldData.container</code> and <code>fieldData.fileName</code></p>
+  <p>This node retrieves container data from <code>msg.payload.data</code>. This node requires a <code>container</code> property, 
+  a <code>filename</code> property, and a <code>destination</code> property. Each property should be a <code>dot notation</code>path
+  to the required data, such as <code>fieldData.container</code> and <code>fieldData.fileName</code>. If the configured path does not exist
+  it will be automatically created.</p>
 
     <h3>Inputs</h3>
     <dl class="message-properties">
@@ -106,9 +115,9 @@
       <dt>destination<span class="property-type">String</span><dd>Either "buffer" for a buffer object or the path to create files.</dd>
       <dt>name<span class="property-type">String</span><dd>The name of the file in the container field. This can be a property in data or a string.</dd>
       <dt class="optional">parameters <span class="property-type">Object</span>
-        <dd><b>timeout</b> - <i>Number</i><br>Timeout for the request.</dd>
-        <dd><b>agent</b> - <i>Object</i><br>Agent to use when making the request.</dd>
-        <dd><b>proxy</b> - <i>Object</i><br>Proxy server to use when making the request.</dd>
+        <dd><b>timeout</b> - <i>Number</i><br/>Timeout for the request.</dd>
+        <dd><b>agent</b> - <i>Object</i><br/>Agent to use when making the request.</dd>
+        <dd><b>proxy</b> - <i>Object</i><br/>Proxy server to use when making the request.</dd>
         </dt>
     </dl>
 
@@ -132,13 +141,13 @@
 
 <h3>Details</h3>
   <p>This node retrieves container data from <code>msg.payload.data</code>. It will use the urls returned by the Data API to download container data.
-    This node will accept either a single object or an array of objects. It expects to recieve a <code>container</code> property 
-  a <code>name</code> property and a <code>destination</code> property. Each property should be a dot notation path to the required data, such as
-  <code>fieldData.container</code> and <code>fieldData.fileName</code>. This node will also use a <code>msg.payload.name</code> parameter for naming the incoming container data.<br/><br/> 
+    This node will accept either a single object or an array of objects. It expects to recieve a <code>container</code> property, 
+  a <code>filename</code> property, and a <code>destination</code> property. Each property should be a <code>dot notation</code> path to the required data, such as
+  <code>fieldData.container</code> and <code>fieldData.fileName</code>. This node will also use a <code>msg.payload.filename</code> parameter for naming the incoming container data.<br/><br/> 
     If a name parameter is provided that is not a property or nested property in the data parameter, the name parameter 
     itself will be used. The destination parameter should be either 'buffer' to indicate that an object with a file's 
     name and buffer should be returned or the a path, relative to the current working directory, where the utility 
-    should write container data to a file. This utility will also accept optional request parameters to modify the 
+    should write container data to a file. If the path does not exist it will be automatically created. This utility will also accept optional request parameters to modify the 
     http request.<br/><br/>This node can be configured to use either static or dynamic input parameters. Dynamic parameters 
     may be read from either the <code>msg</code> property or the <code>flow</code> or <code>global</code> context.<br/><br/>
     The default output of this node is <code>msg.payload.data</code>. This node can also be configured to merge its 

@@ -1,7 +1,13 @@
 /* global describe it */
 
 const { expect } = require("chai");
-const { merge, sanitize, compact, isJson } = require("../src/services");
+const {
+  merge,
+  sanitize,
+  compact,
+  isJson,
+  castBooleans
+} = require("../src/services");
 
 describe("Utility Services", function() {
   describe("merge utility", () => {
@@ -78,6 +84,42 @@ describe("Utility Services", function() {
     });
     it("it should return false for null", () => {
       return expect(isJson(null)).to.equal(false);
+    });
+  });
+  describe("castBoolean Utility", () => {
+    it("it should cast a true string as true boolean", () => {
+      return expect(castBooleans({ boolean: "true" })).to.deep.equal({
+        boolean: true
+      });
+    });
+    it("it should cast a false string as false boolean", () => {
+      return expect(castBooleans({ boolean: "false" })).to.deep.equal({
+        boolean: false
+      });
+    });
+    it("it should cast multiple string values as booleans", () => {
+      return expect(
+        castBooleans({ boolean: "false", stillBoolean: "true" })
+      ).to.deep.equal({ boolean: false, stillBoolean: true });
+    });
+    it("it should only cast strings of true or false", () => {
+      return expect(
+        castBooleans({
+          boolean: "false",
+          number: 1,
+          string: "yup",
+          actualBoolean: false,
+          trueBoolean: true,
+          stillBoolean: "true"
+        })
+      ).to.deep.equal({
+        boolean: false,
+        number: 1,
+        string: "yup",
+        actualBoolean: false,
+        trueBoolean: true,
+        stillBoolean: true
+      });
     });
   });
 });

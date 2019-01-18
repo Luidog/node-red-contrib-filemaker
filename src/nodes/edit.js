@@ -1,6 +1,6 @@
 module.exports = function(RED) {
   function edit(config) {
-    const { merge, constructParameters } = require("../services");
+    const { merge, constructParameters, castBooleans } = require("../services");
     RED.nodes.createNode(this, config);
     const node = this;
     const { client, ...configuration } = config;
@@ -14,7 +14,7 @@ module.exports = function(RED) {
       );
       let client = await this.connection.client;
       client
-        .edit(layout, recordId, data, parameters)
+        .edit(layout, recordId, data, castBooleans(parameters))
         .then(response =>
           node.send(merge(configuration.output, message, response))
         )

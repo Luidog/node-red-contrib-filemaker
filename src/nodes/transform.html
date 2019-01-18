@@ -2,6 +2,7 @@
     RED.nodes.registerType("dapi-transform", {
       category: "FileMaker",
       defaults: {
+        name: { value: null, required: false },
         parameters: { value: null, required: false },
         parameterType: { value: "none", required: false },
         data: { value: "payload.data", required: false },
@@ -13,7 +14,9 @@
       icon: "transform.png",
       color: "#39D1C0",
       paletteLabel: "Transform",
-      label: "Transform Response",
+      label: function() {
+        return this.name || "Transform Response";
+      },
       oneditprepare: function() {
         var nullType = { value: "none", label: "None", icon: "", hasValue: false };
         $("#node-input-data").typedInput({
@@ -36,19 +39,24 @@
 
 <script type="text/x-red" data-template-name="dapi-transform">
     <div class="form-row">
-        <label for="node-input-data">Data</label>
+        <label for="node-input-name"><i class="fa fa-tag" aria-hidden="true"></i> <span>Name</span></label>
+        <input type="text" id="node-input-name" placeholder="Specific Node">
+    </div>
+    <hr>
+    <div class="form-row">
+        <label for="node-input-data"><i class="fa fa-align-left" aria-hidden="true"></i> <span>Data</span></label>
         <input type="hidden" id="node-input-dataType">
         <input type="text" id="node-input-data">
     </div>
     <hr>
     <div class="form-row">
-        <label for="node-input-parameters">Parameters</label>
+        <label for="node-input-parameters"><i class="fa fa-list" aria-hidden="true"></i> <span>Parameters</span></label>
         <input type="hidden" id="node-input-parametersType">
         <input type="text" id="node-input-parameters">
     </div>
     <hr>
     <div class="form-row">
-        <label for="node-input-output">Output</label>
+        <label for="node-input-output"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> <span>Output</span></label>
         <input type="text" id="node-input-output">
     </div>
 </script>
@@ -63,9 +71,9 @@
               <dd>Data can be either a single object or an array of objects.</dd>
             </dt>
             <dt class="optional">parameters <span class="property-type">Object</span>
-              <dd><b>fieldData</b> - <i>Boolean</i><br>whether to include fieldData in the result</dd>
-              <dd><b>portalData</b> - <i>Boolean</i><br>whether to include portalData in the result.</dd>
-              <dd><b>convert</b> - <i>Boolean</i><br>Wether to transform table::field data.</dd>
+              <dd><b>fieldData</b> - <i>Boolean</i><br/>whether to include fieldData in the result</dd>
+              <dd><b>portalData</b> - <i>Boolean</i><br/>whether to include portalData in the result.</dd>
+              <dd><b>convert</b> - <i>Boolean</i><br/>Wether to transform table::field data.</dd>
             </dt>
           </dl>
          </li>
@@ -90,8 +98,8 @@
          <li>Standard error
             <dl class="message-properties">
                  <dt>message <span class="property-type">Object</span></dt>
-                    <dd><b>message</b> - <i>String</i><br>The FileMaker or client error message.</dd>
-                    <dd><b>code</b> - <i>String</i><br>The applicible FileMaker error code.</dd>
+                    <dd><b>message</b> - <i>String</i><br/>The FileMaker or client error message.</dd>
+                    <dd><b>code</b> - <i>String</i><br/>The applicible FileMaker error code.</dd>
              </dl>
          </li>
      </ol>

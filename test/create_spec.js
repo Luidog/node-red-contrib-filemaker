@@ -182,7 +182,7 @@ describe("Create Record Node", function() {
               .with.any.keys("payload")
               .and.property("payload")
               .to.be.a("object")
-              .with.any.keys("recordId", "modId");
+              .with.any.keys("recordId", "modId", "name");
             done();
           } catch (err) {
             done(err);

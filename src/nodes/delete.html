@@ -2,14 +2,15 @@
     RED.nodes.registerType("dapi-delete-record", {
       category: "FileMaker",
       defaults: {
+        name: { value: null, required: false },
         client: { value: "", type: "dapi-client" },
         layout: {
           value: "payload.layout",
           required: true
         },
         layoutType: { value: "msg" },
-        recordId: { value: null, required: true },
-        recordIdType: { value: "" },
+        recordId: { value: "payload.recordId", required: true },
+        recordIdType: { value: "msg" },
         scripts: { value: null, required: false },
         scriptsType: { value: "none" },
         output: { value: "payload", required: true }
@@ -27,8 +28,8 @@
           typeField: $("#node-input-scriptsType")
         });
         $("#node-input-recordId").typedInput({
-          default: "num",
-          types: ["num", "msg", "flow", "global"],
+          default: "msg",
+          types: ["msg", "num", "flow", "global"],
           typeField: $("#node-input-recordIdType")
         });
         $("#node-input-output").typedInput({
@@ -41,34 +42,41 @@
       icon: "delete.png",
       paletteLabel: "Delete",
       color: "#39D1C0",
-      label: "Delete Record"
+      label: function() {
+        return this.name || "Delete Record";
+      }
     });
 </script>
 
 <script type="text/x-red" data-template-name="dapi-delete-record">
     <div class="form-row">
-        <label for="node-input-client">Client</label>
+        <label for="node-input-name"><i class="fa fa-tag" aria-hidden="true"></i> <span>Name</span></label>
+        <input type="text" id="node-input-name" placeholder="Specific Node">
+    </div>
+    <hr>
+    <div class="form-row">
+        <label for="node-input-client"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Client</span></label>
         <input type="text" id="node-input-client">
     </div>
     <div class="form-row">
-        <label for="node-input-layout">Layout</label>
+        <label for="node-input-layout"><i class="fa fa-list-alt" aria-hidden="true"></i> <span>Layout</span></label>
         <input type="hidden" id="node-input-layoutType">
         <input type="text" id="node-input-layout">
     </div>
     <hr>
     <div class="form-row">
-        <label for="node-input-recordId">Record Id</label>
+        <label for="node-input-recordId"><i class="fa fa-bullseye" aria-hidden="true"></i> <span>Record Id</span></label>
         <input type="hidden" id="node-input-recordIdType">
         <input type="text" id="node-input-recordId">
     </div>
     <div class="form-row">
-        <label for="node-input-scripts">Scripts</label>
+        <label for="node-input-scripts"><i class="fa fa-files-o" aria-hidden="true"></i> <span>Scripts</span></label>
         <input type="hidden" id="node-input-scriptsType">
         <input type="text" id="node-input-scripts">
     </div>
     <hr>
     <div class="form-row">
-        <label for="node-input-output">Output</label>
+        <label for="node-input-output"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> <span>Output</span></label>
         <input type="text" id="node-input-output">
     </div>
 </script>
@@ -79,7 +87,7 @@ to target for deletion and <code>msg.payload.layout</code> as the layout context
 <h3>Inputs</h3>
     <dl class="message-properties">
       <dt>layout<span class="property-type">String</span><dd>The layout to use when deleting a record.</dd>
-      <dt>recordId<span class="property-type">Number</span><dd>The record id to target for deletion.</dd>
+      <dt>recordId<span class="property-type">String | Number</span><dd>The record id to target for deletion.</dd>
       <dt>scripts<span class="property-type">Array</span><dd>The scripts to run when deleting a record.<a target="_blank" href="https://github.com/Luidog/fms-api-client#script-array-syntax"> More Info.</a></dd>
     </dl>
 

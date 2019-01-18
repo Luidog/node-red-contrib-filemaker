@@ -2,6 +2,7 @@
     RED.nodes.registerType("dapi-record-id", {
       category: "FileMaker",
       defaults: {
+        name: { value: null, required: false },
         data: { value: "payload.data", required: false },
         dataType: { value: "msg" },
         output: { value: "payload.data", required: true }
@@ -11,7 +12,9 @@
       icon: "recordId.png",
       color: "#39D1C0",
       paletteLabel: "Record Ids",
-      label: "Extract Record Ids",
+      label: function() {
+        return this.name || "Extract Record Ids";
+      },
       oneditprepare: function() {
         $("#node-input-data").typedInput({
           default: "msg",
@@ -28,13 +31,18 @@
 
 <script type="text/x-red" data-template-name="dapi-record-id">
     <div class="form-row">
-        <label for="node-input-data">Data</label>
+        <label for="node-input-name"><i class="fa fa-tag" aria-hidden="true"></i> <span>Name</span></label>
+        <input type="text" id="node-input-name" placeholder="Specific Node">
+    </div>
+    <hr>
+    <div class="form-row">
+        <label for="node-input-data"><i class="fa fa-align-left" aria-hidden="true"></i> <span>Data</span></label>
         <input type="hidden" id="node-input-dataType">
         <input type="text" id="node-input-data">
     </div>
     <hr>
     <div class="form-row">
-        <label for="node-input-output">Output</label>
+        <label for="node-input-output"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> <span>Output</span></label>
         <input type="text" id="node-input-output">
     </div>
 </script>

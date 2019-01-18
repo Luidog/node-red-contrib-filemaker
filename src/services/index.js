@@ -5,7 +5,15 @@ const {
   merge,
   isJson,
   sanitize,
-  constructParameters
+  constructParameters,
+  castBooleans
 } = require("./utilities.service");
 
-module.exports = { compact, merge, isJson, sanitize, constructParameters };
+module.exports = {
+  compact,
+  merge,
+  isJson,
+  sanitize,
+  constructParameters,
+  castBooleans
+};

@@ -9,13 +9,13 @@ module.exports = function(RED) {
       let {
         data,
         field,
-        name,
+        filename,
         destination,
         ...parameters
       } = constructParameters(message, configuration, node.context(), [
         "data",
         "field",
-        "name",
+        "filename",
         "destination",
         "parameters"
       ]);
@@ -23,14 +23,20 @@ module.exports = function(RED) {
         ? await fs
             .ensureDir(destination)
             .then(() =>
-              containerData(data, field, destination, name, parameters)
+              containerData(data, field, destination, filename, parameters)
             )
             .then(files =>
               node.send(merge(configuration.output, message, files))
             )
             .catch(error => node.error(error.message, message))
-        : await containerData(data, field, destination, name, parameters).then(
-            files => node.send(merge(configuration.output, message, files))
+        : await containerData(
+            data,
+            field,
+            destination,
+            filename,
+            parameters
+          ).then(files =>
+            node.send(merge(configuration.output, message, files))
           );
     });
   }
