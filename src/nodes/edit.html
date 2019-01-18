@@ -8,8 +8,8 @@
           required: true
         },
         layoutType: { value: "msg" },
-        recordId: { value: null, required: true },
-        recordIdType: { value: "" },
+        recordId: { value: "payload.recordId", required: true },
+        recordIdType: { value: "msg" },
         data: { value: null, required: false },
         dataType: { value: "none" },
         scripts: { value: null, required: false },
@@ -31,8 +31,8 @@
           typeField: $("#node-input-scriptsType")
         });
         $("#node-input-recordId").typedInput({
-          default: "num",
-          types: ["num", "msg", "flow", "global"],
+          default: "msg",
+          types: ["msg", "num", "flow", "global"],
           typeField: $("#node-input-recordIdType")
         });
         $("#node-input-data").typedInput({

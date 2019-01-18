@@ -28,8 +28,8 @@
         });
         $("#node-input-recordId").typedInput({
           default: "msg",
-          types: ["msg"],
-          typeField: ".recordIdType"
+          types: ["msg", "num", "flow", "global"],
+          typeField: $("#node-input-recordIdType")
         });
         $("#node-input-scripts").typedInput({
           default: "none",
