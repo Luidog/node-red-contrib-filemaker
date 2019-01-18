@@ -2,14 +2,15 @@
     RED.nodes.registerType("dapi-container-data", {
       category: "FileMaker",
       defaults: {
+        name: { value: null, required: false },
         parameters: { value: null, required: false },
         parameterType: { value: "none", required: false },
         data: { value: "payload.data", required: false },
         dataType: { value: "msg" },
         field: { value: "payload.container", required: false },
         fieldType: { value: "msg" },
-        name: { value: "paload.filename", required: false },
-        nameType: { value: "msg" },
+        filename: { value: "paload.filename", required: false },
+        filenameType: { value: "msg" },
         destination: { value: "buffer", required: false },
         destinationType: { value: "buffer" },
         output: { value: "payload.data", required: true }
@@ -19,7 +20,9 @@
       icon: "container.png",
       color: "#39D1C0",
       paletteLabel: "Containers",
-      label: "Extract Containers",
+      label: function() {
+        return this.name || "Extract Containers";
+      },
       oneditprepare: function() {
         var nullType = { value: "none", label: "None", icon: "", hasValue: false };
         var bufferType = {
@@ -43,10 +46,10 @@
           types: ["msg", "str", "flow", "global", nullType],
           typeField: $("#node-input-fieldType")
         });
-        $("#node-input-name").typedInput({
+        $("#node-input-filename").typedInput({
           default: "msg",
           types: ["msg", "str", "flow", "global", nullType],
-          typeField: $("#node-input-nameType")
+          typeField: $("#node-input-filenameType")
         });
         $("#node-input-destination").typedInput({
           default: "buffer",
@@ -62,35 +65,40 @@
 </script>
 
 <script type="text/x-red" data-template-name="dapi-container-data">
+      <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag" aria-hidden="true"></i> <span>Name</span></label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <hr>
     <div class="form-row">
-        <label for="node-input-data">Data</label>
+        <label for="node-input-data"><i class="fa fa-align-left" aria-hidden="true"></i> <span>Data</span></label>
         <input type="hidden" id="node-input-dataType">
         <input type="text" id="node-input-data">
     </div>
     <hr>
     <div class="form-row">
-        <label for="node-input-field">Container Field</label>
+        <label for="node-input-field"><i class="fa fa-file-image-o" aria-hidden="true"></i> <span>Container</span></label>
         <input type="hidden" id="node-input-fieldType">
         <input type="text" id="node-input-field">
     </div>
     <div class="form-row">
-        <label for="node-input-name">File Name</label>
-        <input type="hidden" id="node-input-nameType">
-        <input type="text" id="node-input-name">
+        <label for="node-input-filename"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Filename</span></label>
+        <input type="hidden" id="node-input-filenameType">
+        <input type="text" id="node-input-filename">
     </div>
     <div class="form-row">
-        <label for="node-input-destination">Destination</label>
+        <label for="node-input-destination"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> <span>Destination</span></label>
         <input type="hidden" id="node-input-destinationType">
         <input type="text" id="node-input-destination">
     </div>
     <div class="form-row">
-        <label for="node-input-parameters">Parameters</label>
+        <label for="node-input-parameters"><i class="fa fa-list" aria-hidden="true"></i> <span>Parameters</span></label>
         <input type="hidden" id="node-input-parametersType">
         <input type="text" id="node-input-parameters">
     </div>
     <hr>
     <div class="form-row">
-        <label for="node-input-output">Output</label>
+        <label for="node-input-output"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> <span>Output</span></label>
         <input type="text" id="node-input-output">
     </div>
 </script>
