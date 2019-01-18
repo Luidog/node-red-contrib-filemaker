@@ -6,6 +6,7 @@ const environment = require("dotenv");
 const varium = require("varium");
 const uploadNode = require("../src/nodes/upload.js");
 const clientNode = require("../src/client/client.js");
+const createNode = require("../src/nodes/create.js");
 const catchNode = require("./core/25-catch.js");
 
 helper.init(require.resolve("node-red"));
@@ -32,8 +33,7 @@ describe("Upload File Node", function() {
       done();
     });
   });
-
-  it("should upload to a record", function(done) {
+  it("should upload to an existing record", function(done) {
     var testFlows = [
       {
         id: "146270a1.3bd87f",
@@ -44,6 +44,116 @@ describe("Upload File Node", function() {
       },
       {
         id: "44103afd.2b0cd4",
+        z: "146270a1.3bd87f",
+        type: "helper"
+      },
+      {
+        id: "705e457f.31fc0c",
+        type: "catch",
+        z: "146270a1.3bd87f",
+        name: "",
+        scope: null,
+        x: 260,
+        y: 100,
+        wires: [["44103afd.2b0cd4"]]
+      },
+      {
+        id: "3fe71d6e.2365e2",
+        type: "dapi-create-record",
+        z: "146270a1.3bd87f",
+        name: "",
+        client: "e5173483.adc92",
+        layout: "payload.layout",
+        layoutType: "msg",
+        data: "payload.data",
+        dataType: "msg",
+        scripts: "",
+        scriptsType: "none",
+        merge: "false",
+        mergeType: "bool",
+        output: "payload",
+        x: 220,
+        y: 300,
+        wires: [["556248ef.700408"]]
+      },
+      {
+        id: "556248ef.700408",
+        type: "dapi-upload-file",
+        z: "146270a1.3bd87f",
+        client: "e5173483.adc92",
+        layout: "payload.layout",
+        layoutType: "msg",
+        recordId: "payload.recordId",
+        recordIdType: "msg.",
+        file: "payload.file",
+        fileType: "msg",
+        field: "payload.field",
+        fieldType: "msg",
+        parameters: "",
+        parametersType: "none",
+        output: "payload",
+        x: 250,
+        y: 40,
+        wires: [["44103afd.2b0cd4"]]
+      },
+      {
+        id: "e5173483.adc92",
+        type: "dapi-client",
+        z: "",
+        name: "Node Red Test Client",
+        usage: true
+      }
+    ];
+    helper.load(
+      [clientNode, createNode, uploadNode, catchNode],
+      testFlows,
+      {
+        "e5173483.adc92": {
+          server: process.env.FILEMAKER_SERVER,
+          application: process.env.FILEMAKER_APPLICATION,
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
+        }
+      },
+      function() {
+        const createNode = helper.getNode("3fe71d6e.2365e2");
+        const helperNode = helper.getNode("44103afd.2b0cd4");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("payload")
+              .and.property("payload")
+              .to.be.a("object")
+              .with.any.keys("modId", "recordId");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        createNode.receive({
+          payload: {
+            file: path.join(__dirname, "./assets/placeholder.json"),
+            data: {},
+            layout: "Images",
+            field: "container"
+          }
+        });
+      }
+    );
+  });
+  it("should upload to a file to a new record", function(done) {
+    var testFlows = [
+      {
+        id: "146270a1.3bd87f",
+        type: "tab",
+        label: "Upload File From Path",
+        disabled: false,
+        info: ""
+      },
+      {
+        id: "44103afd.2b0cd4",
+        z: "146270a1.3bd87f",
         type: "helper"
       },
       {
@@ -63,6 +173,8 @@ describe("Upload File Node", function() {
         client: "e5173483.adc92",
         layout: "payload.layout",
         layoutType: "msg",
+        recordId: "",
+        recordIdType: "none",
         file: "payload.file",
         fileType: "msg",
         field: "payload.field",
