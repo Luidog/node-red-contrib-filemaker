@@ -17,7 +17,7 @@ npm install --save node-red-contrib-filemaker
 ```
 
 ```default
-> node-red-contrib-filemaker@0.9.8 test /node-red-contrib-filemaker
+> node-red-contrib-filemaker@0.9.9 test /node-red-contrib-filemaker
 > nyc _mocha --recursive  "test/**/*_spec.js" --timeout=30000 --exit
 
 
@@ -27,77 +27,78 @@ npm install --save node-red-contrib-filemaker
 
   Container Data Node
     ✓ should be loaded
-    ✓ should download an object of Container Data to a buffer (1581ms)
-    ✓ should download an object Container Data to the filesystem (1415ms)
-    ✓ should download Container Data to the filesystem (1569ms)
-    ✓ should throw an error with a message and a code (196ms)
+    ✓ should download an object of Container Data to a buffer (2821ms)
+    ✓ should download an object Container Data to the filesystem (1498ms)
+    ✓ should download Container Data to the filesystem (1517ms)
+    ✓ should throw an error with a message and a code (266ms)
 
   Create Record Node
     ✓ should be loaded
-    ✓ should create a record (179ms)
-    ✓ should create allow the filemaker response to be merged to the message object (183ms)
-    ✓ should use flow context to create a record. (178ms)
-    ✓ should use global context to create a record. (175ms)
-    ✓ should throw an error with a message and a code (180ms)
+    ✓ should create a record (186ms)
+    ✓ should create allow the filemaker response to be merged to the message object (182ms)
+    ✓ should use flow context to create a record. (179ms)
+    ✓ should use global context to create a record. (171ms)
+    ✓ should throw an error with a message and a code (170ms)
 
   Delete Record Node
     ✓ should be loaded
-    ✓ should delete a record (266ms)
-    ✓ should throw an error with a message and a code (168ms)
+    ✓ should delete a record (250ms)
+    ✓ should throw an error with a message and a code (171ms)
 
   Edit Record Node
     ✓ should be loaded
-    ✓ should edit a record (256ms)
-    ✓ should throw an error with a message and a code (162ms)
+    ✓ should edit a record (255ms)
+    ✓ should support merging data when editing a record (258ms)
+    ✓ should throw an error with a message and a code (174ms)
 
   FieldData Utility Node
     ✓ should be loaded
-    ✓ should transform an array of objects (289ms)
-    ✓ should transform a a single object (258ms)
+    ✓ should transform an array of objects (251ms)
+    ✓ should transform a a single object (259ms)
     ✓ should reject with an error message and code
 
   Find Records Node
     ✓ should be loaded
-    ✓ should perform a find (259ms)
-    ✓ should throw an error with a message and a code (173ms)
+    ✓ should perform a find (265ms)
+    ✓ should throw an error with a message and a code (213ms)
 
   Get Record Node
     ✓ should be loaded
-    ✓ should get a specific record (257ms)
-    ✓ should throw an error with a message and a code (164ms)
+    ✓ should get a specific record (248ms)
+    ✓ should throw an error with a message and a code (212ms)
 
   Set Globals Node
     ✓ should be loaded
-    ✓ should set globals (178ms)
-    ✓ should throw an error with a message and a code (167ms)
+    ✓ should set globals (172ms)
+    ✓ should throw an error with a message and a code (169ms)
 
   List Records Node
     ✓ should be loaded
-    ✓ should List records (267ms)
-    ✓ should throw an error with a message and a code (177ms)
+    ✓ should List records (270ms)
+    ✓ should throw an error with a message and a code (173ms)
 
   Login Node
     ✓ should be loaded
-    ✓ should login to a Data API session (93ms)
-    ✓ should throw an error with a message and a code (1426ms)
+    ✓ should login to a Data API session (96ms)
+    ✓ should throw an error with a message and a code (1543ms)
 
   Logout Node
     ✓ should be loaded
-    ✓ should close a Data API Session (176ms)
+    ✓ should close a Data API Session (190ms)
     ✓ should throw an error with a message and a code
 
   Record Id Utility Node
     ✓ should be loaded
-    ✓ should extract record ids from a single object (305ms)
-    ✓ should extract record ids from an array of objects (265ms)
+    ✓ should extract record ids from a single object (261ms)
+    ✓ should extract record ids from an array of objects (260ms)
     ✓ should reject with an error message and a code
 
   Trigger Script Node
     ✓ should be loaded
-    ✓ should trigger a script (177ms)
-    ✓ should parse a script result if it is valid json (183ms)
-    ✓ should not parse a script result if it is not valid json (185ms)
-    ✓ should throw an error with a message and a code (171ms)
+    ✓ should trigger a script (179ms)
+    ✓ should parse a script result if it is valid json (174ms)
+    ✓ should not parse a script result if it is not valid json (180ms)
+    ✓ should throw an error with a message and a code (170ms)
 
   Utility Services
     merge utility
@@ -120,20 +121,26 @@ npm install --save node-red-contrib-filemaker
       ✓ it should return false for undefined
       ✓ it should return false for a string
       ✓ it should return false for null
+    castBoolean Utility
+      ✓ it should cast a true string as true boolean
+      ✓ it should cast a false string as false boolean
+      ✓ it should cast multiple string values as booleans
+      ✓ it should only cast strings of true or false
 
   Transform Utility Node
     ✓ should be loaded
-    ✓ should transform an array of objects (267ms)
-    ✓ should transform a single object (266ms)
+    ✓ should transform an array of objects (296ms)
+    ✓ should transform a single object (271ms)
     ✓ should throw an error with a message and a code
 
   Upload File Node
     ✓ should be loaded
-    ✓ should upload to a record (1350ms)
+    ✓ should upload to an existing record (332ms)
+    ✓ should upload to a file to a new record (344ms)
     ✓ should throw an error with a message and a code
 
 
-  72 passing (14s)
+  78 passing (15s)
 
 -----------------------|----------|----------|----------|----------|-------------------|
 File                   |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
