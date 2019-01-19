@@ -1,0 +1,106 @@
+[
+    {
+        "id": "fe627eb.f4b6a",
+        "type": "tab",
+        "label": "Field Data Example Flow",
+        "disabled": false,
+        "info": "This flow is an example of using the field Data utility to select FileMaker field data."
+    },
+    {
+        "id": "690cf5d6.55b90c",
+        "type": "inject",
+        "z": "fe627eb.f4b6a",
+        "name": "inject",
+        "topic": "",
+        "payload": "{\"layout\":\"people\"}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "b04e2324.c0264"
+            ]
+        ]
+    },
+    {
+        "id": "82a4947f.113e18",
+        "type": "catch",
+        "z": "fe627eb.f4b6a",
+        "name": "errors",
+        "scope": null,
+        "x": 570,
+        "y": 120,
+        "wires": [
+            [
+                "2cd93121.54f8fe"
+            ]
+        ]
+    },
+    {
+        "id": "2cd93121.54f8fe",
+        "type": "debug",
+        "z": "fe627eb.f4b6a",
+        "name": "debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 730,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "b04e2324.c0264",
+        "type": "dapi-list-records",
+        "z": "fe627eb.f4b6a",
+        "name": "",
+        "client": "ab7c3e95.99ab38",
+        "layout": "payload.layout",
+        "layoutType": "msg",
+        "limit": "",
+        "limitType": "num",
+        "offset": "",
+        "offsetType": "num",
+        "sort": "",
+        "sortType": "none",
+        "scripts": "",
+        "scriptsType": "none",
+        "portals": "",
+        "portalsType": "none",
+        "output": "payload.list",
+        "x": 310,
+        "y": 60,
+        "wires": [
+            [
+                "b3f0e724.7bc8b8"
+            ]
+        ]
+    },
+    {
+        "id": "b3f0e724.7bc8b8",
+        "type": "dapi-field-data",
+        "z": "fe627eb.f4b6a",
+        "name": "",
+        "data": "payload.list.data",
+        "dataType": "msg",
+        "output": "payload.fieldData.data",
+        "x": 530,
+        "y": 60,
+        "wires": [
+            [
+                "2cd93121.54f8fe"
+            ]
+        ]
+    },
+    {
+        "id": "ab7c3e95.99ab38",
+        "type": "dapi-client",
+        "z": "",
+        "name": "Example Client"
+    }
+]

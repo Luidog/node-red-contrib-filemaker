@@ -1,0 +1,111 @@
+[
+    {
+        "id": "2be0665a.d0d7a2",
+        "type": "tab",
+        "label": "Edit Flow Example",
+        "disabled": false,
+        "info": "This flow is an example of editing a FileMaker record."
+    },
+    {
+        "id": "4ab95622.1181f8",
+        "type": "inject",
+        "z": "2be0665a.d0d7a2",
+        "name": "inject",
+        "topic": "",
+        "payload": "{\"layout\":\"people\",\"data\":{\"name\":\"Anakin Skywalker\"},\"update\":{\"name\":\"Darth Vader\"}}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 60,
+        "wires": [
+            [
+                "fb8f4dde.dccda"
+            ]
+        ]
+    },
+    {
+        "id": "fb8f4dde.dccda",
+        "type": "dapi-create-record",
+        "z": "2be0665a.d0d7a2",
+        "name": "",
+        "client": "ab7c3e95.99ab38",
+        "layout": "payload.layout",
+        "layoutType": "msg",
+        "data": "payload.data",
+        "dataType": "msg",
+        "scripts": "",
+        "scriptsType": "none",
+        "merge": "false",
+        "mergeType": "bool",
+        "output": "payload.create",
+        "x": 300,
+        "y": 60,
+        "wires": [
+            [
+                "38bbab0a.102554"
+            ]
+        ]
+    },
+    {
+        "id": "c01af45f.7cf99",
+        "type": "debug",
+        "z": "2be0665a.d0d7a2",
+        "name": "debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 690,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "140e235d.251995",
+        "type": "catch",
+        "z": "2be0665a.d0d7a2",
+        "name": "errors",
+        "scope": null,
+        "x": 530,
+        "y": 120,
+        "wires": [
+            [
+                "c01af45f.7cf99"
+            ]
+        ]
+    },
+    {
+        "id": "38bbab0a.102554",
+        "type": "dapi-edit-record",
+        "z": "2be0665a.d0d7a2",
+        "name": "",
+        "client": "ab7c3e95.99ab38",
+        "layout": "payload.layout",
+        "layoutType": "msg",
+        "recordId": "payload.create.recordId",
+        "recordIdType": "msg",
+        "data": "payload.update",
+        "dataType": "msg",
+        "scripts": "",
+        "scriptsType": "none",
+        "merge": "false",
+        "mergeType": "bool",
+        "output": "payload.edit",
+        "x": 510,
+        "y": 60,
+        "wires": [
+            [
+                "c01af45f.7cf99"
+            ]
+        ]
+    },
+    {
+        "id": "ab7c3e95.99ab38",
+        "type": "dapi-client",
+        "z": "",
+        "name": "Example Client"
+    }
+]

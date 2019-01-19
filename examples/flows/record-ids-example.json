@@ -1,0 +1,106 @@
+[
+    {
+        "id": "d6920695.b23878",
+        "type": "tab",
+        "label": "Record Id Example Flow",
+        "disabled": false,
+        "info": "This flow is an example of using the record Id node to extract the record Id from FileMaker records."
+    },
+    {
+        "id": "90e7eee6.982c8",
+        "type": "inject",
+        "z": "d6920695.b23878",
+        "name": "inject",
+        "topic": "",
+        "payload": "{\"layout\":\"people\"}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 60,
+        "wires": [
+            [
+                "72f9a7c2.b39798"
+            ]
+        ]
+    },
+    {
+        "id": "9ab4eea5.05ec58",
+        "type": "catch",
+        "z": "d6920695.b23878",
+        "name": "errors",
+        "scope": null,
+        "x": 550,
+        "y": 120,
+        "wires": [
+            [
+                "5cf66276.8f3f34"
+            ]
+        ]
+    },
+    {
+        "id": "5cf66276.8f3f34",
+        "type": "debug",
+        "z": "d6920695.b23878",
+        "name": "debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 710,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "72f9a7c2.b39798",
+        "type": "dapi-list-records",
+        "z": "d6920695.b23878",
+        "name": "",
+        "client": "ab7c3e95.99ab38",
+        "layout": "payload.layout",
+        "layoutType": "msg",
+        "limit": "",
+        "limitType": "num",
+        "offset": "",
+        "offsetType": "num",
+        "sort": "",
+        "sortType": "none",
+        "scripts": "",
+        "scriptsType": "none",
+        "portals": "",
+        "portalsType": "none",
+        "output": "payload.list",
+        "x": 290,
+        "y": 60,
+        "wires": [
+            [
+                "812cc724.20a11"
+            ]
+        ]
+    },
+    {
+        "id": "812cc724.20a11",
+        "type": "dapi-record-id",
+        "z": "d6920695.b23878",
+        "name": "",
+        "data": "payload.list.data",
+        "dataType": "msg",
+        "output": "payload.recordId.data",
+        "x": 500,
+        "y": 60,
+        "wires": [
+            [
+                "5cf66276.8f3f34"
+            ]
+        ]
+    },
+    {
+        "id": "ab7c3e95.99ab38",
+        "type": "dapi-client",
+        "z": "",
+        "name": "Example Client"
+    }
+]

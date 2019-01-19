@@ -1,0 +1,109 @@
+[
+    {
+        "id": "9f60c01f.2a3598",
+        "type": "tab",
+        "label": "Get Example Flow",
+        "disabled": false,
+        "info": "This flow is an example of getting a FileMaker record's details."
+    },
+    {
+        "id": "2e1443aa.23f0e4",
+        "type": "inject",
+        "z": "9f60c01f.2a3598",
+        "name": "inject",
+        "topic": "",
+        "payload": "{\"layout\":\"people\",\"data\":{\"name\":\"Anakin Skywalker\"},\"update\":{\"name\":\"Darth Vader\"}}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 60,
+        "wires": [
+            [
+                "4fa91f0a.d0f5a8"
+            ]
+        ]
+    },
+    {
+        "id": "4fa91f0a.d0f5a8",
+        "type": "dapi-create-record",
+        "z": "9f60c01f.2a3598",
+        "name": "",
+        "client": "ab7c3e95.99ab38",
+        "layout": "payload.layout",
+        "layoutType": "msg",
+        "data": "payload.data",
+        "dataType": "msg",
+        "scripts": "",
+        "scriptsType": "none",
+        "merge": "false",
+        "mergeType": "bool",
+        "output": "payload.create",
+        "x": 300,
+        "y": 60,
+        "wires": [
+            [
+                "68ff3472.9b6b44"
+            ]
+        ]
+    },
+    {
+        "id": "376f30fd.443a98",
+        "type": "debug",
+        "z": "9f60c01f.2a3598",
+        "name": "debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 690,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "280a543d.f02c4c",
+        "type": "catch",
+        "z": "9f60c01f.2a3598",
+        "name": "errors",
+        "scope": null,
+        "x": 530,
+        "y": 120,
+        "wires": [
+            [
+                "376f30fd.443a98"
+            ]
+        ]
+    },
+    {
+        "id": "68ff3472.9b6b44",
+        "type": "dapi-get-record",
+        "z": "9f60c01f.2a3598",
+        "name": "",
+        "client": "ab7c3e95.99ab38",
+        "layout": "payload.layout",
+        "layoutType": "msg",
+        "recordId": "payload.create.recordId",
+        "recordIdType": "msg",
+        "scripts": "",
+        "scriptsType": "none",
+        "portals": "",
+        "portalsType": "none",
+        "output": "payload.get",
+        "x": 500,
+        "y": 60,
+        "wires": [
+            [
+                "376f30fd.443a98"
+            ]
+        ]
+    },
+    {
+        "id": "ab7c3e95.99ab38",
+        "type": "dapi-client",
+        "z": "",
+        "name": "Example Client"
+    }
+]

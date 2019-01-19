@@ -1,0 +1,90 @@
+[
+    {
+        "id": "461cdf8d.2a4258",
+        "type": "tab",
+        "label": "List Example Flow",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "18d9f6a9.0f40c1",
+        "type": "inject",
+        "z": "461cdf8d.2a4258",
+        "name": "Inject",
+        "topic": "",
+        "payload": "{\"layout\":\"people\"}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 60,
+        "wires": [
+            [
+                "bc4122.f09e56e"
+            ]
+        ]
+    },
+    {
+        "id": "f25caf15.f03bb8",
+        "type": "catch",
+        "z": "461cdf8d.2a4258",
+        "name": "errors",
+        "scope": null,
+        "x": 310,
+        "y": 120,
+        "wires": [
+            [
+                "ef3275f9.dfd9a8"
+            ]
+        ]
+    },
+    {
+        "id": "ef3275f9.dfd9a8",
+        "type": "debug",
+        "z": "461cdf8d.2a4258",
+        "name": "debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 470,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "bc4122.f09e56e",
+        "type": "dapi-list-records",
+        "z": "461cdf8d.2a4258",
+        "name": "",
+        "client": "ab7c3e95.99ab38",
+        "layout": "payload.layout",
+        "layoutType": "msg",
+        "limit": "",
+        "limitType": "num",
+        "offset": "",
+        "offsetType": "num",
+        "sort": "",
+        "sortType": "none",
+        "scripts": "",
+        "scriptsType": "none",
+        "portals": "",
+        "portalsType": "none",
+        "output": "payload.list",
+        "x": 290,
+        "y": 60,
+        "wires": [
+            [
+                "ef3275f9.dfd9a8"
+            ]
+        ]
+    },
+    {
+        "id": "ab7c3e95.99ab38",
+        "type": "dapi-client",
+        "z": "",
+        "name": "Example Client"
+    }
+]

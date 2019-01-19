@@ -1,0 +1,107 @@
+[
+    {
+        "id": "293942d.ee49d3e",
+        "type": "tab",
+        "label": "Delete Example Flow",
+        "disabled": false,
+        "info": "This flow is an example of deleting a FileMaker record."
+    },
+    {
+        "id": "2d39bc64.3cfcc4",
+        "type": "inject",
+        "z": "293942d.ee49d3e",
+        "name": "inject",
+        "topic": "",
+        "payload": "{\"layout\":\"people\",\"data\":{\"name\":\"Obi-Wan Kenobi\"}}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "65c5dbfa.676664"
+            ]
+        ]
+    },
+    {
+        "id": "65c5dbfa.676664",
+        "type": "dapi-create-record",
+        "z": "293942d.ee49d3e",
+        "name": "",
+        "client": "ab7c3e95.99ab38",
+        "layout": "payload.layout",
+        "layoutType": "msg",
+        "data": "payload.data",
+        "dataType": "msg",
+        "scripts": "",
+        "scriptsType": "none",
+        "merge": "false",
+        "mergeType": "bool",
+        "output": "payload.create",
+        "x": 320,
+        "y": 60,
+        "wires": [
+            [
+                "c88a4aa.2e8b238"
+            ]
+        ]
+    },
+    {
+        "id": "ea1d24d1.de2148",
+        "type": "debug",
+        "z": "293942d.ee49d3e",
+        "name": "debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 730,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "8069d440.24fa9",
+        "type": "catch",
+        "z": "293942d.ee49d3e",
+        "name": "errors",
+        "scope": null,
+        "x": 570,
+        "y": 120,
+        "wires": [
+            [
+                "ea1d24d1.de2148"
+            ]
+        ]
+    },
+    {
+        "id": "c88a4aa.2e8b238",
+        "type": "dapi-delete-record",
+        "z": "293942d.ee49d3e",
+        "name": "",
+        "client": "ab7c3e95.99ab38",
+        "layout": "payload.layout",
+        "layoutType": "msg",
+        "recordId": "payload.create.recordId",
+        "recordIdType": "msg",
+        "scripts": "",
+        "scriptsType": "none",
+        "output": "payload.delete",
+        "x": 540,
+        "y": 60,
+        "wires": [
+            [
+                "ea1d24d1.de2148"
+            ]
+        ]
+    },
+    {
+        "id": "ab7c3e95.99ab38",
+        "type": "dapi-client",
+        "z": "",
+        "name": "Example Client"
+    }
+]
