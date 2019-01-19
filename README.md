@@ -73,6 +73,13 @@ MIT © Lui de la Parra
 
 ## Nodes
 
+The nodes in this project use [fms-api-client](https://github.com/Luidog/fms-api-client) to connect to FileMaker Server. Each node exposes an fms-api-client method or utility. Nodes connecting to FileMaker Server depend upon a configurable FileMaker Data API [client](https://github.com/Luidog/fms-api-client#client-creation).
+
+Each node can be configured to use either static or dynamic input parameters. Dynamic parameters may be
+read from either the `msg` property or the `flow` or `global` context. The default output of each node is `msg.payload`. A node can also be configured to merge its output with any property on the `msg` object.
+
+:v: and :heart: - [Lui de la Parra](lui@mutesymphony.com)
+
 ### Login Node
 
 The login node will open a FileMaker Data API session. This node will also save the resulting authentication for future use by the configured client.
@@ -169,7 +176,7 @@ The find node performs a find in FileMaker. By Default the find node will user `
 
 ### Script Node
 
-The script node will trigger a script in FileMaker. By default the script node will use `msg.payload.layout` as the layout context, and `msg.payload.script` as the script to run. An optional script parameter may also be passed using
+The script node will trigger a script in FileMaker. By default the script node will use `msg.payload.layout` as the layout context, and `msg.payload.script` as the script to run. An optional script parameter may also be passed using `msg.payload.parameter`.
 
 #### Example
 
@@ -237,17 +244,17 @@ The tranform node transforms data in `msg.payload.data`. It reduces `{ table::fi
 
 [![Transform Example Flow](https://img.shields.io/badge/Flow-Transform%20Node-red.svg)](examples/flows/transform-example.json)
 
-### Containers Node
+### Container Data Node
 
 The container node retrieves container data from `msg.payload.data`. The container node requires a `container` property, a `filename` property, and a `destination` property. Each property should be a `dot notation` path to the required data, such as `fieldData.container` and `fieldData.fileName`. If the configured path does not exist it will be automatically created.
 
 #### Example
 
-![Containers Node](examples/images/containers-node.png)
+![Containers Node](examples/images/container-data-node.png)
 
 #### Flow
 
-[![Containers Example Flow](https://img.shields.io/badge/Flow-Containers%20Node-red.svg)](examples/flows/containers-example.json)
+[![Containers Example Flow](https://img.shields.io/badge/Flow-Container%20Data%20Node-red.svg)](examples/flows/container-data-example.json)
 
 ## Tests
 
