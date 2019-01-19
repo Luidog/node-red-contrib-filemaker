@@ -6,58 +6,66 @@ Node Red FileMaker nodes. These nodes use [fms-api-client](https://github.com/Lu
 
 [![npm version](https://badge.fury.io/js/node-red-contrib-filemaker.svg)](https://www.npmjs.com/package/node-red-contrib-filemaker) [![Build Status](https://travis-ci.com/Luidog/node-red-contrib-filemaker.svg?branch=master)](https://travis-ci.com/Luidog/node-red-contrib-filemaker) [![Coverage Status](https://img.shields.io/coveralls/Luidog/node-red-contrib-filemaker/master.svg)](https://coveralls.io/r/Luidog/node-red-contrib-filemaker?branch=master) [![Known Vulnerabilities](https://snyk.io/test/github/Luidog/node-red-contrib-filemaker/badge.svg?targetFile=package.json)](https://snyk.io/test/github/Luidog/node-red-contrib-filemaker?targetFile=package.json)
 
+The nodes in this project use [fms-api-client](https://github.com/Luidog/fms-api-client) to connect to FileMaker Server. Each node exposes an fms-api-client method or utility. Nodes connecting to FileMaker Server depend upon a configurable FileMaker Data API [client](https://github.com/Luidog/fms-api-client#client-creation).
+
+Each node can be configured to use either static or dynamic input parameters. Dynamic parameters may be
+read from either the `msg` property or the `flow` or `global` context. The default output of each node is `msg.payload`. A node can also be configured to merge its output with any property on the `msg` object.
+
+:v: and :heart: - [Lui de la Parra](https://mutesymphony.com)
+
 ## Table of Contents
 
 - [node-red-contrib-filemaker](#node-red-contrib-filemaker)
   * [Project Information](#project-information)
   * [Table of Contents](#table-of-contents)
   * [Installation](#installation)
-  * [License](#license)
-  * [Nodes](#nodes)
-    + [Login Node](#login-node)
-      - [Example](#example)
-      - [Flow](#flow)
-    + [Logout Node](#logout-node)
-      - [Example](#example-1)
-      - [Flow](#flow-1)
-    + [Create Node](#create-node)
-      - [Example](#example-2)
-      - [Flow](#flow-2)
-    + [Edit Node](#edit-node)
-      - [Example](#example-3)
-      - [Flow](#flow-3)
-    + [Delete Node](#delete-node)
-      - [Example](#example-4)
-      - [Flow](#flow-4)
-    + [Get Node](#get-node)
-      - [Example](#example-5)
-    + [List Node](#list-node)
-      - [Example](#example-6)
-      - [Flow](#flow-5)
-    + [Find Node](#find-node)
-      - [Example](#example-7)
-      - [Flow](#flow-6)
-    + [Script Node](#script-node)
-      - [Example](#example-8)
-      - [Flow](#flow-7)
-    + [Upload Node](#upload-node)
-      - [Example](#example-9)
-      - [Flow](#flow-8)
-    + [Globals Node](#globals-node)
-      - [Example](#example-10)
-      - [Flow](#flow-9)
-    + [Field Data Node](#field-data-node)
-      - [Flow](#flow-10)
-    + [Record Ids Node](#record-ids-node)
-      - [Example](#example-11)
-      - [Flow](#flow-11)
-    + [Transform Node](#transform-node)
-      - [Example](#example-12)
-      - [Flow](#flow-12)
-    + [Containers Node](#containers-node)
-      - [Example](#example-13)
-      - [Flow](#flow-13)
+  * [Login Node](#login-node)
+    + [Login Illustration](#login-illustration)
+    + [Login Flow](#login-flow)
+  * [Logout Node](#logout-node)
+    + [Logout Illustration](#logout-illustration)
+    + [Logout Flow](#logout-flow)
+  * [Create Node](#create-node)
+    + [Create Illustration](#create-illustration)
+    + [Create Flow](#create-flow)
+  * [Edit Node](#edit-node)
+    + [Edit Illustration](#edit-illustration)
+    + [Edit Flow](#edit-flow)
+  * [Delete Node](#delete-node)
+    + [Delete Illustration](#delete-illustration)
+    + [Delete Flow](#delete-flow)
+  * [Get Node](#get-node)
+    + [Get Illustration](#get-illustration)
+    + [Get Flow](#get-flow)
+  * [List Node](#list-node)
+    + [List Illustration](#list-illustration)
+    + [List Flow](#list-flow)
+  * [Find Node](#find-node)
+    + [Find Illustration](#find-illustration)
+    + [Find Flow](#find-flow)
+  * [Script Node](#script-node)
+    + [Script Illustration](#script-illustration)
+    + [Script Flow](#script-flow)
+  * [Upload Node](#upload-node)
+    + [Upload Illustration](#upload-illustration)
+    + [Upload Flow](#upload-flow)
+  * [Globals Node](#globals-node)
+    + [Globals Illustration](#globals-illustration)
+    + [Globals Flow](#globals-flow)
+  * [Field Data Node](#field-data-node)
+    + [Field Data Illustration](#field-data-illustration)
+    + [Field Data Flow](#field-data-flow)
+  * [Record Ids Node](#record-ids-node)
+    + [Record Ids Illustration](#record-ids-illustration)
+    + [Record Ids Flow](#record-ids-flow)
+  * [Transform Node](#transform-node)
+    + [Transform Illustration](#transform-illustration)
+    + [Transform Flow](#transform-flow)
+  * [Container Data Node](#container-data-node)
+    + [Container Data Illustration](#container-data-illustration)
+    + [Container Data Flow](#container-data-flow)
   * [Tests](#tests)
+  * [License](#license)
   * [Dependencies](#dependencies)
   * [Development Dependencies](#development-dependencies)
 
@@ -67,192 +75,183 @@ Node Red FileMaker nodes. These nodes use [fms-api-client](https://github.com/Lu
 npm install --save node-red-contrib-filemaker
 ```
 
-## License
-
-MIT © Lui de la Parra
-
-## Nodes
-
-The nodes in this project use [fms-api-client](https://github.com/Luidog/fms-api-client) to connect to FileMaker Server. Each node exposes an fms-api-client method or utility. Nodes connecting to FileMaker Server depend upon a configurable FileMaker Data API [client](https://github.com/Luidog/fms-api-client#client-creation).
-
-Each node can be configured to use either static or dynamic input parameters. Dynamic parameters may be
-read from either the `msg` property or the `flow` or `global` context. The default output of each node is `msg.payload`. A node can also be configured to merge its output with any property on the `msg` object.
-
-:v: and :heart: - [Lui de la Parra](https://mutesymphony.com)
-
-### Login Node
+## Login Node
 
 The login node will open a FileMaker Data API session. This node will also save the resulting authentication for future use by the configured client.
 
-#### Example
+### Login Illustration
 
 ![Login Node](examples/images/login-node.png)
 
-#### Flow
+### Login Flow
 
 [![Example Flow](https://img.shields.io/badge/Flow-Login%20Node-red.svg)](examples/flows/login-example.json)
 
-### Logout Node
+## Logout Node
 
 The logout node closes the currently open Data API session and removes the associated authentication token.
 
-#### Example
+### Logout Illustration
 
 ![Logout Node](examples/images/logout-node.png)
 
-#### Flow
+### Logout Flow
 
 [![Logout Example Flow](https://img.shields.io/badge/Flow-Logout%20Node-red.svg)](examples/flows/logout-example.json)
 
-### Create Node
+## Create Node
 
 The create node creates a record in FileMaker. By default The create node will use the value in `msg.payload.layout` as the layout context and `msg.payload.data` for setting field and portal data.
 
-#### Example
+### Create Illustration
 
 ![Create Node](examples/images/create-node.png)
 
-#### Flow
+### Create Flow
 
 [![Create Example Flow](https://img.shields.io/badge/Flow-Create%20Node-red.svg)](examples/flows/logout-example.json)
 
-### Edit Node
+## Edit Node
 
 The edit node edits a specific record in FileMaker. By default the edit node will use `msg.payload.recordId` as the record Id to target for editing, the data found in `msg.payload.data` for editing field and portal data, and `msg.payload.layout` as the layout context.
 
-#### Example
+### Edit Illustration
 
 ![Edit Node](examples/images/edit-node.png)
 
-#### Flow
+### Edit Flow
 
 [![Edit Example Flow](https://img.shields.io/badge/Flow-Edit%20Node-red.svg)](examples/flows/edit-example.json)
 
-### Delete Node
+## Delete Node
 
 The delete node deletes a specific record in FileMaker. By default the delete node will use `msg.payload.recordId` as the record Id to target for deletion and `msg.payload.layout` as the layout context.
 
-#### Example
+### Delete Illustration
 
 ![Delete Node](examples/images/delete-node.png)
 
-#### Flow
+### Delete Flow
 
 [![Delete Example Flow](https://img.shields.io/badge/Flow-Delete%20Node-red.svg)](examples/flows/delete-example.json)
 
-### Get Node
+## Get Node
 
 The get node retrieves a specific FileMaker record. By default the get node will use `msg.payload.layout` as the layout context, and `msg.payload.recordId` as the record id to target.
 
-#### Example
+### Get Illustration
 
 ![Get Node](examples/images/get-node.png)
 
+### Get Flow
+
 [![Get Example Flow](https://img.shields.io/badge/Flow-Get%20Node-red.svg)](examples/flows/get-example.json)
 
-### List Node
+## List Node
 
 The List node lists FileMaker records for a specified layout. By default the list node will use the value found in `msg.payload.layout` as layout context.
 
-#### Example
+### List Illustration
 
 ![List Node](examples/images/list-node.png)
 
-#### Flow
+### List Flow
 
 [![List Example Flow](https://img.shields.io/badge/Flow-List%20Node-red.svg)](examples/flows/list-example.json)
 
-### Find Node
+## Find Node
 
 The find node performs a find in FileMaker. By Default the find node will user `msg.payload.layout` as the layout context, and `msg.payload.query` as query parameters.
 
-#### Example
+### Find Illustration
 
 ![Find Node](examples/images/find-node.png)
 
-#### Flow
+### Find Flow
 
 [![Find Example Flow](https://img.shields.io/badge/Flow-Find%20Node-red.svg)](examples/flows/find-example.json)
 
-### Script Node
+## Script Node
 
 The script node will trigger a script in FileMaker. By default the script node will use `msg.payload.layout` as the layout context, and `msg.payload.script` as the script to run. An optional script parameter may also be passed using `msg.payload.parameter`.
 
-#### Example
+### Script Illustration
 
 ![Script Node](examples/images/script-node.png)
 
-#### Flow
+### Script Flow
 
 [![Script Example Flow](https://img.shields.io/badge/Flow-Script%20Node-red.svg)](examples/flows/script-example.json)
 
-### Upload Node
+## Upload Node
 
 The upload node will transfer binary data to a FileMaker container. By default the upload node will use `msg.payload.file` as either a string path or buffer object and `msg.payload.layout` as the layout context.
 
-#### Example
+### Upload Illustration
 
 ![Upload Node](examples/images/upload-node.png)
 
-#### Flow
+### Upload Flow
 
 [![Upload Example Flow](https://img.shields.io/badge/Flow-Upload%20Node-red.svg)](examples/flows/upload-example.json)
 
-### Globals Node
+## Globals Node
 
 The globals node will set global record values for the current FileMaker session. The globals node will use `msg.payload.data` to set global fields. 
 
-#### Example
+### Globals Illustration
 
 ![Globals Node](examples/images/globals-node.png)
 
-#### Flow
+### Globals Flow
 
 [![Globals Example Flow](https://img.shields.io/badge/Flow-Globals%20Node-red.svg)](examples/flows/globals-example.json)
 
-### Field Data Node
+## Field Data Node
 
 The field data node reduces the data found in `msg.payload.data` to only include the `modId`, `recordId`, and `fieldData` properties.
 
+### Field Data Illustration
+
 ![Field Data Node](examples/images/field-data-node.png)
 
-#### Flow
+### Field Data Flow
 
 [![Field Data Example Flow](https://img.shields.io/badge/Flow-Field%20Data%20Node-red.svg)](examples/flows/field-data-example.json)
 
-### Record Ids Node
+## Record Ids Node
 
 The record ids node reduces the data found in `msg.payload.data` to only include the `recordId` property.
 
-#### Example
+### Record Ids Illustration
 
 ![Record Ids Node](examples/images/record-ids-node.png)
 
-#### Flow
+### Record Ids Flow
 
 [![Record Ids Example Flow](https://img.shields.io/badge/Flow-Record%20Ids%20Node-red.svg)](examples/flows/record-ids-example.json)
 
-### Transform Node
+## Transform Node
 
 The tranform node transforms data in `msg.payload.data`. It reduces `{ table::field : value }` properties to `{ table: { field : value } }` properties.
 
-#### Example
+### Transform Illustration
 
 ![Transform Node](examples/images/transform-node.png)
 
-#### Flow
+### Transform Flow
 
 [![Transform Example Flow](https://img.shields.io/badge/Flow-Transform%20Node-red.svg)](examples/flows/transform-example.json)
 
-### Container Data Node
+## Container Data Node
 
 The container node retrieves container data from `msg.payload.data`. The container node requires a `container` property, a `filename` property, and a `destination` property. Each property should be a `dot notation` path to the required data, such as `fieldData.container` and `fieldData.fileName`. If the configured path does not exist it will be automatically created.
 
-#### Example
+### Container Data Illustration
 
 ![Containers Node](examples/images/container-data-node.png)
 
-#### Flow
+### Container Data Flow
 
 [![Containers Example Flow](https://img.shields.io/badge/Flow-Container%20Data%20Node-red.svg)](examples/flows/container-data-example.json)
 
@@ -416,6 +415,10 @@ All files              |      100 |      100 |      100 |      100 |            
   utilities.service.js |      100 |      100 |      100 |      100 |                   |
 -----------------------|----------|----------|----------|----------|-------------------|
 ```
+
+## License
+
+MIT © Lui de la Parra
 
 ## Dependencies
 
