@@ -26,6 +26,8 @@ coverage
 #unnecessary directories
 examples/
 test/
+user/
+assets/
 #readme template
 template.readme.md
 #CI
