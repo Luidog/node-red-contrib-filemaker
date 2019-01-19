@@ -1,0 +1,93 @@
+[
+    {
+        "id": "13a63730.857af1",
+        "type": "tab",
+        "label": "Logout Example Flow",
+        "disabled": false,
+        "info": "This is an example of closing a FileMaker Data API session."
+    },
+    {
+        "id": "48701a2d.eba38c",
+        "type": "inject",
+        "z": "13a63730.857af1",
+        "name": "Inject",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 100,
+        "wires": [
+            [
+                "612d61b0.1eeaa8"
+            ]
+        ]
+    },
+    {
+        "id": "612d61b0.1eeaa8",
+        "type": "dapi-login",
+        "z": "13a63730.857af1",
+        "name": "",
+        "client": "ab7c3e95.99ab38",
+        "output": "payload.login",
+        "x": 270,
+        "y": 100,
+        "wires": [
+            [
+                "7494cc0a.0c9db4"
+            ]
+        ]
+    },
+    {
+        "id": "7494cc0a.0c9db4",
+        "type": "dapi-logout",
+        "z": "13a63730.857af1",
+        "name": "",
+        "client": "ab7c3e95.99ab38",
+        "output": "payload.logout",
+        "x": 440,
+        "y": 100,
+        "wires": [
+            [
+                "77ef6b1a.c8e37c"
+            ]
+        ]
+    },
+    {
+        "id": "77ef6b1a.c8e37c",
+        "type": "debug",
+        "z": "13a63730.857af1",
+        "name": "debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 610,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "239d8ef3.4cbf1a",
+        "type": "catch",
+        "z": "13a63730.857af1",
+        "name": "Errors",
+        "scope": null,
+        "x": 430,
+        "y": 160,
+        "wires": [
+            [
+                "77ef6b1a.c8e37c"
+            ]
+        ]
+    },
+    {
+        "id": "ab7c3e95.99ab38",
+        "type": "dapi-client",
+        "z": "",
+        "name": "Example Client"
+    }
+]
