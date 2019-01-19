@@ -1,0 +1,78 @@
+[
+    {
+        "id": "393a28c5.512c48",
+        "type": "tab",
+        "label": "Login Example Flow",
+        "disabled": false,
+        "info": "This is an example of opening a FileMaker Data API session."
+    },
+    {
+        "id": "11cef878.1e86d8",
+        "type": "inject",
+        "z": "393a28c5.512c48",
+        "name": "inject",
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 60,
+        "wires": [
+            [
+                "c49645a1.df1148"
+            ]
+        ]
+    },
+    {
+        "id": "c49645a1.df1148",
+        "type": "dapi-login",
+        "z": "393a28c5.512c48",
+        "name": "",
+        "client": "ab7c3e95.99ab38",
+        "output": "payload.login",
+        "x": 270,
+        "y": 60,
+        "wires": [
+            [
+                "da849f7d.8dfaa"
+            ]
+        ]
+    },
+    {
+        "id": "da849f7d.8dfaa",
+        "type": "debug",
+        "z": "393a28c5.512c48",
+        "name": "result",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 450,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "34340375.6c580c",
+        "type": "catch",
+        "z": "393a28c5.512c48",
+        "name": "errors",
+        "scope": null,
+        "x": 270,
+        "y": 120,
+        "wires": [
+            [
+                "da849f7d.8dfaa"
+            ]
+        ]
+    },
+    {
+        "id": "ab7c3e95.99ab38",
+        "type": "dapi-client",
+        "z": "",
+        "name": "Example Client"
+    }
+]

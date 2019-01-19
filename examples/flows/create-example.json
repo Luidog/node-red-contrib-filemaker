@@ -1,0 +1,86 @@
+[
+    {
+        "id": "f31701ea.6a06b",
+        "type": "tab",
+        "label": "Create Example Flow",
+        "disabled": false,
+        "info": "This Flow is an example of creating a record in a FileMaker database."
+    },
+    {
+        "id": "52258869.e16d1",
+        "type": "inject",
+        "z": "f31701ea.6a06b",
+        "name": "Inject",
+        "topic": "",
+        "payload": "{\"layout\":\"people\",\"data\":{\"name\":\"Luke Skywalker\"}}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 80,
+        "wires": [
+            [
+                "769d0bdf.508114"
+            ]
+        ]
+    },
+    {
+        "id": "769d0bdf.508114",
+        "type": "dapi-create-record",
+        "z": "f31701ea.6a06b",
+        "name": "",
+        "client": "ab7c3e95.99ab38",
+        "layout": "payload.layout",
+        "layoutType": "msg",
+        "data": "payload.data",
+        "dataType": "msg",
+        "scripts": "",
+        "scriptsType": "none",
+        "merge": "false",
+        "mergeType": "bool",
+        "output": "payload.create",
+        "x": 300,
+        "y": 80,
+        "wires": [
+            [
+                "55acbc3.ff71544"
+            ]
+        ]
+    },
+    {
+        "id": "55acbc3.ff71544",
+        "type": "debug",
+        "z": "f31701ea.6a06b",
+        "name": "debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 490,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "be91f544.aa8d8",
+        "type": "catch",
+        "z": "f31701ea.6a06b",
+        "name": "errors",
+        "scope": null,
+        "x": 310,
+        "y": 140,
+        "wires": [
+            [
+                "55acbc3.ff71544"
+            ]
+        ]
+    },
+    {
+        "id": "ab7c3e95.99ab38",
+        "type": "dapi-client",
+        "z": "",
+        "name": "Example Client"
+    }
+]
