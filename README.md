@@ -6,7 +6,9 @@ Node Red FileMaker nodes. These nodes use [fms-api-client](https://github.com/Lu
 
 [![npm version](https://badge.fury.io/js/node-red-contrib-filemaker.svg)](https://www.npmjs.com/package/node-red-contrib-filemaker) [![Build Status](https://travis-ci.com/Luidog/node-red-contrib-filemaker.svg?branch=master)](https://travis-ci.com/Luidog/node-red-contrib-filemaker) [![Coverage Status](https://img.shields.io/coveralls/Luidog/node-red-contrib-filemaker/master.svg)](https://coveralls.io/r/Luidog/node-red-contrib-filemaker?branch=master) [![Known Vulnerabilities](https://snyk.io/test/github/Luidog/node-red-contrib-filemaker/badge.svg?targetFile=package.json)](https://snyk.io/test/github/Luidog/node-red-contrib-filemaker?targetFile=package.json)
 
-The nodes in this project use [fms-api-client](https://github.com/Luidog/fms-api-client) to connect to FileMaker Server. Each node exposes an fms-api-client method or utility. Nodes connecting to FileMaker Server depend upon a configurable FileMaker Data API [client](https://github.com/Luidog/fms-api-client#client-creation).
+The nodes in this project use [fms-api-client](https://github.com/Luidog/fms-api-client) to connect via the FileMaker Data API to FileMaker Server. Nodes connecting to FileMaker Server depend upon a configurable FileMaker Data API [client](https://github.com/Luidog/fms-api-client#client-creation). The client uses [marpat](https://github.com/Luidog/marpat) to store and maintain FileMaker Data API session information in-memory. For security a client's configuration is not exported with a flow.
+
+A client will automatically create and maintain a Filemaker Data API session as needed. You are not required to call the via the [login](#login-node) or [logout](#logout-node) nodes.
 
 Each node can be configured to use either static or dynamic input parameters. Dynamic parameters may be
 read from either the `msg` property or the `flow` or `global` context. The default output of each node is `msg.payload`. A node can also be configured to merge its output with any property on the `msg` object.
@@ -77,7 +79,7 @@ npm install --save node-red-contrib-filemaker
 
 ## Login Node
 
-The login node will open a FileMaker Data API session. This node will also save the resulting authentication for future use by the configured client.
+The login node will open a FileMaker Data API session. This node will also save the resulting authentication for future use by the configured client. You are *not required* to login before using any node in a flow.
 
 ### Login Illustration
 
@@ -89,7 +91,7 @@ The login node will open a FileMaker Data API session. This node will also save 
 
 ## Logout Node
 
-The logout node closes the currently open Data API session and removes the associated authentication token.
+The logout node closes the currently open Data API session and removes the associated authentication token. You are *not required* to logout at the end of a flow.
 
 ### Logout Illustration
 
