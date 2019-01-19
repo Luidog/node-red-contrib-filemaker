@@ -1,0 +1,80 @@
+[
+    {
+        "id": "80bd5b0b.84a58",
+        "type": "tab",
+        "label": "Globals Example Flow",
+        "disabled": false,
+        "info": "This flow is an example of setting FileMaker global fields."
+    },
+    {
+        "id": "6d9ba516.b58764",
+        "type": "inject",
+        "z": "80bd5b0b.84a58",
+        "name": "Inject",
+        "topic": "",
+        "payload": "{\"data\":{\"Globals::data\":\"Millenium Falcon\"}}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "610018cc.c250e8"
+            ]
+        ]
+    },
+    {
+        "id": "8cc0929e.50fa2",
+        "type": "catch",
+        "z": "80bd5b0b.84a58",
+        "name": "errors",
+        "scope": null,
+        "x": 370,
+        "y": 120,
+        "wires": [
+            [
+                "83dccd11.0ca3e"
+            ]
+        ]
+    },
+    {
+        "id": "83dccd11.0ca3e",
+        "type": "debug",
+        "z": "80bd5b0b.84a58",
+        "name": "debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 530,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "610018cc.c250e8",
+        "type": "dapi-set-globals",
+        "z": "80bd5b0b.84a58",
+        "name": "",
+        "client": "ab7c3e95.99ab38",
+        "data": "payload.data",
+        "dataType": "msg",
+        "output": "payload.globals",
+        "x": 320,
+        "y": 60,
+        "wires": [
+            [
+                "83dccd11.0ca3e"
+            ]
+        ]
+    },
+    {
+        "id": "ab7c3e95.99ab38",
+        "type": "dapi-client",
+        "z": "",
+        "name": "Example Client"
+    }
+]

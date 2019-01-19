@@ -1,0 +1,88 @@
+[
+    {
+        "id": "495881c4.b51528",
+        "type": "tab",
+        "label": "Upload Example Flow",
+        "disabled": false,
+        "info": "This flow is an example of uploading files to a FileMaker container."
+    },
+    {
+        "id": "d4febdfc.567518",
+        "type": "inject",
+        "z": "495881c4.b51528",
+        "name": "inject",
+        "topic": "",
+        "payload": "{\"layout\":\"images\",\"file\":\"./test/assets/placeholder.json\",\"field\":\"container\"}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "8a2cdea6.7973"
+            ]
+        ]
+    },
+    {
+        "id": "f170b0c3.450fe8",
+        "type": "debug",
+        "z": "495881c4.b51528",
+        "name": "debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 490,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "9d1edcd0.bec678",
+        "type": "catch",
+        "z": "495881c4.b51528",
+        "name": "errors",
+        "scope": null,
+        "x": 330,
+        "y": 120,
+        "wires": [
+            [
+                "f170b0c3.450fe8"
+            ]
+        ]
+    },
+    {
+        "id": "8a2cdea6.7973",
+        "type": "dapi-upload-file",
+        "z": "495881c4.b51528",
+        "name": "",
+        "client": "ab7c3e95.99ab38",
+        "layout": "payload.layout",
+        "layoutType": "msg",
+        "file": "payload.file",
+        "fileType": "msg",
+        "field": "payload.field",
+        "fieldType": "msg",
+        "recordId": "",
+        "recordIdType": "none",
+        "parameters": "",
+        "parametersType": "none",
+        "output": "payload.upload",
+        "x": 310,
+        "y": 60,
+        "wires": [
+            [
+                "f170b0c3.450fe8"
+            ]
+        ]
+    },
+    {
+        "id": "ab7c3e95.99ab38",
+        "type": "dapi-client",
+        "z": "",
+        "name": "Example Client"
+    }
+]

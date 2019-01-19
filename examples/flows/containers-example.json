@@ -1,0 +1,114 @@
+[
+    {
+        "id": "25aef856.00f158",
+        "type": "tab",
+        "label": "Container Data Example Flow",
+        "disabled": false,
+        "info": "This flow is an example of using the container data node to retrieve container data from FileMaker's streaming service."
+    },
+    {
+        "id": "26ccc715.0f8c78",
+        "type": "dapi-list-records",
+        "z": "25aef856.00f158",
+        "name": "",
+        "client": "ab7c3e95.99ab38",
+        "layout": "payload.layout",
+        "layoutType": "msg",
+        "limit": "payload.limit",
+        "limitType": "msg",
+        "offset": "",
+        "offsetType": "num",
+        "sort": "",
+        "sortType": "none",
+        "scripts": "",
+        "scriptsType": "none",
+        "portals": "",
+        "portalsType": "none",
+        "output": "payload.list",
+        "x": 310,
+        "y": 60,
+        "wires": [
+            [
+                "fcc9b097.afbf7"
+            ]
+        ]
+    },
+    {
+        "id": "279ccf54.9a19e",
+        "type": "inject",
+        "z": "25aef856.00f158",
+        "name": "Inject",
+        "topic": "",
+        "payload": "{\"layout\":\"images\",\"limit\":\"1\",\"container\":\"fieldData.container\",\"filename\":\"fieldData.filename\"}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "26ccc715.0f8c78"
+            ]
+        ]
+    },
+    {
+        "id": "d8d74234.917c9",
+        "type": "debug",
+        "z": "25aef856.00f158",
+        "name": "debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 730,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "284c3149.6f238e",
+        "type": "catch",
+        "z": "25aef856.00f158",
+        "name": "errors",
+        "scope": null,
+        "x": 570,
+        "y": 120,
+        "wires": [
+            [
+                "d8d74234.917c9"
+            ]
+        ]
+    },
+    {
+        "id": "fcc9b097.afbf7",
+        "type": "dapi-container-data",
+        "z": "25aef856.00f158",
+        "name": "",
+        "parameters": "",
+        "parameterType": "none",
+        "data": "payload.list.data",
+        "dataType": "msg",
+        "field": "payload.container",
+        "fieldType": "msg",
+        "filename": "payload.filename",
+        "filenameType": "msg",
+        "destination": "",
+        "destinationType": "buffer",
+        "output": "payload.containerData.data",
+        "x": 530,
+        "y": 60,
+        "wires": [
+            [
+                "d8d74234.917c9"
+            ]
+        ]
+    },
+    {
+        "id": "ab7c3e95.99ab38",
+        "type": "dapi-client",
+        "z": "",
+        "name": "Example Client"
+    }
+]

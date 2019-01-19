@@ -1,0 +1,108 @@
+[
+    {
+        "id": "ad116ce2.a373d",
+        "type": "tab",
+        "label": "Transform Example Flow",
+        "disabled": false,
+        "info": "This flow is an example of transforming FileMaker Data API responses."
+    },
+    {
+        "id": "e1ff0c39.df9ab8",
+        "type": "dapi-transform",
+        "z": "ad116ce2.a373d",
+        "name": "",
+        "parameters": "",
+        "parameterType": "none",
+        "data": "payload.list.data",
+        "dataType": "msg",
+        "output": "payload.transform.data",
+        "x": 520,
+        "y": 80,
+        "wires": [
+            [
+                "900669f5.0003b"
+            ]
+        ]
+    },
+    {
+        "id": "23f8bfcb.150d08",
+        "type": "dapi-list-records",
+        "z": "ad116ce2.a373d",
+        "name": "",
+        "client": "ab7c3e95.99ab38",
+        "layout": "payload.layout",
+        "layoutType": "msg",
+        "limit": "",
+        "limitType": "num",
+        "offset": "",
+        "offsetType": "num",
+        "sort": "",
+        "sortType": "none",
+        "scripts": "",
+        "scriptsType": "none",
+        "portals": "",
+        "portalsType": "none",
+        "output": "payload.list",
+        "x": 290,
+        "y": 80,
+        "wires": [
+            [
+                "e1ff0c39.df9ab8"
+            ]
+        ]
+    },
+    {
+        "id": "337382b2.e79296",
+        "type": "inject",
+        "z": "ad116ce2.a373d",
+        "name": "inject",
+        "topic": "",
+        "payload": "{\"layout\":\"people\"}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 80,
+        "wires": [
+            [
+                "23f8bfcb.150d08"
+            ]
+        ]
+    },
+    {
+        "id": "900669f5.0003b",
+        "type": "debug",
+        "z": "ad116ce2.a373d",
+        "name": "debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 730,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "b7a76b2f.81ced8",
+        "type": "catch",
+        "z": "ad116ce2.a373d",
+        "name": "errors",
+        "scope": null,
+        "x": 570,
+        "y": 140,
+        "wires": [
+            [
+                "900669f5.0003b"
+            ]
+        ]
+    },
+    {
+        "id": "ab7c3e95.99ab38",
+        "type": "dapi-client",
+        "z": "",
+        "name": "Example Client"
+    }
+]

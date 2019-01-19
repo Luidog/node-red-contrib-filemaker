@@ -1,0 +1,84 @@
+[
+    {
+        "id": "a2419e44.1f3de",
+        "type": "tab",
+        "label": "Script Example Flow",
+        "disabled": false,
+        "info": "This flow is an example of using the script node to perform a script in FileMaker."
+    },
+    {
+        "id": "2c52d8d4.6b01",
+        "type": "debug",
+        "z": "a2419e44.1f3de",
+        "name": "debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 490,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "729f9f70.7b6898",
+        "type": "inject",
+        "z": "a2419e44.1f3de",
+        "name": "",
+        "topic": "",
+        "payload": "{\"layout\":\"people\",\"script\":\"JSON Result\",\"parameter\":{\"droid\":\"R2-D2\"}}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 60,
+        "wires": [
+            [
+                "8849b6.cd16e648"
+            ]
+        ]
+    },
+    {
+        "id": "8849b6.cd16e648",
+        "type": "dapi-trigger-script",
+        "z": "a2419e44.1f3de",
+        "name": "",
+        "client": "ab7c3e95.99ab38",
+        "layout": "payload.layout",
+        "layoutType": "msg",
+        "script": "payload.script",
+        "scriptType": "msg",
+        "parameter": "",
+        "parameterType": "none",
+        "output": "payload.script",
+        "x": 300,
+        "y": 60,
+        "wires": [
+            [
+                "2c52d8d4.6b01"
+            ]
+        ]
+    },
+    {
+        "id": "1fd439.edaacbc7",
+        "type": "catch",
+        "z": "a2419e44.1f3de",
+        "name": "",
+        "scope": null,
+        "x": 320,
+        "y": 120,
+        "wires": [
+            [
+                "2c52d8d4.6b01"
+            ]
+        ]
+    },
+    {
+        "id": "ab7c3e95.99ab38",
+        "type": "dapi-client",
+        "z": "",
+        "name": "Example Client"
+    }
+]
