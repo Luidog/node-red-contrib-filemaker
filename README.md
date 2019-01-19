@@ -8,10 +8,10 @@ Node Red FileMaker nodes. These nodes use [fms-api-client](https://github.com/Lu
 
 The nodes in this project use [fms-api-client](https://github.com/Luidog/fms-api-client) to connect via the FileMaker Data API to FileMaker Server. The nodes that connect to FileMaker Server depend upon a configurable [client](https://github.com/Luidog/fms-api-client#client-creation) node. The client node uses [marpat](https://github.com/Luidog/marpat) to store and maintain FileMaker Data API session information in-memory. For security client configuration parameters are not exported with a flow.
 
-Once configured a client node will automatically create and maintain a Filemaker Data API session as needed. You are not required to call the [login](#login-node) or [logout](#logout-node) nodes in a flow.
+Once configured a client node will automatically create and maintain a FileMaker Data API session as needed. You are not required to call the [login](#login-node) or [logout](#logout-node) nodes in a flow.
 
-Each node can be configured to use either static or dynamic input parameters. Dynamic parameters may be
-read from either the `msg` property or the `flow` or `global` context. The default output of each node is `msg.payload`. A node can also be configured to merge its output with any property on the `msg` object.
+Each node can be configured to use either static or dynamic parameters. Dynamic parameters may be
+read from either the `msg` property or the `flow` and `global` contexts. The default output of each node is `msg.payload`. A node can also be configured to merge its output with any property on the `msg` object.
 
 :v: and :heart: - [Lui de la Parra](https://mutesymphony.com)
 
