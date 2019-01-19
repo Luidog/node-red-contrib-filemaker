@@ -78,7 +78,7 @@ The nodes in this project use [fms-api-client](https://github.com/Luidog/fms-api
 Each node can be configured to use either static or dynamic input parameters. Dynamic parameters may be
 read from either the `msg` property or the `flow` or `global` context. The default output of each node is `msg.payload`. A node can also be configured to merge its output with any property on the `msg` object.
 
-:v: and :heart: - [Lui de la Parra](lui@mutesymphony.com)
+:v: and :heart: - [Lui de la Parra](https://mutesymphony.com)
 
 ### Login Node
 
