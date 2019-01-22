@@ -1,88 +1,93 @@
 <script type="text/javascript">
-    RED.nodes.registerType("dapi-field-data", {
-      category: "FileMaker",
-      defaults: {
-        name: { value: null, required: false },
-        data: { value: "payload.data", required: false },
-        dataType: { value: "msg" },
-        output: { value: "payload.data", required: true }
-      },
-      inputs: 1,
-      outputs: 1,
-      icon: "fielddata.png",
-      color: "#39D1C0",
-      paletteLabel: "Field Data",
-      label: function() {
-        return this.name || "Extract Field Data";
-      },
-      oneditprepare: function() {
-        $("#node-input-data").typedInput({
-          default: "msg",
-          types: ["json", "msg", "flow", "global"],
-          typeField: $("#node-input-dataType")
-        });
-        $("#node-input-output").typedInput({
-          default: "msg",
-          types: ["msg"]
-        });
-      }
-    });
+  RED.nodes.registerType("dapi-field-data", {
+    category: "FileMaker",
+    defaults: {
+      name: { value: null, required: false },
+      data: { value: "payload.data", required: false },
+      dataType: { value: "msg" },
+      output: { value: "payload.data", required: true }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "fielddata.png",
+    color: "#39D1C0",
+    paletteLabel: "Field Data",
+    label: function() {
+      return this.name || "Extract Field Data";
+    },
+    oneditprepare: function() {
+      $("#node-input-data").typedInput({
+        default: "msg",
+        types: ["json", "msg", "flow", "global"],
+        typeField: $("#node-input-dataType")
+      });
+      $("#node-input-output").typedInput({
+        default: "msg",
+        types: ["msg"]
+      });
+    }
+  });
 </script>
 <script type="text/x-red" data-template-name="dapi-field-data">
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag" aria-hidden="true"></i> <span>Name</span></label>
-        <input type="text" id="node-input-name" placeholder="Specific Node">
-    </div>
-    <hr>
-    <div class="form-row">
-        <label for="node-input-data"><i class="fa fa-align-left" aria-hidden="true"></i> <span>Data</span></label>
-        <input type="hidden" id="node-input-dataType">
-        <input type="text" id="node-input-data">
-    </div>
-    <hr>
-    <div class="form-row">
-        <label for="node-input-output"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> <span>Output</span></label>
-        <input type="text" id="node-input-output">
-    </div>
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag" aria-hidden="true"></i> <span>Name</span></label>
+    <input type="text" id="node-input-name" placeholder="Specific Node">
+  </div>
+  <hr>
+  <div class="form-row">
+    <label for="node-input-data"><i class="fa fa-align-left" aria-hidden="true"></i> <span>Data</span></label>
+    <input type="hidden" id="node-input-dataType">
+    <input type="text" id="node-input-data">
+  </div>
+  <hr>
+  <div class="form-row">
+    <label for="node-input-output"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> <span>Output</span></label>
+    <input type="text" id="node-input-output">
+  </div>
 </script>
 <script type="text/x-red" data-help-name="dapi-field-data">
-<p>This node reduces the data found in <code>msg.payload.data</code> to only include the <code>modId</code>,
- <code>recordId</code>, and <code>fieldData</code> properties.</p>
+  <p>
+    This node reduces the data found in <code>msg.payload.data</code> to only include the <code>modId</code>,
+    <code>recordId</code>, and <code>fieldData</code> properties.
+  </p>
 
-<h3>Inputs</h3>
-        <dl class="message-properties">
-      <dt>data<span class="property-type">Object | Array</span><dd>The data to modify.</dd>
-    </dl>
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+    <dt>data<span class="property-type">Object | Array</span><dd>The data to modify.</dd>
+  </dl>
 
- <h3>Outputs</h3>
-     <ol class="node-ports">
-         <li>Standard Output
-              <dl class="message-properties">
-                <dt>data<span class="property-type">Object | Array</span>
-              <dd>The modified data.</dd>
-            </dt>
-          </dl>
-         </li>
-         <li>Standard Error
-             <dl class="message-properties">
-                 <dt>message<span class="property-type">String</span>
-                    <dd>fieldData error message.</dd>
-                  </dt>
-             </dl>
-         </li>
-     </ol>
+  <h3>Outputs</h3>
+  <ol class="node-ports">
+    <li>Standard Output
+      <dl class="message-properties">
+        <dt>data<span class="property-type">Object | Array</span>
+          <dd>The modified data.</dd>
+        </dt>
+      </dl>
+    </li>
+    <li>Standard Error
+      <dl class="message-properties">
+        <dt>message<span class="property-type">String</span>
+          <dd>fieldData error message.</dd>
+        </dt>
+      </dl>
+    </li>
+  </ol>
 
-<h3>Details</h3>
-   <p>This node reduces the data found in <code>msg.payload.data</code> to only include the <code>modId</code>,
- <code>recordId</code>, and <code>fieldData</code> properties.<a target="_blank" href="https://github.com/Luidog/fms-api-client#fielddata-utility-results"> See Example.</a><br/><br/>This node can be configured to use either static or dynamic input parameters. Dynamic parameters may be
-read from either the <code>msg</code> property or the <code>flow</code> or <code>global</code> context.<br/><br/>
-The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its 
-output with any property on the <code>msg</code> object.</p> 
+  <h3>Details</h3>
+  <p>
+    This node reduces the data found in <code>msg.payload.data</code> to only include the <code>modId</code>,
+    <code>recordId</code>, and <code>fieldData</code> properties.<a target="_blank" href="https://github.com/Luidog/fms-api-client#fielddata-utility-results"> 
+    See Example.</a><br/><br/>This node can be configured to use either static or dynamic input parameters. Dynamic parameters may be
+    read from either the <code>msg</code> property or the <code>flow</code> and <code>global</code> contexts.<br/><br/>
+    The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its 
+    output with any property on the <code>msg</code> object.
+  </p> 
 
-<h3>References</h3>
-    <ul>
-        <li><a href="https://github.com/Luidog/fms-api-client#fielddata-utility">Field Data Utility</a> - Base Client Utility Documentation</li>
-        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node Red FileMaker</a> - The Node's Github Repository</li>
-        <li><a href="https://github.com/Luidog/fms-api-client">Data API Client</a> - Data API Client Github Repository</li>
-    </ul>
+  <h3>References</h3>
+  <ul>
+    <li><a href="https://github.com/Luidog/fms-api-client#field-data-utility">Field Data Utility</a> - Base Client Utility Documentation</li>
+    <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node Red FileMaker</a> - The Node's Github Repository</li>
+    <li><a href="https://github.com/Luidog/fms-api-client">Data API Client</a> - Data API Client Github Repository</li>
+  </ul>
 </script>
