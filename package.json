@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-filemaker",
-  "version": "0.9.9",
+  "version": "1.0.0",
   "description": "Node Red FileMaker nodes. These nodes use the FileMaker Data API to connect with a FileMaker database.",
   "scripts": {
     "dev": "pm2 start ecosystem.dev.config.js",
@@ -19,7 +19,11 @@
     "api",
     "node"
   ],
-  "author": "Lui de la Parra",
+  "author": {
+    "name": "Lui de la Parra",
+    "email": "lui@mutesymphony.com",
+    "url": "https://mutesymphony.com/"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Luidog/node-red-contrib-filemaker/issues"
