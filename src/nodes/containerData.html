@@ -11,7 +11,7 @@
       fieldType: { value: "msg" },
       filename: { value: "payload.filename", required: false },
       filenameType: { value: "msg" },
-      destination: { value: "buffer", required: false },
+      destination: { value: "", required: false },
       destinationType: { value: "buffer" },
       output: { value: "payload.data", required: true }
     },
@@ -105,10 +105,9 @@
 
 <script type="text/x-red" data-help-name="dapi-container-data">
   <p>
-    This node retrieves container data from <code>msg.payload.data</code>. This node requires a <code>container</code> property, 
-    a <code>filename</code> property, and a <code>destination</code> property. The filename and container properties should be 
-    dot notation paths to the required data. The destination property should be a <code>buffer</code> or a path to write file data. 
-    If the path does not exist it will be automatically created.
+    This node retrieves container data from FileMaker's streaming service. Defaults are <code>msg.payload.data</code> as the data to traverse, 
+    <code>msg.payload.container</code> as a dot notation path to the container data url, and <code>msg.payload.filename</code> as a dot notation 
+    path to the container data's filename.
   </p>
 
   <h3>Inputs</h3>
@@ -144,15 +143,16 @@
 
   <h3>Details</h3>
   <p>
-    This node retrieves container data from a <code>data</code> parameter. It will use the urls returned by the Data API to download container data.
-    This node will accept either a single object or an array of objects.<br/><br/>This node expects to receive a <code>container</code> property, 
-    a <code>filename</code> property, and a <code>destination</code> property. The <code>container</code> and <code>filename</code> 
+    This node retrieves container data from FileMaker's streaming service. By default it is configured to use <code>msg.payload.data</code> as the data to traverse, 
+    <code>msg.payload.container</code> as a dot notation path to the container data url, and <code>msg.payload.filename</code> as a dot notation 
+    path to the container data's filename. This node will accept either a single object or an array of objects.<br/><br/>This node expects to receive a 
+    <code>container</code> property, a <code>filename</code> property, and a <code>destination</code> property. The <code>container</code> and <code>filename</code> 
     properties should be dot notation paths to the required data. Examples of dot notation paths are <code>fieldData.container</code> and 
     <code>fieldData.filename</code>.<br/><br/>This node will use the <code>filename</code> parameter for naming the incoming container data. 
-    If the configured <code>filename</code> parameter is not a property or nested property in the <code>data</code> parameter, the name parameter 
-    itself will be used.<br/><br/> The <code>destination</code> parameter should be either a <code>buffer</code> or a path, relative to the current working directory, 
+    If the <code>filename</code> parameter is not a property or nested property in the <code>data</code> parameter, the <code>filename</code> parameter 
+    itself will be used.<br/><br/> The <code>destination</code> parameter should be either a <code>buffer</code> or a <code>string</code> path, relative to the current working directory, 
     where the node should write container data. If the destination parameter is <code>buffer</code> the node will return an object with a <code>buffer</code> 
-    property and a <code>filename</code> property. If the destination parameter is a path this node will write the file to that path and return an array or a 
+    property and a <code>name</code> property. If the destination parameter is a <code>string</code> path this node will write the file to that path and return an array or a 
     single object with <code>filename</code> and <code>path</code> properties. If the path does not exist it will be automatically created.<br/><br/>
     This utility will also accept optional request parameters to modify the http request.<br/><br/>This node can be configured to use either static or dynamic 
     input parameters. Dynamic parameters may be read from either the <code>msg</code> property or the <code>flow</code> or <code>global</code> context.<br/><br/> 
