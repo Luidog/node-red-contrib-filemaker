@@ -1,162 +1,168 @@
 <script type="text/javascript">
-    RED.nodes.registerType("dapi-container-data", {
-      category: "FileMaker",
-      defaults: {
-        name: { value: null, required: false },
-        parameters: { value: null, required: false },
-        parameterType: { value: "none", required: false },
-        data: { value: "payload.data", required: false },
-        dataType: { value: "msg" },
-        field: { value: "payload.container", required: false },
-        fieldType: { value: "msg" },
-        filename: { value: "payload.filename", required: false },
-        filenameType: { value: "msg" },
-        destination: { value: "buffer", required: false },
-        destinationType: { value: "buffer" },
-        output: { value: "payload.data", required: true }
-      },
-      inputs: 1,
-      outputs: 1,
-      icon: "container.png",
-      color: "#39D1C0",
-      paletteLabel: "Containers",
-      label: function() {
-        return this.name || "Extract Containers";
-      },
-      oneditprepare: function() {
-        var nullType = { value: "none", label: "None", icon: "", hasValue: false };
-        var bufferType = {
-          value: "buffer",
-          label: "Buffer Object",
-          icon: "",
-          hasValue: false
-        };
-        $("#node-input-data").typedInput({
-          default: "msg",
-          types: ["json", "msg", "flow", "global"],
-          typeField: $("#node-input-dataType")
-        });
-        $("#node-input-parameters").typedInput({
-          default: "none",
-          types: ["msg", "json", "flow", "global", nullType],
-          typeField: $("#node-input-parametersType")
-        });
-        $("#node-input-field").typedInput({
-          default: "msg",
-          types: ["msg", "str", "flow", "global", nullType],
-          typeField: $("#node-input-fieldType")
-        });
-        $("#node-input-filename").typedInput({
-          default: "msg",
-          types: ["msg", "str", "flow", "global", nullType],
-          typeField: $("#node-input-filenameType")
-        });
-        $("#node-input-destination").typedInput({
-          default: "buffer",
-          types: [bufferType, "str", "msg", "flow", "global"],
-          typeField: $("#node-input-destinationType")
-        });
-        $("#node-input-output").typedInput({
-          default: "msg",
-          types: ["msg"]
-        });
-      }
-    });
+  RED.nodes.registerType("dapi-container-data", {
+    category: "FileMaker",
+    defaults: {
+      name: { value: null, required: false },
+      parameters: { value: null, required: false },
+      parameterType: { value: "none", required: false },
+      data: { value: "payload.data", required: false },
+      dataType: { value: "msg" },
+      field: { value: "payload.container", required: false },
+      fieldType: { value: "msg" },
+      filename: { value: "payload.filename", required: false },
+      filenameType: { value: "msg" },
+      destination: { value: "buffer", required: false },
+      destinationType: { value: "buffer" },
+      output: { value: "payload.data", required: true }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "container.png",
+    color: "#39D1C0",
+    paletteLabel: "Containers",
+    label: function() {
+      return this.name || "Extract Containers";
+    },
+    oneditprepare: function() {
+      var nullType = { value: "none", label: "None", icon: "", hasValue: false };
+      var bufferType = {
+        value: "buffer",
+        label: "Buffer Object",
+        icon: "",
+        hasValue: false
+      };
+      $("#node-input-data").typedInput({
+        default: "msg",
+        types: ["json", "msg", "flow", "global"],
+        typeField: $("#node-input-dataType")
+      });
+      $("#node-input-parameters").typedInput({
+        default: "none",
+        types: ["msg", "json", "flow", "global", nullType],
+        typeField: $("#node-input-parametersType")
+      });
+      $("#node-input-field").typedInput({
+        default: "msg",
+        types: ["msg", "str", "flow", "global", nullType],
+        typeField: $("#node-input-fieldType")
+      });
+      $("#node-input-filename").typedInput({
+        default: "msg",
+        types: ["msg", "str", "flow", "global", nullType],
+        typeField: $("#node-input-filenameType")
+      });
+      $("#node-input-destination").typedInput({
+        default: "buffer",
+        types: [bufferType, "str", "msg", "flow", "global"],
+        typeField: $("#node-input-destinationType")
+      });
+      $("#node-input-output").typedInput({
+        default: "msg",
+        types: ["msg"]
+      });
+    }
+  });
 </script>
 
 <script type="text/x-red" data-template-name="dapi-container-data">
-      <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag" aria-hidden="true"></i> <span>Name</span></label>
-        <input type="text" id="node-input-name" placeholder="Specific Node">
-    </div>
-    <hr>
-    <div class="form-row">
-        <label for="node-input-data"><i class="fa fa-align-left" aria-hidden="true"></i> <span>Data</span></label>
-        <input type="hidden" id="node-input-dataType">
-        <input type="text" id="node-input-data">
-    </div>
-    <hr>
-    <div class="form-row">
-        <label for="node-input-field"><i class="fa fa-file-image-o" aria-hidden="true"></i> <span>Container</span></label>
-        <input type="hidden" id="node-input-fieldType">
-        <input type="text" id="node-input-field">
-    </div>
-    <div class="form-row">
-        <label for="node-input-filename"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Filename</span></label>
-        <input type="hidden" id="node-input-filenameType">
-        <input type="text" id="node-input-filename">
-    </div>
-    <div class="form-row">
-        <label for="node-input-destination"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> <span>Destination</span></label>
-        <input type="hidden" id="node-input-destinationType">
-        <input type="text" id="node-input-destination">
-    </div>
-    <div class="form-row">
-        <label for="node-input-parameters"><i class="fa fa-list" aria-hidden="true"></i> <span>Parameters</span></label>
-        <input type="hidden" id="node-input-parametersType">
-        <input type="text" id="node-input-parameters">
-    </div>
-    <hr>
-    <div class="form-row">
-        <label for="node-input-output"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> <span>Output</span></label>
-        <input type="text" id="node-input-output">
-    </div>
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag" aria-hidden="true"></i> <span>Name</span></label>
+    <input type="text" id="node-input-name" placeholder="Specific Node">
+  </div>
+  <hr>
+  <div class="form-row">
+    <label for="node-input-data"><i class="fa fa-align-left" aria-hidden="true"></i> <span>Data</span></label>
+    <input type="hidden" id="node-input-dataType">
+    <input type="text" id="node-input-data">
+  </div>
+  <hr>
+  <div class="form-row">
+    <label for="node-input-field"><i class="fa fa-file-image-o" aria-hidden="true"></i> <span>Container</span></label>
+    <input type="hidden" id="node-input-fieldType">
+    <input type="text" id="node-input-field">
+  </div>
+  <div class="form-row">
+    <label for="node-input-filename"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Filename</span></label>
+    <input type="hidden" id="node-input-filenameType">
+    <input type="text" id="node-input-filename">
+  </div>
+  <div class="form-row">
+    <label for="node-input-destination"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> <span>Destination</span></label>
+    <input type="hidden" id="node-input-destinationType">
+    <input type="text" id="node-input-destination">
+  </div>
+  <div class="form-row">
+    <label for="node-input-parameters"><i class="fa fa-list" aria-hidden="true"></i> <span>Parameters</span></label>
+    <input type="hidden" id="node-input-parametersType">
+    <input type="text" id="node-input-parameters">
+  </div>
+  <hr>
+  <div class="form-row">
+    <label for="node-input-output"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> <span>Output</span></label>
+    <input type="text" id="node-input-output">
+  </div>
 </script>
+
 <script type="text/x-red" data-help-name="dapi-container-data">
-  <p>This node retrieves container data from <code>msg.payload.data</code>. This node requires a <code>container</code> property, 
-  a <code>filename</code> property, and a <code>destination</code> property. Each property should be a <code>dot notation</code>path
-  to the required data, such as <code>fieldData.container</code> and <code>fieldData.fileName</code>. If the configured path does not exist
-  it will be automatically created.</p>
+  <p>
+    This node retrieves container data from <code>msg.payload.data</code>. This node requires a <code>container</code> property, 
+    a <code>filename</code> property, and a <code>destination</code> property. The filename and container properties should be 
+    dot notation paths to the required data. The destination property should be a <code>buffer</code> or a path to write file data. 
+    If the path does not exist it will be automatically created.
+  </p>
 
-    <h3>Inputs</h3>
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+    <dt>data<span class="property-type">Array | Object</span><dd>The data to retrieve container data from.</dd>
+    <dt>field<span class="property-type">String</span><dd>A dot notation path to the container field.</dd>
+    <dt>destination<span class="property-type">String</span><dd>Either <code>buffer</code> for a buffer object or the path to create files.</dd>
+    <dt>filename<span class="property-type">String</span><dd>A dot notation path to a filename. If the path returns <code>undefined</code> the path itself will be used.</dd>
+    <dt class="optional">parameters <span class="property-type">Object</span>
+      <dd><b>timeout</b> - <i>Number</i><br/>Timeout for the request. The default is <code>0</code> - no timeout.</dd>
+      <dd><b>agent</b> - <i>Object</i><br/>Agent to use when making the request.<a target="_blank" href="https://github.com/Luidog/fms-api-client#custom-request-agents"> More Info.</a></dd></dd>
+      <dd><b>proxy</b> - <i>Object</i><br/>Proxy server to use when making the request.<a target="_blank" href="https://github.com/Luidog/fms-api-client#proxies"> More Info.</a></dd></dd>
+      </dt>
+  </dl>
+
+  <h3>Outputs</h3>
+  <ol class="node-ports">
+  <li>Standard Output
     <dl class="message-properties">
-      <dt>data<span class="property-type">Array | Object</span><dd>The data to retrieve container data from.</dd>
-      <dt>field<span class="property-type">String</span><dd>A dot notation path to the container field.</dd>
-      <dt>destination<span class="property-type">String</span><dd>Either "buffer" for a buffer object or the path to create files.</dd>
-      <dt>name<span class="property-type">String</span><dd>The name of the file in the container field. This can be a property in data or a string.</dd>
-      <dt class="optional">parameters <span class="property-type">Object</span>
-        <dd><b>timeout</b> - <i>Number</i><br/>Timeout for the request.</dd>
-        <dd><b>agent</b> - <i>Object</i><br/>Agent to use when making the request.</dd>
-        <dd><b>proxy</b> - <i>Object</i><br/>Proxy server to use when making the request.</dd>
-        </dt>
+      <dt>data<span class="property-type">Array | Object</span>
+        <dd>Data can be either a single object or an array of objects.</dd>
+      </dt>
     </dl>
+  </li>
+    <li>Standard Error
+      <dl class="message-properties">
+        <dt>message<span class="property-type">String</span>
+          <dd>container data error message.</dd>
+        </dt>
+        </dl>
+      </li>
+  </ol>
 
-<h3>Outputs</h3>
-     <ol class="node-ports">
-         <li>Standard Output
-              <dl class="message-properties">
-                <dt>data<span class="property-type">Array | Object</span>
-              <dd>Data can be either a single object or an array of objects.</dd>
-            </dt>
-          </dl>
-         </li>
-         <li>Standard Error
-             <dl class="message-properties">
-                 <dt>message<span class="property-type">String</span>
-                    <dd>container data error message.</dd>
-                  </dt>
-             </dl>
-         </li>
-     </ol>
+  <h3>Details</h3>
+  <p>
+    This node retrieves container data from a <code>data</code> parameter. It will use the urls returned by the Data API to download container data.
+    This node will accept either a single object or an array of objects.<br/><br/>This node expects to receive a <code>container</code> property, 
+    a <code>filename</code> property, and a <code>destination</code> property. The <code>container</code> and <code>filename</code> 
+    properties should be dot notation paths to the required data. Examples of dot notation paths are <code>fieldData.container</code> and 
+    <code>fieldData.filename</code>.<br/><br/>This node will use the <code>filename</code> parameter for naming the incoming container data. 
+    If the configured <code>filename</code> parameter is not a property or nested property in the <code>data</code> parameter, the name parameter 
+    itself will be used.<br/><br/> The <code>destination</code> parameter should be either a <code>buffer</code> or a path, relative to the current working directory, 
+    where the node should write container data. If the destination parameter is <code>buffer</code> the node will return an object with a <code>buffer</code> 
+    property and a <code>filename</code> property. If the destination parameter is a path this node will write the file to that path and return an array or a 
+    single object with <code>filename</code> and <code>path</code> properties. If the path does not exist it will be automatically created.<br/><br/>
+    This utility will also accept optional request parameters to modify the http request.<br/><br/>This node can be configured to use either static or dynamic 
+    input parameters. Dynamic parameters may be read from either the <code>msg</code> property or the <code>flow</code> or <code>global</code> context.<br/><br/> 
+    The default output of this node is <code>msg.payload.data</code>. This node can also be configured to merge its output with any property on the <code>msg</code> object.
+  </p>
 
-<h3>Details</h3>
-  <p>This node retrieves container data from <code>msg.payload.data</code>. It will use the urls returned by the Data API to download container data.
-    This node will accept either a single object or an array of objects. It expects to recieve a <code>container</code> property, 
-  a <code>filename</code> property, and a <code>destination</code> property. Each property should be a <code>dot notation</code> path to the required data, such as
-  <code>fieldData.container</code> and <code>fieldData.fileName</code>. This node will also use a <code>msg.payload.filename</code> parameter for naming the incoming container data.<br/><br/> 
-    If a name parameter is provided that is not a property or nested property in the data parameter, the name parameter 
-    itself will be used. The destination parameter should be either 'buffer' to indicate that an object with a file's 
-    name and buffer should be returned or the a path, relative to the current working directory, where the utility 
-    should write container data to a file. If the path does not exist it will be automatically created. This utility will also accept optional request parameters to modify the 
-    http request.<br/><br/>This node can be configured to use either static or dynamic input parameters. Dynamic parameters 
-    may be read from either the <code>msg</code> property or the <code>flow</code> or <code>global</code> context.<br/><br/>
-    The default output of this node is <code>msg.payload.data</code>. This node can also be configured to merge its 
-    output with any property on the <code>msg</code> object.</p>
-
-<h3>References</h3>
-    <ul>
-        <li><a href="https://github.com/Luidog/fms-api-client#containerdata-utility">Container Data Utility</a> - Base Client Utility Documentation</li>
-        <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node Red FileMaker</a> - The Node's Github Repository</li>
-        <li><a href="https://github.com/Luidog/fms-api-client">Data API Client</a> - Data API Client Github Repository</li>
-    </ul>
+  <h3>References</h3>
+  <ul>
+    <li><a href="https://github.com/Luidog/fms-api-client#container-data-utility">Container Data Utility</a> - Base Client Utility Documentation</li>
+    <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node Red FileMaker</a> - The Node's Github Repository</li>
+    <li><a href="https://github.com/Luidog/fms-api-client">Data API Client</a> - Data API Client Github Repository</li>
+  </ul>
 </script>
