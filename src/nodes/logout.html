@@ -1,79 +1,86 @@
 <script type="text/javascript">
-    RED.nodes.registerType("dapi-logout", {
-      category: "FileMaker",
-      defaults: {
-        name: { value: null, required: false },
-        client: { value: "", type: "dapi-client" },
-        output: { value: "payload", required: true }
-      },
-      inputs: 1,
-      outputs: 1,
-      icon: "logout.png",
-      color: "#39D1C0",
-      label: "Logout",
-      paletteLabel: "Logout",
-      oneditprepare: function() {
-        $("#node-input-output").typedInput({
-          default: "msg",
-          types: ["msg"]
-        });
-      }
-    });
+  RED.nodes.registerType("dapi-logout", {
+    category: "FileMaker",
+    defaults: {
+      name: { value: null, required: false },
+      client: { value: "", type: "dapi-client" },
+      output: { value: "payload", required: true }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "logout.png",
+    color: "#39D1C0",
+    label: "Logout",
+    paletteLabel: "Logout",
+    oneditprepare: function() {
+      $("#node-input-output").typedInput({
+        default: "msg",
+        types: ["msg"]
+      });
+    }
+  });
 </script>
 
 <script type="text/x-red" data-template-name="dapi-logout">
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag" aria-hidden="true"></i> <span>Name</span></label>
-        <input type="text" id="node-input-name" placeholder="Specific Node">
-    </div>
-    <hr>
-    <div class="form-row">
-        <label for="node-input-client"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Client</span></label>
-        <input type="text" id="node-input-client">
-    </div>
-    <hr>
-    <div class="form-row">
-        <label for="node-input-output"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> <span>Output</span></label>
-        <input type="hidden" id="node-input-outputType">
-        <input type="text" id="node-input-output">
-    </div>
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag" aria-hidden="true"></i> <span>Name</span></label>
+    <input type="text" id="node-input-name" placeholder="Specific Node">
+  </div>
+  <hr>
+  <div class="form-row">
+    <label for="node-input-client"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Client</span></label>
+    <input type="text" id="node-input-client">
+  </div>
+  <hr>
+  <div class="form-row">
+    <label for="node-input-output"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> <span>Output</span></label>
+    <input type="hidden" id="node-input-outputType">
+    <input type="text" id="node-input-output">
+  </div>
 </script>
+
 <script type="text/x-red" data-help-name="dapi-logout">
-    <p>This node closes an open Data API session and removes the associated authentication token.<p>
+  <p>
+    This node closes an open Data API session and removes the associated authentication token.
+  </p>
 
-    <h3>Inputs</h3>
-        <dl class="message-properties">
-            <dt>payload
-                <span class="property-type">Any</span>
-                <dd>This node accepts any payload.</dd>
-            </dt>
-        </dl>
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+    <dt>payload
+      <span class="property-type">Any</span>
+        <dd>This node accepts any payload.</dd>
+      </dt>
+  </dl>
 
-    <h3>Outputs</h3>
-        <ol class="node-ports">
-            <li>Standard Output
-                <dl class="message-properties">
-                    <dt>message<span class="property-type">String</span>
-                    <dd>a success message.</dd>
-                    </dt>
-                </dl>
-            </li>
-            <li>Standard Error
-                <dl class="message-properties">
-                    <dt>message <span class="property-type">String</span>
-                    <dd>The FileMaker or client error message.</dd>
-                    </dt>
-                </dl>
-            </li>
-        </ol>
+  <h3>Outputs</h3>
+  <ol class="node-ports">
+    <li>Standard Output
+      <dl class="message-properties">
+        <dt>message<span class="property-type">String</span>
+          <dd>a success message.</dd>
+        </dt>
+      </dl>
+    </li>
+    <li>Standard Error
+      <dl class="message-properties">
+        <dt>message <span class="property-type">String</span>
+          <dd>The FileMaker or client error message.</dd>
+        </dt>
+      </dl>
+    </li>
+  </ol>
 
-    <h3>Details</h3>
-        <p>This node closes the currently open Data API session and removes the associated authentication token.</p>
+  <h3>Details</h3>
+  <p>
+    This node closes the currently open Data API session and removes the associated authentication token.<br/><br/>
+    The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its 
+    output with any property on the <code>msg</code> object.
+  </p>
 
-    <h3>References</h3>
-        <ul>
-            <li><a href="https://github.com/Luidog/fms-api-client#logout-method">Logout Method</a> - Base Client Method Documentation</li>
-            <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node Red FileMaker</a> - The Node's Github Repository</li>
-            <li><a href="https://github.com/Luidog/fms-api-client">Data API Client</a> - Data API Client Github Repository</li>
-        </ul>
+  <h3>References</h3>
+  <ul>
+    <li><a href="https://github.com/Luidog/fms-api-client#logout-method">Logout Method</a> - Base Client Method Documentation</li>
+    <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node Red FileMaker</a> - The Node's Github Repository</li>
+    <li><a href="https://github.com/Luidog/fms-api-client">Data API Client</a> - Data API Client Github Repository</li>
+  </ul>
 </script>

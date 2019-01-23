@@ -1,187 +1,192 @@
 <script type="text/javascript">
-    RED.nodes.registerType("dapi-perform-find", {
-      category: "FileMaker",
-      defaults: {
-        name: { value: null, required: false },
-        client: { value: "", type: "dapi-client" },
-        layout: {
-          value: "payload.layout",
-          required: true
-        },
-        layoutType: { value: "msg" },
-        limit: { value: null, required: false },
-        limitType: { value: "num" },
-        offset: { value: null, required: false },
-        offsetType: { value: "num" },
-        sort: { value: null, required: false },
-        sortType: { value: "none" },
-        query: { value: "payload.query", required: true },
-        queryType: { value: "msg", required: false },
-        scripts: { value: null, required: false },
-        scriptsType: { value: "none" },
-        portals: { value: null, required: false },
-        portalsType: { value: "none" },
-        output: { value: "payload", required: false }
+  RED.nodes.registerType("dapi-perform-find", {
+    category: "FileMaker",
+    defaults: {
+      name: { value: null, required: false },
+      client: { value: "", type: "dapi-client" },
+      layout: {
+        value: "payload.layout",
+        required: true
       },
-      oneditprepare: function() {
-        var nullType = { value: "none", label: "None", icon: "", hasValue: false };
-        $("#node-input-layout").typedInput({
-          default: "msg",
-          types: ["str", "msg", "flow", "global"],
-          typeField: $("#node-input-layoutType")
-        });
-        $("#node-input-limit").typedInput({
-          default: "num",
-          types: ["num", "msg", "flow", "global"],
-          typeField: $("#node-input-limitType")
-        });
-        $("#node-input-offset").typedInput({
-          default: "num",
-          types: ["num", "msg", "flow", "global"],
-          typeField: $("#node-input-offsetType")
-        });
-        $("#node-input-query").typedInput({
-          default: "msg",
-          types: ["msg", "json", "flow", "global"],
-          typeField: $("#node-input-queryType")
-        });
-        $("#node-input-sort").typedInput({
-          default: "none",
-          types: ["json", "msg", "flow", "global", nullType],
-          typeField: $("#node-input-sortType")
-        });
-        $("#node-input-scripts").typedInput({
-          default: "none",
-          types: ["json", "msg", "flow", "global", nullType],
-          typeField: $("#node-input-scriptsType")
-        });
-        $("#node-input-portals").typedInput({
-          default: "none",
-          types: ["json", "msg", "flow", "global", nullType],
-          typeField: $("#node-input-portalsType")
-        });
-        $("#node-input-output").typedInput({
-          default: "msg",
-          types: ["msg"]
-        });
-      },
-      inputs: 1,
-      outputs: 1,
-      icon: "find.png",
-      paletteLabel: "Find",
-      color: "#39D1C0",
-      label: function() {
-        return this.name || "Perform Find";
-      }
-    });
+      layoutType: { value: "msg" },
+      limit: { value: null, required: false },
+      limitType: { value: "num" },
+      offset: { value: null, required: false },
+      offsetType: { value: "num" },
+      sort: { value: null, required: false },
+      sortType: { value: "none" },
+      query: { value: "payload.query", required: true },
+      queryType: { value: "msg", required: false },
+      scripts: { value: null, required: false },
+      scriptsType: { value: "none" },
+      portals: { value: null, required: false },
+      portalsType: { value: "none" },
+      output: { value: "payload", required: false }
+    },
+    oneditprepare: function() {
+      var nullType = { value: "none", label: "None", icon: "", hasValue: false };
+      $("#node-input-layout").typedInput({
+        default: "msg",
+        types: ["str", "msg", "flow", "global"],
+        typeField: $("#node-input-layoutType")
+      });
+      $("#node-input-limit").typedInput({
+        default: "num",
+        types: ["num", "msg", "flow", "global"],
+        typeField: $("#node-input-limitType")
+      });
+      $("#node-input-offset").typedInput({
+        default: "num",
+        types: ["num", "msg", "flow", "global"],
+        typeField: $("#node-input-offsetType")
+      });
+      $("#node-input-query").typedInput({
+        default: "msg",
+        types: ["msg", "json", "flow", "global"],
+        typeField: $("#node-input-queryType")
+      });
+      $("#node-input-sort").typedInput({
+        default: "none",
+        types: ["json", "msg", "flow", "global", nullType],
+        typeField: $("#node-input-sortType")
+      });
+      $("#node-input-scripts").typedInput({
+        default: "none",
+        types: ["json", "msg", "flow", "global", nullType],
+        typeField: $("#node-input-scriptsType")
+      });
+      $("#node-input-portals").typedInput({
+        default: "none",
+        types: ["json", "msg", "flow", "global", nullType],
+        typeField: $("#node-input-portalsType")
+      });
+      $("#node-input-output").typedInput({
+        default: "msg",
+        types: ["msg"]
+      });
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "find.png",
+    paletteLabel: "Find",
+    color: "#39D1C0",
+    label: function() {
+      return this.name || "Perform Find";
+    }
+  });
 </script>
 
 <script type="text/x-red" data-template-name="dapi-perform-find">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag" aria-hidden="true"></i> <span>Name</span></label>
+    <input type="text" id="node-input-name" placeholder="Specific Node">
+  </div>
+  <hr>
+  <div class="form-row">
+    <label for="node-input-client"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Client</span></label>
+    <input type="text" id="node-input-client">
+  </div>
+  <div class="form-row">
+    <label for="node-input-layout"><i class="fa fa-list-alt" aria-hidden="true"></i> <span>Layout</span></label>
+    <input type="hidden" id="node-input-layoutType">
+    <input type="text" id="node-input-layout">
+  </div>
+  <hr>
+  <div class="form-row">
+    <label for="node-input-query"><i class="fa fa-search" aria-hidden="true"></i> <span>Query</span></label>
+    <input type="hidden" id="node-input-queryType">
+    <input type="text" id="node-input-query">
+  </div>
+  <div class="form-row">
+    <label for="node-input-limit"><i class="fa fa-stop-circle-o" aria-hidden="true"></i> <span>Limit</span></label>
+    <input type="hidden" id="node-input-limitType">
+    <input type="text" id="node-input-limit">
+  </div>
+  <div class="form-row">
+    <label for="node-input-sort"><i class="fa fa-sort" aria-hidden="true"></i> <span>Sort</span></label>
+    <input type="hidden" id="node-input-sortType">
+    <input type="text" id="node-input-sort">
+  </div>
+  <div class="form-row">
+    <label for="node-input-offset"><i class="fa fa-step-forward" aria-hidden="true"></i> <span>Offset</span></label>
+    <input type="hidden" id="node-input-offsetType">
+    <input type="text" id="node-input-offset">
+  </div>
+  <div class="form-row">
+    <label for="node-input-scripts"><i class="fa fa-files-o" aria-hidden="true"></i> <span>Scripts</span></label>
+    <input type="hidden" id="node-input-scriptsType">
+    <input type="text" id="node-input-scripts">
+  </div>
+  </div>
     <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag" aria-hidden="true"></i> <span>Name</span></label>
-        <input type="text" id="node-input-name" placeholder="Specific Node">
-    </div>
-    <hr>
-    <div class="form-row">
-        <label for="node-input-client"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Client</span></label>
-        <input type="text" id="node-input-client">
-    </div>
-    <div class="form-row">
-        <label for="node-input-layout"><i class="fa fa-list-alt" aria-hidden="true"></i> <span>Layout</span></label>
-        <input type="hidden" id="node-input-layoutType">
-        <input type="text" id="node-input-layout">
-    </div>
-    <hr>
-    <div class="form-row">
-        <label for="node-input-query"><i class="fa fa-search" aria-hidden="true"></i> <span>Query</span></label>
-        <input type="hidden" id="node-input-queryType">
-        <input type="text" id="node-input-query">
-    </div>
-    <div class="form-row">
-        <label for="node-input-limit"><i class="fa fa-stop-circle-o" aria-hidden="true"></i> <span>Limit</span></label>
-        <input type="hidden" id="node-input-limitType">
-        <input type="text" id="node-input-limit">
-    </div>
-    <div class="form-row">
-        <label for="node-input-sort"><i class="fa fa-sort" aria-hidden="true"></i> <span>Sort</span></label>
-        <input type="hidden" id="node-input-sortType">
-        <input type="text" id="node-input-sort">
-    </div>
-    <div class="form-row">
-        <label for="node-input-offset"><i class="fa fa-step-forward" aria-hidden="true"></i> <span>Offset</span></label>
-        <input type="hidden" id="node-input-offsetType">
-        <input type="text" id="node-input-offset">
-    </div>
-    <div class="form-row">
-        <label for="node-input-scripts"><i class="fa fa-files-o" aria-hidden="true"></i> <span>Scripts</span></label>
-        <input type="hidden" id="node-input-scriptsType">
-        <input type="text" id="node-input-scripts">
-    </div>
-    </div>
-        <div class="form-row">
-        <label for="node-input-portals"><i class="fa fa-code-fork" aria-hidden="true"></i> <span>Portals</span></label>
-        <input type="hidden" id="node-input-portalsType">
-        <input type="text" id="node-input-portals">
-    </div>
-    <hr>
-    <div class="form-row">
-        <label for="node-input-output"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> <span>Output</span></label>
-        <input type="hidden" id="node-input-outputType">
-        <input type="text" id="node-input-output">
-    </div>
+    <label for="node-input-portals"><i class="fa fa-code-fork" aria-hidden="true"></i> <span>Portals</span></label>
+    <input type="hidden" id="node-input-portalsType">
+    <input type="text" id="node-input-portals">
+  </div>
+  <hr>
+  <div class="form-row">
+    <label for="node-input-output"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> <span>Output</span></label>
+    <input type="hidden" id="node-input-outputType">
+    <input type="text" id="node-input-output">
+  </div>
 </script>
 <script type="text/x-red" data-help-name="dapi-perform-find">
-  <p>This node performs a find in FileMaker. Defaults are <code>msg.payload.layout</code> as the layout context, and <code>msg.payload.query</code>
-  as query parameters.</p>
+  <p>
+    This node performs a find in FileMaker. Defaults are <code>msg.payload.layout</code> as the layout context, and <code>msg.payload.query</code>
+    as query parameters.
+  </p>
 
   <h3>Inputs</h3>
-    <dl class="message-properties">
-      <dt>layout<span class="property-type">String</span><dd>The layout to use when performing a find</dd>
-      <dt>limit<span class="property-type">Number</span><dd>The number records to return of the found set. Default is 100.</dd>
-      <dt>offset<span class="property-type">Number</span><dd>The record offset of the found set. Default is 0.</dd>
-      <dt>query<span class="property-type">Object | Array</span><dd>The query to use when performing a find.<a target="_blank" href="https://github.com/Luidog/fms-api-client#query-syntax"> More Info.</a></dd>
-      <dt>sort<span class="property-type">Object</span><dd>The sort order of the found set.<a target="_blank" href="https://github.com/Luidog/fms-api-client#sort-syntax"> More Info.</a></dd>
-      <dt>portals<span class="property-type">Array</span><dd>An array of portals to include in the found set.<a target="_blank" href="https://github.com/Luidog/fms-api-client#portals-array-syntax"> More Info.</a></dd>
-      <dt>scripts<span class="property-type">Array</span><dd>The FileMaker scripts to run when performing a find.<a target="_blank" href="https://github.com/Luidog/fms-api-client#script-array-syntax"> More Info.</a></dd>
-    </dl>
+  <dl class="message-properties">
+    <dt>layout<span class="property-type">String</span><dd>The layout to use when performing a find</dd>
+    <dt>limit<span class="property-type">Number</span><dd>The number records to return of the found set. Default is <code>100</code>.</dd>
+    <dt>offset<span class="property-type">Number</span><dd>The record offset of the found set. Default is <code>0</code>.</dd>
+    <dt>query<span class="property-type">Object | Array</span><dd>The query to use when performing a find.<a target="_blank" href="https://github.com/Luidog/fms-api-client#query-syntax"> More Info.</a></dd>
+    <dt>sort<span class="property-type">Object</span><dd>The sort order of the found set.<a target="_blank" href="https://github.com/Luidog/fms-api-client#sort-syntax"> More Info.</a></dd>
+    <dt>portals<span class="property-type">Array</span><dd>An array of portals to include in the found set.<a target="_blank" href="https://github.com/Luidog/fms-api-client#portals-array-syntax"> More Info.</a></dd>
+    <dt>scripts<span class="property-type">Array</span><dd>The FileMaker scripts to run when performing a find.<a target="_blank" href="https://github.com/Luidog/fms-api-client#script-array-syntax"> More Info.</a></dd>
+  </dl>
 
   <h3>Outputs</h3>
-    <ol class="node-ports">
-        <li>Standard Output
-          <dl class="message-properties">
-            <dt>data<span class="property-type">Array</span>
-              <dd>The record found set.</dd>
-            </dt>
-          </dl>
-        </li>
-         <li>Standard Error
-             <dl class="message-properties">
-                 <dt>message<span class="property-type">String</span>
-                    <dd>The FileMaker or Data API client error message.</dd>
-                  </dt>
-                  <dt>error<span class="property-type">String</span>
-                    <dd>The applicible FileMaker error code.</dd>
-                  </dt>
-             </dl>
-         </li>
-     </ol>
+  <ol class="node-ports">
+    <li>Standard Output
+      <dl class="message-properties">
+        <dt>data<span class="property-type">Array</span>
+          <dd>The record found set.</dd>
+        </dt>
+      </dl>
+    </li>
+    <li>Standard Error
+      <dl class="message-properties">
+        <dt>message<span class="property-type">String</span>
+          <dd>The FileMaker or Data API client error message.</dd>
+        </dt>
+        <dt>error<span class="property-type">String</span>
+          <dd>The applicable FileMaker error code.</dd>
+        </dt>
+      </dl>
+    </li>
+  </ol>
 
   <h3>Details</h3>
-    <p>This node perform a find in FileMaker. By default this node will use the object or array in <code>msg.payload.query</code>
+  <p>
+    This node perform a find in FileMaker. By default this node will use the object or array in <code>msg.payload.query</code>
     to perform a find and <code>msg.payload.layout</code> as the layout context.<br/><br/>
     This node can be configured to use either static or dynamic input parameters. Dynamic parameters may be
-    read from either the <code>msg</code> property or the <code>flow</code> or <code>global</code> context.<br/><br/>
+    read from either the <code>msg</code> property or the <code>flow</code> and <code>global</code> contexts.<br/><br/>
     The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its 
-    output with any property on the <code>msg</code> object.</p>
+    output with any property on the <code>msg</code> object.
+  </p>
+
   <h3>References</h3>
-        <ul>
-            <li><a href="https://github.com/Luidog/fms-api-client#find-records">Find Method</a> - Base Client Method Documentation</li>
-            <li><a href="https://github.com/Luidog/fms-api-client#data-syntax">Data Syntax</a> - Data Syntax Documentation</li>
-            <li><a href="https://github.com/Luidog/fms-api-client#query-syntax"> Query Syntax.</a> - Query Syntax Documentation</li>
-            <li><a href="https://github.com/Luidog/fms-api-client#sort-syntax"> Sort Syntax.</a> - Sort Syntax Documentation</li>
-            <li><a href="https://github.com/Luidog/fms-api-client#script-array-syntax">Scripts Array</a> - Scripts Array Documentation</li>
-            <li><a href="https://github.com/Luidog/fms-api-client#portals-array-syntax">Portals Array</a> - Portals Array Documentation</li>
-            <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node Red FileMaker</a> - The Node's Github Repository</li>
-            <li><a href="https://github.com/Luidog/fms-api-client">Data API Client</a> - Data API Client Github Repository</li>
-        </ul>
+  <ul>
+    <li><a href="https://github.com/Luidog/fms-api-client#find-records">Find Method</a> - Base Client Method Documentation</li>
+    <li><a href="https://github.com/Luidog/fms-api-client#data-syntax">Data Syntax</a> - Data Syntax Documentation</li>
+    <li><a href="https://github.com/Luidog/fms-api-client#query-syntax"> Query Syntax.</a> - Query Syntax Documentation</li>
+    <li><a href="https://github.com/Luidog/fms-api-client#sort-syntax"> Sort Syntax.</a> - Sort Syntax Documentation</li>
+    <li><a href="https://github.com/Luidog/fms-api-client#script-array-syntax">Scripts Array</a> - Scripts Array Documentation</li>
+    <li><a href="https://github.com/Luidog/fms-api-client#portals-array-syntax">Portals Array</a> - Portals Array Documentation</li>
+    <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node Red FileMaker</a> - The Node's Github Repository</li>
+    <li><a href="https://github.com/Luidog/fms-api-client">Data API Client</a> - Data API Client Github Repository</li>
+  </ul>
 </script>
