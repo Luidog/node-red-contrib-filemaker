@@ -56,8 +56,11 @@
   <ol class="node-ports">
     <li>Standard Output
       <dl class="message-properties">
+        <dt>code<span class="property-type">String</span>
+          <dd>A success code.</dd>
+        </dt>
         <dt>message<span class="property-type">String</span>
-          <dd>a success message.</dd>
+          <dd>A success message.</dd>
         </dt>
       </dl>
     </li>
@@ -72,7 +75,7 @@
 
   <h3>Details</h3>
   <p>
-    This node closes the currently open Data API session and removes the associated authentication token.<br/><br/>
+    This node closes the currently open Data API session and removes the associated session token.<br/><br/>
     The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its 
     output with any property on the <code>msg</code> object.
   </p>
