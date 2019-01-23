@@ -84,7 +84,7 @@
     <li>Standard Error
       <dl class="message-properties">
         <dt>message<span class="property-type">String</span>
-          <dd>transform error message.</dd>
+          <dd>A node generated error message.</dd>
         </dt>
       </dl>
     </li>
@@ -102,7 +102,7 @@
         <li>Standard Error
       <dl class="message-properties">
         <dt>message<span class="property-type">String</span>
-          <dd>A error message.</dd>
+          <dd>A node generated error message.</dd>
         </dt>
       </dl>
     </li>
@@ -110,13 +110,13 @@
 
   <h3>Details</h3>
   <p>
-    This node converts Data API record data. This node will traverse the incoming data and convert <code>{ table::field : value }</code> 
-    properties to <code>{ table: { field : value } }</code>.This node will also move portalData properties into the main object.
+    This node transforms Data API record data. This node will traverse the incoming data and convert <code>{ table::field : value }</code> 
+    properties to <code>{ table: { field : value } }</code>.This node will also move portal and field data properties into the main object.
     This node also accepts an additional parameters object.<a target="_blank" href="https://github.com/Luidog/fms-api-client#transform-utility-results"> 
     See Example.</a><br/><br/>The parameters object can have three boolean properties. The <code>convert</code> property controls the transformation of 
-    <code>table::field</code> properties. The <code>fieldData</code> property controls the merging of fieldData into to the result.
-    The <code>portalData</code> property controls the merging of portalData to the result. Provide a parameter object and set one of the parameters to false to turn
-    off that parameter.<br/><br/>This node can be configured to use either static or dynamic input parameters. Dynamic parameters may be read 
+    <code>table::field</code> properties. The <code>fieldData</code> property controls the merging of field data into to the result.
+    The <code>portalData</code> property controls the merging of portal data to the result.<br/><br/>Provide a parameter object and set one of the parameters 
+    to <code>false</code> to turn off that parameter.<br/><br/>This node can be configured to use either static or dynamic input parameters. Dynamic parameters may be read 
     from either the <code>msg</code> property or the <code>flow</code> or <code>global</code> context.<br/><br/>The default output of this node is 
     <code>msg.payload.data</code>. This node can also be configured to merge its output with any property on the <code>msg</code> object.
   </p>

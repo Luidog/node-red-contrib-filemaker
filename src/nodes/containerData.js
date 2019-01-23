@@ -19,25 +19,46 @@ module.exports = function(RED) {
         "destination",
         "parameters"
       ]);
-      destination !== "buffer"
+      destination && destination !== "buffer"
         ? await fs
             .ensureDir(destination)
             .then(() =>
-              containerData(data, field, destination, filename, parameters)
+              containerData(
+                data || [{}],
+                field,
+                destination,
+                filename,
+                parameters
+              )
+            )
+            .then(
+              data =>
+                Array.isArray(data)
+                  ? data.map(({ name, path }) => ({
+                      filename: name,
+                      path
+                    }))
+                  : { ...data, filename: data.name }
             )
             .then(files =>
               node.send(merge(configuration.output, message, files))
             )
             .catch(error => node.error(error.message, message))
-        : await containerData(
-            data,
-            field,
-            destination,
-            filename,
-            parameters
-          ).then(files =>
-            node.send(merge(configuration.output, message, files))
-          );
+        : await containerData(data || {}, field, "buffer", filename, parameters)
+            .then(
+              data =>
+                Array.isArray(data)
+                  ? data.map(({ name, buffer }) => ({
+                      filename: name,
+                      buffer
+                    }))
+                  : { ...data, filename: data.name }
+            )
+            .then(files =>
+              node.send(merge(configuration.output, message, files))
+            )
+
+            .catch(error => node.error(error.message, message));
     });
   }
   RED.nodes.registerType("dapi-container-data", containerData);

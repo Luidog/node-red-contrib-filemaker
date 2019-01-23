@@ -43,7 +43,7 @@
 
 <script type="text/x-red" data-help-name="dapi-login">
   <p>
-    This node starts a FileMaker Data API session and saves the authentication token. You are not required to call 
+    This node starts a FileMaker Data API session and saves received the session token. You are not required to call 
     this node before calling any other node.
   </p>
 
@@ -59,7 +59,7 @@
     <li>Standard Output
       <dl class="message-properties">
         <dt>token<span class="property-type">String</span>
-          <dd>The Data API authentication token.</dd>
+          <dd>A Data API session token.</dd>
         </dt>
       </dl>
     </li>
@@ -77,7 +77,7 @@
 
   <h3>Details</h3>
   <p>
-    This node will open a FileMaker Data API session. This node will also save the resulting authentication 
+    This node will open a FileMaker Data API session. This node will also save the received session token 
     for future use by the configured client. You are not required to call this node before calling any other node.<br/><br/>
     The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its 
     output with any property on the <code>msg</code> object.

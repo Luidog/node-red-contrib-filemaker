@@ -121,7 +121,7 @@
   <p>
     This node will run a specific script in FileMaker. By default this node will use <code>msg.payload.layout</code>
     as the layout context and <code>msg.payload.script</code> as the script to run. This node can also be configured to call a script
-    with a dynamic parameter. If a script's result is valid JSON will be automatically parsed. This node is an abstraction on top of endpoints 
+    with a dynamic parameter. If a script's result is valid JSON it will be automatically parsed. This node is an abstraction of endpoints 
     in the FileMaker Data API.<br/><br/>This node can be configured to use either static or dynamic input parameters. Dynamic parameters may 
     be read from either the <code>msg</code> property or the <code>flow</code> and <code>global</code> contexts.<br/><br/>The default output 
     of this node is <code>msg.payload</code>. This node can also be configured to merge its output with any property on the <code>msg</code> object.

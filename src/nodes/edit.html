@@ -124,11 +124,8 @@
     <ol class="node-ports">
       <li>Standard Output
         <dl class="message-properties">
-          <dt>recordId<span class="property-type">String</span>
-            <dd>The record id for the created record.</dd>
-          </dt>
           <dt>modId<span class="property-type">String</span>
-            <dd>The modification id for the created record.</dd>
+            <dd>The modification id for the edited record.</dd>
           </dt>
         </dl>
       </li>
@@ -146,7 +143,7 @@
 
   <h3>Details</h3>
   <p>
-    This node edits a specific record in FileMaker. By default this node will use <code>msg.payload.recordId</code> as the record Id
+    This node edits a specific record in FileMaker. By default this node will use <code>msg.payload.recordId</code> as the record id
     to target for editing, the data found in <code>msg.payload.data</code> for editing field and portal data, and <code>msg.payload.layout</code>
     as the layout context.<br/><br/>This node can be configured to use either static or dynamic input parameters. Dynamic parameters may be 
     read from either the <code>msg</code> property or the <code>flow</code> and <code>global</code> contexts.<br/><br/>
