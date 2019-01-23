@@ -17,69 +17,70 @@ read from either the `msg` property or the `flow` and `global` contexts. The def
 
 ## Table of Contents
 
-- [node-red-contrib-filemaker](#node-red-contrib-filemaker)
-  * [Project Information](#project-information)
-  * [Table of Contents](#table-of-contents)
-  * [Installation](#installation)
-  * [Login Node](#login-node)
-    + [Login Illustration](#login-illustration)
-    + [Login Flow](#login-flow)
-  * [Logout Node](#logout-node)
-    + [Logout Illustration](#logout-illustration)
-    + [Logout Flow](#logout-flow)
-  * [Create Node](#create-node)
-    + [Create Illustration](#create-illustration)
-    + [Create Flow](#create-flow)
-  * [Edit Node](#edit-node)
-    + [Edit Illustration](#edit-illustration)
-    + [Edit Flow](#edit-flow)
-  * [Delete Node](#delete-node)
-    + [Delete Illustration](#delete-illustration)
-    + [Delete Flow](#delete-flow)
-  * [Get Node](#get-node)
-    + [Get Illustration](#get-illustration)
-    + [Get Flow](#get-flow)
-  * [List Node](#list-node)
-    + [List Illustration](#list-illustration)
-    + [List Flow](#list-flow)
-  * [Find Node](#find-node)
-    + [Find Illustration](#find-illustration)
-    + [Find Flow](#find-flow)
-  * [Script Node](#script-node)
-    + [Script Illustration](#script-illustration)
-    + [Script Flow](#script-flow)
-  * [Upload Node](#upload-node)
-    + [Upload Illustration](#upload-illustration)
-    + [Upload Flow](#upload-flow)
-  * [Globals Node](#globals-node)
-    + [Globals Illustration](#globals-illustration)
-    + [Globals Flow](#globals-flow)
-  * [Field Data Node](#field-data-node)
-    + [Field Data Illustration](#field-data-illustration)
-    + [Field Data Flow](#field-data-flow)
-  * [Record Ids Node](#record-ids-node)
-    + [Record Ids Illustration](#record-ids-illustration)
-    + [Record Ids Flow](#record-ids-flow)
-  * [Transform Node](#transform-node)
-    + [Transform Illustration](#transform-illustration)
-    + [Transform Flow](#transform-flow)
-  * [Container Data Node](#container-data-node)
-    + [Container Data Illustration](#container-data-illustration)
-    + [Container Data Flow](#container-data-flow)
-  * [Tests](#tests)
-  * [License](#license)
-  * [Dependencies](#dependencies)
-  * [Development Dependencies](#development-dependencies)
+- [Installation](#installation)
+- [Login Node](#login-node)
+  - [Login Illustration](#login-illustration)
+  - [Login Flow](#login-flow)
+- [Logout Node](#logout-node)
+  - [Logout Illustration](#logout-illustration)
+  - [Logout Flow](#logout-flow)
+- [Create Node](#create-node)
+  - [Create Illustration](#create-illustration)
+  - [Create Flow](#create-flow)
+- [Edit Node](#edit-node)
+  - [Edit Illustration](#edit-illustration)
+  - [Edit Flow](#edit-flow)
+- [Delete Node](#delete-node)
+  - [Delete Illustration](#delete-illustration)
+  - [Delete Flow](#delete-flow)
+- [Get Node](#get-node)
+  - [Get Illustration](#get-illustration)
+  - [Get Flow](#get-flow)
+- [List Node](#list-node)
+  - [List Illustration](#list-illustration)
+  - [List Flow](#list-flow)
+- [Find Node](#find-node)
+  - [Find Illustration](#find-illustration)
+  - [Find Flow](#find-flow)
+- [Script Node](#script-node)
+  - [Script Illustration](#script-illustration)
+  - [Script Flow](#script-flow)
+- [Upload Node](#upload-node)
+  - [Upload Illustration](#upload-illustration)
+  - [Upload Flow](#upload-flow)
+- [Globals Node](#globals-node)
+  - [Globals Illustration](#globals-illustration)
+  - [Globals Flow](#globals-flow)
+- [Field Data Node](#field-data-node)
+  - [Field Data Illustration](#field-data-illustration)
+  - [Field Data Flow](#field-data-flow)
+- [Record Ids Node](#record-ids-node)
+  - [Record Ids Illustration](#record-ids-illustration)
+  - [Record Ids Flow](#record-ids-flow)
+- [Transform Node](#transform-node)
+  - [Transform Illustration](#transform-illustration)
+  - [Transform Flow](#transform-flow)
+- [Container Data Node](#container-data-node)
+  - [Container Data Illustration](#container-data-illustration)
+  - [Container Data Flow](#container-data-flow)
+- [Tests](#tests)
+- [License](#license)
+- [Dependencies](#dependencies)
+- [Development Dependencies](#development-dependencies)
 
 ## Installation
+
+These nodes can be installed from the command line by running the following command in your Node Red directory:
 
 ```sh
 npm install --save node-red-contrib-filemaker
 ```
 
+These nodes can also be installed using the Node Red palette manager.
+
 ## Login Node
 
-The login node will open a FileMaker Data API session. This node will also save the resulting authentication for future use by the configured client. You are *not required* to login before using any node in a flow.
+The login node will open a FileMaker Data API session. This node will also save the resulting session token for future use by the configured client. You are _not required_ to login before using any other node in a flow.
 
 ### Login Illustration
 
@@ -91,7 +92,7 @@ The login node will open a FileMaker Data API session. This node will also save 
 
 ## Logout Node
 
-The logout node closes the currently open Data API session and removes the associated authentication token. You are *not required* to logout at the end of a flow.
+The logout node closes the currently open Data API session and removes the associated session token. You are _not required_ to logout at the end of a flow.
 
 ### Logout Illustration
 
@@ -115,7 +116,7 @@ The create node creates a record in FileMaker. By default The create node will u
 
 ## Edit Node
 
-The edit node edits a specific record in FileMaker. By default the edit node will use `msg.payload.recordId` as the record Id to target for editing, the data found in `msg.payload.data` for editing field and portal data, and `msg.payload.layout` as the layout context.
+The edit node edits a specific record in FileMaker. By default the edit node will use `msg.payload.recordId` as the record id to target for editing, the data found in `msg.payload.data` for editing field and portal data, and `msg.payload.layout` as the layout context.
 
 ### Edit Illustration
 
@@ -127,7 +128,7 @@ The edit node edits a specific record in FileMaker. By default the edit node wil
 
 ## Delete Node
 
-The delete node deletes a specific record in FileMaker. By default the delete node will use `msg.payload.recordId` as the record Id to target for deletion and `msg.payload.layout` as the layout context.
+The delete node deletes a specific record in FileMaker. By default the delete node will use `msg.payload.recordId` as the record id to target for deletion and `msg.payload.layout` as the layout context.
 
 ### Delete Illustration
 
@@ -151,7 +152,7 @@ The get node retrieves a specific FileMaker record. By default the get node will
 
 ## List Node
 
-The List node lists FileMaker records for a specified layout. By default the list node will use the value found in `msg.payload.layout` as layout context.
+The List node lists FileMaker records for a specified layout. By default the list node will use the value found in `msg.payload.layout` as the layout context.
 
 ### List Illustration
 
@@ -163,7 +164,7 @@ The List node lists FileMaker records for a specified layout. By default the lis
 
 ## Find Node
 
-The find node performs a find in FileMaker. By Default the find node will user `msg.payload.layout` as the layout context, and `msg.payload.query` as query parameters.
+The find node performs a find in FileMaker. By Default the find node will user `msg.payload.layout` as the layout context, and `msg.payload.query` as query parameters for the find.
 
 ### Find Illustration
 
@@ -199,7 +200,7 @@ The upload node will transfer binary data to a FileMaker container. By default t
 
 ## Globals Node
 
-The globals node will set global record values for the current FileMaker session. The globals node will use `msg.payload.data` to set global fields. 
+The globals node will set global record field values for the current FileMaker session. The globals node will use `msg.payload.data` to set global fields. 
 
 ### Globals Illustration
 
@@ -265,7 +266,7 @@ npm test
 ```
 
 ```default
-> node-red-contrib-filemaker@0.9.9 test /node-red-contrib-filemaker
+> node-red-contrib-filemaker@1.0.0 test /node-red-contrib-filemaker
 > nyc _mocha --recursive  "test/**/*_spec.js" --timeout=30000 --exit
 
 
@@ -275,78 +276,84 @@ npm test
 
   Container Data Node
     ✓ should be loaded
-    ✓ should download an object of Container Data to a buffer (2821ms)
-    ✓ should download an object Container Data to the filesystem (1498ms)
-    ✓ should download Container Data to the filesystem (1517ms)
-    ✓ should throw an error with a message and a code (266ms)
+    ✓ should download an object with container data to a buffer (2602ms)
+    ✓ should download an array of objects with container data to a buffer (1591ms)
+    ✓ should download an object with container data to the filesystem (1415ms)
+    ✓ should download an array of objects with container data to the filesystem (1394ms)
+    ✓ should throw an error with a message and a code when writing an object to a buffer and an error is triggered
+    ✓ should throw an error with a message and a code when writing an array to a buffer an error is triggered 
+    ✓ should handle undefined data input when writing to a buffer
+    ✓ should handle undefined data input when writing to a file
+    ✓ should throw an error when writing data to the filesystem and an error is triggered
+    ✓ should throw an error with a message and a code when writing to a buffer and an array is triggered
 
   Create Record Node
     ✓ should be loaded
-    ✓ should create a record (186ms)
-    ✓ should create allow the filemaker response to be merged to the message object (182ms)
-    ✓ should use flow context to create a record. (179ms)
-    ✓ should use global context to create a record. (171ms)
+    ✓ should create a record (180ms)
+    ✓ should create allow the filemaker response to be merged to the message object (172ms)
+    ✓ should use flow context to create a record. (176ms)
+    ✓ should use global context to create a record. (178ms)
     ✓ should throw an error with a message and a code (170ms)
 
   Delete Record Node
     ✓ should be loaded
-    ✓ should delete a record (250ms)
-    ✓ should throw an error with a message and a code (171ms)
+    ✓ should delete a record (259ms)
+    ✓ should throw an error with a message and a code (183ms)
 
   Edit Record Node
     ✓ should be loaded
-    ✓ should edit a record (255ms)
-    ✓ should support merging data when editing a record (258ms)
-    ✓ should throw an error with a message and a code (174ms)
+    ✓ should edit a record (257ms)
+    ✓ should support merging data when editing a record (254ms)
+    ✓ should throw an error with a message and a code (168ms)
 
   FieldData Utility Node
     ✓ should be loaded
-    ✓ should transform an array of objects (251ms)
-    ✓ should transform a a single object (259ms)
+    ✓ should transform an array of objects (272ms)
+    ✓ should transform a a single object (443ms)
     ✓ should reject with an error message and code
 
   Find Records Node
     ✓ should be loaded
-    ✓ should perform a find (265ms)
-    ✓ should throw an error with a message and a code (213ms)
+    ✓ should perform a find (268ms)
+    ✓ should throw an error with a message and a code (170ms)
 
   Get Record Node
     ✓ should be loaded
-    ✓ should get a specific record (248ms)
-    ✓ should throw an error with a message and a code (212ms)
+    ✓ should get a specific record (261ms)
+    ✓ should throw an error with a message and a code (168ms)
 
   Set Globals Node
     ✓ should be loaded
-    ✓ should set globals (172ms)
-    ✓ should throw an error with a message and a code (169ms)
+    ✓ should set globals (171ms)
+    ✓ should throw an error with a message and a code (165ms)
 
   List Records Node
     ✓ should be loaded
-    ✓ should List records (270ms)
-    ✓ should throw an error with a message and a code (173ms)
+    ✓ should List records (259ms)
+    ✓ should throw an error with a message and a code (172ms)
 
   Login Node
     ✓ should be loaded
-    ✓ should login to a Data API session (96ms)
-    ✓ should throw an error with a message and a code (1543ms)
+    ✓ should login to a Data API session (91ms)
+    ✓ should throw an error with a message and a code (1659ms)
 
   Logout Node
     ✓ should be loaded
-    ✓ should close a Data API Session (190ms)
+    ✓ should close a Data API Session (213ms)
     ✓ should throw an error with a message and a code
 
   Record Id Utility Node
     ✓ should be loaded
-    ✓ should extract record ids from a single object (261ms)
-    ✓ should extract record ids from an array of objects (260ms)
+    ✓ should extract record ids from a single object (253ms)
+    ✓ should extract record ids from an array of objects (257ms)
     ✓ should reject with an error message and a code
 
   Trigger Script Node
     ✓ should be loaded
-    ✓ should trigger a script (179ms)
-    ✓ should parse a script result if it is valid json (174ms)
-    ✓ should not parse a script result if it is not valid json (180ms)
-    ✓ should throw an error with a message and a code (170ms)
+    ✓ should trigger a script (170ms)
+    ✓ should parse a script result if it is valid json (173ms)
+    ✓ should not parse a script result if it is not valid json (181ms)
+    ✓ should throw an error with a message and a code (166ms)
 
   Utility Services
     merge utility
@@ -377,18 +384,18 @@ npm test
 
   Transform Utility Node
     ✓ should be loaded
-    ✓ should transform an array of objects (296ms)
-    ✓ should transform a single object (271ms)
+    ✓ should transform an array of objects (263ms)
+    ✓ should transform a single object (262ms)
     ✓ should throw an error with a message and a code
 
   Upload File Node
     ✓ should be loaded
-    ✓ should upload to an existing record (332ms)
-    ✓ should upload to a file to a new record (344ms)
+    ✓ should upload to an existing record (337ms)
+    ✓ should upload to a file to a new record (357ms)
     ✓ should throw an error with a message and a code
 
 
-  78 passing (15s)
+  84 passing (16s)
 
 -----------------------|----------|----------|----------|----------|-------------------|
 File                   |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
