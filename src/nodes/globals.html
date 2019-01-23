@@ -56,7 +56,7 @@
 
 <script type="text/x-red" data-help-name="dapi-set-globals">
   <p>
-    This node sets global fields for the current FileMaker session. Default is <code>msg.payload.data</code> for setting global fields.
+    This node sets global fields for the current FileMaker Data API session. Default is <code>msg.payload.data</code> for setting global fields.
   <p>
 
   <h3>Inputs</h3>
@@ -68,8 +68,8 @@
   <ol class="node-ports">
     <li>Standard Output
       <dl class="message-properties">
-        <dt>data<span class="property-type">Object</span>
-          <dd>The updated global field data.</dd>
+        <dt>none<span class="property-type">Object</span>
+          <dd>This node returns an empty object.</dd>
         </dt>
       </dl>
     </li>
@@ -88,7 +88,7 @@
   <h3>Details</h3>
   <p>
     This node sets global fields for the current FileMaker session. This node will use the data found in <code>msg.payload.data</code> 
-    to set global data for the current FileMaker session.<br/><br/>This node can be configured to use either static or dynamic input parameters. 
+    to set global data for the current FileMaker Data API session.<br/><br/>This node can be configured to use either static or dynamic input parameters. 
     Dynamic parameters may be read from either the <code>msg</code> property or the <code>flow</code> and <code>global</code> contexts.<br/><br/>
     The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its 
     output with any property on the <code>msg</code> object.
