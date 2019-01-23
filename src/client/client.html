@@ -1,20 +1,20 @@
 <script type="text/javascript">
   RED.nodes.registerType("dapi-client", {
-      category: "config",
-      defaults: {
-        name: { value: null, required: true },
-        usage: { value: false, required: false }
-      },
-      credentials: {
-        server: { type: "text", required: true },
-        application: { type: "text", required: true },
-        username: { type: "text", required: true },
-        password: { type: "password", required: true }
-      },
-      label: function() {
-        return this.name || "Unconfigured Client";
-      }
-    });
+    category: "config",
+    defaults: {
+      name: { value: null, required: true },
+      usage: { value: false, required: false }
+    },
+    credentials: {
+      server: { type: "text", required: true },
+      application: { type: "text", required: true },
+      username: { type: "text", required: true },
+      password: { type: "password", required: true }
+    },
+    label: function() {
+      return this.name || "Unconfigured Client";
+    }
+  });
 </script>
 
 <script type="text/x-red" data-template-name="dapi-client">
