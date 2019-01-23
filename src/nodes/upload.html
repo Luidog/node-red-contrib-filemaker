@@ -112,8 +112,7 @@
 
 <script type="text/x-red" data-help-name="dapi-upload-file">
   <p>
-    This node uploads binary data to a FileMaker container. Defaults are <code>msg.payload.file</code> as either a string path or buffer object
-    and <code>msg.payload.layout</code> as the layout context.
+    This node uploads binary data to a FileMaker container. Defaults are <code>msg.payload.file</code> as the file to upload and <code>msg.payload.layout</code> as the layout context.
   </p>
 
   <h3>Inputs</h3>
@@ -124,7 +123,7 @@
     <dt>recordId<span class="property-type">String | Number</span><dd>The record id to target when uploading a file. If omitted a new record will be created.</dd>
     <dt class="optional">parameters <span class="property-type">Object</span>
       <dd><b>fieldRepetition</b> - <i>String | Number</i><br/>Container field repetition to upload the data.</dd>
-      <dd><b>timeout</b> - <i>Number</i><br/>Timeout for the request. The default is <code>0</code>.No timeout.</dd>
+      <dd><b>timeout</b> - <i>Number</i><br/>Timeout for the request. The default is <code>0</code> - no timeout.</dd>
       <dd><b>agent</b> - <i>Object</i><br/>Agent to use when making the request.<a target="_blank" href="https://github.com/Luidog/fms-api-client#custom-request-agents"> More Info.</a></dd></dd>
       <dd><b>proxy</b> - <i>Object</i><br/>Proxy server to use when making the request.<a target="_blank" href="https://github.com/Luidog/fms-api-client#proxies"> More Info.</a></dd></dd>
     </dt>
@@ -156,14 +155,14 @@
 
   <h3>Details</h3>
   <p>
-    This node uploads binary data to a FileMaker container field. By default this node will use a string or object in <code>msg.payload.file</code> 
-    as the file to insert into a container field. If the <code>file</code> property is a string it will be treated as a path relative to the Node 
-    Red process. This node can also handle buffered data in the form of an object with a <code>buffer</code> property and a <code>name</code> property.
-    <br/><br/>The buffer property should be buffered file data and the name property should be the name of the file. This node will create a FileMaker 
-    record unless a recordId property is passed to it. This node can also be configured with an optional parameter object. The parameter object can 
-    include timeout and fieldRepetition properties. These properties specify a container field repetition and upload request timeout.<br/><br/>
+    This node uploads binary data to a FileMaker container field. By default this node will use a value in <code>msg.payload.file</code> 
+    as the file to insert into a container field. If the <code>file</code> property is a <code>string</code> it will be treated as a <code>path</code> relative to the Node 
+    Red process. This node can also handle buffered data in the form of an <code>object</code> with a <code>buffer</code> property and a <code>name</code> property. 
+    The buffer property should be buffered file data and the name property should be the name of the file.<br/><br/> This node will create a FileMaker 
+    record unless it recieves a record id property. This node can also be configured with an optional parameter object. The parameter object can 
+    include a field repetition, a request timeout, and a proxy.<br/><br/> The properties specify a container field repetition and upload request timeout.<br/><br/>
     This node can be configured to use either static or dynamic input parameters. Dynamic parameters may be read from either the <code>msg</code> 
-    property or the <code>flow</code> or <code>global</code> context.<br/><br/> The default output of this node is <code>msg.payload</code>. 
+    property or the <code>flow</code> and <code>global</code> contexts.<br/><br/> The default output of this node is <code>msg.payload</code>. 
     This node can also be configured to merge its output with any property on the <code>msg</code> object.
   </p>
 
