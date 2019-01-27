@@ -84,7 +84,7 @@ The login node will open a FileMaker Data API session. This node will also save 
 
 ### Login Illustration
 
-![Login Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//login-node.png)
+![Login Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images/login-node.png)
 
 ### Login Flow
 
@@ -96,7 +96,7 @@ The logout node closes the currently open Data API session and removes the assoc
 
 ### Logout Illustration
 
-![Logout Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//logout-node.png)
+![Logout Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images/logout-node.png)
 
 ### Logout Flow
 
@@ -108,7 +108,7 @@ The create node creates a record in FileMaker. By default The create node will u
 
 ### Create Illustration
 
-![Create Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//create-node.png)
+![Create Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images/create-node.png)
 
 ### Create Flow
 
@@ -120,7 +120,7 @@ The edit node edits a specific record in FileMaker. By default the edit node wil
 
 ### Edit Illustration
 
-![Edit Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//edit-node.png)
+![Edit Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images/edit-node.png)
 
 ### Edit Flow
 
@@ -132,7 +132,7 @@ The delete node deletes a specific record in FileMaker. By default the delete no
 
 ### Delete Illustration
 
-![Delete Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//delete-node.png)
+![Delete Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images/delete-node.png)
 
 ### Delete Flow
 
@@ -144,7 +144,7 @@ The get node retrieves a specific FileMaker record. By default the get node will
 
 ### Get Illustration
 
-![Get Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//get-node.png)
+![Get Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images/get-node.png)
 
 ### Get Flow
 
@@ -156,7 +156,7 @@ The List node lists FileMaker records for a specified layout. By default the lis
 
 ### List Illustration
 
-![List Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//list-node.png)
+![List Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images/list-node.png)
 
 ### List Flow
 
@@ -168,7 +168,7 @@ The find node performs a find in FileMaker. By Default the find node will user `
 
 ### Find Illustration
 
-![Find Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//find-node.png)
+![Find Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images/find-node.png)
 
 ### Find Flow
 
@@ -180,7 +180,7 @@ The script node will trigger a script in FileMaker. By default the script node w
 
 ### Script Illustration
 
-![Script Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//script-node.png)
+![Script Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images/script-node.png)
 
 ### Script Flow
 
@@ -192,7 +192,7 @@ The upload node will transfer binary data to a FileMaker container. By default t
 
 ### Upload Illustration
 
-![Upload Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//upload-node.png)
+![Upload Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images/upload-node.png)
 
 ### Upload Flow
 
@@ -204,7 +204,7 @@ The globals node will set global record field values for the current FileMaker s
 
 ### Globals Illustration
 
-![Globals Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//globals-node.png)
+![Globals Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images/globals-node.png)
 
 ### Globals Flow
 
@@ -216,7 +216,7 @@ The field data node reduces the data found in `msg.payload.data` to only include
 
 ### Field Data Illustration
 
-![Field Data Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//field-data-node.png)
+![Field Data Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images/field-data-node.png)
 
 ### Field Data Flow
 
@@ -228,7 +228,7 @@ The record ids node reduces the data found in `msg.payload.data` to only include
 
 ### Record Ids Illustration
 
-![Record Ids Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//record-ids-node.png)
+![Record Ids Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images/record-ids-node.png)
 
 ### Record Ids Flow
 
@@ -240,7 +240,7 @@ The tranform node transforms data in `msg.payload.data`. It reduces `{ table::fi
 
 ### Transform Illustration
 
-![Transform Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//transform-node.png)
+![Transform Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images/transform-node.png)
 
 ### Transform Flow
 
@@ -252,7 +252,7 @@ The container node retrieves container data from `msg.payload.data`. The contain
 
 ### Container Data Illustration
 
-![Containers Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//container-data-node.png)
+![Containers Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images/container-data-node.png)
 
 ### Container Data Flow
 
