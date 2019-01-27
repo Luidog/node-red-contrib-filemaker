@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-filemaker",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Node Red FileMaker nodes. These nodes use the FileMaker Data API to connect with a FileMaker database.",
   "scripts": {
     "dev": "pm2 start ecosystem.dev.config.js",
