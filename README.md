@@ -84,11 +84,11 @@ The login node will open a FileMaker Data API session. This node will also save 
 
 ### Login Illustration
 
-![Login Node](examples/images/login-node.png)
+![Login Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//login-node.png)
 
 ### Login Flow
 
-[![Example Flow](https://img.shields.io/badge/Flow-Login%20Node-red.svg)](examples/flows/login-example.json)
+[![Example Flow](https://img.shields.io/badge/Flow-Login%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/login-example.json)
 
 ## Logout Node
 
@@ -96,11 +96,11 @@ The logout node closes the currently open Data API session and removes the assoc
 
 ### Logout Illustration
 
-![Logout Node](examples/images/logout-node.png)
+![Logout Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//logout-node.png)
 
 ### Logout Flow
 
-[![Logout Example Flow](https://img.shields.io/badge/Flow-Logout%20Node-red.svg)](examples/flows/logout-example.json)
+[![Logout Example Flow](https://img.shields.io/badge/Flow-Logout%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/logout-example.json)
 
 ## Create Node
 
@@ -108,11 +108,11 @@ The create node creates a record in FileMaker. By default The create node will u
 
 ### Create Illustration
 
-![Create Node](examples/images/create-node.png)
+![Create Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//create-node.png)
 
 ### Create Flow
 
-[![Create Example Flow](https://img.shields.io/badge/Flow-Create%20Node-red.svg)](examples/flows/logout-example.json)
+[![Create Example Flow](https://img.shields.io/badge/Flow-Create%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/logout-example.json)
 
 ## Edit Node
 
@@ -120,11 +120,11 @@ The edit node edits a specific record in FileMaker. By default the edit node wil
 
 ### Edit Illustration
 
-![Edit Node](examples/images/edit-node.png)
+![Edit Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//edit-node.png)
 
 ### Edit Flow
 
-[![Edit Example Flow](https://img.shields.io/badge/Flow-Edit%20Node-red.svg)](examples/flows/edit-example.json)
+[![Edit Example Flow](https://img.shields.io/badge/Flow-Edit%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/edit-example.json)
 
 ## Delete Node
 
@@ -132,11 +132,11 @@ The delete node deletes a specific record in FileMaker. By default the delete no
 
 ### Delete Illustration
 
-![Delete Node](examples/images/delete-node.png)
+![Delete Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//delete-node.png)
 
 ### Delete Flow
 
-[![Delete Example Flow](https://img.shields.io/badge/Flow-Delete%20Node-red.svg)](examples/flows/delete-example.json)
+[![Delete Example Flow](https://img.shields.io/badge/Flow-Delete%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/delete-example.json)
 
 ## Get Node
 
@@ -144,11 +144,11 @@ The get node retrieves a specific FileMaker record. By default the get node will
 
 ### Get Illustration
 
-![Get Node](examples/images/get-node.png)
+![Get Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//get-node.png)
 
 ### Get Flow
 
-[![Get Example Flow](https://img.shields.io/badge/Flow-Get%20Node-red.svg)](examples/flows/get-example.json)
+[![Get Example Flow](https://img.shields.io/badge/Flow-Get%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/get-example.json)
 
 ## List Node
 
@@ -156,11 +156,11 @@ The List node lists FileMaker records for a specified layout. By default the lis
 
 ### List Illustration
 
-![List Node](examples/images/list-node.png)
+![List Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//list-node.png)
 
 ### List Flow
 
-[![List Example Flow](https://img.shields.io/badge/Flow-List%20Node-red.svg)](examples/flows/list-example.json)
+[![List Example Flow](https://img.shields.io/badge/Flow-List%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/list-example.json)
 
 ## Find Node
 
@@ -168,11 +168,11 @@ The find node performs a find in FileMaker. By Default the find node will user `
 
 ### Find Illustration
 
-![Find Node](examples/images/find-node.png)
+![Find Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//find-node.png)
 
 ### Find Flow
 
-[![Find Example Flow](https://img.shields.io/badge/Flow-Find%20Node-red.svg)](examples/flows/find-example.json)
+[![Find Example Flow](https://img.shields.io/badge/Flow-Find%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/find-example.json)
 
 ## Script Node
 
@@ -180,11 +180,11 @@ The script node will trigger a script in FileMaker. By default the script node w
 
 ### Script Illustration
 
-![Script Node](examples/images/script-node.png)
+![Script Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//script-node.png)
 
 ### Script Flow
 
-[![Script Example Flow](https://img.shields.io/badge/Flow-Script%20Node-red.svg)](examples/flows/script-example.json)
+[![Script Example Flow](https://img.shields.io/badge/Flow-Script%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/script-example.json)
 
 ## Upload Node
 
@@ -192,11 +192,11 @@ The upload node will transfer binary data to a FileMaker container. By default t
 
 ### Upload Illustration
 
-![Upload Node](examples/images/upload-node.png)
+![Upload Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//upload-node.png)
 
 ### Upload Flow
 
-[![Upload Example Flow](https://img.shields.io/badge/Flow-Upload%20Node-red.svg)](examples/flows/upload-example.json)
+[![Upload Example Flow](https://img.shields.io/badge/Flow-Upload%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/upload-example.json)
 
 ## Globals Node
 
@@ -204,11 +204,11 @@ The globals node will set global record field values for the current FileMaker s
 
 ### Globals Illustration
 
-![Globals Node](examples/images/globals-node.png)
+![Globals Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//globals-node.png)
 
 ### Globals Flow
 
-[![Globals Example Flow](https://img.shields.io/badge/Flow-Globals%20Node-red.svg)](examples/flows/globals-example.json)
+[![Globals Example Flow](https://img.shields.io/badge/Flow-Globals%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/globals-example.json)
 
 ## Field Data Node
 
@@ -216,11 +216,11 @@ The field data node reduces the data found in `msg.payload.data` to only include
 
 ### Field Data Illustration
 
-![Field Data Node](examples/images/field-data-node.png)
+![Field Data Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//field-data-node.png)
 
 ### Field Data Flow
 
-[![Field Data Example Flow](https://img.shields.io/badge/Flow-Field%20Data%20Node-red.svg)](examples/flows/field-data-example.json)
+[![Field Data Example Flow](https://img.shields.io/badge/Flow-Field%20Data%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/field-data-example.json)
 
 ## Record Ids Node
 
@@ -228,11 +228,11 @@ The record ids node reduces the data found in `msg.payload.data` to only include
 
 ### Record Ids Illustration
 
-![Record Ids Node](examples/images/record-ids-node.png)
+![Record Ids Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//record-ids-node.png)
 
 ### Record Ids Flow
 
-[![Record Ids Example Flow](https://img.shields.io/badge/Flow-Record%20Ids%20Node-red.svg)](examples/flows/record-ids-example.json)
+[![Record Ids Example Flow](https://img.shields.io/badge/Flow-Record%20Ids%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/record-ids-example.json)
 
 ## Transform Node
 
@@ -240,11 +240,11 @@ The tranform node transforms data in `msg.payload.data`. It reduces `{ table::fi
 
 ### Transform Illustration
 
-![Transform Node](examples/images/transform-node.png)
+![Transform Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//transform-node.png)
 
 ### Transform Flow
 
-[![Transform Example Flow](https://img.shields.io/badge/Flow-Transform%20Node-red.svg)](examples/flows/transform-example.json)
+[![Transform Example Flow](https://img.shields.io/badge/Flow-Transform%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/transform-example.json)
 
 ## Container Data Node
 
@@ -252,11 +252,11 @@ The container node retrieves container data from `msg.payload.data`. The contain
 
 ### Container Data Illustration
 
-![Containers Node](examples/images/container-data-node.png)
+![Containers Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images//container-data-node.png)
 
 ### Container Data Flow
 
-[![Containers Example Flow](https://img.shields.io/badge/Flow-Container%20Data%20Node-red.svg)](examples/flows/container-data-example.json)
+[![Containers Example Flow](https://img.shields.io/badge/Flow-Container%20Data%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/container-data-example.json)
 
 ## Tests
 
