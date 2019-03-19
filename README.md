@@ -70,13 +70,13 @@ read from either the `msg` property or the `flow` and `global` contexts. The def
 
 ## Installation
 
-These nodes can be installed from the command line by running the following command in your Node Red directory:
+These nodes can be installed from the command line by running the following command in your Node-RED directory:
 
 ```sh
 npm install --save node-red-contrib-filemaker
 ```
 
-These nodes can also be installed using the Node Red palette manager.
+These nodes can also be installed using the Node-RED palette manager.
 
 ## Login Node
 
