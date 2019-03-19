@@ -77,7 +77,7 @@ describe("Create Record Node", function() {
         id: "e5173483.adc92",
         type: "dapi-client",
         z: "",
-        name: "Node Red Test Client",
+        name: "Node-RED Test Client",
         usage: true
       }
     ];
@@ -157,7 +157,7 @@ describe("Create Record Node", function() {
         id: "e5173483.adc92",
         type: "dapi-client",
         z: "",
-        name: "Node Red Test Client",
+        name: "Node-RED Test Client",
         usage: true
       }
     ];
@@ -260,7 +260,7 @@ describe("Create Record Node", function() {
         id: "e5173483.adc92",
         type: "dapi-client",
         z: "",
-        name: "Node Red Test Client",
+        name: "Node-RED Test Client",
         usage: true
       }
     ];
@@ -363,7 +363,7 @@ describe("Create Record Node", function() {
         id: "e5173483.adc92",
         type: "dapi-client",
         z: "",
-        name: "Node Red Test Client",
+        name: "Node-RED Test Client",
         usage: true
       }
     ];
@@ -443,7 +443,7 @@ describe("Create Record Node", function() {
         id: "e5173483.adc92",
         type: "dapi-client",
         z: "",
-        name: "Node Red Test Client",
+        name: "Node-RED Test Client",
         usage: true
       }
     ];
