@@ -2,7 +2,7 @@
 # node-red-contrib-filemaker
 <!--/@-->
 
-Node Red FileMaker nodes. These nodes use [fms-api-client](https://github.com/Luidog/fms-api-client) to connect to FileMaker Server. Each node exposes an fms-api-client method or utility. Nodes connecting to FileMaker Server depend upon a configurable FileMaker Data API [client](https://github.com/Luidog/fms-api-client#client-creation).
+Node-RED FileMaker nodes. These nodes use [fms-api-client](https://github.com/Luidog/fms-api-client) to connect to FileMaker Server. Each node exposes an fms-api-client method or utility. Nodes connecting to FileMaker Server depend upon a configurable FileMaker Data API [client](https://github.com/Luidog/fms-api-client#client-creation).
 
 ## Project Information
 
@@ -16,13 +16,13 @@ MIT © Lui de la Parra
 
 ## Installation
 
-These nodes can be installed from the command line by running the following command in your Node Red directory:
+These nodes can be installed from the command line by running the following command in your Node-RED directory:
 
 ```sh
 npm install --save node-red-contrib-filemaker
 ```
 
-These nodes can also be installed using the Node Red palette manager.
+These nodes can also be installed using the Node-RED palette manager.
 
 <!--@execute('npm run test',[])-->
 ```default

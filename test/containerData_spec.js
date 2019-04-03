@@ -112,7 +112,7 @@ describe("Container Data Node", function() {
         id: "e5173483.adc92",
         type: "dapi-client",
         z: "",
-        name: "Node Red Test",
+        name: "Node-RED Test",
         usage: true
       }
     ];
@@ -235,7 +235,7 @@ describe("Container Data Node", function() {
         id: "e5173483.adc92",
         type: "dapi-client",
         z: "",
-        name: "Node Red Test",
+        name: "Node-RED Test",
         usage: true
       }
     ];
@@ -360,7 +360,7 @@ describe("Container Data Node", function() {
         id: "e5173483.adc92",
         type: "dapi-client",
         z: "",
-        name: "Node Red Test",
+        name: "Node-RED Test",
         usage: true
       }
     ];
@@ -482,7 +482,7 @@ describe("Container Data Node", function() {
         id: "e5173483.adc92",
         type: "dapi-client",
         z: "",
-        name: "Node Red Test",
+        name: "Node-RED Test",
         usage: true
       }
     ];
@@ -606,7 +606,7 @@ describe("Container Data Node", function() {
         id: "3783b2da.4346a6",
         type: "dapi-client",
         z: "",
-        name: "Node Red Test",
+        name: "Node-RED Test",
         usage: true
       }
     ];
@@ -725,7 +725,7 @@ describe("Container Data Node", function() {
         id: "3783b2da.4346a6",
         type: "dapi-client",
         z: "",
-        name: "Node Red Test",
+        name: "Node-RED Test",
         usage: true
       }
     ];
@@ -844,7 +844,7 @@ describe("Container Data Node", function() {
         id: "3783b2da.4346a6",
         type: "dapi-client",
         z: "",
-        name: "Node Red Test",
+        name: "Node-RED Test",
         usage: true
       }
     ];
@@ -963,7 +963,7 @@ describe("Container Data Node", function() {
         id: "3783b2da.4346a6",
         type: "dapi-client",
         z: "",
-        name: "Node Red Test",
+        name: "Node-RED Test",
         usage: true
       }
     ];
@@ -1083,7 +1083,7 @@ describe("Container Data Node", function() {
         id: "3783b2da.4346a6",
         type: "dapi-client",
         z: "",
-        name: "Node Red Test",
+        name: "Node-RED Test",
         usage: true
       }
     ];
@@ -1202,7 +1202,7 @@ describe("Container Data Node", function() {
         id: "3783b2da.4346a6",
         type: "dapi-client",
         z: "",
-        name: "Node Red Test",
+        name: "Node-RED Test",
         usage: true
       }
     ];

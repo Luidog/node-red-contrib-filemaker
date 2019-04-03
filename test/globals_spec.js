@@ -71,7 +71,7 @@ describe("Set Globals Node", function() {
         id: "e5173483.adc92",
         type: "dapi-client",
         z: "",
-        name: "Node Red Test Client",
+        name: "Node-RED Test Client",
         usage: true
       }
     ];
@@ -137,7 +137,7 @@ describe("Set Globals Node", function() {
       {
         id: "3783b2da.4346a6",
         type: "dapi-client",
-        name: "Node Red Test Client",
+        name: "Node-RED Test Client",
         usage: true
       },
       {
