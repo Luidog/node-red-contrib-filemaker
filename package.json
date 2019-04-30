@@ -13,11 +13,11 @@
     "url": "git+https://Luidog@github.com/Luidog/node-red-contrib-filemaker.git"
   },
   "keywords": [
-    "node-red",
-    "filemaker",
-    "data",
-    "api",
-    "node"
+    "Node-RED",
+    "FileMaker",
+    "Data API",
+    "Admin API",
+    "Node"
   ],
   "author": {
     "name": "Lui de la Parra",
