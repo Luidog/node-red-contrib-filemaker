@@ -6,7 +6,9 @@
     "dev": "pm2 start ecosystem.dev.config.js",
     "test": "nyc _mocha --recursive  \"test/**/*_spec.js\" --timeout=30000 --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "generate-readme": "mos"
+    "generate-readme": "mos",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -58,7 +60,8 @@
     "fms-api-client": "^1.8.1",
     "fs-extra": "^7.0.1",
     "lodash": "^4.17.11",
-    "marpat": "^1.19.2"
+    "marpat": "^1.19.2",
+    "snyk": "^1.161.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
@@ -82,5 +85,6 @@
     "pm2": "^3.2.2",
     "prettier": "^1.8.2",
     "varium": "^1.0.1"
-  }
+  },
+  "snyk": true
 }
