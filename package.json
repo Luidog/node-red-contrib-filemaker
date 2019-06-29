@@ -39,6 +39,7 @@
     "nodes": {
       "dapi-client": "./src/client/client.js",
       "dapi-product-info": "./src/client/productInfo.js",
+      "dapi-databases": "./src/client/databases.js",
       "dapi-duplicate": "./src/client/duplicate.js",
       "dapi-login": "./src/nodes/login.js",
       "dapi-logout": "./src/nodes/logout.js",
