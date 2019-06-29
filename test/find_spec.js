@@ -93,7 +93,7 @@ describe("Find Records Node", function() {
       {
         "e5173483.adc92": {
           server: process.env.FILEMAKER_SERVER,
-          application: process.env.FILEMAKER_APPLICATION,
+          database: process.env.FILEMAKER_DATABASE,
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }
@@ -139,7 +139,7 @@ describe("Find Records Node", function() {
         server: process.env.FILEMAKER_SERVER,
         name: "Mute Symphony",
         z: "f1",
-        application: process.env.FILEMAKER_APPLICATION,
+        database: process.env.FILEMAKER_DATABASE,
         user: process.env.FILEMAKER_USERNAME,
         password: process.env.FILEMAKER_PASSWORD,
         usage: true
@@ -169,7 +169,7 @@ describe("Find Records Node", function() {
       {
         "3783b2da.4346a6": {
           server: process.env.FILEMAKER_SERVER,
-          application: process.env.FILEMAKER_APPLICATION,
+          database: process.env.FILEMAKER_DATABASE,
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }
