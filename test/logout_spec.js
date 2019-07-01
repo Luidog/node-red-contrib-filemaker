@@ -98,13 +98,14 @@ describe("Logout Node", function() {
         const loginNode = helper.getNode("64a87699.ec6f2");
         const helperNode = helper.getNode("e9ddafb9.e26ad");
         helperNode.on("input", function(msg) {
+          console.log(msg.payload);
           try {
             expect(msg)
               .to.be.an("object")
               .with.any.keys("_msgid", "payload")
               .and.property("payload")
               .to.be.an("object")
-              .with.any.keys("code", "message");
+              .with.any.keys("response", "message");
             done();
           } catch (err) {
             done(err);

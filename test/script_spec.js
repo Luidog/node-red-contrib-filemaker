@@ -100,7 +100,7 @@ describe("Trigger Script Node", function() {
               .with.any.keys("payload")
               .and.property("payload")
               .to.be.an("object")
-              .with.any.keys("result");
+              .with.any.keys("layout", "script", "scriptError", "scriptResult");
             done();
           } catch (err) {
             done(err);
@@ -180,8 +180,8 @@ describe("Trigger Script Node", function() {
               .with.any.keys("payload")
               .and.property("payload")
               .to.be.an("object")
-              .with.any.keys("result")
-              .and.property("result")
+              .with.any.keys("layout", "script", "scriptError", "scriptResult")
+              .and.property("scriptResult")
               .to.be.an("object")
               .with.any.keys("message");
             done();
@@ -263,8 +263,8 @@ describe("Trigger Script Node", function() {
               .with.any.keys("payload")
               .and.property("payload")
               .to.be.an("object")
-              .with.any.keys("result")
-              .and.property("result")
+              .with.any.keys("layout", "script", "scriptError", "scriptResult")
+              .and.property("scriptResult")
               .to.be.a("string");
             done();
           } catch (err) {
