@@ -1,5 +1,5 @@
 <script type="text/javascript">
-  RED.nodes.registerType("dapi-databeses", {
+  RED.nodes.registerType("dapi-databases", {
     category: "FileMaker",
     defaults: {
       name: { value: null, required: false },
@@ -21,7 +21,7 @@
   });
 </script>
 
-<script type="text/x-red" data-template-name="dapi-logout">
+<script type="text/x-red" data-template-name="dapi-databases">
   <div class="form-row">
     <label for="node-input-name"><i class="fa fa-tag" aria-hidden="true"></i> <span>Name</span></label>
     <input type="text" id="node-input-name" placeholder="Specific Node">
@@ -39,7 +39,7 @@
   </div>
 </script>
 
-<script type="text/x-red" data-help-name="dapi-logout">
+<script type="text/x-red" data-help-name="dapi-databases">
   <p>
     This node gets Data API version information.
   </p>
@@ -76,7 +76,7 @@
   <h3>Details</h3>
   <p>
     This node gets Data API version information.<br/><br/>
-    The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its 
+    The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its
     output with any property on the <code>msg</code> object.
   </p>
 

@@ -1,6 +1,6 @@
 module.exports = function(RED) {
   function databases(configuration) {
-    const { merge } = require("../services");
+    const { merge, constructParameters } = require("../services");
     RED.nodes.createNode(this, configuration);
     const node = this;
     const { client } = configuration;
@@ -14,7 +14,7 @@ module.exports = function(RED) {
       );
       let client = await this.connection.client;
       client
-        .database(credentials)
+        .databases(credentials)
         .then(response =>
           node.send(merge(configuration.output, message, response))
         )
