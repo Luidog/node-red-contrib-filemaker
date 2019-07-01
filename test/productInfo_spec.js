@@ -52,6 +52,8 @@ describe("Product Info Node", function() {
         id: "871850c1.2c366",
         type: "dapi-product-info",
         z: "eff0d28.1c78bb",
+        data: "payload.data",
+        dataType: "msg",
         client: "e5173483.adc92",
         output: "payload",
         x: 330,
@@ -87,15 +89,21 @@ describe("Product Info Node", function() {
               .with.any.keys("payload")
               .and.property("payload")
               .to.be.an("object")
-              .with.any.keys("data")
-              .and.property("data")
-              .to.be.a("string");
+              .with.all.keys(
+                "buildDate",
+                "dateFormat",
+                "layout",
+                "name",
+                "timeFormat",
+                "timeStampFormat",
+                "version"
+              );
             done();
           } catch (err) {
             done(err);
           }
         });
-        listNode.receive({
+        productInfoNode.receive({
           payload: {
             layout: "people"
           }
@@ -120,6 +128,7 @@ describe("Product Info Node", function() {
         id: "bb98f3db.1ee78",
         type: "catch",
         z: "a0254177.9c8dc",
+
         name: "",
         scope: null,
         x: 360,
@@ -132,18 +141,27 @@ describe("Product Info Node", function() {
         z: "a0254177.9c8dc",
         data: "payload.data",
         dataType: "msg",
-        output: "payload.data",
+        client: "e5173483.adc92",
+        output: "payload",
+
         x: 330,
         y: 40,
         wires: [["c03adb39.c4a738"]]
+      },
+      {
+        id: "e5173483.adc92",
+        type: "dapi-client",
+        z: "",
+        name: "Node-RED Test Client",
+        usage: true
       }
     ];
     helper.load(
-      [productInfoNode, catchNode],
+      [productInfoNode, clientNode, catchNode],
       testFlow,
       {
         "e5173483.adc92": {
-          server: 'https://httpstat.us/400',
+          server: "https://httpstat.us/400",
           database: process.env.FILEMAKER_DATABASE,
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
@@ -153,14 +171,14 @@ describe("Product Info Node", function() {
         const productInfoNode = helper.getNode("faf29df7.988c78");
         const helperNode = helper.getNode("c03adb39.c4a738");
         helperNode.on("input", function(msg) {
+          console.log(msg.payload);
           try {
             expect(msg)
               .to.be.an("object")
               .with.any.keys("payload")
               .and.property("payload")
               .to.be.a("object")
-              .and.property("data")
-              .to.be.a("string");
+              .with.all.keys("data");
             done();
           } catch (err) {
             done(err);
