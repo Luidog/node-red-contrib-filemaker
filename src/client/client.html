@@ -7,7 +7,7 @@
     },
     credentials: {
       server: { type: "text", required: true },
-      application: { type: "text", required: true },
+      database: { type: "text", required: true },
       username: { type: "text", required: true },
       password: { type: "password", required: true }
     },
@@ -28,8 +28,8 @@
     <input type="text" id="node-config-input-server" placeholder="https://some-server.com">
   </div>
   <div class="form-row">
-    <label for="node-config-input-application"><i class="fa fa-database" aria-hidden="true"></i> <span>Database</span></label>
-    <input type="text" id="node-config-input-application">
+    <label for="node-config-input-database"><i class="fa fa-database" aria-hidden="true"></i> <span>Database</span></label>
+    <input type="text" id="node-config-input-database">
   </div>
   <hr>
   <div class="form-row">
@@ -58,8 +58,8 @@
 
   <h3>Details</h3>
   <p>
-    A Data API client is used to open and maintain a FileMaker Data API session. 
-    A Client will automatically login and refresh the Data API access token via the 
+    A Data API client is used to open and maintain a FileMaker Data API session.
+    A Client will automatically login and refresh the Data API access token via the
     supplied Data API credentials.
   </p>
 
