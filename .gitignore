@@ -3,3 +3,5 @@ node_modules
 .nyc_output
 .env
 /user
+!assets/placeholder.json
+assets/*
