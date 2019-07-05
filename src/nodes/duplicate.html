@@ -10,20 +10,23 @@
       recordIdType: { value: "msg" },
       scripts: { value: null, required: false },
       scriptsType: { value: "none" },
-      portals: { value: null, required: false },
-      portalsType: { value: "none" },
       output: { value: "payload", required: false }
     },
     inputs: 1,
     outputs: 1,
-    icon: "get.png",
+    icon: "duplicate.png",
     color: "#39D1C0",
-    paletteLabel: "Get",
+    paletteLabel: "Duplicate",
     label: function() {
-      return this.name || "Get Record";
+      return this.name || "Duplicate Record";
     },
     oneditprepare: function() {
-      var nullType = { value: "none", label: "None", icon: "", hasValue: false };
+      var nullType = {
+        value: "none",
+        label: "None",
+        icon: "",
+        hasValue: false
+      };
       $("#node-input-layout").typedInput({
         default: "msg",
         types: ["msg", "flow", "global", "str"],
@@ -39,18 +42,14 @@
         types: ["json", "msg", "flow", "global", nullType],
         typeField: $("#node-input-scriptsType")
       });
-      $("#node-input-portals").typedInput({
-        default: "none",
-        types: ["json", "msg", "flow", "global", nullType],
-        typeField: $("#node-input-portalsType")
-      });
+
       $("#node-input-output").typedInput({
         default: "msg",
         types: ["msg"],
         typeField: ".outputType"
       });
     }
-});
+  });
 </script>
 <script type="text/x-red" data-template-name="dapi-duplicate">
   <div class="form-row">
@@ -78,11 +77,6 @@
     <input type="hidden" id="node-input-scriptsType">
     <input type="text" id="node-input-scripts">
   </div>
-  <div class="form-row">
-    <label for="node-input-portals"><i class="fa fa-code-fork" aria-hidden="true"></i> <span>Portals</span></label>
-    <input type="hidden" id="node-input-portalsType">
-    <input type="text" id="node-input-portals">
-  </div>
   <hr>
   <div class="form-row">
     <label for="node-input-output"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> <span>Output</span></label>
@@ -92,7 +86,7 @@
 </script>
 <script type="text/x-red" data-help-name="dapi-duplicate">
   <p>
-    This node gets specific FileMaker record details. Defaults are <code>msg.payload.layout</code> 
+    This node duplicates a specific FileMaker record. Defaults are <code>msg.payload.layout</code>
     as the layout context, and <code>msg.payload.recordId</code> as the record id to target.
   </p>
 
@@ -101,15 +95,15 @@
     <dt>layout<span class="property-type">String</span><dd>The layout to use when getting the record.</dd>
     <dt>recordId<span class="property-type">String | Number</span><dd>The record id to target</dd>
     <dt>scripts<span class="property-type">Array</span><dd>The scripts to run when getting a record.<a target="_blank" href="https://github.com/Luidog/fms-api-client#script-array-syntax"> More Info.</a></dd>
-    <dt>portals<span class="property-type">Array</span><dd>The portals to return when getting a record.<a target="_blank" href="https://github.com/Luidog/fms-api-client#portals-array-syntax"> More Info.</a></dd>
   </dl>
 
   <h3>Outputs</h3>
   <ol class="node-ports">
     <li>Standard Output
       <dl class="message-properties">
-        <dt>data<span class="property-type">Array</span>
-          <dd>The specific FileMaker record.</dd>
+        <dt>payload<span class="property-type">Object</span>
+          <dd>recordId</dd>
+          <dd>modId</dd>
         </dt>
       </dl>
     </li>
@@ -127,16 +121,16 @@
 
   <h3>Details</h3>
     <p>
-      This node gets specific Filemaker record details. By default this node will use <code>msg.payload.layout</code>
+      This node  duplicates a specific Filemaker record. By default this node will use <code>msg.payload.layout</code>
       as the layout context and <code>msg.payload.recordId</code> as the record id to target.<br/><br/>This node can be
-      configured to use either static or dynamic input parameters. Dynamic parameters may be 
+      configured to use either static or dynamic input parameters. Dynamic parameters may be
       read from either the <code>msg</code> property or the <code>flow</code> and <code>global</code> contexts.<br/><br/>
-      The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its 
+      The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its
       output with any property on the <code>msg</code> object.
     </p>
     <h3>References</h3>
     <ul>
-      <li><a href="https://github.com/Luidog/fms-api-client#get-record-details">Get Method</a> - Base Client Method Documentation</li>
+      <li><a href="https://github.com/Luidog/fms-api-client#duplicate-record">Duplicate Method</a> - Base Client Method Documentation</li>
       <li><a href="https://github.com/Luidog/fms-api-client#portals-array-syntax">Portals Array</a> - Portals Array Documentation</li>
       <li><a href="https://github.com/Luidog/fms-api-client#script-array-syntax">Scripts Array</a> - Scripts Array Documentation</li>
       <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node-RED FileMaker</a> - The Node's Github Repository</li>

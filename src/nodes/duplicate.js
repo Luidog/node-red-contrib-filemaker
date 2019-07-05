@@ -4,14 +4,13 @@ module.exports = function(RED) {
     RED.nodes.createNode(this, config);
     const node = this;
     const { client, ...configuration } = config;
-    const context = node.context();
     node.connection = RED.nodes.getNode(client);
     node.on("input", async message => {
       let { layout, recordId, ...parameters } = constructParameters(
         message,
         configuration,
         node.context(),
-        ["layout", "recordId", "scripts", "portals"]
+        ["layout", "recordId", "scripts"]
       );
       let connection = await this.connection.client;
       connection

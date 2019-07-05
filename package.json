@@ -63,7 +63,8 @@
     "fms-api-client": "^2.0.0",
     "fs-extra": "^8.0.1",
     "lodash": "^4.17.11",
-    "marpat": "^2.0.0"
+    "marpat": "^2.0.0",
+    "snyk": "^1.192.3"
   },
   "devDependencies": {
     "chai": "^4.2.0",
@@ -72,7 +73,7 @@
     "eslint": "^6.0.1",
     "eslint-config-google": "^0.13.0",
     "eslint-config-prettier": "^6.0.0",
-    "eslint-plugin-html": "^5.0.5",
+    "eslint-plugin-html": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
     "mocha": "^6.1.4",
     "mocha-lcov-reporter": "^1.3.0",
@@ -81,12 +82,11 @@
     "mos-plugin-execute": "^1.0.2",
     "mos-plugin-installation": "^1.2.2",
     "mos-plugin-license": "^1.2.2",
-    "node-red": "^0.20.6",
+    "node-red": "^0.20.7",
     "node-red-node-test-helper": "^0.2.2",
     "nyc": "^14.1.1",
     "pm2": "^3.5.1",
     "prettier": "^1.18.2",
-    "snyk": "^1.184.0",
     "varium": "^1.0.1"
   },
   "snyk": true
