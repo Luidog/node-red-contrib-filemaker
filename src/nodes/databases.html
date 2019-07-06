@@ -10,7 +10,9 @@
     outputs: 1,
     icon: "databases.png",
     color: "#39D1C0",
-    label: "Databases",
+    label: function() {
+      return this.name || "Databases";
+    },
     paletteLabel: "Databases",
     oneditprepare: function() {
       $("#node-input-output").typedInput({
