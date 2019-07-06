@@ -14,6 +14,8 @@ module.exports = {
   plugins: ["prettier", "html"],
   extends: ["google", "eslint:recommended", "prettier"],
   rules: {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "no-invalid-this": "off",
+    "require-jsdoc": "off"
   }
 };
