@@ -3,7 +3,6 @@
 const { expect } = require("chai");
 const helper = require("node-red-node-test-helper");
 const productInfoNode = require("../src/nodes/productInfo.js");
-const listNode = require("../src/nodes/list.js");
 const clientNode = require("../src/client/client.js");
 const catchNode = require("./core/25-catch.js");
 
@@ -20,13 +19,13 @@ describe("Product Info Node", function() {
   });
 
   it("should be loaded", function(done) {
-    let testFlows = [{ id: "n1", type: "inject" }];
-    helper.load(productInfoNode, testFlows, function() {
+    const testFlow = [{ id: "n1", type: "inject" }];
+    helper.load(productInfoNode, testFlow, function() {
       done();
     });
   });
   it("should return Data API Server Info", function(done) {
-    let testFlow = [
+    const testFlow = [
       {
         id: "eff0d28.1c78bb",
         type: "tab",
@@ -80,8 +79,8 @@ describe("Product Info Node", function() {
         }
       },
       function() {
-        var productInfoNode = helper.getNode("871850c1.2c366");
-        var helperNode = helper.getNode("abcce428.f88018");
+        const productInfoNode = helper.getNode("871850c1.2c366");
+        const helperNode = helper.getNode("abcce428.f88018");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
@@ -112,7 +111,7 @@ describe("Product Info Node", function() {
     );
   });
   it("should reject with an error message and a code", function(done) {
-    let testFlow = [
+    const testFlow = [
       {
         id: "a0254177.9c8dc",
         type: "tab",
@@ -171,7 +170,6 @@ describe("Product Info Node", function() {
         const productInfoNode = helper.getNode("faf29df7.988c78");
         const helperNode = helper.getNode("c03adb39.c4a738");
         helperNode.on("input", function(msg) {
-          console.log(msg.payload);
           try {
             expect(msg)
               .to.be.an("object")

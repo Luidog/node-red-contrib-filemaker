@@ -20,13 +20,13 @@ describe("Databases Node", function() {
   });
 
   it("should be loaded", function(done) {
-    let testFlows = [{ id: "n1", type: "inject" }];
-    helper.load(databasesNode, testFlows, function() {
+    const testFlow = [{ id: "n1", type: "inject" }];
+    helper.load(databasesNode, testFlow, function() {
       done();
     });
   });
   it("should return available databases", function(done) {
-    let testFlow = [
+    const testFlow = [
       {
         id: "eff0d28.1c78bb",
         type: "tab",
@@ -101,7 +101,7 @@ describe("Databases Node", function() {
     );
   });
   it("should reject with an error message and a code", function(done) {
-    let testFlow = [
+    const testFlow = [
       {
         id: "a0254177.9c8dc",
         type: "tab",
@@ -160,7 +160,6 @@ describe("Databases Node", function() {
         const databasesNode = helper.getNode("faf29df7.988c78");
         const helperNode = helper.getNode("c03adb39.c4a738");
         helperNode.on("input", function(msg) {
-          console.log(msg.payload);
           try {
             expect(msg)
               .to.be.an("object")
