@@ -42,6 +42,7 @@
       "dapi-databases": "./src/client/databases.js",
       "dapi-duplicate": "./src/client/duplicate.js",
       "dapi-layouts": "./src/client/layouts.js",
+      "dapi-scripts": "./src/client/scripts.js",
       "dapi-login": "./src/nodes/login.js",
       "dapi-logout": "./src/nodes/logout.js",
       "dapi-create-record": "./src/nodes/create.js",
