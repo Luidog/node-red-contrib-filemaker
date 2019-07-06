@@ -10,8 +10,10 @@
     outputs: 1,
     icon: "scripts.png",
     color: "#39D1C0",
-    label: "Database Layouts",
-    paletteLabel: "Layouts",
+    paletteLabel: "Scripts",
+    label: function() {
+      return this.name || "Database Scripts";
+    },
     oneditprepare: function() {
       $("#node-input-output").typedInput({
         default: "msg",
