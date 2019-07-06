@@ -33,7 +33,7 @@ describe("Logout Node", function() {
     });
   });
   it("should close a Data API Session", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "6962fe42.cdf3c8",
         type: "tab",
@@ -98,7 +98,6 @@ describe("Logout Node", function() {
         const loginNode = helper.getNode("64a87699.ec6f2");
         const helperNode = helper.getNode("e9ddafb9.e26ad");
         helperNode.on("input", function(msg) {
-          console.log(msg.payload);
           try {
             expect(msg)
               .to.be.an("object")
@@ -116,7 +115,7 @@ describe("Logout Node", function() {
     );
   });
   it("should throw an error with a message and a code", function(done) {
-    var testFlows = [
+    const testFlows = [
       {
         id: "f1",
         type: "tab",
