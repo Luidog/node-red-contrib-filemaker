@@ -128,7 +128,7 @@ The product info node gets server product info. This node gets metadata for the 
 
 ### Product Info Flow
 
-[![Product Info Example Flow](https://img.shields.io/badge/Flow-Logout%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/product-info-example.json)
+[![Product Info Example Flow](https://img.shields.io/badge/Flow-Product%20Info-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/product-info-example.json)
 
 ### Databases Node
 
@@ -140,7 +140,7 @@ The databases node gets all the scripts and script folders accesible to the clie
 
 ### Databases Flow
 
-[![Databases Example Flow](https://img.shields.io/badge/Flow-Logout%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/databases-example.json)
+[![Databases Example Flow](https://img.shields.io/badge/Flow-Databases%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/databases-example.json)
 
 ### Database Scripts Node
 
@@ -152,7 +152,7 @@ The database scripts node gets all the scripts and script folders accesible to t
 
 ### Database Scripts Flow
 
-[![Database Scripts Example Flow](https://img.shields.io/badge/Flow-Logout%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/database-scripts-example.json)
+[![Database Scripts Example Flow](https://img.shields.io/badge/Flow-Database%20Scripts-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/database-scripts-example.json)
 
 ### Database Layouts Node
 
@@ -164,7 +164,7 @@ The database layouts node gets all the layouts and layout folders accesible to t
 
 ### Database Layouts Flow
 
-[![Database Layouts Example Flow](https://img.shields.io/badge/Flow-Logout%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/database-layouts-example.json)
+[![Database Layouts Example Flow](https://img.shields.io/badge/Flow-Database%20Layouts-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/database-layouts-example.json)
 
 ### Layout Info Node
 
@@ -176,7 +176,7 @@ The layout info node gets metadata information for fields and portals on the spe
 
 ### Layout Info Flow
 
-[![Layout Info Example Flow](https://img.shields.io/badge/Flow-Logout%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/layout-info-example.json)
+[![Layout Info Example Flow](https://img.shields.io/badge/Flow-Layout%20Info%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/layout-info-example.json)
 
 ## Create Node
 
@@ -236,7 +236,7 @@ The get node retrieves a specific FileMaker record. By default the get node will
 
 ### Duplicate Flow
 
-[![Duplicate Example Flow](https://img.shields.io/badge/Flow-Get%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/duplicate-example.json)
+[![Duplicate Example Flow](https://img.shields.io/badge/Flow-Duplicate%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/duplicate-example.json)
 
 ## List Node
 
