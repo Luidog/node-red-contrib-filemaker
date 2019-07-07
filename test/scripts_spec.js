@@ -1,20 +1,24 @@
 /* global describe beforeEach afterEach it */
 
 const { expect } = require("chai");
+const sinon = require("sinon");
 const helper = require("node-red-node-test-helper");
+const { urls } = require("../node_modules/fms-api-client/src/utilities");
 const scriptsNode = require("../src/nodes/scripts.js");
 const clientNode = require("../src/client/client.js");
 const catchNode = require("./core/25-catch.js");
 
+const sandbox = sinon.createSandbox();
 helper.init(require.resolve("node-red"));
 
-describe("Get Layouts Node", function() {
+describe("Get Scripts Node", function() {
   beforeEach(function(done) {
     helper.startServer(done);
   });
 
   afterEach(function(done) {
     helper.unload();
+    sandbox.restore();
     helper.stopServer(done);
   });
 
@@ -156,16 +160,21 @@ describe("Get Layouts Node", function() {
         }
       },
       function() {
+        sandbox
+          .stub(urls, "scripts")
+          .callsFake(() =>
+            Promise.reject({ code: "1760", message: "sinon stub rejection" })
+          );
         const layoutsNode = helper.getNode("faf29df7.988c78");
         const helperNode = helper.getNode("c03adb39.c4a738");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
               .to.be.an("object")
-              .with.any.keys("payload")
-              .and.property("payload")
-              .to.be.a("object")
-              .with.all.keys("scripts");
+              .with.all.keys("error", "_msgid", "payload")
+              .and.property("error")
+              .to.be.an("object")
+              .with.all.keys("source", "message");
             done();
           } catch (err) {
             done(err);
