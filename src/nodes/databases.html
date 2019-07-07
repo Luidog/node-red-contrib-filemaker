@@ -43,7 +43,7 @@
 
 <script type="text/x-red" data-help-name="dapi-databases">
   <p>
-    This node gets Data API version information.
+    This node gets databases accessible to the client.
   </p>
 
   <h3>Inputs</h3>
@@ -58,11 +58,8 @@
   <ol class="node-ports">
     <li>Standard Output
       <dl class="message-properties">
-        <dt>code<span class="property-type">String</span>
-          <dd>A success code.</dd>
-        </dt>
-        <dt>message<span class="property-type">String</span>
-          <dd>A success message.</dd>
+        <dt>databases<span class="property-type">Array</span>
+          <dd>an array of database names.</dd>
         </dt>
       </dl>
     </li>
@@ -77,14 +74,14 @@
 
   <h3>Details</h3>
   <p>
-    This node gets Data API version information.<br/><br/>
+    This node gets databases accessible to the client.<br/><br/>
     The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its
     output with any property on the <code>msg</code> object.
   </p>
 
   <h3>References</h3>
   <ul>
-    <li><a href="https://github.com/Luidog/fms-api-client#product-info">Product Info Method</a> - Base Client Method Documentation</li>
+    <li><a href="https://github.com/Luidog/fms-api-client#databases">Get Databases Method</a> - Base Client Method Documentation</li>
     <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node-RED FileMaker</a> - The Node's Github Repository</li>
     <li><a href="https://github.com/Luidog/fms-api-client">Data API Client</a> - Data API Client Github Repository</li>
   </ul>

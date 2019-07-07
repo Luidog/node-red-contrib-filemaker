@@ -9,7 +9,7 @@
         value: "payload.layout",
         required: true
       },
-      layoutType: { value: "msg" },
+      layoutType: { value: "msg" }
     },
     inputs: 1,
     outputs: 1,
@@ -59,7 +59,7 @@
 
 <script type="text/x-red" data-help-name="dapi-layout">
   <p>
-    This node gets a specific layout's metadata.
+    This node gets information for a specific layout.
   </p>
 
   <h3>Inputs</h3>
@@ -74,11 +74,11 @@
   <ol class="node-ports">
     <li>Standard Output
       <dl class="message-properties">
-        <dt>code<span class="property-type">String</span>
-          <dd>A success code.</dd>
+        <dt>fieldMetaData<span class="property-type">Object</span>
+          <dd>Metadata for the fields on the layout.</dd>
         </dt>
-        <dt>message<span class="property-type">String</span>
-          <dd>A success message.</dd>
+        <dt>portalMetaData<span class="property-type">Object</span>
+          <dd>Metadata for the portals on the layout.</dd>
         </dt>
       </dl>
     </li>
@@ -93,7 +93,7 @@
 
   <h3>Details</h3>
   <p>
-    This node gets a specific layout's metadata<br/><br/>
+    This node gets information on a specific layout. This node will return metadata for the fields and portals on the layout<br/><br/>
     The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its
     output with any property on the <code>msg</code> object.
   </p>
