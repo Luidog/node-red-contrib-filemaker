@@ -8,7 +8,7 @@ function configurationNode(RED) {
     RED.nodes.createNode(this, n);
     let client = Filemaker.create(
       Object.assign(n, {
-        application: this.credentials.application,
+        database: this.credentials.database,
         server: this.credentials.server,
         user: this.credentials.username,
         password: this.credentials.password
@@ -19,7 +19,7 @@ function configurationNode(RED) {
   RED.nodes.registerType("dapi-client", Client, {
     credentials: {
       server: { type: "text" },
-      application: { type: "text" },
+      database: { type: "text" },
       username: { type: "text" },
       password: { type: "password" }
     }

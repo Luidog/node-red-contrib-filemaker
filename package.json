@@ -4,7 +4,7 @@
   "description": "Node-RED FileMaker nodes. These nodes use the FileMaker Data API to connect with a FileMaker database.",
   "scripts": {
     "dev": "pm2 start ecosystem.dev.config.js",
-    "test": "nyc _mocha --recursive  \"test/**/*_spec.js\" --timeout=30000 --exit",
+    "test": "snyk test && nyc _mocha --recursive  \"test/**/*_spec.js\" --timeout=30000 --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "generate-readme": "mos",
     "snyk-protect": "snyk protect",
@@ -16,10 +16,12 @@
   },
   "keywords": [
     "Node-RED",
+    "marpat",
     "FileMaker",
     "Data API",
-    "Admin API",
-    "Node"
+    "fms-api-client",
+    "Node",
+    "IOT"
   ],
   "author": {
     "name": "Lui de la Parra",
@@ -38,6 +40,12 @@
   "node-red": {
     "nodes": {
       "dapi-client": "./src/client/client.js",
+      "dapi-product-info": "./src/client/productInfo.js",
+      "dapi-databases": "./src/client/databases.js",
+      "dapi-duplicate": "./src/client/duplicate.js",
+      "dapi-layouts": "./src/client/layouts.js",
+      "dapi-layout": "./src/client/layout.js",
+      "dapi-scripts": "./src/client/scripts.js",
       "dapi-login": "./src/nodes/login.js",
       "dapi-logout": "./src/nodes/logout.js",
       "dapi-create-record": "./src/nodes/create.js",
@@ -57,33 +65,34 @@
   },
   "homepage": "https://github.com/Luidog/node-red-contrib-filemaker#readme",
   "dependencies": {
-    "fms-api-client": "^1.8.2",
-    "fs-extra": "^7.0.1",
+    "fms-api-client": "^2.1.0",
+    "fs-extra": "^8.0.1",
     "lodash": "^4.17.11",
-    "marpat": "^1.19.2",
-    "snyk": "^1.161.1"
+    "marpat": "^2.0.1",
+    "sinon": "^7.3.2",
+    "snyk": "^1.192.3"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "coveralls": "^3.0.1",
-    "dotenv": "^6.1.0",
-    "eslint": "^5.7.0",
-    "eslint-config-google": "^0.11.0",
-    "eslint-config-prettier": "^3.1.0",
-    "eslint-plugin-html": "^5.0.0",
-    "eslint-plugin-prettier": "^3.0.0",
-    "mocha": "^5.0.4",
+    "coveralls": "^3.0.4",
+    "dotenv": "^8.0.0",
+    "eslint": "^6.0.1",
+    "eslint-config-google": "^0.13.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-html": "^6.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "mocha": "^6.1.4",
     "mocha-lcov-reporter": "^1.3.0",
     "mos": "^1.3.1",
     "mos-plugin-dependencies": "^2.2.2",
     "mos-plugin-execute": "^1.0.2",
     "mos-plugin-installation": "^1.2.2",
     "mos-plugin-license": "^1.2.2",
-    "node-red": "^0.19.4",
-    "node-red-node-test-helper": "^0.1.8",
-    "nyc": "^13.1.0",
-    "pm2": "^3.2.2",
-    "prettier": "^1.8.2",
+    "node-red": "^0.20.7",
+    "node-red-node-test-helper": "^0.2.2",
+    "nyc": "^14.1.1",
+    "pm2": "^3.5.1",
+    "prettier": "^1.18.2",
     "varium": "^1.0.1"
   },
   "snyk": true

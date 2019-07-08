@@ -19,7 +19,7 @@ module.exports = function(RED) {
         "recordId",
         "parameters"
       ]);
-      let connection = await this.connection.client;
+      const connection = await this.connection.client;
       connection
         .upload(file, layout, field, recordId, parameters)
         .then(response =>

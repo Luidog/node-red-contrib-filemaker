@@ -1,0 +1,141 @@
+<script type="text/javascript">
+  RED.nodes.registerType("dapi-duplicate", {
+    category: "FileMaker",
+    defaults: {
+      name: { value: null, required: false },
+      client: { value: "", type: "dapi-client" },
+      layout: { value: "payload.layout", required: false },
+      layoutType: { value: "msg", required: false },
+      recordId: { value: "payload.recordId", required: true },
+      recordIdType: { value: "msg" },
+      scripts: { value: null, required: false },
+      scriptsType: { value: "none" },
+      output: { value: "payload", required: false }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "duplicate.png",
+    color: "#39D1C0",
+    paletteLabel: "Duplicate",
+    label: function() {
+      return this.name || "Duplicate Record";
+    },
+    oneditprepare: function() {
+      var nullType = {
+        value: "none",
+        label: "None",
+        icon: "",
+        hasValue: false
+      };
+      $("#node-input-layout").typedInput({
+        default: "msg",
+        types: ["msg", "flow", "global", "str"],
+        typeField: $("#node-input-layoutType")
+      });
+      $("#node-input-recordId").typedInput({
+        default: "msg",
+        types: ["msg", "num", "flow", "global"],
+        typeField: $("#node-input-recordIdType")
+      });
+      $("#node-input-scripts").typedInput({
+        default: "none",
+        types: ["json", "msg", "flow", "global", nullType],
+        typeField: $("#node-input-scriptsType")
+      });
+
+      $("#node-input-output").typedInput({
+        default: "msg",
+        types: ["msg"],
+        typeField: ".outputType"
+      });
+    }
+  });
+</script>
+<script type="text/x-red" data-template-name="dapi-duplicate">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag" aria-hidden="true"></i> <span>Name</span></label>
+    <input type="text" id="node-input-name" placeholder="Specific Node">
+  </div>
+  <hr>
+  <div class="form-row">
+    <label for="node-input-client"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Client</span></label>
+    <input type="text" id="node-input-client">
+  </div>
+  <div class="form-row">
+    <label for="node-input-layout"><i class="fa fa-list-alt" aria-hidden="true"></i> <span>Layout</span></label>
+    <input type="hidden" id="node-input-layoutType">
+    <input type="text" id="node-input-layout">
+  </div>
+  <hr>
+  <div class="form-row">
+    <label for="node-input-recordId"><i class="fa fa-bullseye" aria-hidden="true"></i> <span>Record Id</span></label>
+    <input type="hidden" id="node-input-recordIdType">
+    <input type="text" id="node-input-recordId">
+  </div>
+  <div class="form-row">
+    <label for="node-input-scripts"><i class="fa fa-files-o" aria-hidden="true"></i> <span>Scripts</span></label>
+    <input type="hidden" id="node-input-scriptsType">
+    <input type="text" id="node-input-scripts">
+  </div>
+  <hr>
+  <div class="form-row">
+    <label for="node-input-output"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> <span>Output</span></label>
+    <input type="hidden" id="node-input-outputType">
+    <input type="text" id="node-input-output">
+  </div>
+</script>
+<script type="text/x-red" data-help-name="dapi-duplicate">
+  <p>
+    This node duplicates a specific FileMaker record. Defaults are <code>msg.payload.layout</code>
+    as the layout context, and <code>msg.payload.recordId</code> as the record id to target.
+  </p>
+
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+    <dt>layout<span class="property-type">String</span><dd>The layout to use when getting the record.</dd>
+    <dt>recordId<span class="property-type">String | Number</span><dd>The record id to target</dd>
+    <dt>scripts<span class="property-type">Array</span><dd>The scripts to run when getting a record.<a target="_blank" href="https://github.com/Luidog/fms-api-client#script-array-syntax"> More Info.</a></dd>
+  </dl>
+
+  <h3>Outputs</h3>
+  <ol class="node-ports">
+    <li>Standard Output
+      <dl class="message-properties">
+        <dt>recordId<span class="property-type">Object</span>
+          <dd>The recordId of the duplicated record.</dd>
+        </dt>
+        <dt>modId<span class="property-type">Object</span>
+          <dd>The modId of the duplicated record.</dd>
+        </dt>
+      </dl>
+    </li>
+    <li>Standard Error
+      <dl class="message-properties">
+        <dt>message<span class="property-type">String</span>
+          <dd>The FileMaker or Data API client error message.</dd>
+        </dt>
+        <dt>error<span class="property-type">String</span>
+          <dd>The applicable FileMaker error code.</dd>
+        </dt>
+      </dl>
+    </li>
+  </ol>
+
+  <h3>Details</h3>
+    <p>
+      This node  duplicates a specific Filemaker record. By default this node will use <code>msg.payload.layout</code>
+      as the layout context and <code>msg.payload.recordId</code> as the record id to target.<br/><br/>This node can be
+      configured to use either static or dynamic input parameters. Dynamic parameters may be
+      read from either the <code>msg</code> property or the <code>flow</code> and <code>global</code> contexts.<br/><br/>
+      The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its
+      output with any property on the <code>msg</code> object.
+    </p>
+    <h3>References</h3>
+    <ul>
+      <li><a href="https://github.com/Luidog/fms-api-client#duplicate-record">Duplicate Method</a> - Base Client Method Documentation</li>
+      <li><a href="https://github.com/Luidog/fms-api-client#portals-array-syntax">Portals Array</a> - Portals Array Documentation</li>
+      <li><a href="https://github.com/Luidog/fms-api-client#script-array-syntax">Scripts Array</a> - Scripts Array Documentation</li>
+      <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node-RED FileMaker</a> - The Node's Github Repository</li>
+      <li><a href="https://github.com/Luidog/fms-api-client">Data API Client</a> - Data API Client Github Repository</li>
+    </ul>
+</script>

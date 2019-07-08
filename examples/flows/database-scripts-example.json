@@ -1,0 +1,68 @@
+[
+  {
+    "id": "f73710ff.aa433",
+    "type": "tab",
+    "label": "Database Scripts Example",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "e19e7c3.115e68",
+    "type": "inject",
+    "z": "f73710ff.aa433",
+    "name": "Inject",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 150,
+    "y": 100,
+    "wires": [["f8ea04de.528dc8"]]
+  },
+  {
+    "id": "799bc338.8571cc",
+    "type": "debug",
+    "z": "f73710ff.aa433",
+    "name": "debug",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 550,
+    "y": 100,
+    "wires": []
+  },
+  {
+    "id": "599bcb9.be3f834",
+    "type": "catch",
+    "z": "f73710ff.aa433",
+    "name": "error",
+    "scope": null,
+    "uncaught": false,
+    "x": 390,
+    "y": 160,
+    "wires": [["799bc338.8571cc"]]
+  },
+  {
+    "id": "f8ea04de.528dc8",
+    "type": "dapi-scripts",
+    "z": "f73710ff.aa433",
+    "name": "",
+    "client": "5e4fe59f.10af64",
+    "output": "payload",
+    "x": 350,
+    "y": 100,
+    "wires": [["799bc338.8571cc"]]
+  },
+  {
+    "id": "5e4fe59f.10af64",
+    "type": "dapi-client",
+    "z": "",
+    "name": "Example Client"
+  }
+]

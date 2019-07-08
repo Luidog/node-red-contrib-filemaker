@@ -85,7 +85,7 @@ describe("Trigger Script Node", function() {
       {
         "e5173483.adc92": {
           server: process.env.FILEMAKER_SERVER,
-          application: process.env.FILEMAKER_APPLICATION,
+          database: process.env.FILEMAKER_DATABASE,
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }
@@ -100,7 +100,7 @@ describe("Trigger Script Node", function() {
               .with.any.keys("payload")
               .and.property("payload")
               .to.be.an("object")
-              .with.any.keys("result");
+              .with.any.keys("layout", "script", "scriptError", "scriptResult");
             done();
           } catch (err) {
             done(err);
@@ -165,7 +165,7 @@ describe("Trigger Script Node", function() {
       {
         "e5173483.adc92": {
           server: process.env.FILEMAKER_SERVER,
-          application: process.env.FILEMAKER_APPLICATION,
+          database: process.env.FILEMAKER_DATABASE,
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }
@@ -180,8 +180,8 @@ describe("Trigger Script Node", function() {
               .with.any.keys("payload")
               .and.property("payload")
               .to.be.an("object")
-              .with.any.keys("result")
-              .and.property("result")
+              .with.any.keys("layout", "script", "scriptError", "scriptResult")
+              .and.property("scriptResult")
               .to.be.an("object")
               .with.any.keys("message");
             done();
@@ -248,7 +248,7 @@ describe("Trigger Script Node", function() {
       {
         "e5173483.adc92": {
           server: process.env.FILEMAKER_SERVER,
-          application: process.env.FILEMAKER_APPLICATION,
+          database: process.env.FILEMAKER_DATABASE,
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }
@@ -263,8 +263,8 @@ describe("Trigger Script Node", function() {
               .with.any.keys("payload")
               .and.property("payload")
               .to.be.an("object")
-              .with.any.keys("result")
-              .and.property("result")
+              .with.any.keys("layout", "script", "scriptError", "scriptResult")
+              .and.property("scriptResult")
               .to.be.a("string");
             done();
           } catch (err) {
@@ -320,7 +320,7 @@ describe("Trigger Script Node", function() {
       {
         "3783b2da.4346a6": {
           server: process.env.FILEMAKER_SERVER,
-          application: process.env.FILEMAKER_APPLICATION,
+          database: process.env.FILEMAKER_DATABASE,
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }

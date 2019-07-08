@@ -10,7 +10,9 @@
     outputs: 1,
     icon: "logout.png",
     color: "#39D1C0",
-    label: "Logout",
+    label: function() {
+      return this.name || "Logout";
+    },
     paletteLabel: "Logout",
     oneditprepare: function() {
       $("#node-input-output").typedInput({
@@ -76,7 +78,7 @@
   <h3>Details</h3>
   <p>
     This node closes the currently open Data API session and removes the associated session token.<br/><br/>
-    The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its 
+    The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its
     output with any property on the <code>msg</code> object.
   </p>
 

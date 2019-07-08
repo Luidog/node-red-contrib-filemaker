@@ -1,0 +1,107 @@
+<script type="text/javascript">
+  RED.nodes.registerType("dapi-layout", {
+    category: "FileMaker",
+    defaults: {
+      name: { value: null, required: false },
+      client: { value: "", type: "dapi-client" },
+      output: { value: "payload", required: true },
+      layout: {
+        value: "payload.layout",
+        required: true
+      },
+      layoutType: { value: "msg" }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "layout.png",
+    color: "#39D1C0",
+    label: function() {
+      return this.name || "Layout Info";
+    },
+    paletteLabel: "Layout Info",
+    oneditprepare: function() {
+      $("#node-input-layout").typedInput({
+        default: "msg",
+        types: ["str", "msg", "flow", "global"],
+        typeField: $("#node-input-layoutType")
+      });
+      $("#node-input-output").typedInput({
+        default: "msg",
+        types: ["msg"]
+      });
+    }
+  });
+</script>
+
+<script type="text/x-red" data-template-name="dapi-layout">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag" aria-hidden="true"></i> <span>Name</span></label>
+    <input type="text" id="node-input-name" placeholder="Specific Node">
+  </div>
+  <hr>
+  <div class="form-row">
+    <label for="node-input-client"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Client</span></label>
+    <input type="text" id="node-input-client">
+  </div>
+  <hr>
+  <div class="form-row">
+    <label for="node-input-layout"><i class="fa fa-list-alt" aria-hidden="true"></i> <span>Layout</span></label>
+    <input type="hidden" id="node-input-layoutType">
+    <input type="text" id="node-input-layout">
+  </div>
+  <hr>
+  <div class="form-row">
+    <label for="node-input-output"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> <span>Output</span></label>
+    <input type="hidden" id="node-input-outputType">
+    <input type="text" id="node-input-output">
+  </div>
+</script>
+
+<script type="text/x-red" data-help-name="dapi-layout">
+  <p>
+    This node gets field and portal metadata for a specific layout. Defaults are <code>msg.payload.layout</code> for the layout to target.
+  </p>
+
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+    <dt>payload
+      <span class="property-type">Any</span>
+        <dd>This node accepts any payload.</dd>
+      </dt>
+  </dl>
+
+  <h3>Outputs</h3>
+  <ol class="node-ports">
+    <li>Standard Output
+      <dl class="message-properties">
+        <dt>fieldMetaData<span class="property-type">Object</span>
+          <dd>Metadata for the fields on the layout.</dd>
+        </dt>
+        <dt>portalMetaData<span class="property-type">Object</span>
+          <dd>Metadata for the portals on the layout.</dd>
+        </dt>
+      </dl>
+    </li>
+    <li>Standard Error
+      <dl class="message-properties">
+        <dt>message <span class="property-type">String</span>
+          <dd>The FileMaker or client error message.</dd>
+        </dt>
+      </dl>
+    </li>
+  </ol>
+
+  <h3>Details</h3>
+  <p>
+    This node gets portal and field metadata for a specific layout. This node will use the layout configured in <code>msg.payload.layout</code> by default.<br/><br/>
+    The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its
+    output with any property on the <code>msg</code> object.
+  </p>
+
+  <h3>References</h3>
+  <ul>
+    <li><a href="https://github.com/Luidog/fms-api-client#get-layout">Get Layout Info Method</a> - Base Client Method Documentation</li>
+    <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node-RED FileMaker</a> - The Node's Github Repository</li>
+    <li><a href="https://github.com/Luidog/fms-api-client">Data API Client</a> - Data API Client Github Repository</li>
+  </ul>
+</script>

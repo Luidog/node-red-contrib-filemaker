@@ -1,0 +1,93 @@
+[
+  {
+    "id": "9eae24aa.ebcad",
+    "type": "tab",
+    "label": "Database Layout Info Example",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "e74c12a8.614a98",
+    "type": "inject",
+    "z": "9eae24aa.ebcad",
+    "name": "Inject",
+    "topic": "",
+    "payload": "{}",
+    "payloadType": "json",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 110,
+    "y": 60,
+    "wires": [["bc634f23.e9171"]]
+  },
+  {
+    "id": "bc634f23.e9171",
+    "type": "dapi-layouts",
+    "z": "9eae24aa.ebcad",
+    "name": "",
+    "client": "5e4fe59f.10af64",
+    "output": "payload",
+    "x": 310,
+    "y": 60,
+    "wires": [["c8628bed.8ade2"]]
+  },
+  {
+    "id": "4461bb5d.50a71c",
+    "type": "debug",
+    "z": "9eae24aa.ebcad",
+    "name": "debug",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 910,
+    "y": 60,
+    "wires": []
+  },
+  {
+    "id": "381dd2b.ab05cae",
+    "type": "dapi-layout",
+    "z": "9eae24aa.ebcad",
+    "name": "",
+    "client": "5e4fe59f.10af64",
+    "output": "payload",
+    "layout": "payload.layouts[0].name",
+    "layoutType": "msg",
+    "x": 730,
+    "y": 60,
+    "wires": [["4461bb5d.50a71c"]]
+  },
+  {
+    "id": "c8628bed.8ade2",
+    "type": "function",
+    "z": "9eae24aa.ebcad",
+    "name": "Filter Folders",
+    "func": "msg.payload.layouts = msg.payload.layouts.filter(layout=>!layout.isFolder)\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 530,
+    "y": 60,
+    "wires": [["381dd2b.ab05cae"]]
+  },
+  {
+    "id": "6e85423c.c70f14",
+    "type": "catch",
+    "z": "9eae24aa.ebcad",
+    "name": "",
+    "scope": null,
+    "uncaught": false,
+    "x": 740,
+    "y": 120,
+    "wires": [["4461bb5d.50a71c"]]
+  },
+  {
+    "id": "5e4fe59f.10af64",
+    "type": "dapi-client",
+    "z": "",
+    "name": "Example Client"
+  }
+]

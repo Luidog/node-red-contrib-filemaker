@@ -1,0 +1,68 @@
+[
+  {
+    "id": "fa9642b.0382ac",
+    "type": "tab",
+    "label": "Product Info Example",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "46f9ecee.441e3c",
+    "type": "inject",
+    "z": "fa9642b.0382ac",
+    "name": "Inject",
+    "topic": "",
+    "payload": "{}",
+    "payloadType": "json",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 150,
+    "y": 100,
+    "wires": [["aaf7695a.9c16b8"]]
+  },
+  {
+    "id": "66f15af5.f80aa4",
+    "type": "debug",
+    "z": "fa9642b.0382ac",
+    "name": "Debug",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 510,
+    "y": 100,
+    "wires": []
+  },
+  {
+    "id": "aaf7695a.9c16b8",
+    "type": "dapi-product-info",
+    "z": "fa9642b.0382ac",
+    "name": "",
+    "client": "5e4fe59f.10af64",
+    "output": "payload",
+    "x": 330,
+    "y": 100,
+    "wires": [["66f15af5.f80aa4"]]
+  },
+  {
+    "id": "26b2a8c2.362a78",
+    "type": "catch",
+    "z": "fa9642b.0382ac",
+    "name": "Error",
+    "scope": null,
+    "uncaught": false,
+    "x": 350,
+    "y": 160,
+    "wires": [["66f15af5.f80aa4"]]
+  },
+  {
+    "id": "5e4fe59f.10af64",
+    "type": "dapi-client",
+    "z": "",
+    "name": "Example Client"
+  }
+]

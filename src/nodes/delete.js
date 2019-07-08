@@ -12,7 +12,7 @@ module.exports = function(RED) {
         node.context(),
         ["layout", "scripts", "recordId"]
       );
-      let client = await this.connection.client;
+      const client = await this.connection.client;
       client
         .delete(layout, recordId, parameters)
         .then(response =>

@@ -23,7 +23,12 @@
       return this.name || "Get Record";
     },
     oneditprepare: function() {
-      var nullType = { value: "none", label: "None", icon: "", hasValue: false };
+      var nullType = {
+        value: "none",
+        label: "None",
+        icon: "",
+        hasValue: false
+      };
       $("#node-input-layout").typedInput({
         default: "msg",
         types: ["msg", "flow", "global", "str"],
@@ -50,7 +55,7 @@
         typeField: ".outputType"
       });
     }
-});
+  });
 </script>
 <script type="text/x-red" data-template-name="dapi-get-record">
   <div class="form-row">
@@ -92,7 +97,7 @@
 </script>
 <script type="text/x-red" data-help-name="dapi-get-record">
   <p>
-    This node gets specific FileMaker record details. Defaults are <code>msg.payload.layout</code> 
+    This node gets specific FileMaker record details. Defaults are <code>msg.payload.layout</code>
     as the layout context, and <code>msg.payload.recordId</code> as the record id to target.
   </p>
 
@@ -108,8 +113,11 @@
   <ol class="node-ports">
     <li>Standard Output
       <dl class="message-properties">
-        <dt>data<span class="property-type">Array</span>
-          <dd>The specific FileMaker record.</dd>
+        <dt>dataInfo<span class="property-type">Object</span>
+          <dd>Resource specific metadata</dd>
+        </dt>
+        <dt>data<span class="property-type">Object</span>
+          <dd>Record specific information.</dd>
         </dt>
       </dl>
     </li>
@@ -129,9 +137,9 @@
     <p>
       This node gets specific Filemaker record details. By default this node will use <code>msg.payload.layout</code>
       as the layout context and <code>msg.payload.recordId</code> as the record id to target.<br/><br/>This node can be
-      configured to use either static or dynamic input parameters. Dynamic parameters may be 
+      configured to use either static or dynamic input parameters. Dynamic parameters may be
       read from either the <code>msg</code> property or the <code>flow</code> and <code>global</code> contexts.<br/><br/>
-      The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its 
+      The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its
       output with any property on the <code>msg</code> object.
     </p>
     <h3>References</h3>

@@ -5,7 +5,7 @@ module.exports = function(RED) {
     RED.nodes.createNode(this, configuration);
     const node = this;
     node.on("input", message => {
-      let { data, ...parameters } = constructParameters(
+      const { data, ...parameters } = constructParameters(
         message,
         configuration,
         node.context(),

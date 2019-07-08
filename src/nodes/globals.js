@@ -6,8 +6,8 @@ module.exports = function(RED) {
     const { client, ...configuration } = config;
     node.connection = RED.nodes.getNode(client);
     node.on("input", async message => {
-      let connection = await this.connection.client;
-      let { data } = constructParameters(
+      const connection = await this.connection.client;
+      const { data } = constructParameters(
         message,
         configuration,
         node.context(),

@@ -13,7 +13,7 @@ module.exports = function(RED) {
         ["layout", "limit", "offset", "sort", "scripts", "portals"]
       );
 
-      let connection = await this.connection.client;
+      const connection = await this.connection.client;
       connection
         .list(layout, parameters)
         .then(response =>

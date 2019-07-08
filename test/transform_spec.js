@@ -96,7 +96,7 @@ describe("Transform Utility Node", function() {
       {
         "e5173483.adc92": {
           server: process.env.FILEMAKER_SERVER,
-          application: process.env.FILEMAKER_APPLICATION,
+          database: process.env.FILEMAKER_DATABASE,
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }
@@ -202,7 +202,7 @@ describe("Transform Utility Node", function() {
       {
         "e5173483.adc92": {
           server: process.env.FILEMAKER_SERVER,
-          application: process.env.FILEMAKER_APPLICATION,
+          database: process.env.FILEMAKER_DATABASE,
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }
@@ -283,7 +283,7 @@ describe("Transform Utility Node", function() {
       {
         "e5173483.adc92": {
           server: process.env.FILEMAKER_SERVER,
-          application: process.env.FILEMAKER_APPLICATION,
+          database: process.env.FILEMAKER_DATABASE,
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }

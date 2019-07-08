@@ -1,0 +1,68 @@
+[
+  {
+    "id": "9182aa2e.762e08",
+    "type": "tab",
+    "label": "Database Layouts Example",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "904056e.6ac66a8",
+    "type": "inject",
+    "z": "9182aa2e.762e08",
+    "name": "Inject",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 130,
+    "y": 60,
+    "wires": [["fc70cd97.602c1"]]
+  },
+  {
+    "id": "2e481478.7c3bbc",
+    "type": "debug",
+    "z": "9182aa2e.762e08",
+    "name": "debug",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 530,
+    "y": 60,
+    "wires": []
+  },
+  {
+    "id": "fc70cd97.602c1",
+    "type": "dapi-layouts",
+    "z": "9182aa2e.762e08",
+    "name": "",
+    "client": "5e4fe59f.10af64",
+    "output": "payload",
+    "x": 330,
+    "y": 60,
+    "wires": [["2e481478.7c3bbc"]]
+  },
+  {
+    "id": "ae24653a.2b72f",
+    "type": "catch",
+    "z": "9182aa2e.762e08",
+    "name": "error",
+    "scope": null,
+    "uncaught": false,
+    "x": 370,
+    "y": 120,
+    "wires": [["2e481478.7c3bbc"]]
+  },
+  {
+    "id": "5e4fe59f.10af64",
+    "type": "dapi-client",
+    "z": "",
+    "name": "Example Client"
+  }
+]
