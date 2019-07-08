@@ -7,7 +7,7 @@ module.exports = function(RED) {
     node.connection = RED.nodes.getNode(client);
 
     node.on("input", async message => {
-      let client = await this.connection.client;
+      const client = await this.connection.client;
       client
         .login()
         .then(response =>

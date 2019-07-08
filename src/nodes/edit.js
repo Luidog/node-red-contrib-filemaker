@@ -6,13 +6,13 @@ module.exports = function(RED) {
     const { client, ...configuration } = config;
     node.connection = RED.nodes.getNode(client);
     node.on("input", async message => {
-      let { layout, recordId, data, ...parameters } = constructParameters(
+      const { layout, recordId, data, ...parameters } = constructParameters(
         message,
         configuration,
         node.context(),
         ["layout", "scripts", "data", "merge", "recordId"]
       );
-      let client = await this.connection.client;
+      const client = await this.connection.client;
       client
         .edit(layout, recordId, data, castBooleans(parameters))
         .then(response =>

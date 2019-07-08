@@ -6,13 +6,13 @@ module.exports = function(RED) {
     const { client, ...configuration } = config;
     node.connection = RED.nodes.getNode(client);
     node.on("input", async message => {
-      let { layout, recordId, ...parameters } = constructParameters(
+      const { layout, recordId, ...parameters } = constructParameters(
         message,
         configuration,
         node.context(),
         ["layout", "recordId", "scripts"]
       );
-      let connection = await this.connection.client;
+      const connection = await this.connection.client;
       connection
         .duplicate(layout, recordId, parameters)
         .then(response =>

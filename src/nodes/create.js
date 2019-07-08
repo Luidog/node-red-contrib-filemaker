@@ -12,7 +12,7 @@ module.exports = function(RED) {
         node.context(),
         ["layout", "scripts", "data", "merge"]
       );
-      let client = await this.connection.client;
+      const client = await this.connection.client;
       client
         .create(layout, data || {}, castBooleans(parameters))
         .then(response =>

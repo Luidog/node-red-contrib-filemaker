@@ -6,7 +6,7 @@ module.exports = function(RED) {
     RED.nodes.createNode(this, configuration);
     const node = this;
     node.on("input", async message => {
-      let {
+      const {
         data,
         field,
         filename,
@@ -31,28 +31,26 @@ module.exports = function(RED) {
                 parameters
               )
             )
-            .then(
-              data =>
-                Array.isArray(data)
-                  ? data.map(({ name, path }) => ({
-                      filename: name,
-                      path
-                    }))
-                  : { ...data, filename: data.name }
+            .then(data =>
+              Array.isArray(data)
+                ? data.map(({ name, path }) => ({
+                    filename: name,
+                    path
+                  }))
+                : { ...data, filename: data.name }
             )
             .then(files =>
               node.send(merge(configuration.output, message, files))
             )
             .catch(error => node.error(error.message, message))
         : await containerData(data || {}, field, "buffer", filename, parameters)
-            .then(
-              data =>
-                Array.isArray(data)
-                  ? data.map(({ name, buffer }) => ({
-                      filename: name,
-                      buffer
-                    }))
-                  : { ...data, filename: data.name }
+            .then(data =>
+              Array.isArray(data)
+                ? data.map(({ name, buffer }) => ({
+                    filename: name,
+                    buffer
+                  }))
+                : { ...data, filename: data.name }
             )
             .then(files =>
               node.send(merge(configuration.output, message, files))

@@ -6,7 +6,7 @@ module.exports = function(RED) {
     const { client, ...configuration } = config;
     node.connection = RED.nodes.getNode(client);
     node.on("input", async message => {
-      let { layout, query, ...parameters } = constructParameters(
+      const { layout, query, ...parameters } = constructParameters(
         message,
         configuration,
         node.context(),
@@ -21,7 +21,7 @@ module.exports = function(RED) {
           "data"
         ]
       );
-      let connection = await this.connection.client;
+      const connection = await this.connection.client;
       connection
         .find(layout, query, parameters)
         .then(response =>

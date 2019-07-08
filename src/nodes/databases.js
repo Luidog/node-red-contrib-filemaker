@@ -12,7 +12,7 @@ module.exports = function(RED) {
         node.context(),
         ["credentials"]
       );
-      let client = await this.connection.client;
+      const client = await this.connection.client;
       client
         .databases(credentials)
         .then(response =>
