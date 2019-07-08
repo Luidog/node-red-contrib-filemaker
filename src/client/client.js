@@ -6,7 +6,7 @@ connect("nedb://memory");
 function configurationNode(RED) {
   function Client(n) {
     RED.nodes.createNode(this, n);
-    let client = Filemaker.create(
+    const client = Filemaker.create(
       Object.assign(n, {
         database: this.credentials.database,
         server: this.credentials.server,

@@ -3,7 +3,8 @@
     category: "config",
     defaults: {
       name: { value: null, required: true },
-      usage: { value: false, required: false }
+      usage: { value: false, required: false },
+      concurrency: { value: "1", required: false }
     },
     credentials: {
       server: { type: "text", required: true },
@@ -30,6 +31,11 @@
   <div class="form-row">
     <label for="node-config-input-database"><i class="fa fa-database" aria-hidden="true"></i> <span>Database</span></label>
     <input type="text" id="node-config-input-database">
+  </div>
+  <hr>
+  <div class="form-row">
+    <label for="node-config-input-concurrency"><i class="fa fa-microchip" aria-hidden="true"></i> <span>Concurrency</span></label>
+    <input type="number" id="node-config-input-concurrency">
   </div>
   <hr>
   <div class="form-row">
