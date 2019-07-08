@@ -35,6 +35,7 @@ template.readme.md
 #project styles
 .eslintrc.js
 .prettierrc.js
+.DS_Store
 # development node-red config
 red.dev.config.js
 # development pm2 config
