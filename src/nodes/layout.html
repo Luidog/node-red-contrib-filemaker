@@ -18,7 +18,7 @@
     label: function() {
       return this.name || "Layout Info";
     },
-    paletteLabel: "Layout",
+    paletteLabel: "Layout Info",
     oneditprepare: function() {
       $("#node-input-layout").typedInput({
         default: "msg",
@@ -59,7 +59,7 @@
 
 <script type="text/x-red" data-help-name="dapi-layout">
   <p>
-    This node gets information for a specific layout.
+    This node gets field and portal metadata for a specific layout. Defaults are <code>msg.payload.layout</code> for the layout to target.
   </p>
 
   <h3>Inputs</h3>
@@ -93,7 +93,7 @@
 
   <h3>Details</h3>
   <p>
-    This node gets information on a specific layout. This node will return metadata for the fields and portals on the layout<br/><br/>
+    This node gets portal and field metadata for a specific layout. This node will use the layout configured in <code>msg.payload.layout</code> by default.<br/><br/>
     The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its
     output with any property on the <code>msg</code> object.
   </p>

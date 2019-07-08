@@ -12,7 +12,7 @@ module.exports = function(RED) {
         node.context(),
         ["script", "layout", "parameter"]
       );
-      let connection = await this.connection.client;
+      const connection = await this.connection.client;
       connection
         .script(layout, script, parameter)
         .then(response =>
