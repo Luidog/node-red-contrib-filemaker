@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-filemaker",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Node-RED FileMaker nodes. These nodes use the FileMaker Data API to connect with a FileMaker database.",
   "scripts": {
     "dev": "pm2 start ecosystem.dev.config.js",
@@ -40,12 +40,12 @@
   "node-red": {
     "nodes": {
       "dapi-client": "./src/client/client.js",
-      "dapi-product-info": "./src/client/productInfo.js",
-      "dapi-databases": "./src/client/databases.js",
-      "dapi-duplicate": "./src/client/duplicate.js",
-      "dapi-layouts": "./src/client/layouts.js",
-      "dapi-layout": "./src/client/layout.js",
-      "dapi-scripts": "./src/client/scripts.js",
+      "dapi-product-info": "./src/nodes/productInfo.js",
+      "dapi-databases": "./src/nodes/databases.js",
+      "dapi-duplicate": "./src/nodes/duplicate.js",
+      "dapi-layouts": "./src/nodes/layouts.js",
+      "dapi-layout": "./src/nodes/layout.js",
+      "dapi-scripts": "./src/nodes/scripts.js",
       "dapi-login": "./src/nodes/login.js",
       "dapi-logout": "./src/nodes/logout.js",
       "dapi-create-record": "./src/nodes/create.js",
