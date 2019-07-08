@@ -366,7 +366,7 @@ Testing /node-red-contrib-filemaker...
 Organisation:      luidog
 Package manager:   npm
 Target file:       package-lock.json
-Open source:       no
+Open source:       yes
 Project path:      /node-red-contrib-filemaker
 Local Snyk policy: found
 
