@@ -24,7 +24,12 @@
       return this.name || "Trigger Script";
     },
     oneditprepare: function() {
-      var nullType = { value: "none", label: "None", icon: "", hasValue: false };
+      var nullType = {
+        value: "none",
+        label: "None",
+        icon: "",
+        hasValue: false
+      };
       $("#node-input-layout").typedInput({
         default: "msg",
         types: ["str", "msg", "flow", "global", nullType],
@@ -85,7 +90,7 @@
 
 <script type="text/x-red" data-help-name="dapi-trigger-script">
   <p>
-    This node triggers a FileMaker script. Defaults are <code>msg.payload.layout</code> 
+    This node triggers a FileMaker script. Defaults are <code>msg.payload.layout</code>
     as the layout context, and <code>msg.payload.script</code> as the script to run.
   </p>
 
@@ -100,8 +105,11 @@
   <ol class="node-ports">
     <li>Standard Output
       <dl class="message-properties">
-        <dt>result<span class="property-type">String | Object</span>
-          <dd>The script result. A scripts result that is valid JSON will be automatically parsed.</dd>
+        <dt>scriptError<span class="property-type">String</span>
+          <dd>A FileMaker error code cast as a string if the script encountered an error.</dd>
+        </dt>
+        <dt>scriptResult<span class="property-type">Object | String</span>
+          <dd>The result of the script. If the result is JSON it will be parsed.</dd>
         </dt>
       </dl>
     </li>
@@ -121,9 +129,9 @@
   <p>
     This node will run a specific script in FileMaker. By default this node will use <code>msg.payload.layout</code>
     as the layout context and <code>msg.payload.script</code> as the script to run. This node can also be configured to call a script
-    with a dynamic parameter. If a script's result is valid JSON it will be automatically parsed. This node is an abstraction of endpoints 
-    in the FileMaker Data API.<br/><br/>This node can be configured to use either static or dynamic input parameters. Dynamic parameters may 
-    be read from either the <code>msg</code> property or the <code>flow</code> and <code>global</code> contexts.<br/><br/>The default output 
+    with a dynamic parameter. If a script's result is valid JSON it will be automatically parsed. This node is an abstraction of endpoints
+    in the FileMaker Data API.<br/><br/>This node can be configured to use either static or dynamic input parameters. Dynamic parameters may
+    be read from either the <code>msg</code> property or the <code>flow</code> and <code>global</code> contexts.<br/><br/>The default output
     of this node is <code>msg.payload</code>. This node can also be configured to merge its output with any property on the <code>msg</code> object.
   </p>
 

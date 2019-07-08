@@ -30,7 +30,12 @@
       return this.name || "List Records";
     },
     oneditprepare: function() {
-      var nullType = { value: "none", label: "None", icon: "", hasValue: false };
+      var nullType = {
+        value: "none",
+        label: "None",
+        icon: "",
+        hasValue: false
+      };
       $("#node-input-layout").typedInput({
         default: "msg",
         types: ["str", "msg", "flow", "global"],
@@ -119,10 +124,9 @@
   </div>
 </script>
 
-
 <script type="text/x-red" data-help-name="dapi-list-records">
   <p>
-    This node lists FileMaker records for a specified layout. By default this node will use the value found in 
+    This node lists FileMaker records for a specified layout. By default this node will use the value found in
     <code>msg.payload.layout</code> as layout context.
   </p>
 
@@ -143,6 +147,9 @@
         <dt>data <span class="property-type">Array</span>
           <dd>The listed records.</dd>
         </dt>
+        <dt>dataInfo<span class="property-type">Object</span>
+          <dd>Request metadata information.</dd>
+        </dt>
       </dl>
     </li>
     <li>Standard Error
@@ -159,10 +166,10 @@
 
   <h3>Details</h3>
   <p>
-    This node lists FileMaker records from the specified layout. By default this node will use <code>msg.payload.layout</code> 
-    as the layout context for listing records. <br/><br/>This node can be configured to use either static or dynamic input  
-    parameters. Dynamic parameters may be read from either the <code>msg</code> property or the <code>flow</code> and 
-    <code>global</code> contexts.<br/><br/>The default output of this node is <code>msg.payload</code>. This node can also 
+    This node lists FileMaker records from the specified layout. By default this node will use <code>msg.payload.layout</code>
+    as the layout context for listing records. <br/><br/>This node can be configured to use either static or dynamic input
+    parameters. Dynamic parameters may be read from either the <code>msg</code> property or the <code>flow</code> and
+    <code>global</code> contexts.<br/><br/>The default output of this node is <code>msg.payload</code>. This node can also
     be configured to merge its output with any property on the <code>msg</code> object.
   </p>
   <h3>References</h3>

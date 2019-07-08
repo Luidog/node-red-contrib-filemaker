@@ -24,7 +24,12 @@
       output: { value: "payload", required: false }
     },
     oneditprepare: function() {
-      var nullType = { value: "none", label: "None", icon: "", hasValue: false };
+      var nullType = {
+        value: "none",
+        label: "None",
+        icon: "",
+        hasValue: false
+      };
       $("#node-input-layout").typedInput({
         default: "msg",
         types: ["str", "msg", "flow", "global"],
@@ -151,6 +156,9 @@
   <ol class="node-ports">
     <li>Standard Output
       <dl class="message-properties">
+        <dt>dataInfo<span class="property-type">Object</span>
+          <dd>Resource specific metadata</dd>
+        </dt>
         <dt>data<span class="property-type">Array</span>
           <dd>The record found set.</dd>
         </dt>
@@ -174,7 +182,7 @@
     to perform a find and <code>msg.payload.layout</code> as the layout context.<br/><br/>
     This node can be configured to use either static or dynamic input parameters. Dynamic parameters may be
     read from either the <code>msg</code> property or the <code>flow</code> and <code>global</code> contexts.<br/><br/>
-    The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its 
+    The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its
     output with any property on the <code>msg</code> object.
   </p>
 

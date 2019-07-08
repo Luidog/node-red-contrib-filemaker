@@ -58,11 +58,23 @@
   <ol class="node-ports">
     <li>Standard Output
       <dl class="message-properties">
-        <dt>code<span class="property-type">String</span>
-          <dd>A success code.</dd>
+        <dt>name<span class="property-type">String</span>
+          <dd>Data API name.</dd>
         </dt>
-        <dt>message<span class="property-type">String</span>
-          <dd>A success message.</dd>
+        <dt>buildDate<span class="property-type">String</span>
+          <dd>When the Data API server was built.</dd>
+        </dt>
+        <dt>version<span class="property-type">String</span>
+          <dd>Data API version,</dd>
+        </dt>
+        <dt>dateFormat<span class="property-type">String</span>
+          <dd>The current date format.</dd>
+        </dt>
+        <dt>timeStampFormat<span class="property-type">String</span>
+          <dd>The current timestamp format.</dd>
+        </dt>
+        <dt>time<span class="property-type">String</span>
+          <dd>The current time format.</dd>
         </dt>
       </dl>
     </li>
@@ -78,7 +90,7 @@
   <h3>Details</h3>
   <p>
     This node gets Data API version information.<br/><br/>
-    The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its 
+    The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its
     output with any property on the <code>msg</code> object.
   </p>
 
