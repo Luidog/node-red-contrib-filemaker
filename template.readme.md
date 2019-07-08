@@ -27,7 +27,7 @@ npm install --save node-red-contrib-filemaker
 <!--@execute('npm run test',[])-->
 
 ```default
-> node-red-contrib-filemaker@2.0.0 test /Development/node-red-contrib-filemaker
+> node-red-contrib-filemaker@2.0.0 test /node-red-contrib-filemaker
 > snyk test && nyc _mocha --recursive  "test/**/*_spec.js" --timeout=30000 --exit
 
 
@@ -37,7 +37,7 @@ Organisation:      luidog
 Package manager:   npm
 Target file:       package-lock.json
 Open source:       no
-Project path:      /Users/Lui/Documents/Development/node-red-contrib-filemaker
+Project path:      /node-red-contrib-filemaker
 Local Snyk policy: found
 
 ✓ Tested 363 dependencies for known vulnerabilities, no vulnerable paths found.
