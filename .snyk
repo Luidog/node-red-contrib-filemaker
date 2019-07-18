@@ -6,76 +6,40 @@ patch:
   SNYK-JS-LODASH-450202:
     - marpat > lodash:
         patched: '2019-07-07T04:51:18.841Z'
-      snyk > lodash:
-        patched: '2019-07-07T22:59:23.961Z'
     - fms-api-client > lodash:
         patched: '2019-07-07T04:51:18.841Z'
-      marpat > lodash:
-        patched: '2019-07-07T22:59:23.961Z'
     - snyk > lodash:
         patched: '2019-07-07T04:51:18.841Z'
-      fms-api-client > lodash:
-        patched: '2019-07-07T22:59:23.961Z'
     - fms-api-client > marpat > lodash:
         patched: '2019-07-07T04:51:18.841Z'
-      snyk > @snyk/dep-graph > lodash:
-        patched: '2019-07-07T22:59:23.961Z'
     - sinon > @sinonjs/samsam > lodash:
         patched: '2019-07-07T04:51:18.841Z'
-      snyk > inquirer > lodash:
-        patched: '2019-07-07T22:59:23.961Z'
     - snyk > @snyk/dep-graph > lodash:
         patched: '2019-07-07T04:51:18.841Z'
-      snyk > snyk-config > lodash:
-        patched: '2019-07-07T22:59:23.961Z'
     - snyk > inquirer > lodash:
         patched: '2019-07-07T04:51:18.841Z'
-      snyk > snyk-mvn-plugin > lodash:
-        patched: '2019-07-07T22:59:23.961Z'
     - snyk > snyk-config > lodash:
         patched: '2019-07-07T04:51:18.841Z'
-      snyk > snyk-nodejs-lockfile-parser > lodash:
-        patched: '2019-07-07T22:59:23.961Z'
     - snyk > snyk-mvn-plugin > lodash:
         patched: '2019-07-07T04:51:18.841Z'
-      snyk > snyk-nuget-plugin > lodash:
-        patched: '2019-07-07T22:59:23.961Z'
     - snyk > snyk-nodejs-lockfile-parser > lodash:
         patched: '2019-07-07T04:51:18.841Z'
-      marpat > snyk > lodash:
-        patched: '2019-07-07T22:59:23.961Z'
     - snyk > snyk-nuget-plugin > lodash:
         patched: '2019-07-07T04:51:18.841Z'
-      fms-api-client > snyk > lodash:
-        patched: '2019-07-07T22:59:23.961Z'
     - sinon > @sinonjs/formatio > @sinonjs/samsam > lodash:
         patched: '2019-07-07T04:51:18.841Z'
-      fms-api-client > marpat > lodash:
-        patched: '2019-07-07T22:59:23.961Z'
     - snyk > @snyk/dep-graph > graphlib > lodash:
         patched: '2019-07-07T04:51:18.841Z'
-      sinon > @sinonjs/samsam > lodash:
-        patched: '2019-07-07T22:59:23.961Z'
     - snyk > snyk-go-plugin > graphlib > lodash:
         patched: '2019-07-07T04:51:18.841Z'
-      snyk > @snyk/dep-graph > graphlib > lodash:
-        patched: '2019-07-07T22:59:23.961Z'
     - snyk > snyk-nodejs-lockfile-parser > graphlib > lodash:
         patched: '2019-07-07T04:51:18.841Z'
-      snyk > snyk-go-plugin > graphlib > lodash:
-        patched: '2019-07-07T22:59:23.961Z'
     - snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
         patched: '2019-07-07T04:51:18.841Z'
-      snyk > snyk-nodejs-lockfile-parser > graphlib > lodash:
-        patched: '2019-07-07T22:59:23.961Z'
     - sinon > nise > @sinonjs/formatio > @sinonjs/samsam > lodash:
         patched: '2019-07-07T04:51:18.841Z'
-      marpat > snyk > @snyk/dep-graph > lodash:
-        patched: '2019-07-07T22:59:23.961Z'
     - lodash:
         patched: '2019-07-07T04:51:18.841Z'
-      fms-api-client > snyk > @snyk/dep-graph > lodash:
-        patched: '2019-07-07T22:59:23.961Z'
     - marpat > snyk > inquirer > lodash:
         patched: '2019-07-07T22:59:23.961Z'
     - fms-api-client > snyk > inquirer > lodash:
@@ -141,4 +105,40 @@ patch:
     - fms-api-client > marpat > snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
         patched: '2019-07-07T22:59:23.961Z'
     - lodash:
+        patched: '2019-07-07T22:59:23.961Z'
+    - snyk > lodash:
+        patched: '2019-07-07T22:59:23.961Z'
+    - marpat > lodash:
+        patched: '2019-07-07T22:59:23.961Z'
+    - fms-api-client > lodash:
+        patched: '2019-07-07T22:59:23.961Z'
+    - snyk > @snyk/dep-graph > lodash:
+        patched: '2019-07-07T22:59:23.961Z'
+    - snyk > inquirer > lodash:
+        patched: '2019-07-07T22:59:23.961Z'
+    - snyk > snyk-config > lodash:
+        patched: '2019-07-07T22:59:23.961Z'
+    - snyk > snyk-mvn-plugin > lodash:
+        patched: '2019-07-07T22:59:23.961Z'
+    - snyk > snyk-nodejs-lockfile-parser > lodash:
+        patched: '2019-07-07T22:59:23.961Z'
+    - snyk > snyk-nuget-plugin > lodash:
+        patched: '2019-07-07T22:59:23.961Z'
+    - marpat > snyk > lodash:
+        patched: '2019-07-07T22:59:23.961Z'
+    - fms-api-client > snyk > lodash:
+        patched: '2019-07-07T22:59:23.961Z'
+    - fms-api-client > marpat > lodash:
+        patched: '2019-07-07T22:59:23.961Z'
+    - sinon > @sinonjs/samsam > lodash:
+        patched: '2019-07-07T22:59:23.961Z'
+    - snyk > @snyk/dep-graph > graphlib > lodash:
+        patched: '2019-07-07T22:59:23.961Z'
+    - snyk > snyk-go-plugin > graphlib > lodash:
+        patched: '2019-07-07T22:59:23.961Z'
+    - snyk > snyk-nodejs-lockfile-parser > graphlib > lodash:
+        patched: '2019-07-07T22:59:23.961Z'
+    - marpat > snyk > @snyk/dep-graph > lodash:
+        patched: '2019-07-07T22:59:23.961Z'
+    - fms-api-client > snyk > @snyk/dep-graph > lodash:
         patched: '2019-07-07T22:59:23.961Z'
