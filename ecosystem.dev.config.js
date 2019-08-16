@@ -7,9 +7,10 @@ module.exports = {
       script: path.join(__dirname, "./node_modules/.bin/node-red"),
       args: "-v -s ./red.dev.config.js",
       instances: 1,
+      out_file: "./output.log",
       autorestart: true,
       watch: true,
-      max_memory_restart: "1G",
+      node_args: "--max_old_space_size=8192",
       env: {
         NODE_ENV: "development"
       }
