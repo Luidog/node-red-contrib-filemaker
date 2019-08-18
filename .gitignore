@@ -5,3 +5,5 @@ node_modules
 /user
 !assets/placeholder.json
 assets/*
+*.log
+/dapi

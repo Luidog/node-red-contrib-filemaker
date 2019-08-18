@@ -25,6 +25,8 @@ coverage
 .github
 #unnecessary directories
 examples/
+logs/
+dapi/
 test/
 user/
 assets/
