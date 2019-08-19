@@ -7,7 +7,7 @@ function configurationNode(RED) {
     RED.nodes.createNode(this, n);
     this.status({ fill: "blue", shape: "ring", text: "Loading" });
     const { concurrency, id, timeout } = n;
-    const store = _.get(RED.settings, "marpat.url", "nedb://dapi");
+    const store = _.get(RED.settings, "marpat.url", "nedb://memory");
     const options = _.get(RED.settings, "marpat.options", {});
     const configuration = Object.assign(
       {
@@ -34,9 +34,9 @@ function configurationNode(RED) {
               if (!client) {
                 return Filemaker.create(configuration).save();
               } else {
-                client.agent.connection.sessions = [];
+                client.agent.connection.queue = [];
                 client.agent.connection.pending = [];
-                client.agent.connection.starting = false
+                client.agent.connection.starting = false;
                 if (
                   client.agent.connection.password !== this.credentials.password
                 ) {
@@ -74,6 +74,8 @@ function configurationNode(RED) {
               if (!client) {
                 return Filemaker.create(configuration).save();
               } else {
+                client.agent.connection.queue = [];
+                client.agent.connection.pending = [];
                 if (
                   client.agent.connection.password !== this.credentials.password
                 ) {
@@ -103,7 +105,6 @@ function configurationNode(RED) {
             })
             .then(client => resolve(client))
             .catch(error => {
-              
               this.status({ fill: "red", shape: "dot", text: error.message });
               reject(error);
             });
