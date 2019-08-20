@@ -1,4 +1,5 @@
 /* global before describe beforeEach afterEach it */
+
 const { expect } = require("chai");
 const helper = require("node-red-node-test-helper");
 const environment = require("dotenv");
@@ -33,7 +34,7 @@ describe("Set Globals Node", function() {
   });
 
   it("should set globals", function(done) {
-    var testFlows = [
+    const testFlows = [
       {
         id: "c596ca8d.d68938",
         type: "tab",
@@ -112,7 +113,7 @@ describe("Set Globals Node", function() {
     );
   });
   it("should throw an error with a message and a code", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "f1",
         type: "tab",

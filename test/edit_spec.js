@@ -1,8 +1,10 @@
 /* global describe before beforeEach afterEach it */
+
 const { expect } = require("chai");
 const helper = require("node-red-node-test-helper");
 const environment = require("dotenv");
 const varium = require("varium");
+
 const client = require("../src/client/client.js");
 const createNode = require("../src/nodes/create.js");
 const editNode = require("../src/nodes/edit.js");
@@ -14,6 +16,7 @@ describe("Edit Record Node", function() {
   before(function(done) {
     environment.config({ path: "./test/.env" });
     varium(process.env, "./test/env.manifest");
+
     done();
   });
 

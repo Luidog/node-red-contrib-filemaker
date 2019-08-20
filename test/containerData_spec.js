@@ -1,8 +1,10 @@
 /* global before describe beforeEach afterEach it */
-const { expect } = require("chai");
+
 const helper = require("node-red-node-test-helper");
+const { expect } = require("chai");
 const environment = require("dotenv");
 const varium = require("varium");
+
 const containerDataNode = require("../src/nodes/containerData.js");
 const findNode = require("../src/nodes/find.js");
 const clientNode = require("../src/client/client.js");

@@ -1,15 +1,22 @@
-/* global describe beforeEach afterEach it */
+/* global describe before beforeEach afterEach it */
 
 const { expect } = require("chai");
 const helper = require("node-red-node-test-helper");
+const environment = require("dotenv");
+const varium = require("varium");
+
 const databasesNode = require("../src/nodes/databases.js");
-const listNode = require("../src/nodes/list.js");
 const clientNode = require("../src/client/client.js");
 const catchNode = require("./core/25-catch.js");
 
 helper.init(require.resolve("node-red"));
 
 describe("Databases Node", function() {
+  before(function(done) {
+    environment.config({ path: "./test/.env" });
+    varium(process.env, "./test/env.manifest");
+    done();
+  });
   beforeEach(function(done) {
     helper.startServer(done);
   });
@@ -80,6 +87,7 @@ describe("Databases Node", function() {
       },
       function() {
         const databasesNode = helper.getNode("96572b6d.f133a8");
+
         const helperNode = helper.getNode("abcce428.f88018");
         helperNode.on("input", function(msg) {
           try {
