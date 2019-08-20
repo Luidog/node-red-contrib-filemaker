@@ -8,7 +8,7 @@ module.exports = function(RED) {
     } = require("../services");
     RED.nodes.createNode(this, config);
     const node = this;
-    const { client, ...configuration } = config;
+    const { client, output, ...configuration } = config;
     this.status({ fill: "green", shape: "dot", text: "Ready" });
     node.connection = RED.nodes.getNode(client);
     node.on("input", async message => {
@@ -19,7 +19,6 @@ module.exports = function(RED) {
         node.context(),
         ["layout", "scripts", "data", "merge"]
       );
-      const { output } = configuration;
       const connection = await this.connection.client;
       connection
         .create(layout, data || {}, castBooleans(parameters))
