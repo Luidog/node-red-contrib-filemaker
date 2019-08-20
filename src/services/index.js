@@ -6,7 +6,9 @@ const {
   isJson,
   sanitize,
   constructParameters,
-  castBooleans
+  castBooleans,
+  handleError,
+  send
 } = require("./utilities.service");
 
 module.exports = {
@@ -15,5 +17,7 @@ module.exports = {
   isJson,
   sanitize,
   constructParameters,
-  castBooleans
+  castBooleans,
+  handleError,
+  send
 };
