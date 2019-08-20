@@ -5,10 +5,15 @@ const { connect } = require("marpat");
 function configurationNode(RED) {
   function Client(n) {
     RED.nodes.createNode(this, n);
-    this.status({ fill: "blue", shape: "ring", text: "Loading" });
-    const { concurrency, id, timeout } = n;
+    this.status({ fill: "blue", shape: "solid", text: "Loading" });
     const store = _.get(RED.settings, "marpat.url", "nedb://memory");
     const options = _.get(RED.settings, "marpat.options", {});
+    connect(
+      store,
+      options
+    ).then(db => this.status({ fill: "green", shape: "solid", text: "Ready" }));
+
+    const { concurrency, id, timeout } = n;
     const configuration = Object.assign(
       {
         name: id,
@@ -22,14 +27,13 @@ function configurationNode(RED) {
         password: this.credentials.password
       }
     );
-
     this.client = new Promise((resolve, reject) => {
       !global.CLIENT
         ? connect(
             store,
             options
           )
-            .then(() => Filemaker.findOne({ name: id }))
+            .then(db => Filemaker.findOne({ name: id }))
             .then(client => {
               if (!client) {
                 return Filemaker.create(configuration).save();
@@ -62,6 +66,7 @@ function configurationNode(RED) {
                 client.agent.timeout = parseInt(timeout) || 0;
                 client.agent.concurrency = parseInt(concurrency) || 1;
               }
+
               return client.save();
             })
             .then(client => resolve(client))
