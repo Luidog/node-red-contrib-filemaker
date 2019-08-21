@@ -12,8 +12,8 @@ module.exports = function(RED) {
         node.context(),
         ["layout", "scripts", "data", "merge", "recordId"]
       );
-      const client = await this.connection.client;
-      client
+      const connection = await this.connection.client;
+      connection
         .edit(layout, recordId, data, castBooleans(parameters))
         .then(response =>
           node.send(merge(configuration.output, message, response))
