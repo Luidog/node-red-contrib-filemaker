@@ -2,7 +2,6 @@
 
 const {
   compact,
-  merge,
   isJson,
   sanitize,
   constructParameters,
@@ -13,7 +12,6 @@ const {
 
 module.exports = {
   compact,
-  merge,
   isJson,
   sanitize,
   constructParameters,
