@@ -18,6 +18,7 @@ read from either the `msg` property or the `flow` and `global` contexts. The def
 ## Table of Contents
 
 - [Installation](#installation)
+- [Storage](#storage)
 - [Login Node](#login-node)
   - [Login Illustration](#login-illustration)
   - [Login Flow](#login-flow)
@@ -96,6 +97,20 @@ npm install --save node-red-contrib-filemaker
 ```
 
 These nodes can also be installed using the Node-RED palette manager.
+
+# Storage
+
+The nodes in this project all depend on a configurable Data API client. By default the client is saved in-memory. When saved in-memory a client will not persist between restarts of the Node-RED runtime. This means that each restart of the Node-RED runtime will cause the client to open new Data API sessions.
+
+To persist a client between Node-RED runtime restarts and allow active session monitoring and maintenance additional datastores can be configured. This project will accept a url property and an options property from a marpat object in the Node-RED settings.js file. Any datastore made available by [marpat](https://github.com/luidog/marpat).
+
+- MongoDB:
+  - Format: mongodb://[username:password@]host[:port][/db-name]
+- Filesystem:
+  - Format: nedb://[directory-path]
+- In Memory:
+  - Format: nedb://memory
+
 
 ## Login Node
 
