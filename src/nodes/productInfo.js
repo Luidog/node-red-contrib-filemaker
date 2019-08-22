@@ -1,18 +1,17 @@
 module.exports = function(RED) {
   function productInfo(configuration) {
-    const { merge } = require("../services");
+    const { send, handleError } = require("../services");
     RED.nodes.createNode(this, configuration);
     const node = this;
     const { client } = configuration;
     node.connection = RED.nodes.getNode(client);
     node.on("input", async message => {
-      const client = await this.connection.client;
-      client
+      this.status({ fill: "yellow", shape: "dot", text: "Processing" });
+      const connection = await this.connection.client;
+      connection
         .productInfo()
-        .then(response =>
-          node.send(merge(configuration.output, message, response))
-        )
-        .catch(error => node.error(error.message, message));
+        .then(response => send(node, output, message, response))
+        .catch(error => handleError(node, error.message, message));
     });
   }
   RED.nodes.registerType("dapi-product-info", productInfo);
