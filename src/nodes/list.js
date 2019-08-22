@@ -1,11 +1,13 @@
 module.exports = function(RED) {
   function list(config) {
-    const { merge, constructParameters } = require("../services");
+    this.status({ fill: "green", shape: "dot", text: "Ready" });
+    const { send, handleError, constructParameters } = require("../services");
     RED.nodes.createNode(this, config);
     const node = this;
     const { client, ...configuration } = config;
     node.connection = RED.nodes.getNode(client);
     node.on("input", async message => {
+      this.status({ fill: "yellow", shape: "dot", text: "Processing" });
       const { layout, ...parameters } = constructParameters(
         message,
         configuration,
@@ -16,10 +18,8 @@ module.exports = function(RED) {
       const connection = await this.connection.client;
       connection
         .list(layout, parameters)
-        .then(response =>
-          node.send(merge(configuration.output, message, response))
-        )
-        .catch(error => node.error(error.message, message));
+        .then(response => send(node, output, message, response))
+        .catch(error => handleError(node, error.message, message));
     });
   }
   RED.nodes.registerType("dapi-list-records", list);
