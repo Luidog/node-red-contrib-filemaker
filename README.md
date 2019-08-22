@@ -102,7 +102,7 @@ These nodes can also be installed using the Node-RED palette manager.
 
 The nodes in this project all depend on a configurable Data API client. By default the client is saved in-memory. When saved in-memory a client will not persist between restarts of the Node-RED runtime. This means that each restart of the Node-RED runtime will cause the client to open new Data API sessions.
 
-To persist a client between Node-RED runtime restarts and allow active session monitoring and maintenance additional datastores can be configured. This project will accept a url property and an options property from a marpat object in the Node-RED settings.js file. Any datastore made available by [marpat](https://github.com/luidog/marpat).
+To persist a client between Node-RED runtime restarts and allow active session monitoring and maintenance additional datastores can be configured. This project will accept a url property and an options property from a marpat object in the Node-RED settings.js file. Any datastore made available by [marpat](https://github.com/luidog/marpat). The url property accepts the following formats:
 
 - MongoDB:
   - Format: mongodb://[username:password@]host[:port][/db-name]
@@ -110,7 +110,6 @@ To persist a client between Node-RED runtime restarts and allow active session m
   - Format: nedb://[directory-path]
 - In Memory:
   - Format: nedb://memory
-
 
 ## Login Node
 
