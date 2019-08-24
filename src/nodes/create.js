@@ -6,11 +6,23 @@ module.exports = function(RED) {
       send,
       handleError
     } = require("../services");
-    RED.nodes.createNode(this, config);
-    const node = this;
+
     const { client, output, ...configuration } = config;
-    this.status({ fill: "green", shape: "dot", text: "Ready" });
+    RED.nodes.createNode(this, config);
+
+    const node = this;
+
+    node.status({ fill: "blue", shape: "dot", text: "Loading" });
+    node.handleEvent = ({ connected, message }) =>
+      node.status(
+        connected
+          ? { fill: "green", shape: "dot", text: message }
+          : { fill: "red", shape: "dot", text: message }
+      );
+
     node.connection = RED.nodes.getNode(client);
+    node.connection.on("status", node.handleEvent);
+
     node.on("input", async message => {
       this.status({ fill: "yellow", shape: "dot", text: "Processing" });
       const { layout, data, ...parameters } = constructParameters(
@@ -19,11 +31,15 @@ module.exports = function(RED) {
         node.context(),
         ["layout", "scripts", "data", "merge"]
       );
-      const connection = await this.connection.client;
-      connection
-        .create(layout, data || {}, castBooleans(parameters))
-        .then(response => send(node, output, message, response))
-        .catch(error => handleError(node, error.message, message));
+
+      const client = await this.connection.client;
+
+      client
+        ? client
+            .create(layout, data || {}, castBooleans(parameters))
+            .then(response => send(node, output, message, response))
+            .catch(error => handleError(node, error.message, message))
+        : handleError(node, "Failed to load DAPI client.", message);
     });
   }
   RED.nodes.registerType("dapi-create-record", create);
