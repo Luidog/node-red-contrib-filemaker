@@ -2,8 +2,12 @@ module.exports = function(RED) {
   function list(config) {
     const { send, handleError, constructParameters } = require("../services");
     const { client, output, ...configuration } = config;
+
     RED.nodes.createNode(this, config);
+
     const node = this;
+
+    node.connection = RED.nodes.getNode(client);
     node.status({ fill: "blue", shape: "dot", text: "Loading" });
 
     node.handleEvent = ({ connected, message }) =>
@@ -12,8 +16,7 @@ module.exports = function(RED) {
           ? { fill: "green", shape: "dot", text: message }
           : { fill: "red", shape: "dot", text: message }
       );
-    
-    node.connection = RED.nodes.getNode(client);
+
     node.connection.on("status", node.handleEvent);
 
     node.on("input", async message => {
@@ -28,9 +31,11 @@ module.exports = function(RED) {
       const client = await node.connection.client;
 
       client
-        .list(layout, parameters)
-        .then(response => send(node, output, message, response))
-        .catch(error => handleError(node, error.message, message));
+        ? client
+            .list(layout, parameters)
+            .then(response => send(node, output, message, response))
+            .catch(error => handleError(node, error.message, message))
+        : handleError(node, "Failed to load DAPI client.", message);
     });
 
     node.on("close", done => {
