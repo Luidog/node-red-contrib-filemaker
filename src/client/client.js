@@ -8,24 +8,24 @@ function configurationNode(RED) {
     const { concurrency, id, timeout } = n;
     const store = _.get(RED.settings, "marpat.url", "nedb://memory");
     const options = _.get(RED.settings, "marpat.options", {});
-    const connected = () => {
+    const connected = resolve => {
       if (!this.connected) {
+
         this.emit("error", "Client loading error");
-        reject(false);
-      } else {
-        resolve();
+        resolve(false);
       }
+      resolve();
     };
 
     this.client = new Promise((resolve, reject) =>
-      setTimeout(connected, "3000")
+      setTimeout(connected, "3000", resolve)
     );
     connect(
       store,
       options
     )
       .then(db => {
-        clearTimeout(connected)
+        clearTimeout(connected);
         this.connected = true;
         const configuration = Object.assign(
           {
@@ -79,7 +79,7 @@ function configurationNode(RED) {
       );
 
     this.on("close", function(done) {
-      clearTimeout(connected)
+      clearTimeout(connected);
       this.client
         .save()
         .then(client => done())
