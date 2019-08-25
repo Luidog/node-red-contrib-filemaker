@@ -1,6 +1,7 @@
 "use strict";
 
 const {
+  merge,
   compact,
   isJson,
   sanitize,
@@ -11,6 +12,7 @@ const {
 } = require("./utilities.service");
 
 module.exports = {
+  merge,
   compact,
   isJson,
   sanitize,

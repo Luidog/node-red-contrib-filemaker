@@ -7,7 +7,7 @@ module.exports = function(RED) {
 
     const node = this;
 
-    node.connection = RED.nodes.getNode(client);
+    node.client = RED.nodes.getNode(client);
     node.status({ fill: "blue", shape: "dot", text: "Loading" });
 
     node.handleEvent = ({ connected, message }) =>
@@ -17,7 +17,7 @@ module.exports = function(RED) {
           : { fill: "red", shape: "dot", text: message }
       );
 
-    node.connection.on("status", node.handleEvent);
+    node.client.on("status", node.handleEvent);
 
     node.on("input", async message => {
       node.status({ fill: "yellow", shape: "dot", text: "Processing" });
@@ -36,7 +36,8 @@ module.exports = function(RED) {
           "data"
         ]
       );
-      const client = await this.connection.client;
+      const client = await this.client.connection;
+
       client
         ? client
             .find(layout, query, parameters)
@@ -45,11 +46,9 @@ module.exports = function(RED) {
         : handleError(node, "Failed to load DAPI client.", message);
     });
 
-    node.on("close", done => {
-      node.connection.removeListener("error", node.handleEvent);
-      node.connection.removeListener("status", node.handleEvent);
-      done();
-    });
+    node.on("close", () =>
+      node.client.removeListener("status", node.handleEvent)
+    );
   }
   RED.nodes.registerType("dapi-perform-find", find);
 };

@@ -36,12 +36,10 @@ module.exports = function(RED) {
             .catch(error => handleError(node, error.message, message))
         : handleError(node, "Failed to load DAPI client.", message);
     });
-    
-    node.on("close", done => {
-      node.connection.removeListener("error", node.handleEvent);
-      node.connection.removeListener("status", node.handleEvent);
-      done();
-    });
+
+    node.on("close", () =>
+      node.connection.removeListener("status", node.handleEvent)
+    );
   }
   RED.nodes.registerType("dapi-delete-record", deleteRecords);
 };

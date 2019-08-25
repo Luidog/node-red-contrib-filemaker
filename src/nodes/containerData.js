@@ -1,13 +1,17 @@
 module.exports = function(RED) {
-  function containerData(configuration) {
+  function containerData(config) {
     const { containerData } = require("fms-api-client");
     const fs = require("fs-extra");
     const { constructParameters, send, handleError } = require("../services");
-    RED.nodes.createNode(this, configuration);
+    const { output, ...configuration } = config;
+
+    RED.nodes.createNode(this, config);
+
     const node = this;
-    this.status({ fill: "green", shape: "dot", text: "Ready" });
+
+    node.status({ fill: "green", shape: "dot", text: "Ready" });
     node.on("input", async message => {
-      this.status({ fill: "yellow", shape: "dot", text: "Processing" });
+      node.status({ fill: "yellow", shape: "dot", text: "Processing" });
       const {
         data,
         field,
@@ -21,7 +25,7 @@ module.exports = function(RED) {
         "destination",
         "parameters"
       ]);
-      const { output } = configuration;
+
       destination && destination !== "buffer"
         ? await fs
             .ensureDir(destination)

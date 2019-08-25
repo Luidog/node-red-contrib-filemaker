@@ -1,12 +1,17 @@
 module.exports = function(RED) {
-  function recordId(configuration) {
+  function recordId(config) {
     const { recordId } = require("fms-api-client");
     const { send, handleError, constructParameters } = require("../services");
-    RED.nodes.createNode(this, configuration);
+
+    const { output, ...configuration } = config;
+
+    RED.nodes.createNode(this, config);
+
     const node = this;
-    this.status({ fill: "green", shape: "dot", text: "Ready" });
+
+    node.status({ fill: "green", shape: "dot", text: "Ready" });
     node.on("input", message => {
-      this.status({ fill: "yellow", shape: "dot", text: "Processing" });
+      node.status({ fill: "yellow", shape: "dot", text: "Processing" });
       const { data } = constructParameters(
         message,
         configuration,
