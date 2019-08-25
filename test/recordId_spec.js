@@ -20,13 +20,13 @@ describe("Record Id Utility Node", function() {
   });
 
   it("should be loaded", function(done) {
-    let testFlows = [{ id: "n1", type: "inject" }];
+    const testFlows = [{ id: "n1", type: "inject" }];
     helper.load(recordIdNode, testFlows, function() {
       done();
     });
   });
   it("should extract record ids from a single object", function(done) {
-    let testFlow = [
+    const testFlow = [
       {
         id: "eff0d28.1c78bb",
         type: "tab",
@@ -101,8 +101,8 @@ describe("Record Id Utility Node", function() {
         }
       },
       function() {
-        var listNode = helper.getNode("871850c1.2c366");
-        var helperNode = helper.getNode("abcce428.f88018");
+        const listNode = helper.getNode("871850c1.2c366");
+        const helperNode = helper.getNode("abcce428.f88018");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
@@ -127,7 +127,7 @@ describe("Record Id Utility Node", function() {
     );
   });
   it("should extract record ids from an array of objects", function(done) {
-    let testFlow = [
+    const testFlow = [
       {
         id: "eff0d28.1c78bb",
         type: "tab",
@@ -202,8 +202,8 @@ describe("Record Id Utility Node", function() {
         }
       },
       function() {
-        var listNode = helper.getNode("871850c1.2c366");
-        var helperNode = helper.getNode("abcce428.f88018");
+        const listNode = helper.getNode("871850c1.2c366");
+        const helperNode = helper.getNode("abcce428.f88018");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
@@ -229,7 +229,7 @@ describe("Record Id Utility Node", function() {
     );
   });
   it("should reject with an error message and a code", function(done) {
-    let testFlow = [
+    const testFlow = [
       {
         id: "a0254177.9c8dc",
         type: "tab",

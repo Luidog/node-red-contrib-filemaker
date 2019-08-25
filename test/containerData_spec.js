@@ -35,7 +35,7 @@ describe("Container Data Node", function() {
     });
   });
   it("should download an object with container data to a buffer", function(done) {
-    var testFlows = [
+    const testFlows = [
       {
         id: "806b9389.cfa96",
         type: "tab",
@@ -158,7 +158,7 @@ describe("Container Data Node", function() {
     );
   });
   it("should download an array of objects with container data to a buffer", function(done) {
-    var testFlows = [
+    const testFlows = [
       {
         id: "806b9389.cfa96",
         type: "tab",
@@ -283,7 +283,7 @@ describe("Container Data Node", function() {
     );
   });
   it("should download an object with container data to the filesystem", function(done) {
-    var testFlows = [
+    const testFlows = [
       {
         id: "806b9389.cfa96",
         type: "tab",
@@ -405,7 +405,7 @@ describe("Container Data Node", function() {
     );
   });
   it("should download an array of objects with container data to the filesystem", function(done) {
-    var testFlows = [
+    const testFlows = [
       {
         id: "806b9389.cfa96",
         type: "tab",
@@ -529,7 +529,7 @@ describe("Container Data Node", function() {
     );
   });
   it("should throw an error with a message and a code when writing an object to a buffer and an error is triggered", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "806b9389.cfa96",
         type: "tab",
@@ -648,7 +648,7 @@ describe("Container Data Node", function() {
     );
   });
   it("should throw an error with a message and a code when writing an array to a buffer an error is triggered ", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "806b9389.cfa96",
         type: "tab",
@@ -767,7 +767,7 @@ describe("Container Data Node", function() {
     );
   });
   it("should handle undefined data input when writing to a buffer", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "806b9389.cfa96",
         type: "tab",
@@ -886,7 +886,7 @@ describe("Container Data Node", function() {
     );
   });
   it("should handle undefined data input when writing to a file", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "806b9389.cfa96",
         type: "tab",
@@ -1006,7 +1006,7 @@ describe("Container Data Node", function() {
   });
 
   it("should throw an error when writing data to the filesystem and an error is triggered", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "806b9389.cfa96",
         type: "tab",
@@ -1125,7 +1125,7 @@ describe("Container Data Node", function() {
     );
   });
   it("should throw an error with a message and a code when writing to a buffer and an array is triggered", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "806b9389.cfa96",
         type: "tab",

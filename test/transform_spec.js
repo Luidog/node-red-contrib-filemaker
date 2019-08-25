@@ -102,8 +102,8 @@ describe("Transform Utility Node", function() {
         }
       },
       function() {
-        var listNode = helper.getNode("d5b348ab.46ac08");
-        var helperNode = helper.getNode("1a8a1be2.50d8e4");
+        const listNode = helper.getNode("d5b348ab.46ac08");
+        const helperNode = helper.getNode("1a8a1be2.50d8e4");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
@@ -208,8 +208,8 @@ describe("Transform Utility Node", function() {
         }
       },
       function() {
-        var listNode = helper.getNode("d5b348ab.46ac08");
-        var helperNode = helper.getNode("1a8a1be2.50d8e4");
+        const listNode = helper.getNode("d5b348ab.46ac08");
+        const helperNode = helper.getNode("1a8a1be2.50d8e4");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
@@ -289,8 +289,8 @@ describe("Transform Utility Node", function() {
         }
       },
       function() {
-        var transformNode = helper.getNode("84f24eb5.f61b6");
-        var helperNode = helper.getNode("1a8a1be2.50d8e4");
+        const transformNode = helper.getNode("84f24eb5.f61b6");
+        const helperNode = helper.getNode("1a8a1be2.50d8e4");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)

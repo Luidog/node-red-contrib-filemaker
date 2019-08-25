@@ -33,7 +33,7 @@ describe("List Records Node", function() {
   });
 
   it("should List records", function(done) {
-    var testFlows = [
+    const testFlows = [
       {
         id: "b8b203cb.2fdb5",
         type: "tab",
@@ -124,7 +124,7 @@ describe("List Records Node", function() {
     );
   });
   it("should throw an error with a message and a code", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "f1",
         type: "tab",

@@ -35,7 +35,7 @@ describe("Create Record Node", function() {
     });
   });
   it("should create a record", function(done) {
-    var testFlows = [
+    const testFlows = [
       {
         id: "ec096890.cdd65",
         type: "tab",
@@ -115,7 +115,7 @@ describe("Create Record Node", function() {
     );
   });
   it("should create allow the filemaker response to be merged to the message object", function(done) {
-    var testFlows = [
+    const testFlows = [
       {
         id: "ec096890.cdd65",
         type: "tab",
@@ -195,7 +195,7 @@ describe("Create Record Node", function() {
     );
   });
   it("should use flow context to create a record.", function(done) {
-    var testFlows = [
+    const testFlows = [
       {
         id: "ec096890.cdd65",
         type: "tab",
@@ -298,7 +298,7 @@ describe("Create Record Node", function() {
     );
   });
   it("should use global context to create a record.", function(done) {
-    var testFlows = [
+    const testFlows = [
       {
         id: "ec096890.cdd65",
         type: "tab",
@@ -401,7 +401,7 @@ describe("Create Record Node", function() {
     );
   });
   it("should throw an error with a message and a code", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "ec096890.cdd65",
         type: "tab",

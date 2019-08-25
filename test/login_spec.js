@@ -32,7 +32,7 @@ describe("Login Node", function() {
     });
   });
   it("should login to a Data API session", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "ad6ac1ee.a379",
         type: "tab",
@@ -104,7 +104,7 @@ describe("Login Node", function() {
     );
   });
   it("should throw an error with a message and a code", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "f1",
         type: "tab",

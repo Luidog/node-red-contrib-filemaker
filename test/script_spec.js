@@ -33,7 +33,7 @@ describe("Trigger Script Node", function() {
   });
 
   it("should trigger a script", function(done) {
-    var testFlows = [
+    const testFlows = [
       {
         id: "28016085.26f9f8",
         type: "tab",
@@ -113,7 +113,7 @@ describe("Trigger Script Node", function() {
     );
   });
   it("should parse a script result if it is valid json", function(done) {
-    var testFlows = [
+    const testFlows = [
       {
         id: "28016085.26f9f8",
         type: "tab",
@@ -196,7 +196,7 @@ describe("Trigger Script Node", function() {
     );
   });
   it("should not parse a script result if it is not valid json", function(done) {
-    var testFlows = [
+    const testFlows = [
       {
         id: "28016085.26f9f8",
         type: "tab",
@@ -278,7 +278,7 @@ describe("Trigger Script Node", function() {
     );
   });
   it("should throw an error with a message and a code", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "f1",
         type: "tab",

@@ -1,5 +1,5 @@
 /* global describe beforeEach afterEach it */
-var { expect } = require("chai");
+const { expect } = require("chai");
 const helper = require("node-red-node-test-helper");
 const clientNode = require("../src/client/client.js");
 const createNode = require("../src/nodes/create.js");
@@ -20,13 +20,13 @@ describe("FieldData Utility Node", function() {
   });
 
   it("should be loaded", function(done) {
-    var testFlows = [{ id: "n1", type: "inject" }];
+    const testFlows = [{ id: "n1", type: "inject" }];
     helper.load(fieldDataNode, testFlows, function() {
       done();
     });
   });
   it("should transform an array of objects", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "737aeefc.65dcd8",
         type: "tab",
@@ -115,8 +115,8 @@ describe("FieldData Utility Node", function() {
         }
       },
       function() {
-        var createNode = helper.getNode("ffdef185.7d8578");
-        var helperNode = helper.getNode("4a8a701a.934d4");
+        const createNode = helper.getNode("ffdef185.7d8578");
+        const helperNode = helper.getNode("4a8a701a.934d4");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
@@ -141,7 +141,7 @@ describe("FieldData Utility Node", function() {
     );
   });
   it("should transform a a single object", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "737aeefc.65dcd8",
         type: "tab",
@@ -230,8 +230,8 @@ describe("FieldData Utility Node", function() {
         }
       },
       function() {
-        var createNode = helper.getNode("ffdef185.7d8578");
-        var helperNode = helper.getNode("4a8a701a.934d4");
+        const createNode = helper.getNode("ffdef185.7d8578");
+        const helperNode = helper.getNode("4a8a701a.934d4");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
@@ -254,7 +254,7 @@ describe("FieldData Utility Node", function() {
     );
   });
   it("should reject with an error message and code", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "95ec0b93.d02568",
         type: "tab",
@@ -289,8 +289,8 @@ describe("FieldData Utility Node", function() {
       }
     ];
     helper.load([fieldDataNode, catchNode], testFlow, function() {
-      var fieldDataNode = helper.getNode("e3d9bda2.01c0d8");
-      var helperNode = helper.getNode("453f2d7f.a0fd9c");
+      const fieldDataNode = helper.getNode("e3d9bda2.01c0d8");
+      const helperNode = helper.getNode("453f2d7f.a0fd9c");
       helperNode.on("input", function(msg) {
         try {
           expect(msg)

@@ -36,7 +36,7 @@ describe("Get Record Node", function() {
   });
 
   it("should get a specific record", function(done) {
-    var testFlows = [
+    const testFlows = [
       {
         id: "815dccb7.ff2788",
         type: "tab",
@@ -141,7 +141,7 @@ describe("Get Record Node", function() {
     );
   });
   it("should throw an error with a message and a code", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "f1",
         type: "tab",

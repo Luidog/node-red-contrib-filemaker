@@ -34,7 +34,7 @@ describe("Upload File Node", function() {
     });
   });
   it("should upload to an existing record", function(done) {
-    var testFlows = [
+    const testFlows = [
       {
         id: "146270a1.3bd87f",
         type: "tab",
@@ -143,7 +143,7 @@ describe("Upload File Node", function() {
     );
   });
   it("should upload to a file to a new record", function(done) {
-    var testFlows = [
+    const testFlows = [
       {
         id: "146270a1.3bd87f",
         type: "tab",
@@ -232,7 +232,7 @@ describe("Upload File Node", function() {
     );
   });
   it("should throw an error with a message and a code", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "f1",
         type: "tab",
