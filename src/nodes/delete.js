@@ -7,7 +7,7 @@ module.exports = function(RED) {
 
     const node = this;
 
-    node.connection = RED.nodes.getNode(client);
+    node.client = RED.nodes.getNode(client);
     node.status({ fill: "blue", shape: "dot", text: "Loading" });
 
     node.handleEvent = ({ connected, message }) =>
@@ -17,17 +17,17 @@ module.exports = function(RED) {
           : { fill: "red", shape: "dot", text: message }
       );
 
-    node.connection.on("status", node.handleEvent);
+    node.client.on("status", node.handleEvent);
 
     node.on("input", async message => {
-      this.status({ fill: "yellow", shape: "dot", text: "Processing" });
+      node.status({ fill: "yellow", shape: "dot", text: "Processing" });
       const { layout, recordId, ...parameters } = constructParameters(
         message,
         configuration,
         node.context(),
         ["layout", "scripts", "recordId"]
       );
-      const client = await this.connection.client;
+      const client = await this.client.connection;
 
       client
         ? client
@@ -38,7 +38,7 @@ module.exports = function(RED) {
     });
 
     node.on("close", () =>
-      node.connection.removeListener("status", node.handleEvent)
+      node.client.removeListener("status", node.handleEvent)
     );
   }
   RED.nodes.registerType("dapi-delete-record", deleteRecords);
