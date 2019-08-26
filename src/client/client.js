@@ -17,6 +17,7 @@ function configurationNode(RED) {
         .then(db =>
           Filemaker.findOne({ name: id }).then(client => {
             if (!client) {
+              this.emit("status", { connected: true, message: "Ready" });
               return Filemaker.create(
                 Object.assign(
                   {
@@ -58,27 +59,23 @@ function configurationNode(RED) {
               }
               client.agent.timeout = parseInt(timeout) || 0;
               client.agent.concurrency = parseInt(concurrency) || 1;
+              this.emit("status", { connected: true, message: "Ready" });
+              return client.save();
             }
-            this.emit("status", { connected: true, message: "Ready" });
-
-            return client.save();
           })
         )
         .then(client => resolve(client))
-        .catch(({ message }) => {
+        .catch(error => {
           this.client = false;
-          this.emit("status", { connected: false, message });
-          reject(message);
+          this.emit("status", { connected: false, message: error.message });
+          reject(false);
         })
     );
     this.on("close", function(done) {
       this.client
         .save()
         .then(client => done())
-        .catch(error => {
-          this.error(error.message);
-          done();
-        });
+        .catch(error => done());
     });
   }
   RED.nodes.registerType("dapi-client", Client, {
