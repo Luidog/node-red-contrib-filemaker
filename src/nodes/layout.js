@@ -15,6 +15,8 @@ module.exports = function(RED) {
       );
 
     node.client = RED.nodes.getNode(client);
+    node.client.on("status", node.handleEvent);
+
     node.on("input", async message => {
       this.status({ fill: "yellow", shape: "dot", text: "Processing" });
       const { layout } = constructParameters(
