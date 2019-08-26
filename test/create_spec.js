@@ -114,7 +114,7 @@ describe("Create Record Node", function() {
       }
     );
   });
-  it("should create allow the filemaker response to be merged to the message object", function(done) {
+  it("should allow the filemaker response to be merged to the message object", function(done) {
     const testFlows = [
       {
         id: "ec096890.cdd65",

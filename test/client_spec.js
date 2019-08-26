@@ -30,8 +30,8 @@ describe("Client Node", function() {
   });
 
   it("should be loaded", function(done) {
-    const testFlows = [{ id: "n1", type: "inject" }];
-    helper.load(clientNode, testFlows, function() {
+    const testFlow = [{ id: "n1", type: "inject" }];
+    helper.load(clientNode, testFlow, function() {
       done();
     });
   });
@@ -194,6 +194,194 @@ describe("Client Node", function() {
           }
         });
         createNode.receive({ payload: { layout: "people" } });
+      }
+    );
+  });
+  it("should allow a client's server configuration to be modified", function(done) {
+    const testFlow = [
+      { id: "n1", type: "inject" },
+      {
+        id: "db596a45.2ca398",
+        type: "dapi-create-record",
+        z: "ec096890.cdd65",
+        client: "e5173483.adc92",
+        layout: "payload.layout",
+        layoutType: "msg",
+        data: "",
+        dataType: "none",
+        scripts: "",
+        scriptsType: "none",
+        merge: "false",
+        mergeType: "bool",
+        output: "payload",
+        x: 340,
+        y: 40,
+        wires: [["369e311d.23d2de"]]
+      },
+      {
+        id: "e5173483.adc92",
+        type: "dapi-client",
+        z: "",
+        name: "Node-RED Test Client",
+        usage: true
+      }
+    ];
+    helper.load(
+      [clientNode, createNode, catchNode],
+      testFlow,
+      {
+        "e5173483.adc92": {
+          server: "https://updated.server.com",
+          database: process.env.FILEMAKER_DATABASE,
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
+        }
+      },
+      function() {
+        const client = helper.getNode("e5173483.adc92");
+        console.log(client);
+        done();
+      }
+    );
+  });
+  it("should allow a client's database configuration to be modified", function(done) {
+    const testFlow = [
+      { id: "n1", type: "inject" },
+      {
+        id: "e5173483.adc92",
+        type: "dapi-client",
+        z: "",
+        name: "Node-RED Test Client",
+        usage: true
+      },
+      {
+        id: "db596a45.2ca398",
+        type: "dapi-create-record",
+        z: "ec096890.cdd65",
+        client: "e5173483.adc92",
+        layout: "payload.layout",
+        layoutType: "msg",
+        data: "",
+        dataType: "none",
+        scripts: "",
+        scriptsType: "none",
+        merge: "false",
+        mergeType: "bool",
+        output: "payload",
+        x: 340,
+        y: 40,
+        wires: [["369e311d.23d2de"]]
+      }
+    ];
+    helper.load(
+      [clientNode, createNode, catchNode],
+      testFlow,
+      {
+        "e5173483.adc92": {
+          server: process.env.FILEMAKER_SERVER,
+          database: "updated-database",
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
+        }
+      },
+      function() {
+        const client = helper.getNode("e5173483.adc92");
+        console.log(client);
+        done();
+      }
+    );
+  });
+  it("should allow a client's account user configuration to be modified", function(done) {
+    const testFlow = [
+      { id: "n1", type: "inject" },
+      {
+        id: "db596a45.2ca398",
+        type: "dapi-create-record",
+        z: "ec096890.cdd65",
+        client: "e5173483.adc92",
+        layout: "payload.layout",
+        layoutType: "msg",
+        data: "",
+        dataType: "none",
+        scripts: "",
+        scriptsType: "none",
+        merge: "false",
+        mergeType: "bool",
+        output: "payload",
+        x: 340,
+        y: 40,
+        wires: [["369e311d.23d2de"]]
+      },
+      {
+        id: "e5173483.adc92",
+        type: "dapi-client",
+        z: "",
+        name: "Node-RED Test Client",
+        usage: true
+      }
+    ];
+    helper.load(
+      [clientNode],
+      testFlow,
+      {
+        "e5173483.adc92": {
+          server: process.env.FILEMAKER_SERVER,
+          database: process.env.FILEMAKER_DATABASE,
+          username: "updated-username",
+          password: process.env.FILEMAKER_PASSWORD
+        }
+      },
+      function() {
+        const client = helper.getNode("e5173483.adc92");
+        console.log(client);
+        done();
+      }
+    );
+  });
+  it("should allow a client's account password configuration to be modified", function(done) {
+    const testFlow = [
+      { id: "n1", type: "inject" },
+      {
+        id: "db596a45.2ca398",
+        type: "dapi-create-record",
+        z: "ec096890.cdd65",
+        client: "e5173483.adc92",
+        layout: "payload.layout",
+        layoutType: "msg",
+        data: "",
+        dataType: "none",
+        scripts: "",
+        scriptsType: "none",
+        merge: "false",
+        mergeType: "bool",
+        output: "payload",
+        x: 340,
+        y: 40,
+        wires: [["369e311d.23d2de"]]
+      },
+      {
+        id: "e5173483.adc92",
+        type: "dapi-client",
+        z: "",
+        name: "Node-RED Test Client",
+        usage: true
+      }
+    ];
+    helper.load(
+      [clientNode, createNode, catchNode],
+      testFlow,
+      {
+        "e5173483.adc92": {
+          server: process.env.FILEMAKER_SERVER,
+          database: process.env.FILEMAKER_DATABASE,
+          username: process.env.FILEMAKER_USERNAME,
+          password: "updated-password"
+        }
+      },
+      function() {
+        const client = helper.getNode("e5173483.adc92");
+        console.log(client);
+        done();
       }
     );
   });
