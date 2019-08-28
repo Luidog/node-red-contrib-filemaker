@@ -20,8 +20,8 @@ module.exports = function(RED) {
           : { fill: "red", shape: "dot", text: message }
       );
 
-    node.client = RED.nodes.getNode(client);
-    node.client.on("status", node.handleEvent);
+    node.configuration = RED.nodes.getNode(client);
+    node.configuration.on("status", node.handleEvent);
 
     node.on("input", async message => {
       node.status({ fill: "yellow", shape: "dot", text: "Processing" });
@@ -32,18 +32,21 @@ module.exports = function(RED) {
         ["layout", "scripts", "data", "merge"]
       );
 
-      const client = await this.client.connection;
+      try {
+        await this.configuration.connection;
 
-      client
-        ? client
-            .create(layout, data || {}, castBooleans(parameters))
-            .then(response => send(node, output, message, response))
-            .catch(error => handleError(node, error.message, message))
-        : handleError(node, "Failed to load DAPI client.", message);
+        const client = await this.configuration.client;
+        client
+          .create(layout, data || {}, castBooleans(parameters))
+          .then(response => send(node, output, message, response))
+          .catch(error => handleError(node, error.message, message));
+      } catch (error) {
+        handleError(node, error.message, message);
+      }
     });
 
     node.on("close", () =>
-      node.client.removeListener("status", node.handleEvent)
+      node.configuration.removeListener("status", node.handleEvent)
     );
   }
   RED.nodes.registerType("dapi-create-record", create);

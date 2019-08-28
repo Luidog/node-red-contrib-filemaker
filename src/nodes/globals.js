@@ -16,8 +16,8 @@ module.exports = function(RED) {
           : { fill: "red", shape: "dot", text: message }
       );
 
-    node.client = RED.nodes.getNode(client);
-    node.client.on("status", node.handleEvent);
+    node.configuration = RED.nodes.getNode(client);
+    node.configuration.on("status", node.handleEvent);
 
     node.on("input", async message => {
       node.status({ fill: "yellow", shape: "dot", text: "Processing" });
@@ -27,19 +27,22 @@ module.exports = function(RED) {
         node.context(),
         ["data"]
       );
+      try {
+        await this.configuration.connection;
 
-      const client = await this.client.connection;
+        const client = await this.configuration.client;
 
-      client
-        ? client
-            .globals(data)
-            .then(response => send(node, output, message, response))
-            .catch(error => handleError(node, error.message, message))
-        : handleError(node, "Failed to load DAPI client.", message);
+        client
+          .globals(data)
+          .then(response => send(node, output, message, response))
+          .catch(error => handleError(node, error.message, message));
+      } catch (error) {
+        handleError(node, error.message, message);
+      }
     });
 
     node.on("close", () =>
-      node.client.removeListener("status", node.handleEvent)
+      node.configuration.removeListener("status", node.handleEvent)
     );
   }
   RED.nodes.registerType("dapi-set-globals", globals);

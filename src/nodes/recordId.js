@@ -21,6 +21,7 @@ module.exports = function(RED) {
       try {
         send(node, output, message, recordId(data));
       } catch (error) {
+        console.log("error handled", error);
         handleError(node, error.message, message);
       }
     });

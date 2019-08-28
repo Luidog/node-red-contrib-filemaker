@@ -36,14 +36,16 @@ module.exports = function(RED) {
           "data"
         ]
       );
-      const client = await this.client.connection;
-
-      client
-        ? client
-            .find(layout, query, parameters)
-            .then(response => send(node, output, message, response))
-            .catch(error => handleError(node, error.message, message))
-        : handleError(node, "Failed to load DAPI client.", message);
+      try {
+        await this.client.connection;
+        const client = await this.client.client;
+        client
+          .find(layout, query, parameters)
+          .then(response => send(node, output, message, response))
+          .catch(error => handleError(node, error.message, message));
+      } catch (error) {
+        handleError(node, error.message, message);
+      }
     });
 
     node.on("close", () =>
