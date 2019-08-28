@@ -19,7 +19,12 @@ describe("Get Scripts Node", function() {
   afterEach(function(done) {
     helper.unload();
     sandbox.restore();
-    helper.stopServer(done);
+    helper.stopServer(() =>
+      setTimeout(() => {
+        delete global.MARPAT;
+        done();
+      }, "500")
+    );
   });
 
   it("should be loaded", function(done) {
@@ -82,8 +87,9 @@ describe("Get Scripts Node", function() {
         }
       },
       function() {
-        const layoutsNode = helper.getNode("96572b6d.f133a8");
+        const scriptsNode = helper.getNode("96572b6d.f133a8");
         const helperNode = helper.getNode("abcce428.f88018");
+
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
@@ -97,7 +103,7 @@ describe("Get Scripts Node", function() {
             done(err);
           }
         });
-        layoutsNode.receive({
+        scriptsNode.receive({
           payload: {}
         });
       }

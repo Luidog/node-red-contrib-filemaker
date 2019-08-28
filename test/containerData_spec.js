@@ -27,7 +27,12 @@ describe("Container Data Node", function() {
 
   afterEach(function(done) {
     helper.unload();
-    helper.stopServer(done);
+    helper.stopServer(() =>
+      setTimeout(() => {
+        delete global.MARPAT;
+        done();
+      }, "500")
+    );
   });
 
   it("should be loaded", function(done) {
