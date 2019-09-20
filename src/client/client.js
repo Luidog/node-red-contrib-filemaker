@@ -71,12 +71,13 @@ function configurationNode(RED) {
                   return client.save();
                 }
               })
-              .catch(error =>
+              .catch(error => {
                 this.emit("status", {
                   connected: false,
                   message: error.message
-                })
-              );
+                });
+                return error;
+              });
             resolve(db);
           })
           .catch(error => reject(error))
@@ -136,8 +137,7 @@ function configurationNode(RED) {
           })
           .catch(error => {
             this.emit("status", { connected: false, message: error.message });
-            console.log(error);
-            reject(error);
+            return error;
           });
       });
     }
