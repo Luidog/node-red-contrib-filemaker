@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "pm2 start ecosystem.dev.config.js",
     "test": "snyk test && nyc _mocha --recursive  \"test/**/*_spec.js\" --timeout=30000 --exit",
+    "test-find": "nyc _mocha test/**/find_spec.js --timeout=30000 --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "report": "nyc report --reporter=html",
     "generate-readme": "mos",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect"
@@ -65,7 +67,7 @@
   },
   "homepage": "https://github.com/Luidog/node-red-contrib-filemaker#readme",
   "dependencies": {
-    "fms-api-client": "^2.1.4",
+    "fms-api-client": "^2.2.0",
     "fs-extra": "^8.0.1",
     "lodash": "^4.17.14",
     "marpat": "^2.0.1",
