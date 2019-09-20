@@ -38,7 +38,11 @@ module.exports = function(RED) {
       );
       try {
         await this.client.connection;
+
         const client = await this.client.client;
+
+        if (client instanceof Error) throw client;
+
         client
           .find(layout, query, parameters)
           .then(response => send(node, output, message, response))
