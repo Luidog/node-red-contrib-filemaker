@@ -47,8 +47,10 @@ function configurationNode(RED) {
                     client.agent.connection.password = this.credentials.password;
                     client.agent.connection.sessions = [];
                   }
-                  if (client.agent.connection.user !== this.credentials.user) {
-                    client.agent.connection.user = this.credentials.user;
+                  if (
+                    client.agent.connection.user !== this.credentials.username
+                  ) {
+                    client.agent.connection.user = this.credentials.username;
                     client.agent.connection.sessions = [];
                   }
                   if (
