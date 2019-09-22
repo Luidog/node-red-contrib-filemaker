@@ -583,6 +583,214 @@ describe("Client Node", function() {
     );
   });
 
+  it("should create a client of one does not exist", function(done) {
+    const testFlow = [
+      {
+        id: "37b558cf.8553c",
+        type: "tab",
+        label: "Perform Find",
+        disabled: false,
+        info: ""
+      },
+      {
+        id: "641ec5c9.c3f73c",
+        type: "catch",
+        z: "37b558cf.8553c",
+        name: "",
+        scope: null,
+        x: 260,
+        y: 100,
+        wires: [["cfc785d0.b2ba"]]
+      },
+      {
+        id: "cfc785d0.b2ba",
+        type: "helper"
+      },
+      {
+        id: "f15d2a17.bbc65",
+        type: "dapi-perform-find",
+        z: "37b558cf.8553c",
+        client: "e5173483.adc92",
+        layout: "payload.layout",
+        layoutType: "msg",
+        limit: "",
+        limitType: "num",
+        offset: "",
+        offsetType: "num",
+        sort: "",
+        sortType: "none",
+        query: "payload.query",
+        queryType: "msg",
+        scripts: "",
+        scriptsType: "none",
+        portals: "",
+        portalsType: "none",
+        output: "payload",
+        x: 250,
+        y: 40,
+        wires: [["cfc785d0.b2ba"]]
+      },
+      {
+        id: "e5173483.adc92",
+        type: "dapi-client",
+        z: "",
+        name: "Node-RED Test Client",
+        usage: true
+      },
+      {
+        id: "e5173483.adc91",
+        type: "dapi-client",
+        z: "",
+        name: "Node-RED Test Client",
+        usage: true
+      }
+    ];
+    helper.settings({ marpat: { url: "nedb://clients" } });
+    helper.load(
+      [clientNode, findNode, catchNode],
+      testFlow,
+      {
+        "e5173483.adc92": {
+          server: process.env.FILEMAKER_SERVER,
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
+        },
+        "e5173483.adc91": {
+          server: process.env.FILEMAKER_SERVER,
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
+        }
+      },
+      function() {
+        const findNode = helper.getNode("f15d2a17.bbc65");
+        const helperNode = helper.getNode("cfc785d0.b2ba");
+
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("payload", "error", "_msgid")
+              .and.property("error")
+              .to.be.a("object")
+              .with.any.keys("message", "source")
+              .and.property("message")
+              .to.be.a("string");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        findNode.receive({
+          payload: { layout: "people", query: { name: "*" } }
+        });
+      }
+    );
+  });
+
+  it("should reuse a client if it exists", function(done) {
+    const testFlow = [
+      {
+        id: "37b558cf.8553c",
+        type: "tab",
+        label: "Perform Find",
+        disabled: false,
+        info: ""
+      },
+      {
+        id: "641ec5c9.c3f73c",
+        type: "catch",
+        z: "37b558cf.8553c",
+        name: "",
+        scope: null,
+        x: 260,
+        y: 100,
+        wires: [["cfc785d0.b2ba"]]
+      },
+      {
+        id: "cfc785d0.b2ba",
+        type: "helper"
+      },
+      {
+        id: "f15d2a17.bbc65",
+        type: "dapi-perform-find",
+        z: "37b558cf.8553c",
+        client: "e5173483.adc92",
+        layout: "payload.layout",
+        layoutType: "msg",
+        limit: "",
+        limitType: "num",
+        offset: "",
+        offsetType: "num",
+        sort: "",
+        sortType: "none",
+        query: "payload.query",
+        queryType: "msg",
+        scripts: "",
+        scriptsType: "none",
+        portals: "",
+        portalsType: "none",
+        output: "payload",
+        x: 250,
+        y: 40,
+        wires: [["cfc785d0.b2ba"]]
+      },
+      {
+        id: "e5173483.adc92",
+        type: "dapi-client",
+        z: "",
+        name: "Node-RED Test Client",
+        usage: true
+      },
+      {
+        id: "e5173483.adc91",
+        type: "dapi-client",
+        z: "",
+        name: "Node-RED Test Client",
+        usage: true
+      }
+    ];
+    helper.settings({ marpat: { url: "nedb://clients" } });
+    helper.load(
+      [clientNode, findNode, catchNode],
+      testFlow,
+      {
+        "e5173483.adc92": {
+          server: process.env.FILEMAKER_SERVER,
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
+        },
+        "e5173483.adc91": {
+          server: process.env.FILEMAKER_SERVER,
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
+        }
+      },
+      function() {
+        const findNode = helper.getNode("f15d2a17.bbc65");
+        const helperNode = helper.getNode("cfc785d0.b2ba");
+
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("payload", "error", "_msgid")
+              .and.property("error")
+              .to.be.a("object")
+              .with.any.keys("message", "source")
+              .and.property("message")
+              .to.be.a("string");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        findNode.receive({
+          payload: { layout: "people", query: { name: "*" } }
+        });
+      }
+    );
+  });
+
   it("should handle datastore errors", function(done) {
     const testFlows = [
       {
