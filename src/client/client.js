@@ -41,16 +41,17 @@ function configurationNode(RED) {
                   client.agent.connection.queue = [];
                   client.agent.connection.pending = [];
                   if (
-                    client.agent.connection.password !==
+                    client.agent.connection.credentials.password !==
                     this.credentials.password
                   ) {
-                    client.agent.connection.password = this.credentials.password;
+                    client.agent.connection.credentials.password = this.credentials.password;
                     client.agent.connection.sessions = [];
                   }
                   if (
-                    client.agent.connection.user !== this.credentials.username
+                    client.agent.connection.credentials.user !==
+                    this.credentials.username
                   ) {
-                    client.agent.connection.user = this.credentials.username;
+                    client.agent.connection.credentials.user = this.credentials.username;
                     client.agent.connection.sessions = [];
                   }
                   if (
@@ -112,13 +113,17 @@ function configurationNode(RED) {
               client.agent.connection.queue = [];
               client.agent.connection.pending = [];
               if (
-                client.agent.connection.password !== this.credentials.password
+                client.agent.connection.credentials.password !==
+                this.credentials.password
               ) {
-                client.agent.connection.password = this.credentials.password;
+                client.agent.connection.credentials.password = this.credentials.password;
                 client.agent.connection.sessions = [];
               }
-              if (client.agent.connection.user !== this.credentials.user) {
-                client.agent.connection.user = this.credentials.user;
+              if (
+                client.agent.connection.credentials.user !==
+                this.credentials.username
+              ) {
+                client.agent.connection.credentials.user = this.credentials.username;
                 client.agent.connection.sessions = [];
               }
               if (client.agent.connection.server !== this.credentials.server) {
@@ -146,7 +151,7 @@ function configurationNode(RED) {
     this.on("close", function(done) {
       this.client
         ? this.client
-            .save()
+            .then(client => client.save())
             .then(client => done())
             .catch(error => done())
         : done();
