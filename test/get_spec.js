@@ -212,4 +212,70 @@ describe("Get Record Node", function() {
       }
     );
   });
+  it("should handle client connection errors", function(done) {
+    const testFlow = [
+      {
+        id: "f1",
+        type: "tab",
+        label: "Catch Get Error"
+      },
+      {
+        id: "n2",
+        type: "dapi-get-record",
+        z: "f1",
+        name: "Get Node",
+        client: "3783b2da.4346a6",
+        layout: "Devices",
+        scripts: "",
+        merge: true,
+        wires: [["n3"]]
+      },
+      {
+        id: "n3",
+        type: "helper",
+        z: "f1"
+      },
+      {
+        id: "3783b2da.4346a6",
+        type: "dapi-client",
+        name: "Node-RED Test Client",
+        usage: true
+      },
+      {
+        id: "n1",
+        type: "catch",
+        z: "f1",
+        name: "catch",
+        wires: [["n3"]]
+      }
+    ];
+    helper.load(
+      [clientNode, getNode, catchNode],
+      testFlow,
+      {
+        "3783b2da.4346a6": {
+          server: process.env.FILEMAKER_SERVER,
+          database: process.env.FILEMAKER_DATABASE,
+          username: process.env.FILEMAKER_USERNAME
+        }
+      },
+      function() {
+        const getNode = helper.getNode("n2");
+        const helperNode = helper.getNode("n3");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("_msgid", "code", "error", "message");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        getNode.receive({
+          payload: { layout: "people", data: { name: "Anakin Skywalker" } }
+        });
+      }
+    );
+  });
 });
