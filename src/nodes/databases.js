@@ -7,7 +7,7 @@ module.exports = function(RED) {
 
     const node = this;
 
-    node.configuration = RED.nodes.getNode(client);
+    node.client = RED.nodes.getNode(client);
     node.status({ fill: "blue", shape: "dot", text: "Loading" });
 
     node.handleEvent = ({ connected, message }) =>
@@ -17,7 +17,7 @@ module.exports = function(RED) {
           : { fill: "red", shape: "dot", text: message }
       );
 
-    node.configuration.on("status", node.handleEvent);
+    node.client.on("status", node.handleEvent);
 
     node.on("input", async message => {
       node.status({ fill: "yellow", shape: "dot", text: "Processing" });
@@ -28,21 +28,22 @@ module.exports = function(RED) {
         ["credentials"]
       );
       try {
-        await this.configuration.connection;
-        const client = await this.configuration.client;
+        await this.client.connection;
+
+        const client = await this.client.client;
+
+        if (client instanceof Error) throw client;
+
         client
-          ? client
-              .databases(credentials)
-              .then(response => send(node, output, message, response))
-              .catch(error => handleError(node, error.message, message))
-          : handleError(node, "Failed to load DAPI client.", message);
+          .databases(credentials)
+          .then(response => send(node, output, message, response))
+          .catch(error => handleError(node, error.message, message));
       } catch (error) {
-        console.log(error);
         handleError(node, error.message, message);
       }
     });
     node.on("close", () =>
-      node.configuration.removeListener("status", node.handleEvent)
+      node.client.removeListener("status", node.handleEvent)
     );
   }
   RED.nodes.registerType("dapi-databases", databases);
