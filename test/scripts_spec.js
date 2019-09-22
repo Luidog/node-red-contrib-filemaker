@@ -1,8 +1,12 @@
-/* global describe beforeEach afterEach it */
+/* global describe before beforeEach afterEach it */
 
+const path = require("path");
 const { expect } = require("chai");
 const sinon = require("sinon");
 const helper = require("node-red-node-test-helper");
+const environment = require("dotenv");
+const varium = require("varium");
+
 const { urls } = require("../node_modules/fms-api-client/src/utilities");
 const scriptsNode = require("../src/nodes/scripts.js");
 const clientNode = require("../src/client/client.js");
@@ -11,7 +15,14 @@ const catchNode = require("./core/25-catch.js");
 const sandbox = sinon.createSandbox();
 helper.init(require.resolve("node-red"));
 
+const manifestPath = path.join(__dirname, "./env.manifest");
+
 describe("Get Scripts Node", function() {
+  before(function(done) {
+    environment.config({ path: "./test/.env" });
+    varium({ manifestPath });
+    done();
+  });
   beforeEach(function(done) {
     helper.startServer(done);
   });

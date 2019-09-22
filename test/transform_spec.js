@@ -1,6 +1,11 @@
-/* global describe beforeEach afterEach it */
+/* global describe before beforeEach afterEach it */
+
+const path = require("path");
 const { expect } = require("chai");
 const helper = require("node-red-node-test-helper");
+const environment = require("dotenv");
+const varium = require("varium");
+
 const transformNode = require("../src/nodes/transform.js");
 const clientNode = require("../src/client/client.js");
 const listNode = require("../src/nodes/list.js");
@@ -8,7 +13,14 @@ const catchNode = require("./core/25-catch.js");
 
 helper.init(require.resolve("node-red"));
 
+const manifestPath = path.join(__dirname, "./env.manifest");
+
 describe("Transform Utility Node", function() {
+  before(function(done) {
+    environment.config({ path: "./test/.env" });
+    varium({ manifestPath });
+    done();
+  });
   beforeEach(function(done) {
     helper.startServer(done);
   });
