@@ -1,0 +1,136 @@
+[
+  {
+    "id": "2ee415f8.e649d2",
+    "type": "tab",
+    "label": "Performance Issue Test",
+    "disabled": true,
+    "info": ""
+  },
+  {
+    "id": "7e8265ef.def27c",
+    "type": "inject",
+    "z": "2ee415f8.e649d2",
+    "name": "Trigger Every Two Seconds",
+    "topic": "",
+    "payload": "{\"data\":\"\"}",
+    "payloadType": "json",
+    "repeat": "1",
+    "crontab": "",
+    "once": true,
+    "onceDelay": "1",
+    "x": 420,
+    "y": 180,
+    "wires": [["17cf9c64.c35a2c"]]
+  },
+  {
+    "id": "f77b6a46.3f9928",
+    "type": "dapi-create-record",
+    "z": "2ee415f8.e649d2",
+    "name": "",
+    "client": "c8751b32.315c98",
+    "layout": "payload.layout",
+    "layoutType": "msg",
+    "data": "payload.data",
+    "dataType": "msg",
+    "scripts": "",
+    "scriptsType": "none",
+    "merge": "false",
+    "mergeType": "bool",
+    "output": "payload",
+    "x": 1320,
+    "y": 180,
+    "wires": [["f7049957.f0f53"]]
+  },
+  {
+    "id": "cb2fa5a1.fffbb8",
+    "type": "catch",
+    "z": "2ee415f8.e649d2",
+    "name": "",
+    "scope": null,
+    "uncaught": false,
+    "x": 420,
+    "y": 260,
+    "wires": [["5bed67fa.d7ef4"]]
+  },
+  {
+    "id": "f7049957.f0f53",
+    "type": "debug",
+    "z": "2ee415f8.e649d2",
+    "name": "Log Result",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 1510,
+    "y": 180,
+    "wires": []
+  },
+  {
+    "id": "5bed67fa.d7ef4",
+    "type": "debug",
+    "z": "2ee415f8.e649d2",
+    "name": "Log Error",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 1180,
+    "y": 260,
+    "wires": []
+  },
+  {
+    "id": "17cf9c64.c35a2c",
+    "type": "data-generator",
+    "z": "2ee415f8.e649d2",
+    "name": "Create Random Person",
+    "field": "payload.data",
+    "fieldType": "msg",
+    "syntax": "json",
+    "template": "{\n    \"name\": \"{{firstName}} {{lastName}}\",\n    \"work\": \"{{company}}\",\n    \"domain\":\"{{domain}}\",\n    \"email\": \"{{email}}\",\n    \"address\": \"{{int 1 100}} {{street}}\",\n    \"number\": {{int 0 100 round=5}},\n    \"guid\":\"{{guid}}\",\n    \"country\": \"{{country}}\"\n}",
+    "x": 770,
+    "y": 180,
+    "wires": [["65d1cc6f.fad9bc"]]
+  },
+  {
+    "id": "65d1cc6f.fad9bc",
+    "type": "change",
+    "z": "2ee415f8.e649d2",
+    "name": "Add Timestamp",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload.data.timestamp",
+        "pt": "msg",
+        "to": "$now()",
+        "tot": "jsonata"
+      },
+      {
+        "t": "set",
+        "p": "payload.layout",
+        "pt": "msg",
+        "to": "people",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 1100,
+    "y": 180,
+    "wires": [["f77b6a46.3f9928"]]
+  },
+  {
+    "id": "c8751b32.315c98",
+    "type": "dapi-client",
+    "z": "",
+    "name": "Perfomance Issue Test Client",
+    "timeout": "1000",
+    "concurrency": "25"
+  }
+]

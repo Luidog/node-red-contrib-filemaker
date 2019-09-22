@@ -1,0 +1,371 @@
+[
+    {
+        "id": "64f53f89.41d12",
+        "type": "tab",
+        "label": "Find Performance",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "f88fe1b8.8e7bf",
+        "type": "inject",
+        "z": "64f53f89.41d12",
+        "name": "Send Find Requests",
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "repeat": "120",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "10",
+        "x": 140,
+        "y": 180,
+        "wires": [
+            [
+                "891392c8.e8ad7",
+                "f3b7f3c3.60f898",
+                "7ff0be02.62bd78"
+            ]
+        ]
+    },
+    {
+        "id": "891392c8.e8ad7",
+        "type": "data-generator",
+        "z": "64f53f89.41d12",
+        "name": "Set Random Finds",
+        "field": "payload",
+        "fieldType": "msg",
+        "syntax": "json",
+        "template": "[\n    {{#repeat 25}}\n    {\n        \"query\": {\n            \"number\": {{int 0 100 round=5}}\n        }\n    }\n    {{/repeat}}]",
+        "x": 370,
+        "y": 260,
+        "wires": [
+            [
+                "61554275.5a5174"
+            ]
+        ]
+    },
+    {
+        "id": "61554275.5a5174",
+        "type": "split",
+        "z": "64f53f89.41d12",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 550,
+        "y": 260,
+        "wires": [
+            [
+                "3b64acc1.20757c"
+            ]
+        ]
+    },
+    {
+        "id": "dbbd1cce.2cf6d",
+        "type": "dapi-perform-find",
+        "z": "64f53f89.41d12",
+        "name": "",
+        "client": "c8751b32.315c98",
+        "layout": "payload.layout",
+        "layoutType": "msg",
+        "limit": "",
+        "limitType": "num",
+        "offset": "",
+        "offsetType": "num",
+        "sort": "",
+        "sortType": "none",
+        "query": "payload.query",
+        "queryType": "msg",
+        "scripts": "",
+        "scriptsType": "none",
+        "portals": "",
+        "portalsType": "none",
+        "output": "payload",
+        "x": 930,
+        "y": 260,
+        "wires": [
+            [
+                "8e0023c6.4eab28"
+            ]
+        ]
+    },
+    {
+        "id": "3b64acc1.20757c",
+        "type": "change",
+        "z": "64f53f89.41d12",
+        "name": "Set Layout Context",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.layout",
+                "pt": "msg",
+                "to": "people",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 730,
+        "y": 260,
+        "wires": [
+            [
+                "dbbd1cce.2cf6d"
+            ]
+        ]
+    },
+    {
+        "id": "9b2e7d88.fed32",
+        "type": "catch",
+        "z": "64f53f89.41d12",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 80,
+        "y": 340,
+        "wires": [
+            [
+                "ea743b22.4bd44"
+            ]
+        ]
+    },
+    {
+        "id": "ea743b22.4bd44",
+        "type": "change",
+        "z": "64f53f89.41d12",
+        "name": "Set Error Message",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "error.message",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 370,
+        "y": 340,
+        "wires": [
+            [
+                "e4446fbf.20bbb8"
+            ]
+        ]
+    },
+    {
+        "id": "e4446fbf.20bbb8",
+        "type": "delay",
+        "z": "64f53f89.41d12",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 1300,
+        "y": 340,
+        "wires": [
+            [
+                "b6c8a0ea.16c4e"
+            ]
+        ]
+    },
+    {
+        "id": "7ff0be02.62bd78",
+        "type": "change",
+        "z": "64f53f89.41d12",
+        "name": "Set Test Start Notification",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Find Request Started",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 390,
+        "y": 100,
+        "wires": [
+            [
+                "7fe02f2f.f8ce08"
+            ]
+        ]
+    },
+    {
+        "id": "8e0023c6.4eab28",
+        "type": "join",
+        "z": "64f53f89.41d12",
+        "name": "",
+        "mode": "auto",
+        "build": "string",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": "false",
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "x": 1090,
+        "y": 260,
+        "wires": [
+            [
+                "ede01135.e47518"
+            ]
+        ]
+    },
+    {
+        "id": "ede01135.e47518",
+        "type": "change",
+        "z": "64f53f89.41d12",
+        "name": "Set Test End Message",
+        "rules": [
+            {
+                "t": "set",
+                "p": "reset",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "results",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "All Find Requests Completed",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1280,
+        "y": 260,
+        "wires": [
+            [
+                "f3b7f3c3.60f898",
+                "734bc23a.61af64"
+            ]
+        ]
+    },
+    {
+        "id": "f3b7f3c3.60f898",
+        "type": "trigger",
+        "z": "64f53f89.41d12",
+        "op1": "",
+        "op2": "An Initial Delay Longer than 26 Seconds occured",
+        "op1type": "nul",
+        "op2type": "str",
+        "duration": "26",
+        "extend": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "",
+        "x": 1510,
+        "y": 180,
+        "wires": [
+            [
+                "31048e7.247d372"
+            ]
+        ]
+    },
+    {
+        "id": "31048e7.247d372",
+        "type": "debug",
+        "z": "64f53f89.41d12",
+        "name": "Log Overall Timeout",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 1720,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "734bc23a.61af64",
+        "type": "debug",
+        "z": "64f53f89.41d12",
+        "name": "Log Finds Complete",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 1720,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "7fe02f2f.f8ce08",
+        "type": "debug",
+        "z": "64f53f89.41d12",
+        "name": "Log Request Set Start",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 1710,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "b6c8a0ea.16c4e",
+        "type": "debug",
+        "z": "64f53f89.41d12",
+        "name": "Log Timeout Error",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 1720,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "c8751b32.315c98",
+        "type": "dapi-client",
+        "z": "",
+        "name": "Perfomance Issue Test Client",
+        "timeout": "1000",
+        "concurrency": "25"
+    }
+]
