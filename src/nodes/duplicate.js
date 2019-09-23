@@ -14,8 +14,8 @@ module.exports = function(RED) {
           : { fill: "red", shape: "dot", text: message }
       );
 
-    node.configuration = RED.nodes.getNode(client);
-    node.configuration.on("status", node.handleEvent);
+    node.client = RED.nodes.getNode(client);
+    node.client.on("status", node.handleEvent);
 
     node.on("input", async message => {
       this.status({ fill: "yellow", shape: "dot", text: "Processing" });
@@ -26,8 +26,12 @@ module.exports = function(RED) {
         ["layout", "recordId", "scripts"]
       );
       try {
-        await this.configuration.connection;
-        const client = await this.configuration.client;
+        await this.client.connection;
+
+        const client = await this.client.client;
+
+        if (client instanceof Error) throw client;
+
         client
           .duplicate(layout, recordId, parameters)
           .then(response => send(node, output, message, response))
@@ -38,7 +42,7 @@ module.exports = function(RED) {
     });
 
     node.on("close", () =>
-      node.configuration.removeListener("status", node.handleEvent)
+      node.client.removeListener("status", node.handleEvent)
     );
   }
   RED.nodes.registerType("dapi-duplicate", duplicate);
