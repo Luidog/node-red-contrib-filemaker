@@ -322,4 +322,67 @@ describe("Edit Record Node", function() {
       }
     );
   });
+
+  it("should reject with an error if a client cannot be initialized", function(done) {
+    const testFlow = [
+      {
+        id: "f1",
+        type: "tab",
+        label: "Catch Edit Error"
+      },
+      {
+        id: "3783b2da.4346a6",
+        type: "dapi-client",
+        server: process.env.FILEMAKER_SERVER,
+        name: "Mute Symphony",
+        z: "f1",
+        database: process.env.FILEMAKER_DATABASE,
+        usage: true
+      },
+      {
+        id: "n1",
+        type: "dapi-edit-record",
+        client: "3783b2da.4346a6",
+        layout: "People",
+        z: "f1",
+        scripts: "",
+        merge: true,
+        wires: [["n3"]]
+      },
+      {
+        id: "n2",
+        type: "catch",
+        z: "f1",
+        name: "catch",
+        wires: [["n3"]]
+      },
+      { id: "n3", type: "helper" }
+    ];
+    helper.load(
+      [client, editNode, catchNode],
+      testFlow,
+      {
+        "3783b2da.4346a6": {
+          database: process.env.FILEMAKER_DATABASE,
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
+        }
+      },
+      function() {
+        const testNode = helper.getNode("n1");
+        const helperNode = helper.getNode("n3");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("_msgid", "code", "error", "code", "message");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        testNode.receive({ payload: {} });
+      }
+    );
+  });
 });

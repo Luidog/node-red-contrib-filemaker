@@ -182,4 +182,61 @@ describe("Logout Node", function() {
       }
     );
   });
+  it("should throw an error if a client cannot be initialized", function(done) {
+    const testFlows = [
+      {
+        id: "f1",
+        type: "tab",
+        z: "f1",
+        label: "Logout Error Test"
+      },
+      {
+        id: "3783b2da.4346a6",
+        type: "dapi-client",
+        name: "Sweet FM Client",
+        usage: true
+      },
+      {
+        id: "n1",
+        z: "f1",
+        type: "dapi-logout",
+        client: "3783b2da.4346a6",
+        wires: [["n3"]]
+      },
+      {
+        id: "n2",
+        type: "catch",
+        z: "f1",
+        name: "catch",
+        wires: [["n3"]]
+      },
+      { id: "n3", z: "f1", type: "helper" }
+    ];
+    helper.load(
+      [clientNode, logoutNode, catchNode],
+      testFlows,
+      {
+        "3783b2da.4346a6": {
+          database: process.env.FILEMAKER_DATABASE,
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
+        }
+      },
+      function() {
+        const logout = helper.getNode("n1");
+        const helperNode = helper.getNode("n3");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("_msgid", "code", "error", "message");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        logout.receive({ payload: { message: true } });
+      }
+    );
+  });
 });

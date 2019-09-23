@@ -176,4 +176,66 @@ describe("Login Node", function() {
       }
     );
   });
+  it("should reject with an error if a client cannot be initialized", function(done) {
+    const testFlow = [
+      {
+        id: "f1",
+        type: "tab",
+        label: "Login Error Test"
+      },
+      {
+        id: "n1",
+        type: "dapi-login",
+        z: "f1",
+        name: "login Node",
+        client: "3783b2da.4346a6",
+        wires: [["n2"]]
+      },
+      {
+        id: "n2",
+        type: "helper",
+        z: "f1"
+      },
+      {
+        id: "3783b2da.4346a6",
+        type: "dapi-client",
+        name: "Node-RED Test Client",
+        usage: true
+      },
+      {
+        id: "n3",
+        type: "catch",
+        z: "f1",
+        name: "catch",
+        wires: [["n2"]]
+      }
+    ];
+    helper.load(
+      [clientNode, loginNode, catchNode],
+      testFlow,
+      {
+        "3783b2da.4346a6": {
+          database: process.env.FILEMAKER_DATABASE,
+          username: process.env.FILEMAKER_USERNAME,
+          password: "wrong-password"
+        }
+      },
+      function() {
+        const login = helper.getNode("n1");
+
+        const helperNode = helper.getNode("n2");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("_msgid", "code", "error", "message");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        login.receive({ payload: {} });
+      }
+    );
+  });
 });

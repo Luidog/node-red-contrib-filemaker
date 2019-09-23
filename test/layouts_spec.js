@@ -203,4 +203,80 @@ describe("Get Layouts Node", function() {
       }
     );
   });
+  it("should reject if a client cannot be initialized", function(done) {
+    const testFlow = [
+      {
+        id: "f3",
+        type: "tab",
+        label: "Get Database Layouts Error",
+        disabled: false,
+        info: ""
+      },
+      {
+        id: "c03adb39.c4a738",
+        type: "helper"
+      },
+      {
+        id: "bb98f3db.1ee78",
+        type: "catch",
+        z: "f3",
+        name: "",
+        scope: null,
+        x: 360,
+        y: 100,
+        wires: [["c03adb39.c4a738"]]
+      },
+      {
+        id: "faf29df7.988c78",
+        type: "dapi-layouts",
+        z: "f3",
+        data: "payload.data",
+        dataType: "msg",
+        client: "e5173483.abc92",
+        output: "payload",
+
+        x: 330,
+        y: 40,
+        wires: [["c03adb39.c4a738"]]
+      },
+      {
+        id: "e5173483.abc92",
+        type: "dapi-client",
+        z: "",
+        name: "Node-RED Test Client",
+        usage: true
+      }
+    ];
+    helper.load(
+      [layoutsNode, clientNode, catchNode],
+      testFlow,
+      {
+        "e5173483.abc92": {
+          database: process.env.FILEMAKER_DATABASE,
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
+        }
+      },
+      function() {
+        const layoutsNode = helper.getNode("faf29df7.988c78");
+        const helperNode = helper.getNode("c03adb39.c4a738");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.all.keys("error", "_msgid", "payload")
+              .and.property("error")
+              .to.be.an("object")
+              .with.all.keys("source", "message");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        layoutsNode.receive({
+          payload: {}
+        });
+      }
+    );
+  });
 });

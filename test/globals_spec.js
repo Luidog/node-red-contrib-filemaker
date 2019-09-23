@@ -186,4 +186,68 @@ describe("Set Globals Node", function() {
       }
     );
   });
+  it("should reject with an error if the client cannot be initialized", function(done) {
+    const testFlow = [
+      {
+        id: "f1",
+        type: "tab",
+        label: "Catch Set Globals Error"
+      },
+      {
+        id: "n2",
+        type: "dapi-set-globals",
+        z: "f1",
+        name: "globals node",
+        client: "3783b2da.4346a6",
+        layout: "Devices",
+        scripts: "",
+        merge: true,
+        wires: [["n3"]]
+      },
+      {
+        id: "n3",
+        type: "helper",
+        z: "f1"
+      },
+      {
+        id: "3783b2da.4346a6",
+        type: "dapi-client",
+        name: "Node-RED Test Client",
+        usage: true
+      },
+      {
+        id: "n1",
+        type: "catch",
+        z: "f1",
+        name: "catch",
+        wires: [["n3"]]
+      }
+    ];
+    helper.load(
+      [clientNode, globalsNode, catchNode],
+      testFlow,
+      {
+        "3783b2da.4346a6": {
+          database: process.env.FILEMAKER_DATABASE,
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
+        }
+      },
+      function() {
+        const globals = helper.getNode("n2");
+        const helperNode = helper.getNode("n3");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("_msgid", "code", "error", "message");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        globals.receive({ payload: { data: { parent: "Han Solo" } } });
+      }
+    );
+  });
 });
