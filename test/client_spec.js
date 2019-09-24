@@ -360,8 +360,19 @@ describe("Client Node", function() {
         },
         function() {
           const client = helper.getNode("e5173483.adc92");
-
-          done();
+          try {
+            expect(client)
+              .to.be.an("object")
+              .with.any.keys("id", "type", "name", "credentials", "connection")
+              .and.property("credentials")
+              .to.be.an("object")
+              .with.any.keys("server", "database", "username", "password")
+              .and.property("server")
+              .to.eql("https://updated.server.com");
+            done();
+          } catch (err) {
+            done(err);
+          }
         }
       );
     });
@@ -428,7 +439,14 @@ describe("Client Node", function() {
         },
         function() {
           const client = helper.getNode("e5173483.adc92");
-
+          expect(client)
+            .to.be.an("object")
+            .with.any.keys("id", "type", "name", "credentials", "connection")
+            .and.property("credentials")
+            .to.be.an("object")
+            .with.any.keys("server", "database", "username", "password")
+            .and.property("database")
+            .to.eql("updated-database");
           done();
         }
       );
