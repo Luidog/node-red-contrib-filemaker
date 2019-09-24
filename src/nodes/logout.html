@@ -4,6 +4,7 @@
     defaults: {
       name: { value: null, required: false },
       client: { value: "", type: "dapi-client" },
+      session: { value: null, required: false },
       output: { value: "payload", required: true }
     },
     inputs: 1,
@@ -15,9 +16,20 @@
     },
     paletteLabel: "Logout",
     oneditprepare: function() {
+      var nullType = {
+        value: "none",
+        label: "None",
+        icon: "",
+        hasValue: false
+      };
       $("#node-input-output").typedInput({
         default: "msg",
         types: ["msg"]
+      });
+      $("#node-input-session").typedInput({
+        default: "none",
+        types: ["str", "msg", "flow", "global", nullType],
+        typeField: $("#node-input-sessionType")
       });
     }
   });
@@ -35,6 +47,12 @@
   </div>
   <hr>
   <div class="form-row">
+    <label for="node-input-session"><i class="fa fa-bullseye" aria-hidden="true"></i> <span>Session</span></label>
+    <input type="hidden" id="node-input-sessionType">
+    <input type="text" id="node-input-session">
+  </div>
+  <hr>
+  <div class="form-row">
     <label for="node-input-output"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> <span>Output</span></label>
     <input type="hidden" id="node-input-outputType">
     <input type="text" id="node-input-output">
@@ -48,10 +66,7 @@
 
   <h3>Inputs</h3>
   <dl class="message-properties">
-    <dt>payload
-      <span class="property-type">Any</span>
-        <dd>This node accepts any payload.</dd>
-      </dt>
+    <dt>session<span class="property-type">String</span><dd>The session id to close</dd>
   </dl>
 
   <h3>Outputs</h3>

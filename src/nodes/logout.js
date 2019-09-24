@@ -18,11 +18,11 @@ module.exports = function(RED) {
 
     node.on("input", async message => {
       node.status({ fill: "yellow", shape: "dot", text: "Processing" });
-      const { id } = constructParameters(
+      const { session } = constructParameters(
         message,
         configuration,
         node.context(),
-        ["id"]
+        ["session"]
       );
       try {
         await this.client.connection;
@@ -30,7 +30,7 @@ module.exports = function(RED) {
         const client = await this.client.client;
 
         client
-          .logout(id || false)
+          .logout(session || false)
           .then(response => send(node, output, message, response))
           .catch(error => handleError(node, error.message, message));
       } catch (error) {
