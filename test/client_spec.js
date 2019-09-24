@@ -610,7 +610,6 @@ describe("Client Node", function() {
           } catch (err) {
             done(err);
           }
-          done();
         }
       );
     });
