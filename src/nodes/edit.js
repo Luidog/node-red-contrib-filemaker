@@ -21,7 +21,8 @@ module.exports = function(RED) {
       );
 
     node.client = RED.nodes.getNode(client);
-    node.client.on("status", node.handleEvent);
+
+    if (node.client) node.client.on("status", node.handleEvent);
 
     node.on("input", async message => {
       node.status({ fill: "yellow", shape: "dot", text: "Processing" });

@@ -7,7 +7,7 @@ module.exports = function(RED) {
 
     const node = this;
 
-    node.configuration = RED.nodes.getNode(client);
+    node.client = RED.nodes.getNode(client);
     node.status({ fill: "blue", shape: "dot", text: "Loading" });
 
     node.handleEvent = ({ connected, message }) =>
@@ -17,7 +17,7 @@ module.exports = function(RED) {
           : { fill: "red", shape: "dot", text: message }
       );
 
-    node.configuration.on("status", node.handleEvent);
+    if (node.client) node.client.on("status", node.handleEvent);
 
     node.on("input", async message => {
       node.status({ fill: "yellow", shape: "dot", text: "Processing" });
@@ -28,9 +28,9 @@ module.exports = function(RED) {
         ["layout", "limit", "offset", "sort", "scripts", "portals"]
       );
       try {
-        await this.configuration.connection;
+        await this.client.connection;
 
-        const client = await this.configuration.client;
+        const client = await this.client.client;
 
         client
           .list(layout, parameters)
@@ -41,7 +41,7 @@ module.exports = function(RED) {
       }
     });
     node.on("close", () =>
-      node.configuration.removeListener("status", node.handleEvent)
+      node.client.removeListener("status", node.handleEvent)
     );
   }
   RED.nodes.registerType("dapi-list-records", list);

@@ -15,15 +15,16 @@ module.exports = function(RED) {
           : { fill: "red", shape: "dot", text: message }
       );
 
-    node.configuration = RED.nodes.getNode(client);
-    node.configuration.on("status", node.handleEvent);
+    node.client = RED.nodes.getNode(client);
+
+    if (node.client) node.client.on("status", node.handleEvent);
 
     node.on("input", async message => {
       node.status({ fill: "yellow", shape: "dot", text: "Processing" });
       try {
-        await this.configuration.connection;
+        await this.client.connection;
 
-        const client = await this.configuration.client;
+        const client = await this.client.client;
 
         client
           .login()
@@ -35,7 +36,7 @@ module.exports = function(RED) {
     });
 
     node.on("close", () =>
-      node.configuration.removeListener("status", node.handleEvent)
+      node.client.removeListener("status", node.handleEvent)
     );
   }
   RED.nodes.registerType("dapi-login", login);
