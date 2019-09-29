@@ -42,3 +42,5 @@ template.readme.md
 red.dev.config.js
 # development pm2 config
 ecosystem.dev.config.js
+# development enviroment manifest
+env.manifest
