@@ -6,7 +6,7 @@ Node-RED FileMaker nodes. These nodes use [fms-api-client](https://github.com/Lu
 
 [![npm version](https://badge.fury.io/js/node-red-contrib-filemaker.svg)](https://www.npmjs.com/package/node-red-contrib-filemaker) [![Build Status](https://travis-ci.com/Luidog/node-red-contrib-filemaker.svg?branch=master)](https://travis-ci.com/Luidog/node-red-contrib-filemaker) [![Coverage Status](https://img.shields.io/coveralls/Luidog/node-red-contrib-filemaker/master.svg)](https://coveralls.io/r/Luidog/node-red-contrib-filemaker?branch=master) [![Known Vulnerabilities](https://snyk.io/test/github/Luidog/node-red-contrib-filemaker/badge.svg?targetFile=package.json)](https://snyk.io/test/github/Luidog/node-red-contrib-filemaker?targetFile=package.json)
 
-The nodes in this project use [fms-api-client](https://github.com/Luidog/fms-api-client) to connect via the FileMaker Data API to FileMaker Server. The nodes that connect to FileMaker Server depend upon a configurable [client](https://github.com/Luidog/fms-api-client#client-creation) node. The client node uses [marpat](https://github.com/Luidog/marpat) to store and maintain FileMaker Data API session information in-memory. For security client configuration parameters are not exported with a flow.
+The nodes in this project use [fms-api-client](https://github.com/Luidog/fms-api-client) to connect via the FileMaker Data API to FileMaker Server. The nodes that connect to FileMaker Server depend upon a configurable [client](https://github.com/Luidog/fms-api-client#client-creation) node. The client node uses [marpat](https://github.com/Luidog/marpat) to store and maintain FileMaker Data API session information in-memory, on the filesystem, or in a [MongoDB](https://www.mongodb.com) cluster. Persistence is configured via Node-RED's [settings file](https://nodered.org/docs/user-guide/runtime/settings-file). For more information see the [storage](#storage) section. For security client configuration parameters are not exported with a flow.
 
 Once configured a client node will automatically create and maintain a FileMaker Data API session as needed. You are not required to call the [login](#login-node) or [logout](#logout-node) nodes in a flow.
 
@@ -105,14 +105,20 @@ These nodes can also be installed using the Node-RED palette manager.
 
 The nodes in this project all depend on a configurable Data API client. By default the client is saved in-memory. When saved in-memory a client will not persist between restarts of the Node-RED runtime. This means that each restart of the Node-RED runtime will cause the client to open new Data API sessions.
 
-To persist a client between Node-RED runtime restarts and allow active session monitoring and maintenance additional datastores can be configured. This project will accept a url property and an options property from a marpat object in the Node-RED settings.js file. Any datastore made available by [marpat](https://github.com/luidog/marpat). The url property accepts the following formats:
+To persist a client between Node-RED runtime restarts and allow active session monitoring and maintenance additional datastores can be configured. This project will accept a url property and an options property from a marpat object in the [Node-RED settings.js](https://nodered.org/docs/user-guide/runtime/settings-file) file. Any datastore made available by [marpat](https://github.com/luidog/marpat). The url property accepts the following formats:
 
 - MongoDB:
-  - Format: mongodb://[username:password@]host[:port][/db-name]
+  - Format: `mongodb://[username:password@]host[:port][/db-name]`
 - Filesystem:
-  - Format: nedb://[directory-path]
+  - Format: `nedb://[directory-path]`
 - In Memory:
-  - Format: nedb://memory
+  - Format: `nedb://memory`
+
+File based persistence example:
+
+```json
+{ "marpat": { "url": "nedb://dapi", "options": {} } }
+```
 
 ## Status Node
 
@@ -169,7 +175,6 @@ The databases node gets all the scripts and script folders accesible to the clie
 These nodes can be installed from the command line by running the following command in your Node-RED directory:
 
 ### Databases Illustration
-
 
 ![Databases Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images/databases-node.png?raw=true)
 
