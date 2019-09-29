@@ -5,8 +5,6 @@
   "scripts": {
     "dev": "pm2 start ecosystem.dev.config.js",
     "test": "snyk test && nyc _mocha --recursive  \"test/**/*_spec.js\" --timeout=30000 --exit",
-    "test-find": "nyc _mocha test/**/find_spec.js --timeout=30000 --exit",
-    "test-client": "nyc _mocha test/**/client_spec.js --timeout=30000 --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "report": "nyc report --reporter=html",
     "generate-readme": "mos",
