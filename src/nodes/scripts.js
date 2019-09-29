@@ -2,11 +2,13 @@ module.exports = function(RED) {
   function scripts(config) {
     const { send, handleError } = require("../services");
     const { client, output } = config;
+
     RED.nodes.createNode(this, config);
 
     const node = this;
 
     node.status({ fill: "blue", shape: "dot", text: "Loading" });
+
     node.handleEvent = ({ connected, message }) =>
       node.status(
         connected
@@ -16,9 +18,9 @@ module.exports = function(RED) {
 
     node.client = RED.nodes.getNode(client);
 
+    /* istanbul ignore else  */
     if (node.client) node.client.on("status", node.handleEvent);
 
-    node.client = RED.nodes.getNode(client);
     node.on("input", async message => {
       node.status({ fill: "yellow", shape: "dot", text: "Processing" });
       try {

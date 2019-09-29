@@ -10,6 +10,7 @@ module.exports = function(RED) {
     const node = this;
 
     node.status({ fill: "green", shape: "dot", text: "Ready" });
+
     node.on("input", async message => {
       node.status({ fill: "yellow", shape: "dot", text: "Processing" });
       const {

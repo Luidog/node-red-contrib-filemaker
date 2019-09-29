@@ -8,6 +8,7 @@ module.exports = function(RED) {
     const node = this;
 
     node.client = RED.nodes.getNode(client);
+
     node.status({ fill: "blue", shape: "dot", text: "Loading" });
 
     node.handleEvent = ({ connected, message }) =>
@@ -17,6 +18,7 @@ module.exports = function(RED) {
           : { fill: "red", shape: "dot", text: message }
       );
 
+    /* istanbul ignore else  */
     if (node.client) node.client.on("status", node.handleEvent);
 
     node.on("input", async message => {

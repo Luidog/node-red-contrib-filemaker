@@ -2,10 +2,15 @@ module.exports = function(RED) {
   function upload(config) {
     const { send, handleError, constructParameters } = require("../services");
     const { client, output, ...configuration } = config;
+
     RED.nodes.createNode(this, config);
+
     const node = this;
 
+    node.client = RED.nodes.getNode(client);
+
     node.status({ fill: "blue", shape: "dot", text: "Loading" });
+
     node.handleEvent = ({ connected, message }) =>
       node.status(
         connected
@@ -13,8 +18,7 @@ module.exports = function(RED) {
           : { fill: "red", shape: "dot", text: message }
       );
 
-    node.client = RED.nodes.getNode(client);
-
+    /* istanbul ignore else  */
     if (node.client) node.client.on("status", node.handleEvent);
 
     node.on("input", async message => {
@@ -34,7 +38,9 @@ module.exports = function(RED) {
       ]);
       try {
         await this.client.connection;
+
         const client = await this.client.client;
+
         client
           .upload(file, layout, field, recordId, parameters)
           .then(response => send(node, output, message, response))

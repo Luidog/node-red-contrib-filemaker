@@ -8,6 +8,7 @@ module.exports = function(RED) {
       constructParameters
     } = require("../services");
     const { output } = config;
+
     RED.nodes.createNode(this, config);
 
     const node = this;
