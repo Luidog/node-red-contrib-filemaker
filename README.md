@@ -13,7 +13,7 @@ Once configured a client node will automatically create and maintain a FileMaker
 Each node can be configured to use either static or dynamic parameters. Dynamic parameters may be
 read from either the `msg` property or the `flow` and `global` contexts. The default output of each node is `msg.payload`. A node can also be configured to merge its output with any property on the `msg` object.
 
-:v: and :heart: - [Lui de la Parra](https://mutesymphony.com)
+:v: and :heart: - [Lui de la Parra](https://github.com/Luidog)
 
 ## Table of Contents
 
@@ -114,11 +114,16 @@ To persist a client between Node-RED runtime restarts and allow active session m
 - In Memory:
   - Format: `nedb://memory`
 
-File based persistence example:
+Stroage Configuration Example:
 
-```json
-{ "marpat": { "url": "nedb://dapi", "options": {} } }
+```js
+module.exports = {
+  // the tcp port that the Node-RED web server is listening on
+  uiPort: process.env.PORT || 1880,
+  marpat: { url: process.env.DATASTORE, options: {} }
 ```
+
+> File [./red.dev.config.js](./red.dev.config.js#L23-L26)
 
 ## Status Node
 
