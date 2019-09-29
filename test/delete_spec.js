@@ -124,7 +124,6 @@ describe("Delete Record Node", function() {
         const helperNode = helper.getNode("ed53a9a5.d69f6");
         helperNode.on("input", function(msg) {
           try {
-            console.log(msg);
             expect(msg).to.be.an("object");
             done();
           } catch (err) {
