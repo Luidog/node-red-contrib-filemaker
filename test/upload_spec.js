@@ -1,9 +1,11 @@
 /* global before describe beforeEach afterEach it */
-const { expect } = require("chai");
+
 const path = require("path");
+const { expect } = require("chai");
 const helper = require("node-red-node-test-helper");
 const environment = require("dotenv");
 const varium = require("varium");
+
 const uploadNode = require("../src/nodes/upload.js");
 const clientNode = require("../src/client/client.js");
 const createNode = require("../src/nodes/create.js");
@@ -11,10 +13,12 @@ const catchNode = require("./core/25-catch.js");
 
 helper.init(require.resolve("node-red"));
 
+const manifestPath = path.join(__dirname, "./env.manifest");
+
 describe("Upload File Node", function() {
   before(function(done) {
     environment.config({ path: "./test/.env" });
-    varium(process.env, "./test/env.manifest");
+    varium({ manifestPath });
     done();
   });
 
@@ -24,7 +28,12 @@ describe("Upload File Node", function() {
 
   afterEach(function(done) {
     helper.unload();
-    helper.stopServer(done);
+    helper.stopServer(() =>
+      setTimeout(() => {
+        delete global.MARPAT;
+        done();
+      }, "500")
+    );
   });
 
   it("should be loaded", function(done) {
@@ -34,7 +43,7 @@ describe("Upload File Node", function() {
     });
   });
   it("should upload to an existing record", function(done) {
-    var testFlows = [
+    const testFlows = [
       {
         id: "146270a1.3bd87f",
         type: "tab",
@@ -143,7 +152,7 @@ describe("Upload File Node", function() {
     );
   });
   it("should upload to a file to a new record", function(done) {
-    var testFlows = [
+    const testFlows = [
       {
         id: "146270a1.3bd87f",
         type: "tab",
@@ -232,7 +241,7 @@ describe("Upload File Node", function() {
     );
   });
   it("should throw an error with a message and a code", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "f1",
         type: "tab",
@@ -274,6 +283,70 @@ describe("Upload File Node", function() {
       {
         "3783b2da.4346a6": {
           server: process.env.FILEMAKER_SERVER,
+          database: process.env.FILEMAKER_DATABASE,
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
+        }
+      },
+      function() {
+        const upload = helper.getNode("n2");
+        const helperNode = helper.getNode("n3");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("_msgid", "code", "error", "message");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        upload.receive({ payload: { layout: "none" } });
+      }
+    );
+  });
+  it("should throw an error if a client cannot be initialized", function(done) {
+    const testFlow = [
+      {
+        id: "f1",
+        type: "tab",
+        label: "Catch Upload Error"
+      },
+      {
+        id: "n2",
+        type: "dapi-upload-file",
+        z: "f1",
+        name: "Upload Node",
+        client: "3783b2da.4346a6",
+        layout: "Devices",
+        scripts: "",
+        merge: true,
+        wires: [["n3"]]
+      },
+      {
+        id: "n3",
+        type: "helper",
+        z: "f1"
+      },
+      {
+        id: "3783b2da.4346a6",
+        type: "dapi-client",
+        name: "Node-RED Test Client",
+        usage: true
+      },
+      {
+        id: "n1",
+        type: "catch",
+        z: "f1",
+        name: "catch",
+        wires: [["n3"]]
+      }
+    ];
+    helper.load(
+      [clientNode, uploadNode, catchNode],
+      testFlow,
+      {
+        "3783b2da.4346a6": {
           database: process.env.FILEMAKER_DATABASE,
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD

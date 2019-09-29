@@ -2,24 +2,19 @@
 
 const path = require("path");
 const { expect } = require("chai");
-const sinon = require("sinon");
-
 const helper = require("node-red-node-test-helper");
 const environment = require("dotenv");
 const varium = require("varium");
 
-const layoutsNode = require("../src/nodes/layouts.js");
+const statusNode = require("../src/nodes/status.js");
 const clientNode = require("../src/client/client.js");
-const { urls } = require("../node_modules/fms-api-client/src/utilities");
 const catchNode = require("./core/25-catch.js");
-
-const sandbox = sinon.createSandbox();
 
 helper.init(require.resolve("node-red"));
 
 const manifestPath = path.join(__dirname, "./env.manifest");
 
-describe("Get Layouts Node", function() {
+describe("Client Status Node", function() {
   before(function(done) {
     environment.config({ path: "./test/.env" });
     varium({ manifestPath });
@@ -31,7 +26,6 @@ describe("Get Layouts Node", function() {
 
   afterEach(function(done) {
     helper.unload();
-    sandbox.restore();
     helper.stopServer(() =>
       setTimeout(() => {
         delete global.MARPAT;
@@ -41,17 +35,17 @@ describe("Get Layouts Node", function() {
   });
 
   it("should be loaded", function(done) {
-    const testFlows = [{ id: "n1", type: "inject" }];
-    helper.load(layoutsNode, testFlows, function() {
+    const testFlow = [{ id: "n1", type: "inject" }];
+    helper.load(statusNode, testFlow, function() {
       done();
     });
   });
-  it("should return a list of layouts", function(done) {
+  it("should return Data API Client Status", function(done) {
     const testFlow = [
       {
         id: "eff0d28.1c78bb",
         type: "tab",
-        label: "Get Database Layouts",
+        label: "Get Client Status",
         disabled: false,
         info: ""
       },
@@ -70,14 +64,15 @@ describe("Get Layouts Node", function() {
         wires: [["abcce428.f88018"]]
       },
       {
-        id: "96572b6d.f133a8",
-        type: "dapi-layouts",
-        z: "2f61f06f.5f61f8",
-        name: "",
+        id: "871850c1.2c366",
+        type: "dapi-status",
+        z: "eff0d28.1c78bb",
+        data: "payload.data",
+        dataType: "msg",
         client: "e5173483.adc92",
         output: "payload",
-        x: 510,
-        y: 560,
+        x: 330,
+        y: 40,
         wires: [["abcce428.f88018"]]
       },
       {
@@ -89,7 +84,7 @@ describe("Get Layouts Node", function() {
       }
     ];
     helper.load(
-      [layoutsNode, clientNode, catchNode],
+      [statusNode, clientNode, catchNode],
       testFlow,
       {
         "e5173483.adc92": {
@@ -100,7 +95,7 @@ describe("Get Layouts Node", function() {
         }
       },
       function() {
-        const layoutsNode = helper.getNode("96572b6d.f133a8");
+        const statusNode = helper.getNode("871850c1.2c366");
         const helperNode = helper.getNode("abcce428.f88018");
         helperNode.on("input", function(msg) {
           try {
@@ -109,24 +104,24 @@ describe("Get Layouts Node", function() {
               .with.any.keys("payload")
               .and.property("payload")
               .to.be.an("object")
-              .with.all.keys("layouts");
+              .with.all.keys("data", "queue", "sessions", "pending");
             done();
           } catch (err) {
             done(err);
           }
         });
-        layoutsNode.receive({
+        statusNode.receive({
           payload: {}
         });
       }
     );
   });
-  it("should reject with an error message and a code", function(done) {
+  it("should reject with an error if the client cannot be initialized", function(done) {
     const testFlow = [
       {
-        id: "f3",
+        id: "a0254177.9c8dc",
         type: "tab",
-        label: "Get Database Layouts Error",
+        label: "Client Status Error",
         disabled: false,
         info: ""
       },
@@ -137,7 +132,8 @@ describe("Get Layouts Node", function() {
       {
         id: "bb98f3db.1ee78",
         type: "catch",
-        z: "f3",
+        z: "a0254177.9c8dc",
+
         name: "",
         scope: null,
         x: 360,
@@ -146,11 +142,11 @@ describe("Get Layouts Node", function() {
       },
       {
         id: "faf29df7.988c78",
-        type: "dapi-layouts",
-        z: "f3",
+        type: "dapi-status",
+        z: "a0254177.9c8dc",
         data: "payload.data",
         dataType: "msg",
-        client: "e5173483.abc92",
+        client: "e5173483.adc92",
         output: "payload",
 
         x: 330,
@@ -158,7 +154,7 @@ describe("Get Layouts Node", function() {
         wires: [["c03adb39.c4a738"]]
       },
       {
-        id: "e5173483.abc92",
+        id: "e5173483.adc92",
         type: "dapi-client",
         z: "",
         name: "Node-RED Test Client",
@@ -166,114 +162,31 @@ describe("Get Layouts Node", function() {
       }
     ];
     helper.load(
-      [layoutsNode, clientNode, catchNode],
+      [statusNode, clientNode, catchNode],
       testFlow,
       {
-        "e5173483.abc92": {
-          server: process.env.FILEMAKER_SERVER,
+        "e5173483.adc92": {
           database: process.env.FILEMAKER_DATABASE,
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
         }
       },
       function() {
-        sandbox
-          .stub(urls, "layouts")
-          .callsFake(() =>
-            Promise.reject({ code: "1760", message: "sinon stub rejection" })
-          );
-        const layoutsNode = helper.getNode("faf29df7.988c78");
+        const statusNode = helper.getNode("faf29df7.988c78");
         const helperNode = helper.getNode("c03adb39.c4a738");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
               .to.be.an("object")
-              .with.all.keys("error", "_msgid", "payload")
-              .and.property("error")
-              .to.be.an("object")
-              .with.all.keys("source", "message");
+              .with.any.keys("payload")
+              .and.property("payload")
+              .to.be.a("object");
             done();
           } catch (err) {
             done(err);
           }
         });
-        layoutsNode.receive({
-          payload: {}
-        });
-      }
-    );
-  });
-  it("should reject if a client cannot be initialized", function(done) {
-    const testFlow = [
-      {
-        id: "f3",
-        type: "tab",
-        label: "Get Database Layouts Error",
-        disabled: false,
-        info: ""
-      },
-      {
-        id: "c03adb39.c4a738",
-        type: "helper"
-      },
-      {
-        id: "bb98f3db.1ee78",
-        type: "catch",
-        z: "f3",
-        name: "",
-        scope: null,
-        x: 360,
-        y: 100,
-        wires: [["c03adb39.c4a738"]]
-      },
-      {
-        id: "faf29df7.988c78",
-        type: "dapi-layouts",
-        z: "f3",
-        data: "payload.data",
-        dataType: "msg",
-        client: "e5173483.abc92",
-        output: "payload",
-
-        x: 330,
-        y: 40,
-        wires: [["c03adb39.c4a738"]]
-      },
-      {
-        id: "e5173483.abc92",
-        type: "dapi-client",
-        z: "",
-        name: "Node-RED Test Client",
-        usage: true
-      }
-    ];
-    helper.load(
-      [layoutsNode, clientNode, catchNode],
-      testFlow,
-      {
-        "e5173483.abc92": {
-          database: process.env.FILEMAKER_DATABASE,
-          username: process.env.FILEMAKER_USERNAME,
-          password: process.env.FILEMAKER_PASSWORD
-        }
-      },
-      function() {
-        const layoutsNode = helper.getNode("faf29df7.988c78");
-        const helperNode = helper.getNode("c03adb39.c4a738");
-        helperNode.on("input", function(msg) {
-          try {
-            expect(msg)
-              .to.be.an("object")
-              .with.all.keys("error", "_msgid", "payload")
-              .and.property("error")
-              .to.be.an("object")
-              .with.all.keys("source", "message");
-            done();
-          } catch (err) {
-            done(err);
-          }
-        });
-        layoutsNode.receive({
+        statusNode.receive({
           payload: {}
         });
       }

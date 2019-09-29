@@ -1,10 +1,18 @@
 module.exports = function(RED) {
-  function recordId(configuration) {
+  function recordId(config) {
     const { recordId } = require("fms-api-client");
-    const { merge, constructParameters } = require("../services");
-    RED.nodes.createNode(this, configuration);
+    const { send, handleError, constructParameters } = require("../services");
+
+    const { output, ...configuration } = config;
+
+    RED.nodes.createNode(this, config);
+
     const node = this;
+
+    node.status({ fill: "green", shape: "dot", text: "Ready" });
+
     node.on("input", message => {
+      node.status({ fill: "yellow", shape: "dot", text: "Processing" });
       const { data } = constructParameters(
         message,
         configuration,
@@ -12,9 +20,10 @@ module.exports = function(RED) {
         ["data"]
       );
       try {
-        node.send(merge(configuration.output, message, recordId(data)));
+        send(node, output, message, recordId(data));
       } catch (error) {
-        node.error(error.message, message);
+        console.log("error handled", error);
+        handleError(node, error.message, message);
       }
     });
   }

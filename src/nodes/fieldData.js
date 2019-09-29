@@ -1,20 +1,24 @@
 module.exports = function(RED) {
-  function fieldData(configuration) {
+  function fieldData(config) {
     const { fieldData } = require("fms-api-client");
-    const { merge, constructParameters } = require("../services");
-    RED.nodes.createNode(this, configuration);
+    const { send, handleError, constructParameters } = require("../services");
+    const { output } = config;
+
+    RED.nodes.createNode(this, config);
+
     const node = this;
+
+    node.status({ fill: "green", shape: "dot", text: "Ready" });
+
     node.on("input", message => {
-      const { data } = constructParameters(
-        message,
-        configuration,
-        node.context(),
-        ["data"]
-      );
+      node.status({ fill: "yellow", shape: "dot", text: "Processing" });
+      const { data } = constructParameters(message, config, node.context(), [
+        "data"
+      ]);
       try {
-        node.send(merge(configuration.output, message, fieldData(data)));
+        send(node, output, message, fieldData(data));
       } catch (error) {
-        node.error(error.message, message);
+        handleError(node, error.message, message);
       }
     });
   }

@@ -1,11 +1,18 @@
 module.exports = function(RED) {
-  function containerData(configuration) {
+  function containerData(config) {
     const { containerData } = require("fms-api-client");
     const fs = require("fs-extra");
-    const { merge, constructParameters } = require("../services");
-    RED.nodes.createNode(this, configuration);
+    const { constructParameters, send, handleError } = require("../services");
+    const { output, ...configuration } = config;
+
+    RED.nodes.createNode(this, config);
+
     const node = this;
+
+    node.status({ fill: "green", shape: "dot", text: "Ready" });
+
     node.on("input", async message => {
+      node.status({ fill: "yellow", shape: "dot", text: "Processing" });
       const {
         data,
         field,
@@ -19,6 +26,7 @@ module.exports = function(RED) {
         "destination",
         "parameters"
       ]);
+
       destination && destination !== "buffer"
         ? await fs
             .ensureDir(destination)
@@ -39,10 +47,8 @@ module.exports = function(RED) {
                   }))
                 : { ...data, filename: data.name }
             )
-            .then(files =>
-              node.send(merge(configuration.output, message, files))
-            )
-            .catch(error => node.error(error.message, message))
+            .then(files => send(node, output, message, files))
+            .catch(error => handleError(node, error.message, message))
         : await containerData(data || {}, field, "buffer", filename, parameters)
             .then(data =>
               Array.isArray(data)
@@ -52,11 +58,8 @@ module.exports = function(RED) {
                   }))
                 : { ...data, filename: data.name }
             )
-            .then(files =>
-              node.send(merge(configuration.output, message, files))
-            )
-
-            .catch(error => node.error(error.message, message));
+            .then(files => send(node, output, message, files))
+            .catch(error => handleError(node, error.message, message));
     });
   }
   RED.nodes.registerType("dapi-container-data", containerData);

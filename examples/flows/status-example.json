@@ -1,0 +1,57 @@
+[
+  {
+    "id": "fb2529ac.1a49c",
+    "type": "tab",
+    "label": "Status Node Example",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "4fb66d46.bb47ec",
+    "type": "inject",
+    "z": "fb2529ac.1a49c",
+    "name": "Inject",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 290,
+    "y": 100,
+    "wires": [["75649b68.590104"]]
+  },
+  {
+    "id": "25261328.9098cc",
+    "type": "debug",
+    "z": "fb2529ac.1a49c",
+    "name": "Debug",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 630,
+    "y": 100,
+    "wires": []
+  },
+  {
+    "id": "75649b68.590104",
+    "type": "dapi-status",
+    "z": "fb2529ac.1a49c",
+    "name": "",
+    "client": "5092f1d2.d5de28",
+    "output": "payload",
+    "x": 450,
+    "y": 100,
+    "wires": [["25261328.9098cc"]]
+  },
+  {
+    "id": "5092f1d2.d5de28",
+    "type": "dapi-client",
+    "z": "",
+    "name": "Example Client"
+  }
+]

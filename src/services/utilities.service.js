@@ -3,7 +3,7 @@
 const _ = require("lodash");
 
 /**
- * @method merge
+ * @function merge
  * @private
  * @description merges the objects recieved into a single object. This function will nest the second
  * parameter sent to it in a payload property.
@@ -18,7 +18,7 @@ const merge = (property, message, payload) =>
     : _.set(message, property, payload);
 
 /**
- * @method castBooleans
+ * @function castBooleans
  * @public
  * @description traverses an object and casts all "true" and "false" strings as the appropriate boolean type.
  * @param  {Object} object  The object to map for true and false strings.
@@ -26,14 +26,12 @@ const merge = (property, message, payload) =>
  */
 
 const castBooleans = object =>
-  _.mapValues(
-    object,
-    (value, key, index) =>
-      value === "true" || value === "false" ? value === "true" : value
+  _.mapValues(object, (value, key, index) =>
+    value === "true" || value === "false" ? value === "true" : value
   );
 
 /**
- * @method constructParameters
+ * @function constructParameters
  * @public
  * @description composes a object from the values defined in the values parameter. It will
  * traverse the incoming node message, the node's configuration, and the current context to
@@ -49,7 +47,7 @@ const constructParameters = (message, configuration, context, values) =>
   compact(
     _.map(values, value => {
       let parameter = {};
-      let type = configuration[`${value}Type`];
+      const type = configuration[`${value}Type`];
       if (type && type !== "msg" && type !== "flow" && type !== "global") {
         parameter = { [value]: parseJson(configuration[value]) };
       } else if (type === "msg") {
@@ -70,7 +68,7 @@ const constructParameters = (message, configuration, context, values) =>
   );
 
 /**
- * @method parseJson
+ * @function parseJson
  * @public
  * @description checks if the passed parameter is valid json. If the value is not json it is
  * returned without modification. If the parameter is json it is parsed and returned.
@@ -81,7 +79,7 @@ const constructParameters = (message, configuration, context, values) =>
 const parseJson = value => (isJson(value) ? JSON.parse(value) : value);
 
 /**
- * @method compact
+ * @function compact
  * @private
  * @description merges properties from an array of objects together while also discarding properties
  * with null, empty string, or undefined values. If a non json value is passed to this function it is
@@ -92,17 +90,17 @@ const parseJson = value => (isJson(value) ? JSON.parse(value) : value);
  */
 
 const compact = data => {
-  let properties = Array.isArray(data)
+  const properties = Array.isArray(data)
     ? _.map(data, object => (isObject(object) ? discardEmpty(object) : {}))
     : isJson(data)
-      ? [discardEmpty(data)]
-      : [{}];
+    ? [discardEmpty(data)]
+    : [{}];
 
   return Object.assign({}, ...properties);
 };
 
 /**
- * @method discardEmpty
+ * @function discardEmpty
  * @private
  * @description discard properties that are null, an empty string or undefined.
  * @param  {Object} object The object to be evaluated and modified.
@@ -113,7 +111,7 @@ const discardEmpty = object =>
   _.pickBy(object, property => _.identity(property) || property === false);
 
 /**
- * @method isObject
+ * @function isObject
  * @public
  * @description The isObject function tests incoming data to see if it is null or an object.
  * @param  {Any} value The data to check
@@ -123,7 +121,7 @@ const discardEmpty = object =>
 const isObject = value => value !== null && typeof value === "object";
 
 /**
- * @method isJson
+ * @function isJson
  * @public
  * @description The isJson function uses tests the incoming value to see if
  * it is json or a string. This function will than attempt to parse the
@@ -146,7 +144,7 @@ const isJson = value => {
 };
 
 /**
- * @method sanitize
+ * @function sanitize
  * @public
  * @description picks only the properties passed to it from the object it recieves.
  * @param  {Object} object The object to use when picking properties.
@@ -156,11 +154,45 @@ const isJson = value => {
 
 const sanitize = (object, properties) => _.pick(object, properties);
 
+/**
+ * @function send
+ * @public
+ * @description handles setting node status and merging properties for when a node sends
+ * a message.
+ * @param  {Object} node The node to use when setting status and sending message.
+ * @param  {String} output The property to use updating the message.
+ * @param  {Object} message The current message object.
+ * @param  {Object} response The Data API response
+ * @see {@link merge}
+ */
+
+const send = (node, output, message, response) => {
+  node.status({ fill: "green", shape: "dot", text: "Ready" });
+  node.send(merge(output, message, response));
+};
+
+/**
+ * @function handleError
+ * @public
+ * @description handles errors triggered by a node. This function also sets the nodes'
+ * status for visual feedback.
+ * @param  {Object} node The node to use when setting status and sending message.
+ * @param  {String} error The error message recieved
+ * @param  {Object} message The current message object.
+ */
+
+const handleError = (node, error, message) => {
+  node.status({ fill: "red", shape: "dot", text: error });
+  node.error(error, message);
+};
+
 module.exports = {
   compact,
   merge,
   isJson,
   sanitize,
   constructParameters,
-  castBooleans
+  castBooleans,
+  send,
+  handleError
 };

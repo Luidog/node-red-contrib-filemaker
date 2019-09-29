@@ -1,41 +1,29 @@
 <script type="text/javascript">
-  RED.nodes.registerType("dapi-logout", {
+  RED.nodes.registerType("dapi-status", {
     category: "FileMaker",
     defaults: {
       name: { value: null, required: false },
       client: { value: "", type: "dapi-client" },
-      session: { value: null, required: false },
       output: { value: "payload", required: true }
     },
     inputs: 1,
     outputs: 1,
-    icon: "logout.png",
+    icon: "status.png",
     color: "#39D1C0",
+    paletteLabel: "Status",
     label: function() {
-      return this.name || "Logout";
+      return this.name || "Client Status";
     },
-    paletteLabel: "Logout",
     oneditprepare: function() {
-      var nullType = {
-        value: "none",
-        label: "None",
-        icon: "",
-        hasValue: false
-      };
       $("#node-input-output").typedInput({
         default: "msg",
         types: ["msg"]
-      });
-      $("#node-input-session").typedInput({
-        default: "none",
-        types: ["str", "msg", "flow", "global", nullType],
-        typeField: $("#node-input-sessionType")
       });
     }
   });
 </script>
 
-<script type="text/x-red" data-template-name="dapi-logout">
+<script type="text/x-red" data-template-name="dapi-status">
   <div class="form-row">
     <label for="node-input-name"><i class="fa fa-tag" aria-hidden="true"></i> <span>Name</span></label>
     <input type="text" id="node-input-name" placeholder="Specific Node">
@@ -47,37 +35,40 @@
   </div>
   <hr>
   <div class="form-row">
-    <label for="node-input-session"><i class="fa fa-bullseye" aria-hidden="true"></i> <span>Session</span></label>
-    <input type="hidden" id="node-input-sessionType">
-    <input type="text" id="node-input-session">
-  </div>
-  <hr>
-  <div class="form-row">
     <label for="node-input-output"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> <span>Output</span></label>
     <input type="hidden" id="node-input-outputType">
     <input type="text" id="node-input-output">
   </div>
 </script>
 
-<script type="text/x-red" data-help-name="dapi-logout">
+<script type="text/x-red" data-help-name="dapi-status">
   <p>
-    This node closes an open Data API session and removes the associated authentication token.
+    This node gets the Data API client status information.
   </p>
 
   <h3>Inputs</h3>
   <dl class="message-properties">
-    <dt>session<span class="property-type">String</span><dd>The session id to close</dd>
+    <dt>payload
+      <span class="property-type">Any</span>
+        <dd>This node accepts any payload.</dd>
+      </dt>
   </dl>
 
   <h3>Outputs</h3>
   <ol class="node-ports">
     <li>Standard Output
       <dl class="message-properties">
-        <dt>code<span class="property-type">String</span>
-          <dd>A success code.</dd>
+        <dt>data<span class="property-type">Object</span>
+          <dd>Incoming / Outgoing data statistics.</dd>
         </dt>
-        <dt>message<span class="property-type">String</span>
-          <dd>A success message.</dd>
+        <dt>queue<span class="property-type">Array</span>
+          <dd>Queued Data API requests.</dd>
+        </dt>
+        <dt>pending<span class="property-type">Array</span>
+          <dd>Pending Data API requests.</dd>
+        </dt>
+        <dt>sessions<span class="property-type">Array</span>
+          <dd>The client's open sessions</dd>
         </dt>
       </dl>
     </li>
@@ -92,14 +83,14 @@
 
   <h3>Details</h3>
   <p>
-    This node closes the currently open Data API session and removes the associated session token.<br/><br/>
+    This node gets the client status information.<br/><br/>
     The default output of this node is <code>msg.payload</code>. This node can also be configured to merge its
     output with any property on the <code>msg</code> object.
   </p>
 
   <h3>References</h3>
   <ul>
-    <li><a href="https://github.com/Luidog/fms-api-client#logout-method">Logout Method</a> - Base Client Method Documentation</li>
+    <li><a href="https://github.com/Luidog/fms-api-client#client-status">Client Status Method</a> - Base Client Method Documentation</li>
     <li><a href="https://github.com/Luidog/node-red-contrib-filemaker">Node-RED FileMaker</a> - The Node's Github Repository</li>
     <li><a href="https://github.com/Luidog/fms-api-client">Data API Client</a> - Data API Client Github Repository</li>
   </ul>

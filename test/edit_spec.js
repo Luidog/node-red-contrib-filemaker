@@ -1,8 +1,11 @@
 /* global describe before beforeEach afterEach it */
+
+const path = require("path");
 const { expect } = require("chai");
 const helper = require("node-red-node-test-helper");
 const environment = require("dotenv");
 const varium = require("varium");
+
 const client = require("../src/client/client.js");
 const createNode = require("../src/nodes/create.js");
 const editNode = require("../src/nodes/edit.js");
@@ -10,10 +13,12 @@ const catchNode = require("./core/25-catch.js");
 
 helper.init(require.resolve("node-red"));
 
+const manifestPath = path.join(__dirname, "./env.manifest");
+
 describe("Edit Record Node", function() {
   before(function(done) {
     environment.config({ path: "./test/.env" });
-    varium(process.env, "./test/env.manifest");
+    varium({ manifestPath });
     done();
   });
 
@@ -23,7 +28,12 @@ describe("Edit Record Node", function() {
 
   afterEach(function(done) {
     helper.unload();
-    helper.stopServer(done);
+    helper.stopServer(() =>
+      setTimeout(() => {
+        delete global.MARPAT;
+        done();
+      }, "500")
+    );
   });
 
   it("should be loaded", function(done) {
@@ -290,6 +300,69 @@ describe("Edit Record Node", function() {
       {
         "3783b2da.4346a6": {
           server: process.env.FILEMAKER_SERVER,
+          database: process.env.FILEMAKER_DATABASE,
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
+        }
+      },
+      function() {
+        const testNode = helper.getNode("n1");
+        const helperNode = helper.getNode("n3");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("_msgid", "code", "error", "code", "message");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        testNode.receive({ payload: {} });
+      }
+    );
+  });
+
+  it("should reject with an error if a client cannot be initialized", function(done) {
+    const testFlow = [
+      {
+        id: "f1",
+        type: "tab",
+        label: "Catch Edit Error"
+      },
+      {
+        id: "3783b2da.4346a6",
+        type: "dapi-client",
+        server: process.env.FILEMAKER_SERVER,
+        name: "Mute Symphony",
+        z: "f1",
+        database: process.env.FILEMAKER_DATABASE,
+        usage: true
+      },
+      {
+        id: "n1",
+        type: "dapi-edit-record",
+        client: "3783b2da.4346a6",
+        layout: "People",
+        z: "f1",
+        scripts: "",
+        merge: true,
+        wires: [["n3"]]
+      },
+      {
+        id: "n2",
+        type: "catch",
+        z: "f1",
+        name: "catch",
+        wires: [["n3"]]
+      },
+      { id: "n3", type: "helper" }
+    ];
+    helper.load(
+      [client, editNode, catchNode],
+      testFlow,
+      {
+        "3783b2da.4346a6": {
           database: process.env.FILEMAKER_DATABASE,
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD

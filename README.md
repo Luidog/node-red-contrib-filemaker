@@ -18,6 +18,10 @@ read from either the `msg` property or the `flow` and `global` contexts. The def
 ## Table of Contents
 
 - [Installation](#installation)
+- [Storage](#storage)
+- [Status Node](#status-node)
+  - [Status Illustration](#status-illustration)
+  - [Container Data Flow](#status-flow)
 - [Login Node](#login-node)
   - [Login Illustration](#login-illustration)
   - [Login Flow](#login-flow)
@@ -97,6 +101,31 @@ npm install --save node-red-contrib-filemaker
 
 These nodes can also be installed using the Node-RED palette manager.
 
+# Storage
+
+The nodes in this project all depend on a configurable Data API client. By default the client is saved in-memory. When saved in-memory a client will not persist between restarts of the Node-RED runtime. This means that each restart of the Node-RED runtime will cause the client to open new Data API sessions.
+
+To persist a client between Node-RED runtime restarts and allow active session monitoring and maintenance additional datastores can be configured. This project will accept a url property and an options property from a marpat object in the Node-RED settings.js file. Any datastore made available by [marpat](https://github.com/luidog/marpat). The url property accepts the following formats:
+
+- MongoDB:
+  - Format: mongodb://[username:password@]host[:port][/db-name]
+- Filesystem:
+  - Format: nedb://[directory-path]
+- In Memory:
+  - Format: nedb://memory
+
+## Status Node
+
+The status node will return the current state of the configured client. The status node will return the client's data usage, urls for all pending and queued requests, and currently open sessions.
+
+### Status Illustration
+
+![status Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images/status-node.png?raw=true)
+
+### Status Flow
+
+[![Status Flow](https://img.shields.io/badge/Flow-Status%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/status-example.json)
+
 ## Login Node
 
 The login node will open a FileMaker Data API session. This node will also save the resulting session token for future use by the configured client. You are _not required_ to login before using any other node in a flow.
@@ -137,9 +166,14 @@ The product info node gets server product info. This node gets metadata for the 
 
 The databases node gets all the scripts and script folders accesible to the client.
 
+These nodes can be installed from the command line by running the following command in your Node-RED directory:
+
 ### Databases Illustration
 
+
 ![Databases Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images/databases-node.png?raw=true)
+
+These nodes can also be installed using the Node-RED palette manager.
 
 ### Databases Flow
 
@@ -357,30 +391,55 @@ npm test
 ```
 
 ```default
-> node-red-contrib-filemaker@2.0.0 test /node-red-contrib-filemaker
+> node-red-contrib-filemaker@2.2.0 test node-red-contrib-filemaker
 > snyk test && nyc _mocha --recursive  "test/**/*_spec.js" --timeout=30000 --exit
-
 
 Testing /node-red-contrib-filemaker...
 
-Organisation:      luidog
+Organization:      luidog
 Package manager:   npm
 Target file:       package-lock.json
 Open source:       yes
 Project path:      /node-red-contrib-filemaker
 Local Snyk policy: found
+Licenses:          enabled
 
-✓ Tested 363 dependencies for known vulnerabilities, no vulnerable paths found.
+✓ Tested 364 dependencies for known issues, no vulnerable paths found.
 
   Client Node
-    ✓ should be loaded
+    Client Save
+      ✓ should save on close
+    Reused Client Tests
+      ✓ should be loaded
+      ✓ should create a persistent client (152ms)
+      ✓ should reuse a client (113ms)
+      ✓ should allow a client's server configuration to be modified
+      ✓ should allow a client's database configuration to be modified
+      ✓ should allow a client's account user configuration to be modified
+      ✓ should allow a client's account password configuration to be modified
+      ✓ should allow multiple clients
+      ✓ should create a client of one does not exist
+      ✓ should reuse a client if it exists
+      ✓ should handle datastore errors
+    New Client Tests
+      ✓ should be loaded
+      ✓ should create a persistent client (215ms)
+      ✓ should reuse a client (113ms)
+      ✓ should allow a client's server configuration to be modified
+      ✓ should allow a client's database configuration to be modified
+      ✓ should allow a client's account user configuration to be modified
+      ✓ should allow a client's account password configuration to be modified
+      ✓ should allow multiple clients
+      ✓ should create a client of one does not exist
+      ✓ should reuse a client if it exists
+      ✓ should handle datastore errors
 
   Container Data Node
     ✓ should be loaded
-    ✓ should download an object with container data to a buffer (1524ms)
-    ✓ should download an array of objects with container data to a buffer (332ms)
-    ✓ should download an object with container data to the filesystem (329ms)
-    ✓ should download an array of objects with container data to the filesystem (329ms)
+    ✓ should download an object with container data to a buffer (547ms)
+    ✓ should download an array of objects with container data to a buffer (2579ms)
+    ✓ should download an object with container data to the filesystem (1526ms)
+    ✓ should download an array of objects with container data to the filesystem (1430ms)
     ✓ should throw an error with a message and a code when writing an object to a buffer and an error is triggered
     ✓ should throw an error with a message and a code when writing an array to a buffer an error is triggered
     ✓ should handle undefined data input when writing to a buffer
@@ -390,101 +449,119 @@ Local Snyk policy: found
 
   Create Record Node
     ✓ should be loaded
-    ✓ should create a record (188ms)
-    ✓ should create allow the filemaker response to be merged to the message object (188ms)
-    ✓ should use flow context to create a record. (187ms)
-    ✓ should use global context to create a record. (189ms)
-    ✓ should throw an error with a message and a code (209ms)
+    ✓ should create a record (208ms)
+    ✓ should allow the filemaker response to be merged to the message object (308ms)
+    ✓ should use flow context to create a record. (217ms)
+    ✓ should use global context to create a record. (209ms)
+    ✓ should throw an error with a message and a code (264ms)
 
   Databases Node
     ✓ should be loaded
-    ✓ should return available databases (87ms)
-    ✓ should reject with an error message and a code (144ms)
+    ✓ should return available databases (89ms)
+    ✓ should reject with an error message and a code (115ms)
+    ✓ should reject if a client can not be initialized
 
   Delete Record Node
     ✓ should be loaded
-    ✓ should delete a record (309ms)
-    ✓ should throw an error with a message and a code (188ms)
+    ✓ should delete a record (345ms)
+    ✓ should throw an error with a message and a code (214ms)
+    ✓ should handle client initilization errors
 
   Duplicate Record Node
     ✓ should be loaded
-    ✓ should duplicate a record (298ms)
-    ✓ should reject with an error message and a code (192ms)
+    ✓ should duplicate a record (356ms)
+    ✓ should reject with an error message and a code (206ms)
+    ✓ should rehject with an error if the client cannot be initialized
 
   Edit Record Node
     ✓ should be loaded
-    ✓ should edit a record (312ms)
-    ✓ should support merging data when editing a record (322ms)
-    ✓ should throw an error with a message and a code (197ms)
+    ✓ should edit a record (357ms)
+    ✓ should support merging data when editing a record (356ms)
+    ✓ should throw an error with a message and a code (225ms)
+    ✓ should reject with an error if a client cannot be initialized
 
   FieldData Utility Node
     ✓ should be loaded
-    ✓ should transform an array of objects (314ms)
-    ✓ should transform a a single object (330ms)
+    ✓ should transform an array of objects (370ms)
+    ✓ should transform a a single object (386ms)
     ✓ should reject with an error message and code
 
   Find Records Node
     ✓ should be loaded
-    ✓ should perform a find (298ms)
-    ✓ should throw an error with a message and a code (216ms)
+    ✓ should perform a find (352ms)
+    ✓ should handle client connection errors
+    ✓ should handle client initialization errors
+    ✓ allows multiple clients
+    ✓ will reuse previous clients
+    ✓ should throw an error with a message and a code (158ms)
 
   Get Record Node
     ✓ should be loaded
-    ✓ should get a specific record (338ms)
-    ✓ should throw an error with a message and a code (221ms)
+    ✓ should get a specific record (408ms)
+    ✓ should throw an error with a message and a code (144ms)
+    ✓ should handle client connection errors
 
   Set Globals Node
     ✓ should be loaded
-    ✓ should set globals (222ms)
-    ✓ should throw an error with a message and a code (231ms)
+    ✓ should set globals (169ms)
+    ✓ should throw an error with a message and a code (162ms)
+    ✓ should reject with an error if the client cannot be initialized
 
   Layout Info Node
     ✓ should be loaded
-    ✓ should get layout information (230ms)
-    ✓ should throw an error with a message and a code (218ms)
+    ✓ should get layout information (168ms)
+    ✓ should throw an error with a message and a code (172ms)
+    ✓ should throw an error with a message and a code
 
   Get Layouts Node
     ✓ should be loaded
-    ✓ should return a list of layouts (207ms)
+    ✓ should return a list of layouts (168ms)
     ✓ should reject with an error message and a code
+    ✓ should reject if a client cannot be initialized
 
   List Records Node
     ✓ should be loaded
-    ✓ should List records (346ms)
-    ✓ should throw an error with a message and a code (227ms)
+    ✓ should List records (405ms)
+    ✓ should throw an error with a message and a code (164ms)
+    ✓ should reject with an error if a client cannot be initialized
 
   Login Node
     ✓ should be loaded
-    ✓ should login to a Data API session (100ms)
-    ✓ should throw an error with a message and a code (1423ms)
+    ✓ should login to a Data API session (104ms)
+    ✓ should throw an error with a message and a code (1437ms)
+    ✓ should reject with an error if a client cannot be initialized
 
   Logout Node
     ✓ should be loaded
-    ✓ should close a Data API Session (170ms)
+    ✓ should close a Data API Session (656ms)
     ✓ should throw an error with a message and a code
+    ✓ should throw an error if a client cannot be initialized
 
   Product Info Node
     ✓ should be loaded
-    ✓ should return Data API Server Info (76ms)
-    ✓ should reject with an error message and a code (119ms)
+    ✓ should return Data API Server Info (93ms)
+    ✓ should reject with an error message and a code (102ms)
+    ✓ should reject with an error if the client cannot be initialized
 
   Record Id Utility Node
     ✓ should be loaded
-    ✓ should extract record ids from a single object (287ms)
-    ✓ should extract record ids from an array of objects (280ms)
+    ✓ should extract record ids from a single object (338ms)
+    ✓ should extract record ids from an array of objects (258ms)
     ✓ should reject with an error message and a code
 
   Trigger Script Node
     ✓ should be loaded
-    ✓ should trigger a script (230ms)
-    ✓ should parse a script result if it is valid json (245ms)
-    ✓ should not parse a script result if it is not valid json (230ms)
-    ✓ should throw an error with a message and a code (242ms)
+    ✓ should trigger a script (193ms)
+    ✓ should parse a script result if it is valid json (165ms)
+    ✓ should not parse a script result if it is not valid json (182ms)
+    ✓ should throw an error with a message and a code (274ms)
+    ✓ should throw an error if a client cannot be initialized
 
   Get Scripts Node
     ✓ should be loaded
-    ✓ should return a list of scripts (241ms)
+    ✓ should return a list of scripts (176ms)
     ✓ should reject with an error message and a code
+    ✓ should throw an error if a client cannot be initialized
 
   Utility Services
     merge utility
@@ -513,20 +590,26 @@ Local Snyk policy: found
       ✓ it should cast multiple string values as booleans
       ✓ it should only cast strings of true or false
 
+  Client Status Node
+    ✓ should be loaded
+    ✓ should return Data API Client Status
+    ✓ should reject with an error if the client cannot be initialized
+
   Transform Utility Node
     ✓ should be loaded
-    ✓ should transform an array of objects (377ms)
-    ✓ should transform a single object (272ms)
+    ✓ should transform an array of objects (411ms)
+    ✓ should transform a single object (270ms)
     ✓ should throw an error with a message and a code
 
   Upload File Node
     ✓ should be loaded
-    ✓ should upload to an existing record (460ms)
-    ✓ should upload to a file to a new record (494ms)
+    ✓ should upload to an existing record (436ms)
+    ✓ should upload to a file to a new record (1455ms)
     ✓ should throw an error with a message and a code
+    ✓ should throw an error if a client cannot be initialized
 
 
-  102 passing (15s)
+  146 passing (1m)
 
 -----------------------|----------|----------|----------|----------|-------------------|
 File                   |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
@@ -554,6 +637,7 @@ All files              |      100 |      100 |      100 |      100 |            
   recordId.js          |      100 |      100 |      100 |      100 |                   |
   script.js            |      100 |      100 |      100 |      100 |                   |
   scripts.js           |      100 |      100 |      100 |      100 |                   |
+  status.js            |      100 |      100 |      100 |      100 |                   |
   transform.js         |      100 |      100 |      100 |      100 |                   |
   upload.js            |      100 |      100 |      100 |      100 |                   |
  services              |      100 |      100 |      100 |      100 |                   |

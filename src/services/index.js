@@ -1,19 +1,23 @@
 "use strict";
 
 const {
-  compact,
   merge,
+  compact,
   isJson,
   sanitize,
   constructParameters,
-  castBooleans
+  castBooleans,
+  handleError,
+  send
 } = require("./utilities.service");
 
 module.exports = {
-  compact,
   merge,
+  compact,
   isJson,
   sanitize,
   constructParameters,
-  castBooleans
+  castBooleans,
+  handleError,
+  send
 };

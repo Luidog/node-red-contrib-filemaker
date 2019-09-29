@@ -1,6 +1,11 @@
-/* global describe beforeEach afterEach it */
-var { expect } = require("chai");
+/* global describe before beforeEach afterEach it */
+
+const path = require("path");
+const { expect } = require("chai");
 const helper = require("node-red-node-test-helper");
+const environment = require("dotenv");
+const varium = require("varium");
+
 const clientNode = require("../src/client/client.js");
 const createNode = require("../src/nodes/create.js");
 const getNode = require("../src/nodes/get.js");
@@ -9,24 +14,37 @@ const catchNode = require("./core/25-catch.js");
 
 helper.init(require.resolve("node-red"));
 
+const manifestPath = path.join(__dirname, "./env.manifest");
+
 describe("FieldData Utility Node", function() {
+  before(function(done) {
+    environment.config({ path: "./test/.env" });
+    varium({ manifestPath });
+    done();
+  });
+
   beforeEach(function(done) {
     helper.startServer(done);
   });
 
   afterEach(function(done) {
     helper.unload();
-    helper.stopServer(done);
+    helper.stopServer(() =>
+      setTimeout(() => {
+        delete global.MARPAT;
+        done();
+      }, "500")
+    );
   });
 
   it("should be loaded", function(done) {
-    var testFlows = [{ id: "n1", type: "inject" }];
+    const testFlows = [{ id: "n1", type: "inject" }];
     helper.load(fieldDataNode, testFlows, function() {
       done();
     });
   });
   it("should transform an array of objects", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "737aeefc.65dcd8",
         type: "tab",
@@ -115,8 +133,8 @@ describe("FieldData Utility Node", function() {
         }
       },
       function() {
-        var createNode = helper.getNode("ffdef185.7d8578");
-        var helperNode = helper.getNode("4a8a701a.934d4");
+        const createNode = helper.getNode("ffdef185.7d8578");
+        const helperNode = helper.getNode("4a8a701a.934d4");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
@@ -141,7 +159,7 @@ describe("FieldData Utility Node", function() {
     );
   });
   it("should transform a a single object", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "737aeefc.65dcd8",
         type: "tab",
@@ -230,8 +248,8 @@ describe("FieldData Utility Node", function() {
         }
       },
       function() {
-        var createNode = helper.getNode("ffdef185.7d8578");
-        var helperNode = helper.getNode("4a8a701a.934d4");
+        const createNode = helper.getNode("ffdef185.7d8578");
+        const helperNode = helper.getNode("4a8a701a.934d4");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
@@ -254,7 +272,7 @@ describe("FieldData Utility Node", function() {
     );
   });
   it("should reject with an error message and code", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "95ec0b93.d02568",
         type: "tab",
@@ -289,8 +307,8 @@ describe("FieldData Utility Node", function() {
       }
     ];
     helper.load([fieldDataNode, catchNode], testFlow, function() {
-      var fieldDataNode = helper.getNode("e3d9bda2.01c0d8");
-      var helperNode = helper.getNode("453f2d7f.a0fd9c");
+      const fieldDataNode = helper.getNode("e3d9bda2.01c0d8");
+      const helperNode = helper.getNode("453f2d7f.a0fd9c");
       helperNode.on("input", function(msg) {
         try {
           expect(msg)

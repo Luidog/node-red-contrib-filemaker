@@ -1,12 +1,7 @@
 module.exports = function(RED) {
-  function create(config) {
-    const {
-      constructParameters,
-      castBooleans,
-      send,
-      handleError
-    } = require("../services");
-    const { client, output, ...configuration } = config;
+  function status(config) {
+    const { send, handleError } = require("../services");
+    const { client, output } = config;
 
     RED.nodes.createNode(this, config);
 
@@ -28,21 +23,12 @@ module.exports = function(RED) {
 
     node.on("input", async message => {
       node.status({ fill: "yellow", shape: "dot", text: "Processing" });
-      const { layout, data, ...parameters } = constructParameters(
-        message,
-        configuration,
-        node.context(),
-        ["layout", "scripts", "data", "merge"]
-      );
-
       try {
         await this.client.connection;
 
         const client = await this.client.client;
-        client
-          .create(layout, data || {}, castBooleans(parameters))
-          .then(response => send(node, output, message, response))
-          .catch(error => handleError(node, error.message, message));
+
+        client.status().then(response => send(node, output, message, response));
       } catch (error) {
         handleError(node, error.message, message);
       }
@@ -52,5 +38,5 @@ module.exports = function(RED) {
       node.client.removeListener("status", node.handleEvent)
     );
   }
-  RED.nodes.registerType("dapi-create-record", create);
+  RED.nodes.registerType("dapi-status", status);
 };

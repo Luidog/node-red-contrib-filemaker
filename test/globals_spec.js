@@ -1,18 +1,23 @@
 /* global before describe beforeEach afterEach it */
+
+const path = require("path");
 const { expect } = require("chai");
 const helper = require("node-red-node-test-helper");
 const environment = require("dotenv");
 const varium = require("varium");
+
 const globalsNode = require("../src/nodes/globals.js");
 const clientNode = require("../src/client/client.js");
 const catchNode = require("./core/25-catch.js");
 
 helper.init(require.resolve("node-red"));
 
+const manifestPath = path.join(__dirname, "./env.manifest");
+
 describe("Set Globals Node", function() {
   before(function(done) {
     environment.config({ path: "./test/.env" });
-    varium(process.env, "./test/env.manifest");
+    varium({ manifestPath });
     done();
   });
 
@@ -22,7 +27,12 @@ describe("Set Globals Node", function() {
 
   afterEach(function(done) {
     helper.unload();
-    helper.stopServer(done);
+    helper.stopServer(() =>
+      setTimeout(() => {
+        delete global.MARPAT;
+        done();
+      }, "500")
+    );
   });
 
   it("should be loaded", function(done) {
@@ -33,7 +43,7 @@ describe("Set Globals Node", function() {
   });
 
   it("should set globals", function(done) {
-    var testFlows = [
+    const testFlows = [
       {
         id: "c596ca8d.d68938",
         type: "tab",
@@ -112,7 +122,7 @@ describe("Set Globals Node", function() {
     );
   });
   it("should throw an error with a message and a code", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "f1",
         type: "tab",
@@ -154,6 +164,70 @@ describe("Set Globals Node", function() {
       {
         "3783b2da.4346a6": {
           server: process.env.FILEMAKER_SERVER,
+          database: process.env.FILEMAKER_DATABASE,
+          username: process.env.FILEMAKER_USERNAME,
+          password: process.env.FILEMAKER_PASSWORD
+        }
+      },
+      function() {
+        const globals = helper.getNode("n2");
+        const helperNode = helper.getNode("n3");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("_msgid", "code", "error", "message");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        globals.receive({ payload: { data: { parent: "Han Solo" } } });
+      }
+    );
+  });
+  it("should reject with an error if the client cannot be initialized", function(done) {
+    const testFlow = [
+      {
+        id: "f1",
+        type: "tab",
+        label: "Catch Set Globals Error"
+      },
+      {
+        id: "n2",
+        type: "dapi-set-globals",
+        z: "f1",
+        name: "globals node",
+        client: "3783b2da.4346a6",
+        layout: "Devices",
+        scripts: "",
+        merge: true,
+        wires: [["n3"]]
+      },
+      {
+        id: "n3",
+        type: "helper",
+        z: "f1"
+      },
+      {
+        id: "3783b2da.4346a6",
+        type: "dapi-client",
+        name: "Node-RED Test Client",
+        usage: true
+      },
+      {
+        id: "n1",
+        type: "catch",
+        z: "f1",
+        name: "catch",
+        wires: [["n3"]]
+      }
+    ];
+    helper.load(
+      [clientNode, globalsNode, catchNode],
+      testFlow,
+      {
+        "3783b2da.4346a6": {
           database: process.env.FILEMAKER_DATABASE,
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD

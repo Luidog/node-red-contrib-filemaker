@@ -1,7 +1,11 @@
-/* global describe beforeEach afterEach it */
+/* global describe before beforeEach afterEach it */
 
+const path = require("path");
 const { expect } = require("chai");
 const helper = require("node-red-node-test-helper");
+const environment = require("dotenv");
+const varium = require("varium");
+
 const recordIdNode = require("../src/nodes/recordId.js");
 const listNode = require("../src/nodes/list.js");
 const clientNode = require("../src/client/client.js");
@@ -9,24 +13,36 @@ const catchNode = require("./core/25-catch.js");
 
 helper.init(require.resolve("node-red"));
 
+const manifestPath = path.join(__dirname, "./env.manifest");
+
 describe("Record Id Utility Node", function() {
+  before(function(done) {
+    environment.config({ path: "./test/.env" });
+    varium({ manifestPath });
+    done();
+  });
   beforeEach(function(done) {
     helper.startServer(done);
   });
 
   afterEach(function(done) {
     helper.unload();
-    helper.stopServer(done);
+    helper.stopServer(() =>
+      setTimeout(() => {
+        delete global.MARPAT;
+        done();
+      }, "500")
+    );
   });
 
   it("should be loaded", function(done) {
-    let testFlows = [{ id: "n1", type: "inject" }];
+    const testFlows = [{ id: "n1", type: "inject" }];
     helper.load(recordIdNode, testFlows, function() {
       done();
     });
   });
   it("should extract record ids from a single object", function(done) {
-    let testFlow = [
+    const testFlow = [
       {
         id: "eff0d28.1c78bb",
         type: "tab",
@@ -101,8 +117,8 @@ describe("Record Id Utility Node", function() {
         }
       },
       function() {
-        var listNode = helper.getNode("871850c1.2c366");
-        var helperNode = helper.getNode("abcce428.f88018");
+        const listNode = helper.getNode("871850c1.2c366");
+        const helperNode = helper.getNode("abcce428.f88018");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
@@ -127,7 +143,7 @@ describe("Record Id Utility Node", function() {
     );
   });
   it("should extract record ids from an array of objects", function(done) {
-    let testFlow = [
+    const testFlow = [
       {
         id: "eff0d28.1c78bb",
         type: "tab",
@@ -202,8 +218,8 @@ describe("Record Id Utility Node", function() {
         }
       },
       function() {
-        var listNode = helper.getNode("871850c1.2c366");
-        var helperNode = helper.getNode("abcce428.f88018");
+        const listNode = helper.getNode("871850c1.2c366");
+        const helperNode = helper.getNode("abcce428.f88018");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
@@ -229,7 +245,7 @@ describe("Record Id Utility Node", function() {
     );
   });
   it("should reject with an error message and a code", function(done) {
-    let testFlow = [
+    const testFlow = [
       {
         id: "a0254177.9c8dc",
         type: "tab",

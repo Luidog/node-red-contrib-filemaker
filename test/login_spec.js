@@ -1,18 +1,23 @@
 /* global before describe beforeEach afterEach it */
+
+const path = require("path");
 const { expect } = require("chai");
 const helper = require("node-red-node-test-helper");
 const environment = require("dotenv");
 const varium = require("varium");
+
 const loginNode = require("../src/nodes/login.js");
 const clientNode = require("../src/client/client.js");
 const catchNode = require("./core/25-catch.js");
 
 helper.init(require.resolve("node-red"));
 
+const manifestPath = path.join(__dirname, "./env.manifest");
+
 describe("Login Node", function() {
   before(function(done) {
     environment.config({ path: "./test/.env" });
-    varium(process.env, "./test/env.manifest");
+    varium({ manifestPath });
     done();
   });
 
@@ -22,7 +27,12 @@ describe("Login Node", function() {
 
   afterEach(function(done) {
     helper.unload();
-    helper.stopServer(done);
+    helper.stopServer(() =>
+      setTimeout(() => {
+        delete global.MARPAT;
+        done();
+      }, "500")
+    );
   });
 
   it("should be loaded", function(done) {
@@ -32,7 +42,7 @@ describe("Login Node", function() {
     });
   });
   it("should login to a Data API session", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "ad6ac1ee.a379",
         type: "tab",
@@ -104,7 +114,7 @@ describe("Login Node", function() {
     );
   });
   it("should throw an error with a message and a code", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "f1",
         type: "tab",
@@ -143,6 +153,68 @@ describe("Login Node", function() {
       {
         "3783b2da.4346a6": {
           server: process.env.FILEMAKER_SERVER,
+          database: process.env.FILEMAKER_DATABASE,
+          username: process.env.FILEMAKER_USERNAME,
+          password: "wrong-password"
+        }
+      },
+      function() {
+        const login = helper.getNode("n1");
+
+        const helperNode = helper.getNode("n2");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("_msgid", "code", "error", "message");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        login.receive({ payload: {} });
+      }
+    );
+  });
+  it("should reject with an error if a client cannot be initialized", function(done) {
+    const testFlow = [
+      {
+        id: "f1",
+        type: "tab",
+        label: "Login Error Test"
+      },
+      {
+        id: "n1",
+        type: "dapi-login",
+        z: "f1",
+        name: "login Node",
+        client: "3783b2da.4346a6",
+        wires: [["n2"]]
+      },
+      {
+        id: "n2",
+        type: "helper",
+        z: "f1"
+      },
+      {
+        id: "3783b2da.4346a6",
+        type: "dapi-client",
+        name: "Node-RED Test Client",
+        usage: true
+      },
+      {
+        id: "n3",
+        type: "catch",
+        z: "f1",
+        name: "catch",
+        wires: [["n2"]]
+      }
+    ];
+    helper.load(
+      [clientNode, loginNode, catchNode],
+      testFlow,
+      {
+        "3783b2da.4346a6": {
           database: process.env.FILEMAKER_DATABASE,
           username: process.env.FILEMAKER_USERNAME,
           password: "wrong-password"

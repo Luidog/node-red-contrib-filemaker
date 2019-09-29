@@ -1,8 +1,11 @@
 /* global before describe beforeEach afterEach it */
+
+const path = require("path");
 const { expect } = require("chai");
 const helper = require("node-red-node-test-helper");
 const environment = require("dotenv");
 const varium = require("varium");
+
 const getNode = require("../src/nodes/get.js");
 const createNode = require("../src/nodes/create.js");
 const clientNode = require("../src/client/client.js");
@@ -10,10 +13,12 @@ const catchNode = require("./core/25-catch.js");
 
 helper.init(require.resolve("node-red"));
 
+const manifestPath = path.join(__dirname, "./env.manifest");
+
 describe("Get Record Node", function() {
   before(function(done) {
     environment.config({ path: "./test/.env" });
-    varium(process.env, "./test/env.manifest");
+    varium({ manifestPath });
     done();
   });
 
@@ -23,7 +28,12 @@ describe("Get Record Node", function() {
 
   afterEach(function(done) {
     helper.unload();
-    helper.stopServer(done);
+    helper.stopServer(() =>
+      setTimeout(() => {
+        delete global.MARPAT;
+        done();
+      }, "500")
+    );
   });
 
   it("should be loaded", function(done) {
@@ -34,7 +44,7 @@ describe("Get Record Node", function() {
   });
 
   it("should get a specific record", function(done) {
-    var testFlows = [
+    const testFlows = [
       {
         id: "815dccb7.ff2788",
         type: "tab",
@@ -139,7 +149,7 @@ describe("Get Record Node", function() {
     );
   });
   it("should throw an error with a message and a code", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "f1",
         type: "tab",
@@ -184,6 +194,72 @@ describe("Get Record Node", function() {
           database: process.env.FILEMAKER_DATABASE,
           username: process.env.FILEMAKER_USERNAME,
           password: process.env.FILEMAKER_PASSWORD
+        }
+      },
+      function() {
+        const getNode = helper.getNode("n2");
+        const helperNode = helper.getNode("n3");
+        helperNode.on("input", function(msg) {
+          try {
+            expect(msg)
+              .to.be.an("object")
+              .with.any.keys("_msgid", "code", "error", "message");
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
+        getNode.receive({
+          payload: { layout: "people", data: { name: "Anakin Skywalker" } }
+        });
+      }
+    );
+  });
+  it("should handle client connection errors", function(done) {
+    const testFlow = [
+      {
+        id: "f1",
+        type: "tab",
+        label: "Catch Get Error"
+      },
+      {
+        id: "n2",
+        type: "dapi-get-record",
+        z: "f1",
+        name: "Get Node",
+        client: "3783b2da.4346a6",
+        layout: "Devices",
+        scripts: "",
+        merge: true,
+        wires: [["n3"]]
+      },
+      {
+        id: "n3",
+        type: "helper",
+        z: "f1"
+      },
+      {
+        id: "3783b2da.4346a6",
+        type: "dapi-client",
+        name: "Node-RED Test Client",
+        usage: true
+      },
+      {
+        id: "n1",
+        type: "catch",
+        z: "f1",
+        name: "catch",
+        wires: [["n3"]]
+      }
+    ];
+    helper.load(
+      [clientNode, getNode, catchNode],
+      testFlow,
+      {
+        "3783b2da.4346a6": {
+          server: process.env.FILEMAKER_SERVER,
+          database: process.env.FILEMAKER_DATABASE,
+          username: process.env.FILEMAKER_USERNAME
         }
       },
       function() {

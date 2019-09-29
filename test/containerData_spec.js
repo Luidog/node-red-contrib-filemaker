@@ -1,8 +1,11 @@
 /* global before describe beforeEach afterEach it */
-const { expect } = require("chai");
+
+const path = require("path");
 const helper = require("node-red-node-test-helper");
+const { expect } = require("chai");
 const environment = require("dotenv");
 const varium = require("varium");
+
 const containerDataNode = require("../src/nodes/containerData.js");
 const findNode = require("../src/nodes/find.js");
 const clientNode = require("../src/client/client.js");
@@ -10,20 +13,28 @@ const catchNode = require("./core/25-catch.js");
 
 helper.init(require.resolve("node-red"));
 
+const manifestPath = path.join(__dirname, "./env.manifest");
+
 describe("Container Data Node", function() {
   before(function(done) {
     environment.config({ path: "./test/.env" });
-    varium(process.env, "./test/env.manifest");
+    varium({ manifestPath });
     done();
   });
 
   beforeEach(function(done) {
+    helper.settings({});
     helper.startServer(done);
   });
 
   afterEach(function(done) {
     helper.unload();
-    helper.stopServer(done);
+    helper.stopServer(() =>
+      setTimeout(() => {
+        delete global.MARPAT;
+        done();
+      }, "500")
+    );
   });
 
   it("should be loaded", function(done) {
@@ -33,7 +44,7 @@ describe("Container Data Node", function() {
     });
   });
   it("should download an object with container data to a buffer", function(done) {
-    var testFlows = [
+    const testFlows = [
       {
         id: "806b9389.cfa96",
         type: "tab",
@@ -69,7 +80,7 @@ describe("Container Data Node", function() {
         id: "b7541101.d1efe8",
         type: "dapi-perform-find",
         z: "806b9389.cfa96",
-        client: "e5173483.adc92",
+        client: "e5173483.adc93",
         layout: "payload.layout",
         layoutType: "msg",
         limit: "1",
@@ -109,7 +120,7 @@ describe("Container Data Node", function() {
         wires: [["60c27877.21817"]]
       },
       {
-        id: "e5173483.adc92",
+        id: "e5173483.adc93",
         type: "dapi-client",
         z: "",
         name: "Node-RED Test",
@@ -120,7 +131,7 @@ describe("Container Data Node", function() {
       [clientNode, findNode, containerDataNode, catchNode],
       testFlows,
       {
-        "e5173483.adc92": {
+        "e5173483.adc93": {
           server: process.env.FILEMAKER_SERVER,
           database: process.env.FILEMAKER_DATABASE,
           username: process.env.FILEMAKER_USERNAME,
@@ -156,7 +167,7 @@ describe("Container Data Node", function() {
     );
   });
   it("should download an array of objects with container data to a buffer", function(done) {
-    var testFlows = [
+    const testFlows = [
       {
         id: "806b9389.cfa96",
         type: "tab",
@@ -192,7 +203,7 @@ describe("Container Data Node", function() {
         id: "b7541101.d1efe8",
         type: "dapi-perform-find",
         z: "806b9389.cfa96",
-        client: "e5173483.adc92",
+        client: "e5173483.adc93",
         layout: "payload.layout",
         layoutType: "msg",
         limit: "1",
@@ -232,7 +243,7 @@ describe("Container Data Node", function() {
         wires: [["60c27877.21817"]]
       },
       {
-        id: "e5173483.adc92",
+        id: "e5173483.adc93",
         type: "dapi-client",
         z: "",
         name: "Node-RED Test",
@@ -243,7 +254,7 @@ describe("Container Data Node", function() {
       [clientNode, findNode, containerDataNode, catchNode],
       testFlows,
       {
-        "e5173483.adc92": {
+        "e5173483.adc93": {
           server: process.env.FILEMAKER_SERVER,
           database: process.env.FILEMAKER_DATABASE,
           username: process.env.FILEMAKER_USERNAME,
@@ -281,7 +292,7 @@ describe("Container Data Node", function() {
     );
   });
   it("should download an object with container data to the filesystem", function(done) {
-    var testFlows = [
+    const testFlows = [
       {
         id: "806b9389.cfa96",
         type: "tab",
@@ -317,7 +328,7 @@ describe("Container Data Node", function() {
         id: "b7541101.d1efe8",
         type: "dapi-perform-find",
         z: "806b9389.cfa96",
-        client: "e5173483.adc92",
+        client: "e5173483.adc93",
         layout: "payload.layout",
         layoutType: "msg",
         limit: "1",
@@ -357,7 +368,7 @@ describe("Container Data Node", function() {
         wires: [["60c27877.21817"]]
       },
       {
-        id: "e5173483.adc92",
+        id: "e5173483.adc93",
         type: "dapi-client",
         z: "",
         name: "Node-RED Test",
@@ -368,7 +379,7 @@ describe("Container Data Node", function() {
       [clientNode, findNode, containerDataNode, catchNode],
       testFlows,
       {
-        "e5173483.adc92": {
+        "e5173483.adc93": {
           server: process.env.FILEMAKER_SERVER,
           database: process.env.FILEMAKER_DATABASE,
           username: process.env.FILEMAKER_USERNAME,
@@ -403,7 +414,7 @@ describe("Container Data Node", function() {
     );
   });
   it("should download an array of objects with container data to the filesystem", function(done) {
-    var testFlows = [
+    const testFlows = [
       {
         id: "806b9389.cfa96",
         type: "tab",
@@ -439,7 +450,7 @@ describe("Container Data Node", function() {
         id: "b7541101.d1efe8",
         type: "dapi-perform-find",
         z: "806b9389.cfa96",
-        client: "e5173483.adc92",
+        client: "e5173483.adc93",
         layout: "payload.layout",
         layoutType: "msg",
         limit: "1",
@@ -479,7 +490,7 @@ describe("Container Data Node", function() {
         wires: [["60c27877.21817"]]
       },
       {
-        id: "e5173483.adc92",
+        id: "e5173483.adc93",
         type: "dapi-client",
         z: "",
         name: "Node-RED Test",
@@ -490,7 +501,7 @@ describe("Container Data Node", function() {
       [clientNode, findNode, containerDataNode, catchNode],
       testFlows,
       {
-        "e5173483.adc92": {
+        "e5173483.adc93": {
           server: process.env.FILEMAKER_SERVER,
           database: process.env.FILEMAKER_DATABASE,
           username: process.env.FILEMAKER_USERNAME,
@@ -527,7 +538,7 @@ describe("Container Data Node", function() {
     );
   });
   it("should throw an error with a message and a code when writing an object to a buffer and an error is triggered", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "806b9389.cfa96",
         type: "tab",
@@ -646,7 +657,7 @@ describe("Container Data Node", function() {
     );
   });
   it("should throw an error with a message and a code when writing an array to a buffer an error is triggered ", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "806b9389.cfa96",
         type: "tab",
@@ -765,7 +776,7 @@ describe("Container Data Node", function() {
     );
   });
   it("should handle undefined data input when writing to a buffer", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "806b9389.cfa96",
         type: "tab",
@@ -884,7 +895,7 @@ describe("Container Data Node", function() {
     );
   });
   it("should handle undefined data input when writing to a file", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "806b9389.cfa96",
         type: "tab",
@@ -1004,7 +1015,7 @@ describe("Container Data Node", function() {
   });
 
   it("should throw an error when writing data to the filesystem and an error is triggered", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "806b9389.cfa96",
         type: "tab",
@@ -1123,7 +1134,7 @@ describe("Container Data Node", function() {
     );
   });
   it("should throw an error with a message and a code when writing to a buffer and an array is triggered", function(done) {
-    var testFlow = [
+    const testFlow = [
       {
         id: "806b9389.cfa96",
         type: "tab",

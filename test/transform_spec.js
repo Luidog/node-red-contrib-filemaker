@@ -1,6 +1,11 @@
-/* global describe beforeEach afterEach it */
+/* global describe before beforeEach afterEach it */
+
+const path = require("path");
 const { expect } = require("chai");
 const helper = require("node-red-node-test-helper");
+const environment = require("dotenv");
+const varium = require("varium");
+
 const transformNode = require("../src/nodes/transform.js");
 const clientNode = require("../src/client/client.js");
 const listNode = require("../src/nodes/list.js");
@@ -8,14 +13,26 @@ const catchNode = require("./core/25-catch.js");
 
 helper.init(require.resolve("node-red"));
 
+const manifestPath = path.join(__dirname, "./env.manifest");
+
 describe("Transform Utility Node", function() {
+  before(function(done) {
+    environment.config({ path: "./test/.env" });
+    varium({ manifestPath });
+    done();
+  });
   beforeEach(function(done) {
     helper.startServer(done);
   });
 
   afterEach(function(done) {
     helper.unload();
-    helper.stopServer(done);
+    helper.stopServer(() =>
+      setTimeout(() => {
+        delete global.MARPAT;
+        done();
+      }, "500")
+    );
   });
 
   it("should be loaded", function(done) {
@@ -102,8 +119,8 @@ describe("Transform Utility Node", function() {
         }
       },
       function() {
-        var listNode = helper.getNode("d5b348ab.46ac08");
-        var helperNode = helper.getNode("1a8a1be2.50d8e4");
+        const listNode = helper.getNode("d5b348ab.46ac08");
+        const helperNode = helper.getNode("1a8a1be2.50d8e4");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
@@ -208,8 +225,8 @@ describe("Transform Utility Node", function() {
         }
       },
       function() {
-        var listNode = helper.getNode("d5b348ab.46ac08");
-        var helperNode = helper.getNode("1a8a1be2.50d8e4");
+        const listNode = helper.getNode("d5b348ab.46ac08");
+        const helperNode = helper.getNode("1a8a1be2.50d8e4");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
@@ -289,8 +306,8 @@ describe("Transform Utility Node", function() {
         }
       },
       function() {
-        var transformNode = helper.getNode("84f24eb5.f61b6");
-        var helperNode = helper.getNode("1a8a1be2.50d8e4");
+        const transformNode = helper.getNode("84f24eb5.f61b6");
+        const helperNode = helper.getNode("1a8a1be2.50d8e4");
         helperNode.on("input", function(msg) {
           try {
             expect(msg)
