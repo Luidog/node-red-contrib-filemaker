@@ -19,6 +19,9 @@ read from either the `msg` property or the `flow` and `global` contexts. The def
 
 - [Installation](#installation)
 - [Storage](#storage)
+- [Status Node](#status-node)
+  - [Status Illustration](#status-illustration)
+  - [Container Data Flow](#status-flow)
 - [Login Node](#login-node)
   - [Login Illustration](#login-illustration)
   - [Login Flow](#login-flow)
@@ -110,6 +113,18 @@ To persist a client between Node-RED runtime restarts and allow active session m
   - Format: nedb://[directory-path]
 - In Memory:
   - Format: nedb://memory
+
+## Status Node
+
+The status node will return the current state of the configured client. The status node will return the client's data usage, urls for all pending and queued requests, and currently open sessions.
+
+### Status Illustration
+
+![status Node](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/images/status-node.png?raw=true)
+
+### Status Flow
+
+[![Status Flow](https://img.shields.io/badge/Flow-Status%20Node-red.svg)](https://github.com/Luidog/node-red-contrib-filemaker/blob/master/examples/flows/status-example.json)
 
 ## Login Node
 

@@ -55,6 +55,7 @@
       "dapi-edit-record": "./src/nodes/edit.js",
       "dapi-delete-record": "./src/nodes/delete.js",
       "dapi-get-record": "./src/nodes/get.js",
+      "dapi-status": "./src/nodes/status.js",
       "dapi-list-records": "./src/nodes/list.js",
       "dapi-perform-find": "./src/nodes/find.js",
       "dapi-trigger-script": "./src/nodes/script.js",
