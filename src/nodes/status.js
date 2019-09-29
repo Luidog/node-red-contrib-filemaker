@@ -28,10 +28,7 @@ module.exports = function(RED) {
 
         const client = await this.client.client;
 
-        client
-          .status()
-          .then(response => send(node, output, message, response))
-          .catch(error => handleError(node, error.message, message));
+        client.status().then(response => send(node, output, message, response));
       } catch (error) {
         handleError(node, error.message, message);
       }

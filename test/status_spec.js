@@ -14,7 +14,7 @@ helper.init(require.resolve("node-red"));
 
 const manifestPath = path.join(__dirname, "./env.manifest");
 
-describe("Product Info Node", function() {
+describe("Client Status Node", function() {
   before(function(done) {
     environment.config({ path: "./test/.env" });
     varium({ manifestPath });
@@ -40,12 +40,12 @@ describe("Product Info Node", function() {
       done();
     });
   });
-  it("should return Data API Server Info", function(done) {
+  it("should return Data API Client Status", function(done) {
     const testFlow = [
       {
         id: "eff0d28.1c78bb",
         type: "tab",
-        label: "Get Product Info",
+        label: "Get Client Status",
         disabled: false,
         info: ""
       },
@@ -104,102 +104,14 @@ describe("Product Info Node", function() {
               .with.any.keys("payload")
               .and.property("payload")
               .to.be.an("object")
-              .with.all.keys(
-                "buildDate",
-                "dateFormat",
-                "layout",
-                "name",
-                "timeFormat",
-                "timeStampFormat",
-                "version"
-              );
+              .with.all.keys("data", "queue", "sessions", "pending");
             done();
           } catch (err) {
             done(err);
           }
         });
         statusNode.receive({
-          payload: {
-            layout: "people"
-          }
-        });
-      }
-    );
-  });
-  it("should reject with an error message and a code", function(done) {
-    const testFlow = [
-      {
-        id: "a0254177.9c8dc",
-        type: "tab",
-        label: "Product Info Error",
-        disabled: false,
-        info: ""
-      },
-      {
-        id: "c03adb39.c4a738",
-        type: "helper"
-      },
-      {
-        id: "bb98f3db.1ee78",
-        type: "catch",
-        z: "a0254177.9c8dc",
-
-        name: "",
-        scope: null,
-        x: 360,
-        y: 100,
-        wires: [["c03adb39.c4a738"]]
-      },
-      {
-        id: "faf29df7.988c78",
-        type: "dapi-status",
-        z: "a0254177.9c8dc",
-        data: "payload.data",
-        dataType: "msg",
-        client: "e5173483.adc92",
-        output: "payload",
-
-        x: 330,
-        y: 40,
-        wires: [["c03adb39.c4a738"]]
-      },
-      {
-        id: "e5173483.adc92",
-        type: "dapi-client",
-        z: "",
-        name: "Node-RED Test Client",
-        usage: true
-      }
-    ];
-    helper.load(
-      [statusNode, clientNode, catchNode],
-      testFlow,
-      {
-        "e5173483.adc92": {
-          server: "https://httpstat.us/400",
-          database: process.env.FILEMAKER_DATABASE,
-          username: process.env.FILEMAKER_USERNAME,
-          password: process.env.FILEMAKER_PASSWORD
-        }
-      },
-      function() {
-        const statusNode = helper.getNode("faf29df7.988c78");
-        const helperNode = helper.getNode("c03adb39.c4a738");
-        helperNode.on("input", function(msg) {
-          try {
-            expect(msg)
-              .to.be.an("object")
-              .with.any.keys("payload")
-              .and.property("payload")
-              .to.be.a("object")
-              .with.all.keys("data");
-            done();
-          } catch (err) {
-            done(err);
-          }
-        });
-        statusNode.receive({
-          payload: { data: "none" }
+          payload: {}
         });
       }
     );
@@ -209,7 +121,7 @@ describe("Product Info Node", function() {
       {
         id: "a0254177.9c8dc",
         type: "tab",
-        label: "Product Info Error",
+        label: "Client Status Error",
         disabled: false,
         info: ""
       },
@@ -268,15 +180,14 @@ describe("Product Info Node", function() {
               .to.be.an("object")
               .with.any.keys("payload")
               .and.property("payload")
-              .to.be.a("object")
-              .with.all.keys("data");
+              .to.be.a("object");
             done();
           } catch (err) {
             done(err);
           }
         });
         statusNode.receive({
-          payload: { data: "none" }
+          payload: {}
         });
       }
     );
