@@ -71,7 +71,7 @@
     "fs-extra": "^8.0.1",
     "lodash": "^4.17.15",
     "marpat": "^2.1.0",
-    "snyk": "^1.228.3"
+    "snyk": "^1.230.5"
   },
   "devDependencies": {
     "chai": "^4.2.0",

@@ -142,3 +142,20 @@ patch:
         patched: '2019-07-07T22:59:23.961Z'
     - fms-api-client > snyk > @snyk/dep-graph > lodash:
         patched: '2019-07-07T22:59:23.961Z'
+  SNYK-JS-HTTPSPROXYAGENT-469131:
+    - snyk > proxy-agent > https-proxy-agent:
+        patched: '2019-10-04T08:28:48.595Z'
+    - snyk > proxy-agent > pac-proxy-agent > https-proxy-agent:
+        patched: '2019-10-04T08:28:48.595Z'
+    - marpat > snyk > proxy-agent > https-proxy-agent:
+        patched: '2019-10-04T08:28:48.595Z'
+    - fms-api-client > snyk > proxy-agent > https-proxy-agent:
+        patched: '2019-10-04T08:28:48.595Z'
+    - marpat > snyk > proxy-agent > pac-proxy-agent > https-proxy-agent:
+        patched: '2019-10-04T08:28:48.595Z'
+    - fms-api-client > snyk > proxy-agent > pac-proxy-agent > https-proxy-agent:
+        patched: '2019-10-04T08:28:48.595Z'
+    - fms-api-client > marpat > snyk > proxy-agent > https-proxy-agent:
+        patched: '2019-10-04T08:28:48.595Z'
+    - fms-api-client > marpat > snyk > proxy-agent > pac-proxy-agent > https-proxy-agent:
+        patched: '2019-10-04T08:28:48.595Z'
