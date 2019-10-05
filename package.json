@@ -4,7 +4,7 @@
   "description": "Node-RED FileMaker nodes. These nodes use the FileMaker Data API to connect with a FileMaker database.",
   "scripts": {
     "dev": "pm2 start ecosystem.dev.config.js",
-    "test": "snyk test && nyc _mocha --recursive  \"test/**/*_spec.js\" --timeout=30000 --exit",
+    "test": "snyk test && nyc _mocha --recursive \"test/**/*_spec.js\" --timeout=30000 --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "report": "nyc report --reporter=html",
     "generate-readme": "mos",
