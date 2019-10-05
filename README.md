@@ -658,7 +658,7 @@ All files              |      100 |      100 |      100 |      100 |            
 
 ## License
 
-MIT © [Lui de la Parra](https://mutesymphony.com/)
+MIT © [Lui de la Parra](https://github.com/Luidog)
 
 ## Dependencies
 
