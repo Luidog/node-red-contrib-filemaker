@@ -8,6 +8,7 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "report": "nyc report --reporter=html",
     "generate-readme": "mos",
+    "snyk-monitor": "snyk monitor",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect"
   },
@@ -16,12 +17,11 @@
     "url": "git+https://Luidog@github.com/Luidog/node-red-contrib-filemaker.git"
   },
   "keywords": [
-    "Node-RED",
-    "marpat",
     "FileMaker",
     "Data API",
+    "Node-RED",
     "fms-api-client",
-    "Node",
+    "marpat",
     "IOT"
   ],
   "author": {
@@ -71,15 +71,15 @@
     "fs-extra": "^8.0.1",
     "lodash": "^4.17.15",
     "marpat": "^2.1.1",
-    "snyk": "^1.231.0"
+    "snyk": "^1.234.2"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "coveralls": "^3.0.6",
+    "coveralls": "^3.0.7",
     "dotenv": "^8.1.0",
     "eslint": "^6.5.1",
     "eslint-config-google": "^0.14.0",
-    "eslint-config-prettier": "^6.3.0",
+    "eslint-config-prettier": "^6.4.0",
     "eslint-plugin-html": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.1",
     "mocha": "^6.2.1",
@@ -92,7 +92,7 @@
     "node-red": "^1.0.1",
     "node-red-node-test-helper": "^0.2.3",
     "nyc": "^14.1.1",
-    "pm2": "^3.5.1",
+    "pm2": "^4.0.0",
     "prettier": "^1.18.2",
     "sinon": "^7.5.0",
     "varium": "^2.0.6"
