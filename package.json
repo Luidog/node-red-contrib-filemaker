@@ -67,16 +67,16 @@
   },
   "homepage": "https://github.com/Luidog/node-red-contrib-filemaker#readme",
   "dependencies": {
-    "fms-api-client": "^2.2.3",
+    "fms-api-client": "^2.2.4",
     "fs-extra": "^8.0.1",
     "lodash": "^4.17.15",
-    "marpat": "^2.1.1",
-    "snyk": "^1.234.2"
+    "marpat": "^2.1.2",
+    "snyk": "^1.235.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "coveralls": "^3.0.7",
-    "dotenv": "^8.1.0",
+    "dotenv": "^8.2.0",
     "eslint": "^6.5.1",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^6.4.0",
@@ -89,10 +89,10 @@
     "mos-plugin-execute": "^1.0.2",
     "mos-plugin-installation": "^1.2.2",
     "mos-plugin-license": "^1.2.2",
-    "node-red": "^1.0.1",
+    "node-red": "^1.0.2",
     "node-red-node-test-helper": "^0.2.3",
     "nyc": "^14.1.1",
-    "pm2": "^4.0.0",
+    "pm2": "^4.1.2",
     "prettier": "^1.18.2",
     "sinon": "^7.5.0",
     "varium": "^2.0.6"
