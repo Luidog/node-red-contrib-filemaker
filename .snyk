@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.13.5
+version: v1.14.0
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
@@ -155,3 +155,12 @@ patch:
         patched: '2019-10-05T16:36:11.326Z'
     - '@node-red/nodes > https-proxy-agent':
         patched: '2019-10-05T16:36:11.326Z'
+  SNYK-JS-TREEKILL-536781:
+    - snyk > snyk-sbt-plugin > tree-kill:
+        patched: '2019-12-14T20:15:09.389Z'
+    - marpat > snyk > snyk-sbt-plugin > tree-kill:
+        patched: '2019-12-14T20:15:09.389Z'
+    - fms-api-client > snyk > snyk-sbt-plugin > tree-kill:
+        patched: '2019-12-14T20:15:09.389Z'
+    - fms-api-client > marpat > snyk > snyk-sbt-plugin > tree-kill:
+        patched: '2019-12-14T20:15:09.389Z'
