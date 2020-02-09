@@ -401,7 +401,7 @@ npm test
 ```
 
 ```default
-> node-red-contrib-filemaker@2.2.4 test node-red-contrib-filemaker
+> node-red-contrib-filemaker@2.2.5 test node-red-contrib-filemaker
 > snyk test && nyc _mocha --recursive  "test/**/*_spec.js" --timeout=30000 --exit
 
 Testing /node-red-contrib-filemaker...
