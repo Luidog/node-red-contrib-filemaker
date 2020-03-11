@@ -66,8 +66,6 @@ function configurationNode(RED) {
                   }
                   if (!ssl) {
                     client.agent.agent = { rejectUnauthorized: false };
-                  } else if (client.agent.agent) {
-                    client.agent.agent = { rejectUnauthorized: true };
                   }
                   client.agent.timeout = parseInt(timeout) || 0;
                   client.agent.concurrency = parseInt(concurrency) || 1;
@@ -141,7 +139,8 @@ function configurationNode(RED) {
               }
               if (!ssl) {
                 client.agent.agent = { rejectUnauthorized: false };
-              } else if (client.agent.agent) {
+              }
+              if (client.agent.agent && ssl) {
                 client.agent.agent = { rejectUnauthorized: true };
               }
               client.agent.timeout = parseInt(timeout) || 0;
