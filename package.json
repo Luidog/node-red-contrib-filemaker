@@ -70,7 +70,7 @@
     "fms-api-client": "^2.3.2",
     "fs-extra": "^8.0.1",
     "lodash": "^4.17.15",
-    "marpat": "^3.0.2",
+    "marpat": "^3.0.3",
     "snyk": "^1.290.2"
   },
   "devDependencies": {
