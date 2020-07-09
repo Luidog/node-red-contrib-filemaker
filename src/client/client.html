@@ -4,8 +4,9 @@
     defaults: {
       name: { value: null, required: true },
       usage: { value: false, required: false },
-      timeout: { value: 0, required: false },
-      concurrency: { value: 1, required: true }
+      timeout: { value: 30000, required: false },
+      concurrency: { value: 1, required: true },
+      ssl: { value: true, required: true }
     },
     credentials: {
       server: { type: "text", required: true },
@@ -15,6 +16,9 @@
     },
     label: function() {
       return this.name || "Unconfigured Client";
+    },
+    oneditsave: function(){
+
     }
   });
 </script>
@@ -34,6 +38,10 @@
     <input type="text" id="node-config-input-database">
   </div>
   <hr>
+  <div class="form-row">
+    <label for="node-config-input-ssl"><i class="fa fa-lock" aria-hidden="true"></i> <span>Require SSL</span></label>
+    <input type="checkbox" id="node-config-input-ssl">
+  </div>
     <div class="form-row">
     <label for="node-config-input-timeout"><i class="fa fa-clock-o" aria-hidden="true"></i> <span>Timeout</span></label>
     <input type="number" id="node-config-input-timeout">
@@ -61,8 +69,9 @@
   <h3>Configuration</h3>
   <dl class="message-properties">
     <dt>name<span class="property-type">String</span><dd>A name for the client</dd>
-    <dt>server<span class="property-type">String</span><dd>The FQDN address of the FileMaker Server to connect to. The server must have a valid SSL.</dd>
+    <dt>server<span class="property-type">String</span><dd>The FQDN address of the FileMaker Server to connect to.</dd>
     <dt>database<span class="property-type">String</span><dd>The FileMaker database to connect to</dd>
+    <dt>SSL<span class="property-type">Boolean</span><dd>If the client agent should require a valid SSL. The default is true</dd>
     <dt>concurrency<span class="property-type">Number</span><dd>The maximum number of Data API Sessions to create. The default is one. concurrent requests will be queued until a session is available.<a target="_blank" href="https://github.com/Luidog/fms-api-client#request-queue"> More Info.</a></dd></dd>
     <dt>timeout<span class="property-type">Number</span><dd>A timeout for requests. The default is no timeout</dd>
     <dt>account<span class="property-type">String</span><dd>The account to use to connect to the FileMaker database.</dd>

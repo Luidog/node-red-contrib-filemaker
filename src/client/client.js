@@ -6,16 +6,12 @@ function configurationNode(RED) {
   if (!global.MARPAT) global.MARPAT = {};
   function Client(n) {
     RED.nodes.createNode(this, n);
-    const { concurrency, id, timeout } = n;
+    const { concurrency, id, timeout, ssl } = n;
     const store = _.get(RED.settings, "marpat.url", "nedb://memory");
     const options = _.get(RED.settings, "marpat.options", {});
-
     if (!global.MARPAT.CONNECTION) {
       global.MARPAT.CONNECTION = new Promise((resolve, reject) =>
-        connect(
-          store,
-          options
-        )
+        connect(store, options)
           .then(db => {
             this.client = Filemaker.findOne({ name: id })
               .then(client => {
@@ -33,7 +29,8 @@ function configurationNode(RED) {
                         server: this.credentials.server,
                         user: this.credentials.username,
                         password: this.credentials.password
-                      }
+                      },
+                      !ssl ? { agent: { rejectUnauthorized: false } } : {}
                     )
                   ).save();
                 } else {
@@ -66,6 +63,9 @@ function configurationNode(RED) {
                   ) {
                     client.agent.connection.database = this.credentials.database;
                     client.agent.connection.sessions = [];
+                  }
+                  if (!ssl) {
+                    client.agent.agent = { rejectUnauthorized: false };
                   }
                   client.agent.timeout = parseInt(timeout) || 0;
                   client.agent.concurrency = parseInt(concurrency) || 1;
@@ -105,7 +105,8 @@ function configurationNode(RED) {
                     server: this.credentials.server,
                     user: this.credentials.username,
                     password: this.credentials.password
-                  }
+                  },
+                  !ssl ? { agent: { rejectUnauthorized: false } } : {}
                 )
               ).save();
             } else {
@@ -135,6 +136,12 @@ function configurationNode(RED) {
               ) {
                 client.agent.connection.database = this.credentials.database;
                 client.agent.connection.sessions = [];
+              }
+              if (!ssl) {
+                client.agent.agent = { rejectUnauthorized: false };
+              }
+              if (client.agent.agent && ssl) {
+                client.agent.agent = { rejectUnauthorized: true };
               }
               client.agent.timeout = parseInt(timeout) || 0;
               client.agent.concurrency = parseInt(concurrency) || 1;
