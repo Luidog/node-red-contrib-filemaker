@@ -30,6 +30,7 @@ dapi/
 test/
 user/
 assets/
+clients/
 #readme template
 template.readme.md
 #CI
