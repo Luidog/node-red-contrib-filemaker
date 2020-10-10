@@ -401,7 +401,7 @@ npm test
 ```
 
 ```default
-> node-red-contrib-filemaker@2.2.5 test node-red-contrib-filemaker
+> node-red-contrib-filemaker@2.3.1 test node-red-contrib-filemaker
 > snyk test && nyc _mocha --recursive  "test/**/*_spec.js" --timeout=30000 --exit
 
 Testing /node-red-contrib-filemaker...
@@ -666,8 +666,6 @@ MIT © [Lui de la Parra](https://github.com/Luidog)
 - [fs-extra](https://github.com/jprichardson/node-fs-extra): fs-extra contains methods that aren't included in the vanilla Node.js fs package. Such as mkdir -p, cp -r, and rm -rf.
 - [lodash](https://github.com/lodash/lodash): Lodash modular utilities.
 - [marpat](https://github.com/luidog/marpat): A class-based ES6 ODM for Mongo-like databases.
-- [sinon](https://github.com/sinonjs/sinon): JavaScript test spies, stubs and mocks.
-- [snyk](https://github.com/snyk/snyk): snyk library and cli utility
 
 ## Development Dependencies
 
@@ -683,6 +681,8 @@ MIT © [Lui de la Parra](https://github.com/Luidog)
 - [mocha-lcov-reporter](https://github.com/StevenLooman/mocha-lcov-reporter): LCOV reporter for Mocha
 - [mos](https://github.com/mosjs/mos): A pluggable module that injects content into your markdown files via hidden JavaScript snippets
 - [mos-plugin-dependencies](https://github.com/mosjs/mos/tree/master/packages/mos-plugin-dependencies): A mos plugin that creates dependencies sections
+- [sinon](https://github.com/sinonjs/sinon): JavaScript test spies, stubs and mocks.
+- [snyk](https://github.com/snyk/snyk): snyk library and cli utility
 - [mos-plugin-execute](https://github.com/team-767/mos-plugin-execute): Mos plugin to inline a process output
 - [mos-plugin-installation](https://github.com/mosjs/mos/tree/master/packages/mos-plugin-installation): A mos plugin for creating installation section
 - [mos-plugin-license](https://github.com/mosjs/mos-plugin-license): A mos plugin for generating a license section

@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-filemaker",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Node-RED FileMaker nodes. These nodes use the FileMaker Data API to connect with a FileMaker database.",
   "scripts": {
     "dev": "pm2 start ecosystem.dev.config.js",
@@ -74,11 +74,10 @@
     "marpat": "^3.0.4"
   },
   "devDependencies": {
-    "snyk": "^1.361.3",
     "chai": "^4.2.0",
     "coveralls": "^3.1.0",
     "dotenv": "^8.2.0",
-    "eslint": "^7.4.0",
+    "eslint": "^7.11.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-html": "^6.0.2",
@@ -95,7 +94,8 @@
     "nyc": "^15.1.0",
     "pm2": "^4.4.0",
     "prettier": "^2.0.5",
-    "sinon": "^9.0.2",
+    "sinon": "^9.2.0",
+    "snyk": "^1.413.2",
     "varium": "^2.0.6"
   },
   "snyk": true
