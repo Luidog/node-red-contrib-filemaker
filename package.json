@@ -70,7 +70,7 @@
   "dependencies": {
     "fms-api-client": "^2.3.4",
     "fs-extra": "^9.0.1",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "marpat": "^3.0.4"
   },
   "devDependencies": {
